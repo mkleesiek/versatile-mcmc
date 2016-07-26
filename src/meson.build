@@ -1,12 +1,14 @@
 fmcmc_headers = [
     'fmcmc/controller.h',
     'fmcmc/exception.h',
-    'fmcmc/logger.h'
+    'fmcmc/logger.h',
+    'fmcmc/parameter.h'
 ]
 
 fmcmc_sources = [
     'fmcmc/controller.cpp',
-    'fmcmc/logger.cpp'
+    'fmcmc/logger.cpp',
+    'fmcmc/parameter.cpp'
 ]
 
 install_headers( fmcmc_headers, subdir : 'fmcmc')

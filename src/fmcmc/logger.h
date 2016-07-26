@@ -110,10 +110,15 @@ public:
      * @param message The message.
      * @param loc Source code location (set automatically by the corresponding macro).
      */
-    void Log(ELevel level, const std::string& message, const Location& loc = Location());
+    void StartMessage(ELevel level, const Location& loc = Location());
+
+    std::ostream& Log();
+
+    void EndMessage();
 
 private:
     std::string fName;
+    std::ostream* fActiveStream;
     ELevel fMinLevel;
     bool fColouredOutput;
 };
@@ -134,7 +139,9 @@ private:
         if (!O || !_sLoggerMarker) { \
             _sLoggerMarker = true; \
             std::ostringstream stream; stream << M; \
-            I.Log(fmcmc::Logger::ELevel::L, stream.str(), __LOG_LOCATION); \
+            I.StartMessage(fmcmc::Logger::ELevel::L, __LOG_LOCATION); \
+            I.Log() << M; \
+            I.EndMessage(); \
         } \
     } \
 }

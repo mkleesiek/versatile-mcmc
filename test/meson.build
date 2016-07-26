@@ -1,12 +1,14 @@
-controllertest_exe = executable('controller-test', 'controller_test.cpp',
+fmcmc_tests = [
+    ['controller-test', 'controller_test.cpp'],
+    ['logger-test', 'logger_test.cpp'],
+    ['parameter-test', 'parameter_test.cpp']
+]
+
+foreach p : fmcmc_tests
+  exe = executable(p.get(0), p.get(1),
     include_directories : fmcmc_inc,
     link_with : fmcmc_lib,
-    dependencies : gtest_dep )
-                     
-loggingtest_exe = executable('logging-test', 'logging_test.cpp',
-    include_directories : fmcmc_inc,
-    link_with : fmcmc_lib,
-    dependencies : gtest_dep )
-                     
-test('Controller Test', controllertest_exe)
-test('Logging Test', loggingtest_exe)
+    dependencies : gtest_dep
+  )
+  test(p.get(0), exe)
+endforeach

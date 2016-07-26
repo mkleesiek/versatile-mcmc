@@ -5,8 +5,9 @@
  *      Author: marco@kleesiek.com
  */
 
+#include "fmcmc/logger.h"
+
 #include <gtest/gtest.h>
-#include "../src/fmcmc/logger.h"
 
 LOG_DEFINE("fmcmc.default-logger");
 LOG_DEFINE(myLogger1, "fmcmc.logger1");

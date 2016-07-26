@@ -5,7 +5,8 @@
  *      Author: marco@kleesiek.com
  */
 
-#include "logger.h"
+#include "fmcmc/logger.h"
+#include "fmcmc/exception.h"
 
 #include <iomanip>
 #include <map>
@@ -82,6 +83,7 @@ const char* level2Str(Logger::ELevel level)
 
 Logger::Logger(const std::string& name) :
     fName( name ),
+    fActiveStream( nullptr ),
     fMinLevel( ELevel::Debug ),
     fColouredOutput( true )
 { }
@@ -109,21 +111,37 @@ void Logger::SetColoured(bool coloured)
     fColouredOutput = coloured;
 }
 
-void Logger::Log(ELevel level, const string& message, const Location& loc)
+void Logger::StartMessage(ELevel level, const Location& loc)
 {
     const char* levelStr = level2Str(level);
 
-    ostream& cstream = (level >= ELevel::Error) ? cerr : cout;
+    fActiveStream = (level >= ELevel::Error) ? &cerr : &cout;
 
     if (fColouredOutput)
     {
         const char* color = level2Color(level);
-        cstream << color << __DATE__ " " __TIME__ " [" << setw(5) << levelStr << "] " << setw(16) << fName << ": " << message << skEndColor << endl;
+        *fActiveStream << color << __DATE__ " " __TIME__ " [" << setw(5) << levelStr << "] " << setw(16) << fName << ": ";
     }
     else
     {
-        cstream << __DATE__ " " __TIME__ " [" << setw(5) << levelStr << "] " << setw(16) << fName << ": " << message << endl;
+        *fActiveStream << __DATE__ " " __TIME__ " [" << setw(5) << levelStr << "] " << setw(16) << fName << ": ";
     }
+}
+
+ostream& Logger::Log()
+{
+    if (!fActiveStream)
+        throw Exception() << "No active logger availabe.";
+
+    return *fActiveStream;
+}
+
+void Logger::EndMessage()
+{
+    if (fColouredOutput)
+        Log() << skEndColor;
+
+    Log() << endl;
 }
 
 }

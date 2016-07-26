@@ -22,6 +22,12 @@ namespace fmcmc
 class Exception : public std::exception
 {
 public:
+    Exception() { }
+    Exception(const Exception& copy);
+    virtual ~Exception() { }
+
+    void operator=(const Exception& copy);
+
     const char* what() const throw() override;
 
     template<class XValue>
@@ -36,7 +42,20 @@ protected:
     mutable std::string fWhat;
 };
 
-inline const char* Exception::what() const
+inline Exception::Exception( const Exception& toCopy ) :
+    std::exception( toCopy ),
+    fMessage( toCopy.fMessage.str() ),
+    fNestedMessage( toCopy.fNestedMessage )
+{ }
+
+inline void Exception::operator=( const Exception& toCopy )
+{
+    std::exception::operator=( toCopy );
+    fMessage.str( toCopy.fMessage.str() );
+    fNestedMessage = toCopy.fNestedMessage;
+}
+
+inline const char* Exception::what() const throw()
 {
     fWhat = fMessage.str();
     if( !fNestedMessage.empty() ) {
