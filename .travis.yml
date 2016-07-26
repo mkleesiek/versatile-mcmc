@@ -1,0 +1,29 @@
+language: cpp
+compiler:
+  - clang
+  - gcc
+sudo: required
+dist: trusty
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    - llvm-toolchain-trusty-3.9
+    packages:
+    - gcc-5
+    - g++-5
+    - clang-3.9
+    - meson
+    - ninja-build
+    - libtbb-dev
+    - doxygen
+    - libgtest-dev
+    - libboost-all-dev
+
+before_script:
+  - mkdir build
+  - meson build
+  - cd build
+script:
+  - ninja -v
+  - ninja test
