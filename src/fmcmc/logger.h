@@ -1,12 +1,12 @@
 /*
- * logging.h
+ * logger.h
  *
  *  Created on: 25.07.2016
- *      Author: marco.kleesiek@kit.edu
+ *      Author: marco@kleesiek.com
  */
 
-#ifndef INCLUDE_LOGGING_H_
-#define INCLUDE_LOGGING_H_
+#ifndef FMCMC_LOGGER_H_
+#define FMCMC_LOGGER_H_
 
 
 // UTILITY MACROS
@@ -161,4 +161,4 @@ private:
 #define LOG_ASSERT(...)   macro_dispatcher(__LOG_ASSERT_, __VA_ARGS__)(__VA_ARGS__)
 
 
-#endif /* INCLUDE_LOGGING_H_ */
+#endif /* FMCMC_LOGGER_H_ */

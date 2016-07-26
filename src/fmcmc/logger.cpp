@@ -1,11 +1,11 @@
 /*
- * logging.cxx
+ * logger.cxx
  *
  *  Created on: 25.07.2016
- *      Author: marco.kleesiek@kit.edu
+ *      Author: marco@kleesiek.com
  */
 
-#include "logging.h"
+#include "logger.h"
 
 #include <iomanip>
 #include <map>

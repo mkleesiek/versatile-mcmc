@@ -15,14 +15,14 @@ if tbb_dep.found()
     add_global_arguments('-DUSE_TBB', language : 'cpp')
 endif
 
-fastMCMC_inc = include_directories('src')
+fmcmc_inc = include_directories('src')
 
 subdir('src')
 subdir('test')
 subdir('doc')
 
 pkg_mod = import('pkgconfig')
-pkg_mod.generate(libraries : fastMCMC_lib,
+pkg_mod.generate(libraries : fmcmc_lib,
                  version : '0.1',
                  name : 'libfmcmc',
                  filebase : 'fmcmc',

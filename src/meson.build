@@ -1,22 +1,22 @@
-fastMCMC_headers = [
+fmcmc_headers = [
     'fmcmc/controller.h',
-    'fmcmc/exceptions.h',
-    'fmcmc/logging.h'
+    'fmcmc/exception.h',
+    'fmcmc/logger.h'
 ]
 
-fastMCMC_sources = [
+fmcmc_sources = [
     'fmcmc/controller.cpp',
-    'fmcmc/logging.cpp'
+    'fmcmc/logger.cpp'
 ]
 
-install_headers( fastMCMC_headers, subdir : 'fmcmc')
+install_headers( fmcmc_headers, subdir : 'fmcmc')
 
-fastMCMC_lib = shared_library( 'fmcmc',
-    fastMCMC_sources,
-    include_directories : fastMCMC_inc,
+fmcmc_lib = shared_library( 'fmcmc',
+    fmcmc_sources,
+    include_directories : fmcmc_inc,
     dependencies : boost_dep,
     install : true)
                         
 executable('fmcmc', 'fmcmc.cpp',
-    include_directories : fastMCMC_inc,
-    link_with : fastMCMC_lib )
+    include_directories : fmcmc_inc,
+    link_with : fmcmc_lib )

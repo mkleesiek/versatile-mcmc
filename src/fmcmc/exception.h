@@ -1,12 +1,12 @@
 /*
- * exceptions.h
+ * exception.h
  *
  *  Created on: 25.07.2016
- *      Author: marco.kleesiek@kit.edu
+ *      Author: marco@kleesiek.com
  */
 
-#ifndef INCLUDE_EXCEPTIONS_H_
-#define INCLUDE_EXCEPTIONS_H_
+#ifndef FMCMC_EXCEPTION_H_
+#define FMCMC_EXCEPTION_H_
 
 #include <exception>
 #include <sstream>
@@ -65,4 +65,4 @@ inline std::ostream& operator<<(std::ostream& os, const Exception& e)
 
 }
 
-#endif /* INCLUDE_EXCEPTIONS_H_ */
+#endif /* FMCMC_EXCEPTION_H_ */

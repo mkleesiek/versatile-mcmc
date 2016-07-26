@@ -5,7 +5,7 @@
  *      Author: marco@kleesiek.com
  */
 
-#include "fmcmc/logging.h"
+#include "fmcmc/logger.h"
 
 using namespace std;
 

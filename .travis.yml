@@ -1,29 +1,72 @@
 language: cpp
-compiler:
-  - clang
-  - gcc
-sudo: required
-dist: trusty
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    - llvm-toolchain-trusty-3.9
-    packages:
-    - gcc-5
-    - g++-5
-    - clang-3.9
-    - meson
-    - ninja-build
-    - libtbb-dev
-    - doxygen
-    - libgtest-dev
-    - libboost-all-dev
+
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      sudo: required
+      compiler: gcc
+      addons:
+        apt:
+          packages: ['libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev']
+      env: COMPILER=g++
+
+    - os: linux
+      dist: trusty
+      sudo: required
+      compiler: gcc
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-5', 'gcc-5', 'libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev']
+      env: COMPILER=g++-5
+
+    - os: linux
+      dist: trusty
+      sudo: required
+      compiler: gcc
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-6', 'libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev']
+      env: COMPILER=g++-6
+
+    - os: linux
+      dist: trusty
+      sudo: required
+      compiler: clang
+      addons:
+        apt:
+          packages: ['libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev']
+      env: COMPILER=clang++
+
+    - os: linux
+      dist: trusty
+      sudo: required
+      compiler: clang
+      addons:
+        apt:
+          sources:
+          - ubuntu-toolchain-r-test
+          - sourceline: deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.8 main
+            key_url: http://apt.llvm.org/llvm-snapshot.gpg.key
+          packages: ['clang-3.8', 'libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev']
+      env: COMPILER=clang++-3.8
+
+#  allow_failures:
+#    - os: osx
+#      compiler: clang
+#      env: COMPILER=clang++
 
 before_script:
-  - mkdir build
-  - meson build
-  - cd build
+  - pip3 install --user meson
+  - ln -s ~/.local/bin/meson.py ~/.local/bin/meson
+  - git clone -b master https://github.com/ninja-build/ninja.git --single-branch --depth 1
+  - cd ninja && ./configure.py --bootstrap && mv ninja ~/.local/bin && cd ..
+
 script:
+  - mkdir build
+  - CXX=$COMPILER meson build
+  - cd build
   - ninja -v
   - ninja test
