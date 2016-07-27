@@ -123,7 +123,7 @@ private:
     bool fColouredOutput;
 };
 
-}
+} /* namespace fmcmc */
 
 // PRIVATE MACROS
 

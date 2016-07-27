@@ -82,6 +82,6 @@ inline std::ostream& operator<<(std::ostream& os, const Exception& e)
     return os << e.what();
 }
 
-}
+} /* namespace fmcmc */
 
 #endif /* FMCMC_EXCEPTION_H_ */

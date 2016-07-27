@@ -2,7 +2,9 @@ fmcmc_headers = [
     'fmcmc/controller.h',
     'fmcmc/exception.h',
     'fmcmc/logger.h',
-    'fmcmc/parameter.h'
+    'fmcmc/numeric.h',
+    'fmcmc/parameter.h',
+    'fmcmc/random.h'
 ]
 
 fmcmc_sources = [

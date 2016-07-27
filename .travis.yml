@@ -1,5 +1,6 @@
 language: cpp
 
+# define OS and compiler variations to be tested
 matrix:
   include:
     - os: linux
@@ -53,23 +54,30 @@ matrix:
           packages: ['clang-3.8', 'libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev']
       env: COMPILER=clang++-3.8
 
-  allow_failures:
     - os: osx
       osx_image: xcode7.3
       compiler: clang
       env: COMPILER=clang++
 
-before_script:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install libtbb-dev doxygen libgtest-dev libboost-all-dev; fi
-  - pip3 install --user meson
-  - ln -s ~/.local/bin/meson.py ~/.local/bin/meson
-  - git clone -b master https://github.com/ninja-build/ninja.git --single-branch --depth 1
-  - cd ninja && ./configure.py --bootstrap && mv ninja ~/.local/bin && cd ..
+  allow_failures:
+    - os: osx
 
+before_script:
+  # install OSX packages
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update && brew install tbb doxygen python3 boost; fi
+  # add path entry for OSX
+  - mkdir ~/bin && export PATH=$PATH:~/Library/Python/3.5/bin:~/bin
+  # install the meson build system for the local travis user and create a symlink
+  - pip3 install --user meson
+  # install a recent ninja binary from sources
+  - git clone -b master https://github.com/ninja-build/ninja.git --single-branch --depth 1
+  - cd ninja && ./configure.py --bootstrap && mv ninja ~/bin && cd ..
+  - echo $BOOST_ROOT
 script:
-  - mkdir build
-  - CXX=$COMPILER meson build
+  # setup the meson build and configure
+  - mkdir build && CXX=$COMPILER meson.py build
+  # build with ninja
   - cd build
   - ninja -v
+  # build and execute unit tests
   - ninja test

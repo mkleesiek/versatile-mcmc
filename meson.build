@@ -3,8 +3,7 @@ project('FastMCMC', 'cpp',
   license : 'MIT' ,
   default_options : ['cpp_std=c++11'] )
 
-boost_dep = dependency('boost', version : '>=1.45.0', modules : ['accumulators', 'log'])
-gtest_dep = dependency('gtest', main : true)
+boost_dep = dependency('boost', version : '>=1.45.0')   # , modules : ['accumulators', 'log']
 tbb_dep = dependency('tbb', required : false)
 
 compiler = meson.get_compiler('cpp')
