@@ -7,13 +7,15 @@
 
 #include "fmcmc/logger.h"
 
+LOG_DEFINE("fmcmc.example")
+
 using namespace std;
+using namespace fmcmc;
 
 int main(int argc, char* argv[]){
 
     for (auto i : {0,1,2,3,4,5} )
-
-        cout << i << endl;
+        LOG(Info, i);
 
     return 0;
 }

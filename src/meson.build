@@ -1,26 +1,17 @@
-fmcmc_headers = [
-    'fmcmc/controller.h',
-    'fmcmc/exception.h',
-    'fmcmc/logger.h',
-    'fmcmc/numeric.h',
-    'fmcmc/parameter.h',
-    'fmcmc/random.h'
+# build shared library
+
+subdir('fmcmc')
+
+
+# prepare and build executables
+
+fmcmc_apps = [
+    ['fmcmc-example',   'fmcmc_example.cpp']
 ]
 
-fmcmc_sources = [
-    'fmcmc/controller.cpp',
-    'fmcmc/logger.cpp',
-    'fmcmc/parameter.cpp'
-]
-
-install_headers( fmcmc_headers, subdir : 'fmcmc')
-
-fmcmc_lib = shared_library( 'fmcmc',
-    fmcmc_sources,
+foreach a : fmcmc_apps
+  exe = executable(a.get(0), a.get(1),
     include_directories : fmcmc_inc,
-    dependencies : boost_dep,
-    install : true)
-                        
-executable('fmcmc', 'fmcmc.cpp',
-    include_directories : fmcmc_inc,
-    link_with : fmcmc_lib )
+    link_with : fmcmc_lib
+  )
+endforeach

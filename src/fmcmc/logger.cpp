@@ -84,9 +84,14 @@ const char* level2Str(Logger::ELevel level)
 Logger::Logger(const std::string& name) :
     fName( name ),
     fActiveStream( nullptr ),
-    fMinLevel( ELevel::Debug ),
+    fMinLevel( ELevel::Info ),
     fColouredOutput( true )
-{ }
+{
+#ifdef DEBUG
+    fMinLevel = ELevel::Trace;
+#endif
+
+}
 
 Logger::~Logger()
 { }
