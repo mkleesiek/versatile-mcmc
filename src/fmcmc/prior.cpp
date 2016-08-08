@@ -1,22 +1,22 @@
 /*
- * controller.cpp
+ * prior.cpp
  *
- *  Created on: 24.07.2016
+ *  Created on: 01.08.2016
  *      Author: marco@kleesiek.com
  */
 
-#include "controller.h"
+#include <fmcmc/prior.h>
 
 namespace fmcmc
 {
 
-Controller::Controller()
+Prior::Prior()
 {
     // TODO Auto-generated constructor stub
 
 }
 
-Controller::~Controller()
+Prior::~Prior()
 {
     // TODO Auto-generated destructor stub
 }

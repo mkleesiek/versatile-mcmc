@@ -5,15 +5,20 @@
  *      Author: marco@kleesiek.com
  */
 
-#include "fmcmc/parameter.h"
-#include "fmcmc/exception.h"
-#include "fmcmc/numeric.h"
+#include <fmcmc/parameter.h>
+#include <fmcmc/exception.h>
+#include <fmcmc/numeric.h>
 
 using namespace std;
 using namespace boost;
 
 namespace fmcmc
 {
+
+Parameter Parameter::FixedParameter(const string& name, double startValue)
+{
+    return Parameter(name, startValue, 0.0, none, none, true);
+}
 
 Parameter::Parameter(const string& name, double startValue, double errorHint,
         optional<double> lowerLimit, optional<double> upperLimit, bool fixed) :
@@ -61,14 +66,47 @@ bool Parameter::IsInsideLimits(double someValue) const
            (!fUpperLimit || someValue <= fUpperLimit.get());
 }
 
-double Parameter::Constrain2Limits(double someValue) const
+bool Parameter::ConstrainToLimits(double& someValue) const
 {
-    if (fLowerLimit && someValue < fLowerLimit.get())
-        return fLowerLimit.get();
-    else if (fUpperLimit && someValue > fUpperLimit.get())
-        return fUpperLimit.get();
-    else
-        return someValue;
+    if (fLowerLimit && someValue < fLowerLimit.get()) {
+        someValue = fLowerLimit.get();
+        return true;
+    }
+    else if (fUpperLimit && someValue > fUpperLimit.get()) {
+        someValue = fUpperLimit.get();
+        return true;
+    }
+    else {
+        return false;
+    }
 }
+
+bool Parameter::ReflectFromLimits(double& someValue) const
+{
+    if (fLowerLimit && someValue < fLowerLimit.get()) {
+        someValue = 2.0 * fLowerLimit.get() - someValue;
+        // check if we've hit the other limit
+        return !(fUpperLimit && someValue > fUpperLimit.get());
+
+    }
+    else if (fUpperLimit && someValue > fUpperLimit.get()) {
+        someValue = 2.0 * fUpperLimit.get() - someValue;
+        // check if we've hit the other limit
+        return !(fLowerLimit && someValue < fLowerLimit.get());
+
+    }
+    else {
+        return true;
+    }
+}
+
+void ParameterSet::SetParameter(size_t pIndex, const Parameter& param)
+{
+    if (fParameters.size() <= pIndex)
+        fParameters.resize( pIndex+1, Parameter::FixedParameter("", 0.0) );
+
+    fParameters[pIndex] = param;
+}
+
 
 } /* namespace fmcmc */

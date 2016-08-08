@@ -1,16 +1,26 @@
 fmcmc_headers = [
-    'controller.h',
+    'algorithm.h',
     'exception.h',
     'logger.h',
+    'metropolis.h',
     'numeric.h',
     'parameter.h',
-    'random.h'
+    'prior.h',
+    'proposal.h',
+    'random.h',
+    'sample.h',
+    'stats.h',
+    'stringutils.h',
+    'ublas.h'
 ]
 
 fmcmc_sources = [
-    'controller.cpp',
+    'algorithm.cpp',
     'logger.cpp',
-    'parameter.cpp'
+    'metropolis.cpp',
+    'parameter.cpp',
+    'prior.cpp',
+    'proposal.cpp'
 ]
 
 install_headers( fmcmc_headers, subdir : 'fmcmc')

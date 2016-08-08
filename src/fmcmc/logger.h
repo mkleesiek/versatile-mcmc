@@ -65,8 +65,8 @@ public:
             fLineNumber(lineNumber), fFileName(fileName), fFunctionName(functionName)
             { }
         int fLineNumber;
-        const char* fFileName;
-        const char* fFunctionName;
+        std::string fFileName;
+        std::string fFunctionName;
     };
 
 public:

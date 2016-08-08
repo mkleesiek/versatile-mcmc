@@ -6,12 +6,14 @@ subdir('fmcmc')
 # prepare and build executables
 
 fmcmc_apps = [
-    ['fmcmc-example',   'fmcmc_example.cpp']
+    'fmcmc-example'
 ]
 
 foreach a : fmcmc_apps
-  exe = executable(a.get(0), a.get(1),
+  executable(a, a + '.cpp',
     include_directories : fmcmc_inc,
-    link_with : fmcmc_lib
+    link_with : fmcmc_lib,
+    install : true,
+    install_rpath : final_rpath
   )
 endforeach

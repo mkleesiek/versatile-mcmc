@@ -1,11 +1,11 @@
 /*
- * parameter_test.cpp
+ * prior-test.cpp
  *
- *  Created on: 26.07.2016
+ *  Created on: 01.08.2016
  *      Author: marco@kleesiek.com
  */
 
-#include "fmcmc/parameter.h"
+#include <fmcmc/prior.h>
 
 namespace fmcmc
 {

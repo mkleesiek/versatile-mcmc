@@ -1,6 +1,6 @@
 project('fast-mcmc', 'cpp',
   version : '0.0.1',
-  license : 'MIT' ,
+  license : 'GNU GPL v3' ,
   default_options : ['cpp_std=c++11'] )
 
 # verify C++11 support
@@ -12,17 +12,20 @@ if not cpp11_support
 endif
 
 # resolve external dependencies
-boost_dep = dependency('boost', version : '>=1.45.0')   # , modules : ['accumulators', 'log']
+boost_dep = dependency('boost', version : '>=1.45.0', modules : ['accumulators', 'log'])
 tbb_dep = dependency('tbb', required : false)
 gtest_dep = dependency('gtest', main : true, required : false)
 
-# print install prefix
+# extract some build options
 prefix = get_option('prefix')
-message( 'Installation prefix: ' + prefix )
-
-# print build type
+libdir = get_option('libdir')
+final_rpath = prefix + '/' + libdir
 buildtype = get_option('buildtype')
+
+# print install prefix and build type
+message( 'Installation prefix: ' + prefix )
 message( 'Build type: ' + buildtype )
+message( 'Install RPath: ' + final_rpath )
 
 # set global compiler arguments
 if tbb_dep.found() and get_option('use_tbb')
@@ -36,7 +39,7 @@ endif
 # define include directories
 fmcmc_inc = include_directories('src')
 
-# subdirectories with meson.build files
+# subdirectories
 
 subdir('src')
 subdir('doc')

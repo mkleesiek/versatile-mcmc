@@ -5,19 +5,18 @@
  *      Author: marco@kleesiek.com
  */
 
-#ifndef SRC_FMCMC_NUMERIC_H_
-#define SRC_FMCMC_NUMERIC_H_
+#ifndef FMCMC_NUMERIC_H_
+#define FMCMC_NUMERIC_H_
 
 #include <numeric>
+
 #include <boost/math/special_functions/pow.hpp>
+#include <boost/math/constants/constants.hpp>
 
 namespace fmcmc {
 
-template <int N, typename T>
-inline T pow(const T& base)
-{
-    return boost::math::pow<N>(base);
-}
+namespace math = boost::math;
+namespace constants = boost::math::double_constants;
 
 template <class T>
 inline T NaN()
@@ -100,4 +99,4 @@ inline bool essentGreaterOrEqual(T a, T b, T epsilon)
 
 } /* namespace fmcmc */
 
-#endif /* SRC_FMCMC_NUMERIC_H_ */
+#endif /* FMCMC_NUMERIC_H_ */

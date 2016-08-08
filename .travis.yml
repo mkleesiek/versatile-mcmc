@@ -49,10 +49,10 @@ matrix:
         apt:
           sources:
           - ubuntu-toolchain-r-test
-          - sourceline: deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.8 main
+          - sourceline: deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.9 main
             key_url: http://apt.llvm.org/llvm-snapshot.gpg.key
-          packages: ['clang-3.8', 'libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev']
-      env: COMPILER=clang++-3.8
+          packages: ['clang-3.9', 'libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev']
+      env: COMPILER=clang++-3.9
 
     - os: osx
       osx_image: xcode7.3
@@ -64,15 +64,16 @@ matrix:
 
 before_script:
   # install OSX packages
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update && brew install tbb doxygen python3 boost; fi
-  # add path entry for OSX
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update && brew install tbb doxygen python3; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export BOOST_ROOT=/usr/local/Cellar/boost/1.60.0_2; fi
+  # modify PATH
   - mkdir ~/bin && export PATH=$PATH:~/Library/Python/3.5/bin:~/bin
   # install the meson build system for the local travis user and create a symlink
   - pip3 install --user meson
   # install a recent ninja binary from sources
   - git clone -b master https://github.com/ninja-build/ninja.git --single-branch --depth 1
   - cd ninja && ./configure.py --bootstrap && mv ninja ~/bin && cd ..
-  - echo $BOOST_ROOT
+  
 script:
   # setup the meson build and configure
   - mkdir build && CXX=$COMPILER meson.py build

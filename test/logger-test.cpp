@@ -1,11 +1,11 @@
 /*
- * logging_test.cpp
+ * logging-test.cpp
  *
  *  Created on: 24.07.2016
  *      Author: marco@kleesiek.com
  */
 
-#include "fmcmc/logger.h"
+#include <fmcmc/logger.h>
 
 #include <gtest/gtest.h>
 
@@ -22,7 +22,12 @@ TEST(logging_test, basics) {
     testing::internal::CaptureStdout();
     LOG(myLogger1, Debug, "This is a debug message.");
     string output = testing::internal::GetCapturedStdout();
-    ASSERT_TRUE( output.find("debug message") != string::npos );
+
+#ifdef DEBUG
+    ASSERT_NE( output.find("debug message"), string::npos );
+#else
+    ASSERT_EQ( output.find("debug message"), string::npos );
+#endif
 
     testing::internal::CaptureStderr();
     LOG(myLogger2, Error, "This is an error message.");

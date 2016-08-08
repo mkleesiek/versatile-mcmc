@@ -5,8 +5,10 @@
  *      Author: marco@kleesiek.com
  */
 
-#ifndef SRC_FMCMC_PARAMETER_H_
-#define SRC_FMCMC_PARAMETER_H_
+#ifndef FMCMC_PARAMETER_H_
+#define FMCMC_PARAMETER_H_
+
+#include <fmcmc/ublas.h>
 
 #include <string>
 #include <boost/optional.hpp>
@@ -16,6 +18,9 @@ namespace fmcmc
 
 class Parameter
 {
+public:
+    static Parameter FixedParameter(const std::string& name = "", double startValue = 0.0);
+
 public:
     Parameter(const std::string& name, double startValue, double absoluteErrorHint,
             boost::optional<double> lowerLimit = boost::none,
@@ -43,8 +48,9 @@ public:
     bool IsFixed() const { return fFixed; }
     void SetFixed(bool fixed) { fFixed = fixed; }
 
-    double Constrain2Limits(double someValue) const;
     bool IsInsideLimits(double someValue) const;
+    bool ConstrainToLimits(double& someValue) const;
+    bool ReflectFromLimits(double& someValue) const;
 
 protected:
     void CheckLimits();
@@ -57,6 +63,20 @@ protected:
     bool fFixed;
 };
 
+class ParameterSet
+{
+public:
+    void SetParameter(size_t pIndex, const Parameter& param);
+    const Parameter& GetParameter(size_t pIndex) const { return fParameters[pIndex]; }
+
+    size_t size() const { return fParameters.size(); }
+    Parameter& operator[](size_t pIndex) { return fParameters[pIndex]; }
+
+private:
+    std::vector<Parameter> fParameters;
+    ublas::triangular_matrix<double, ublas::lower> fCholeskyDecomp;
+};
+
 } /* namespace fmcmc */
 
-#endif /* SRC_FMCMC_PARAMETER_H_ */
+#endif /* FMCMC_PARAMETER_H_ */

@@ -5,8 +5,8 @@
  *      Author: marco@kleesiek.com
  */
 
-#include "fmcmc/logger.h"
-#include "fmcmc/exception.h"
+#include <fmcmc/logger.h>
+#include <fmcmc/exception.h>
 
 #include <iomanip>
 #include <map>
@@ -122,21 +122,24 @@ void Logger::StartMessage(ELevel level, const Location& loc)
 
     fActiveStream = (level >= ELevel::Error) ? &cerr : &cout;
 
-    if (fColouredOutput)
-    {
+    if (fColouredOutput) {
         const char* color = level2Color(level);
-        *fActiveStream << color << __DATE__ " " __TIME__ " [" << setw(5) << levelStr << "] " << setw(16) << fName << ": ";
+        *fActiveStream << color;
     }
-    else
-    {
-        *fActiveStream << __DATE__ " " __TIME__ " [" << setw(5) << levelStr << "] " << setw(16) << fName << ": ";
-    }
+
+    const size_t slashPos = loc.fFileName.find_last_of('/');
+    const string truncFileName = (slashPos == string::npos)
+            ? loc.fFileName
+            : loc.fFileName.substr(slashPos+1);
+
+    *fActiveStream << __DATE__ " " __TIME__ " [" << setw(5) << levelStr << "] "
+        << setfill(' ') << setw(18) << truncFileName << "(" << setw(3) << loc.fLineNumber << ") ";
 }
 
 ostream& Logger::Log()
 {
     if (!fActiveStream)
-        throw Exception() << "No active logger availabe.";
+        throw Exception() << "No active logger available.";
 
     return *fActiveStream;
 }
@@ -144,9 +147,9 @@ ostream& Logger::Log()
 void Logger::EndMessage()
 {
     if (fColouredOutput)
-        Log() << skEndColor;
+        *fActiveStream << skEndColor;
 
-    Log() << endl;
+    *fActiveStream << endl;
 }
 
 }
