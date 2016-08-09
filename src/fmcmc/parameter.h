@@ -69,12 +69,18 @@ public:
     void SetParameter(size_t pIndex, const Parameter& param);
     const Parameter& GetParameter(size_t pIndex) const { return fParameters[pIndex]; }
 
+    template<class XMatrixT>
+    void SetCorrelationMatrix(const XMatrixT& matrix) { fCorrelations = matrix; }
+    void SetCorrelation(size_t p1, size_t p2, double correlation);
+
     size_t size() const { return fParameters.size(); }
     Parameter& operator[](size_t pIndex) { return fParameters[pIndex]; }
 
+    ublas::vector<double> GetStartValues() const;
+
 private:
     std::vector<Parameter> fParameters;
-    ublas::triangular_matrix<double, ublas::lower> fCholeskyDecomp;
+    ublas::triangular_matrix<double, ublas::unit_lower> fCorrelations;
 };
 
 } /* namespace fmcmc */

@@ -14,11 +14,27 @@ namespace fmcmc
 {
 
 MetropolisHastings::MetropolisHastings() :
-    fProposalFunction()
+    fProposalFunction( new ProposalGaussian() ),
+    fInitialErrorScale( 1.0 ),
+    fStartPointRandomization( 1.0 ),
+
+    fBetas{ 1.0 }
 { }
 
 MetropolisHastings::~MetropolisHastings()
 { }
+
+bool MetropolisHastings::Initialize()
+{
+    Sample startPoint;
+    startPoint.Values() = GetParameterConfig().GetStartValues();
+
+    fSampledChains.assign( fBetas.size(), Chain() );
+
+    fSampledChains[0].push_back( startPoint );
+
+    return true;
+}
 
 double MetropolisHastings::Advance()
 {

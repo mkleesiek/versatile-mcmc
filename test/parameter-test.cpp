@@ -13,7 +13,8 @@
 using namespace std;
 using namespace fmcmc;
 
-TEST(parameter_test, check_limits) {
+TEST(parameter, check_limits)
+{
     Parameter p("test parameter", 0.0, 1.0, -1.0, +1.0);
 
     ASSERT_FALSE( p.IsFixed() );
@@ -29,4 +30,14 @@ TEST(parameter_test, check_limits) {
     ASSERT_DOUBLE_EQ( lv, 1.0 );
 
     ASSERT_THROW( Parameter("bad parameter", 5.0, 0.0, 2.0, 4.0), Exception );
+}
+
+TEST(parameter_set, correlations)
+{
+    ParameterSet paramConfig;
+    paramConfig.SetParameter(0, Parameter("p1", 0.0, 1.0) );
+    paramConfig.SetParameter(1, Parameter("p2", 0.0, 1.0) );
+    paramConfig.SetCorrelation(1, 0, 0.99);
+    paramConfig.SetCorrelation(0, 1, 0.99);
+    paramConfig.SetCorrelation(0, 0, 1.0);
 }

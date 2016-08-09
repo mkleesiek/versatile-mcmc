@@ -108,5 +108,31 @@ void ParameterSet::SetParameter(size_t pIndex, const Parameter& param)
     fParameters[pIndex] = param;
 }
 
+void ParameterSet::SetCorrelation(size_t p1, size_t p2, double correlation)
+{
+    if (p1 < p2)
+        swap(p1, p2);
+    else if (p1 == p2)
+        return;
+
+    // ensure minimum size
+    const size_t minSize = max(p1, p2) + 1;
+    if (fCorrelations.size1() <= minSize || fCorrelations.size2() <= minSize) {
+        fCorrelations.resize(minSize, minSize, true);
+    }
+
+    limit(correlation, -1.0, 1.0);
+
+    fCorrelations(p1, p2) = correlation;
+}
+
+ublas::vector<double> ParameterSet::GetStartValues() const
+{
+    ublas::vector<double> result( size() );
+    for (size_t pIndex = 0; pIndex < size(); pIndex++) {
+        result[pIndex] = GetParameter(pIndex).GetStartValue();
+    }
+    return result;
+}
 
 } /* namespace fmcmc */

@@ -36,6 +36,11 @@ void Algorithm::SetParameterConfig(const ParameterSet& paramConfig)
 
 void Algorithm::Run()
 {
+    if (!Initialize()) {
+        LOG(Error, "Initialization failed, aborting.");
+        return;
+    }
+
     accumulator_set<double, stats<tag::mean>> accRateAcc;
 
     for (size_t iStep = 0; iStep < fTotalLength; iStep++) {

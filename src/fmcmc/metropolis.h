@@ -23,6 +23,8 @@ public:
     MetropolisHastings();
     virtual ~MetropolisHastings();
 
+    virtual bool Initialize() override;
+
     virtual double Advance() override;
 
     virtual size_t NChains() override { return fSampledChains.size(); }
@@ -32,6 +34,9 @@ public:
 
 protected:
     std::unique_ptr<Proposal> fProposalFunction;
+    double fInitialErrorScale;
+    double fStartPointRandomization;
+
     std::vector<double> fBetas;
     std::vector<Chain> fSampledChains;
 };

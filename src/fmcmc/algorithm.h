@@ -51,6 +51,8 @@ public:
 
     void Run();
 
+    virtual bool Initialize() = 0;
+
     virtual double Advance() = 0;
 
     virtual size_t NChains() = 0;
