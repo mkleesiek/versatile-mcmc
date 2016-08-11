@@ -32,6 +32,7 @@ int main(int argc, char* argv[]){
 
     MetropolisHastings mcmc;
     mcmc.SetParameterConfig(paramConfig);
+    mcmc.SetBetas( {1.0} );
 
     LOG(Info, "Starting example Metropolis ...");
 

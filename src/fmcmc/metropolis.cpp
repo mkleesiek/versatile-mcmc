@@ -8,13 +8,14 @@
 #include <fmcmc/metropolis.h>
 #include <fmcmc/proposal.h>
 
+#include <algorithm>
+
 using namespace std;
 
 namespace fmcmc
 {
 
 MetropolisHastings::MetropolisHastings() :
-    fProposalFunction( new ProposalGaussian() ),
     fInitialErrorScale( 1.0 ),
     fStartPointRandomization( 1.0 ),
 
@@ -29,9 +30,22 @@ bool MetropolisHastings::Initialize()
     Sample startPoint;
     startPoint.Values() = GetParameterConfig().GetStartValues();
 
-    fSampledChains.assign( fBetas.size(), Chain() );
+    if (fBetas.empty())
+        fBetas = { 1.0 };
 
-    fSampledChains[0].push_back( startPoint );
+    const size_t nChains = fBetas.size();
+
+    // in case of parallel tempering, setup more than one chain
+    fSampledChains.assign( nChains, Chain() );
+    for (auto& chain : fSampledChains) {
+        Sample randomizedStartPoint = startPoint;
+        chain.push_back( startPoint );
+    }
+
+    if (fProposalFunctions.empty())
+        fProposalFunctions.emplace_back( new ProposalGaussian() );
+    while (fProposalFunctions.size() < nChains)
+        fProposalFunctions.emplace_back( fProposalFunctions.back()->Clone() );
 
     return true;
 }

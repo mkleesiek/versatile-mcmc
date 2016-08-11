@@ -27,7 +27,7 @@ namespace ublas = boost::numeric::ublas;
  * @param A A Square symmetric positive definit input matrix. Only the
  * lower triangle is accessed.
  * @param L Lower triangular output matrix, the Cholesky decomposition.
- * @return nonzero if decomposition fails (then the value is 1 + the number
+ * @return Nonzero if decomposition fails (then the value is 1 + the number
  * of the failing row)
  */
 template <class InputMatrix, class OutputTriangularMatrix>
@@ -36,8 +36,8 @@ size_t choleskyDecompose(const InputMatrix& A, OutputTriangularMatrix& L)
     using namespace boost::numeric::ublas;
 
     assert(A.size1() == A.size2());
+    assert(L.size1() == L.size2());
     assert(A.size1() == L.size1());
-    assert(A.size2() == L.size2());
 
     const size_t n = A.size1();
 

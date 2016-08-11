@@ -132,13 +132,21 @@ private:
 #define __LOG_DEFINE_2(I,K)    static fmcmc::Logger I(K);
 #define __LOG_DEFINE_1(K)      static fmcmc::Logger sLocalLoggerInstance(K);
 
-#define __LOG_4(I,L,M,O) \
+#define __LOG_3(I,L,M) \
 { \
     if (I.IsLevelEnabled(fmcmc::Logger::ELevel::L)) { \
-        static bool _sLoggerMarker = false; \
-        if (!O || !_sLoggerMarker) { \
-            _sLoggerMarker = true; \
-            std::ostringstream stream; stream << M; \
+        I.StartMessage(fmcmc::Logger::ELevel::L, __LOG_LOCATION); \
+        I.Log() << M; \
+        I.EndMessage(); \
+    } \
+}
+
+#define __LOG_ONCE_3(I,L,M) \
+{ \
+    if (I.IsLevelEnabled(fmcmc::Logger::ELevel::L)) { \
+        static bool _sLogMarker = false; \
+        if (!_sLogMarker) { \
+            _sLogMarker = true; \
             I.StartMessage(fmcmc::Logger::ELevel::L, __LOG_LOCATION); \
             I.Log() << M; \
             I.EndMessage(); \
@@ -146,13 +154,11 @@ private:
     } \
 }
 
-#define __LOG_3(I,L,M)     __LOG_4(I,L,M,false)
-#define __LOG_2(L,M)       __LOG_4(sLocalLoggerInstance,L,M,false)
-#define __LOG_1(M)         __LOG_4(sLocalLoggerInstance,Debug,M,false)
+#define __LOG_2(L,M)       __LOG_3(sLocalLoggerInstance,L,M)
+#define __LOG_1(M)         __LOG_3(sLocalLoggerInstance,Debug,M)
 
-#define __LOG_ONCE_3(I,L,M)     __LOG_4(I,L,M,true)
-#define __LOG_ONCE_2(L,M)       __LOG_4(sLocalLoggerInstance,L,M,true)
-#define __LOG_ONCE_1(M)         __LOG_4(sLocalLoggerInstance,Debug,M,true)
+#define __LOG_ONCE_2(L,M)       __LOG_ONCE_3(sLocalLoggerInstance,L,M)
+#define __LOG_ONCE_1(M)         __LOG_ONCE_3(sLocalLoggerInstance,Debug,M)
 
 #define __LOG_ASSERT_3(I,C,M)       if (!(C)) { __LOG_3(I,Error,M) }
 #define __LOG_ASSERT_2(C,M)         if (!(C)) { __LOG_3(sLocalLoggerInstance,Error,M) }

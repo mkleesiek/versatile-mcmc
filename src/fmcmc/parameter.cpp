@@ -8,12 +8,16 @@
 #include <fmcmc/parameter.h>
 #include <fmcmc/exception.h>
 #include <fmcmc/numeric.h>
+#include <fmcmc/stringutils.h>
+#include <fmcmc/logger.h>
 
 using namespace std;
 using namespace boost;
 
 namespace fmcmc
 {
+
+LOG_DEFINE("fmcmc.parameter");
 
 Parameter Parameter::FixedParameter(const string& name, double startValue)
 {
@@ -24,7 +28,7 @@ Parameter::Parameter(const string& name, double startValue, double errorHint,
         optional<double> lowerLimit, optional<double> upperLimit, bool fixed) :
     fName( name ),
     fStartValue( startValue ),
-    fAbsoluteErrorHint( errorHint ),
+    fAbsoluteError( errorHint ),
     fLowerLimit( lowerLimit ),
     fUpperLimit( upperLimit ),
     fFixed( fixed )
@@ -35,9 +39,9 @@ Parameter::Parameter(const string& name, double startValue, double errorHint,
 Parameter::~Parameter()
 { }
 
-void Parameter::SetRelativeErrorHint(double relError)
+void Parameter::SetRelativeError(double relError)
 {
-    fAbsoluteErrorHint = relError * fStartValue;
+    fAbsoluteError = relError * fStartValue;
 }
 
 void Parameter::CheckLimits()
@@ -126,6 +130,16 @@ void ParameterSet::SetCorrelation(size_t p1, size_t p2, double correlation)
     fCorrelations(p1, p2) = correlation;
 }
 
+double ParameterSet::GetCorrelation(size_t p1, size_t p2) const
+{
+    if (p1 < p2)
+        swap(p1, p2);
+    else if (p1 == p2)
+        return 1.0;
+
+    return fCorrelations(p1, p2);
+}
+
 ublas::vector<double> ParameterSet::GetStartValues() const
 {
     ublas::vector<double> result( size() );
@@ -133,6 +147,47 @@ ublas::vector<double> ParameterSet::GetStartValues() const
         result[pIndex] = GetParameter(pIndex).GetStartValue();
     }
     return result;
+}
+
+ublas::triangular_matrix<double, ublas::lower> ParameterSet::GetCovarianceMatrix() const
+{
+    ublas::triangular_matrix<double, ublas::lower> result( size(), size() );
+
+    for (size_t i = 0; i < size(); ++i) {
+        for (size_t j = 0; j <= i; ++j) {
+            result(i, j) = fCorrelations(i, j)
+                * fParameters[i].GetAbsoluteError() * fParameters[j].GetAbsoluteError();
+        }
+    }
+
+    return result;
+}
+
+ublas::triangular_matrix<double, ublas::lower> ParameterSet::GetCholeskyDecomp() const
+{
+    const ublas::triangular_matrix<double, ublas::lower> cov = GetCovarianceMatrix();
+
+    ublas::triangular_matrix<double, ublas::lower> result(cov.size1(), cov.size2());
+
+    const size_t statusDecomp = choleskyDecompose(cov, result);
+    if (statusDecomp != 0) {
+//        throw Exception() << "Cholesky decomposition of covariance matrix " << cov << " failed.";
+        LOG(Error, "Cholesky decomposition of covariance matrix " << cov << " failed.");
+
+        for (size_t i = 0; i < result.size1(); i++) {
+            for (size_t j = 0; j < i; j++)
+                result(i, j) = 0.0;
+            result(i, i) = fParameters[i].GetAbsoluteError();
+        }
+    }
+
+    return result;
+}
+
+void ParameterSet::ScaleErrors(double scaling)
+{
+    for (auto& param : fParameters)
+        param.SetAbsoluteError( scaling * param.GetAbsoluteError() );
 }
 
 } /* namespace fmcmc */

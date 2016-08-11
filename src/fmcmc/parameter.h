@@ -22,7 +22,7 @@ public:
     static Parameter FixedParameter(const std::string& name = "", double startValue = 0.0);
 
 public:
-    Parameter(const std::string& name, double startValue, double absoluteErrorHint,
+    Parameter(const std::string& name, double startValue, double absoluteError,
             boost::optional<double> lowerLimit = boost::none,
             boost::optional<double> upperLimit = boost::none,
             bool fixed = false);
@@ -34,10 +34,10 @@ public:
     double GetStartValue() const { return fStartValue; }
     void SetStartValue(double startValue) { fStartValue = startValue; }
 
-    double GetAbsoluteErrorHint() const { return fAbsoluteErrorHint; }
-    void SetAbsoluteErrorHint(double absoluteError) { fAbsoluteErrorHint = absoluteError; }
+    double GetAbsoluteError() const { return fAbsoluteError; }
+    void SetAbsoluteError(double absoluteError) { fAbsoluteError = absoluteError; }
 
-    void SetRelativeErrorHint(double relativeError);
+    void SetRelativeError(double relativeError);
 
     const boost::optional<double>& GetLowerLimit() const { return fLowerLimit; }
     void SetLowerLimit(const boost::optional<double>& lowerLimit) { fLowerLimit = lowerLimit; }
@@ -57,7 +57,7 @@ protected:
 
     std::string fName;
     double fStartValue;
-    double fAbsoluteErrorHint;
+    double fAbsoluteError;
     boost::optional<double> fLowerLimit;
     boost::optional<double> fUpperLimit;
     bool fFixed;
@@ -69,14 +69,23 @@ public:
     void SetParameter(size_t pIndex, const Parameter& param);
     const Parameter& GetParameter(size_t pIndex) const { return fParameters[pIndex]; }
 
-    template<class XMatrixT>
-    void SetCorrelationMatrix(const XMatrixT& matrix) { fCorrelations = matrix; }
-    void SetCorrelation(size_t p1, size_t p2, double correlation);
-
     size_t size() const { return fParameters.size(); }
     Parameter& operator[](size_t pIndex) { return fParameters[pIndex]; }
+    const Parameter& operator[](size_t pIndex) const { return fParameters[pIndex]; }
 
     ublas::vector<double> GetStartValues() const;
+
+    template<class XMatrixT>
+    void SetCorrelationMatrix(const XMatrixT& matrix) { fCorrelations = matrix; }
+    const ublas::triangular_matrix<double, ublas::unit_lower>& GetCorrelationMatrix() const { return fCorrelations; }
+
+    void ScaleErrors(double scaling);
+
+    void SetCorrelation(size_t p1, size_t p2, double correlation);
+    double GetCorrelation(size_t p1, size_t p2) const;
+
+    ublas::triangular_matrix<double, ublas::lower> GetCovarianceMatrix() const;
+    ublas::triangular_matrix<double, ublas::lower> GetCholeskyDecomp() const;
 
 private:
     std::vector<Parameter> fParameters;

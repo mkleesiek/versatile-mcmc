@@ -291,7 +291,7 @@ inline ublas::vector<FloatT> RandomPrototype<EngineT>::GaussianMultiVariate(
 
     std::normal_distribution<FloatT> dist;
     for (size_t i = 0; i < noise.size(); ++i)
-        noise(i) = dist(*this);
+        noise[i] = dist(*this);
 
     return mean + ublas::prod(noise, cholesky);
 }
@@ -364,6 +364,9 @@ inline typename RandomPrototype<EngineT>::result_type RandomPrototype<EngineT>::
     return fEngine();
 }
 
+/**
+ * Typedef for the default random number generator, based on the Mersenne Twister.
+ */
 using Random = RandomPrototype<std::mt19937>;
 
 } /* namespace fmcmc */
