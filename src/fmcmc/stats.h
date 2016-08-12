@@ -1,8 +1,8 @@
-/*
- * chain.h
+/**
+ * @file
  *
- *  Created on: 05.08.2016
- *      Author: Marco Kleesiek <marco@kleesiek.com>
+ * @date 05.08.2016
+ * @author marco@kleesiek.com
  */
 
 #ifndef FMCMC_STATS_H_

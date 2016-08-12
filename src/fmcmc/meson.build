@@ -11,6 +11,7 @@ fmcmc_headers = [
     'sample.h',
     'stats.h',
     'stringutils.h',
+    'typetraits.h',
     'ublas.h'
 ]
 

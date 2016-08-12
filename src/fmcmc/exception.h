@@ -1,8 +1,8 @@
-/*
- * exception.h
+/**
+ * @file
  *
- *  Created on: 25.07.2016
- *      Author: marco@kleesiek.com
+ * @date 25.07.2016
+ * @author marco@kleesiek.com
  */
 
 #ifndef FMCMC_EXCEPTION_H_

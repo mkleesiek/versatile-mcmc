@@ -1,8 +1,8 @@
-/*
- * parameter.h
+/**
+ * @file
  *
- *  Created on: 26.07.2016
- *      Author: marco@kleesiek.com
+ * @date 26.07.2016
+ * @author marco@kleesiek.com
  */
 
 #ifndef FMCMC_PARAMETER_H_
@@ -75,11 +75,11 @@ public:
 
     ublas::vector<double> GetStartValues() const;
 
+    void ScaleErrors(double scaling);
+
     template<class XMatrixT>
     void SetCorrelationMatrix(const XMatrixT& matrix) { fCorrelations = matrix; }
     const ublas::triangular_matrix<double, ublas::unit_lower>& GetCorrelationMatrix() const { return fCorrelations; }
-
-    void ScaleErrors(double scaling);
 
     void SetCorrelation(size_t p1, size_t p2, double correlation);
     double GetCorrelation(size_t p1, size_t p2) const;

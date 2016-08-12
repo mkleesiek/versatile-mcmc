@@ -1,8 +1,8 @@
-/*
- * Proposal.h
+/**
+ * @file
  *
- *  Created on: 31.07.2016
- *      Author: marco@kleesiek.com
+ * @date 31.07.2016
+ * @author marco@kleesiek.com
  */
 
 #ifndef SRC_FMCMC_PROPOSAL_H_
@@ -25,8 +25,6 @@ public:
     Proposal();
     virtual ~Proposal();
 
-    virtual Proposal* Clone() const = 0;
-
     /**
      * Propose a new state.
      * @param s1 The original state to start from.
@@ -35,11 +33,7 @@ public:
      */
     virtual double Transition(const ublas::vector<double>& s1, ublas::vector<double>& s2) const = 0;
 
-    ParameterSet& ParameterConfig() { return fParameterConfig; }
-    const ParameterSet& ParameterConfig() const { return fParameterConfig; }
-
-protected:
-    ParameterSet fParameterConfig;
+    virtual void SetParameterConfig(const ParameterSet& /*paramConfig*/) { };
 };
 
 /**
@@ -53,15 +47,15 @@ public:
     ProposalGaussian();
     ~ProposalGaussian();
 
-    ProposalGaussian* Clone() const override { return new ProposalGaussian(*this); }
-
     double Transition(const ublas::vector<double>& s1, ublas::vector<double>& s2) const override;
+
+    void SetParameterConfig(const ParameterSet& paramConfig) override;
 
 //    void SetStandardDeviations(const ublas::vector<double>& errors);
 //    void SetCovarianceMatrix(const ublas::triangular_matrix<double, ublas::lower>& cov);
-//
-//protected:
-//    ublas::triangular_matrix<double, ublas::lower> fCholeskyDecomp;
+
+protected:
+    ublas::triangular_matrix<double, ublas::lower> fCholeskyDecomp;
 };
 
 } /* namespace fmcmc */

@@ -19,6 +19,6 @@
 using namespace std;
 using namespace fmcmc;
 
-TEST(proposal_test, transition) {
+TEST(ProposalGaussian, Transition) {
 
 }

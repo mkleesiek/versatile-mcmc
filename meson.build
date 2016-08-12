@@ -1,7 +1,11 @@
 project('fast-mcmc', 'cpp',
-  version : '0.0.1',
+  version : '0.0.2',
   license : 'GNU GPL v3' ,
-  default_options : ['cpp_std=c++11'] )
+  default_options : ['cpp_std=c++11'],
+  meson_version : '>=0.25.0' )
+
+project_description = 'A lightweight and extensible Markov Chain Monte Carlo (MCMC) library written in modern C++.'
+
 
 # verify C++11 support
 compiler = meson.get_compiler('cpp')
@@ -13,8 +17,10 @@ endif
 
 # resolve external dependencies
 boost_dep = dependency('boost', version : '>=1.45.0', modules : ['accumulators', 'log'])
-tbb_dep = dependency('tbb', required : false)
+tbb_dep   = dependency('tbb', required : false)
 gtest_dep = dependency('gtest', main : true, required : false)
+doxygen   = find_program('doxygen', required : false)
+
 
 # extract some build options
 prefix = get_option('prefix')
@@ -26,6 +32,7 @@ buildtype = get_option('buildtype')
 message( 'Installation prefix: ' + prefix )
 message( 'Build type: ' + buildtype )
 message( 'Install RPath: ' + final_rpath )
+
 
 # set global compiler arguments
 if tbb_dep.found() and get_option('use_tbb')
@@ -39,14 +46,18 @@ endif
 # define include directories
 fmcmc_inc = include_directories('src')
 
-# subdirectories
 
+# subdirectories
 subdir('src')
-subdir('doc')
+
+if doxygen.found()
+    subdir('doc')
+endif
 
 if gtest_dep.found() and get_option('build_tests')
     subdir('test')
 endif
+
 
 # generate pkg-config files
 pkg_mod = import('pkgconfig')
@@ -55,5 +66,5 @@ pkg_mod.generate(
     version : '0.1',
     name : 'libfmcmc',
     filebase : 'fmcmc',
-    description : 'The fast-mcmc C++ library.'
+    description : project_description
 )

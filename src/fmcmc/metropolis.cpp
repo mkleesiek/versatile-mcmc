@@ -1,8 +1,8 @@
-/*
- * metropolis.cpp
+/**
+ * @file
  *
- *  Created on: 29.07.2016
- *      Author: marco@kleesiek.com
+ * @date 29.07.2016
+ * @author marco@kleesiek.com
  */
 
 #include <fmcmc/metropolis.h>
@@ -37,15 +37,15 @@ bool MetropolisHastings::Initialize()
 
     // in case of parallel tempering, setup more than one chain
     fSampledChains.assign( nChains, Chain() );
+    fDynamicParamConfigs.assign( nChains, fParameterConfig );
+
     for (auto& chain : fSampledChains) {
         Sample randomizedStartPoint = startPoint;
         chain.push_back( startPoint );
     }
 
-    if (fProposalFunctions.empty())
-        fProposalFunctions.emplace_back( new ProposalGaussian() );
-    while (fProposalFunctions.size() < nChains)
-        fProposalFunctions.emplace_back( fProposalFunctions.back()->Clone() );
+    if (!fProposalFunction)
+        fProposalFunction.reset( new ProposalGaussian() );
 
     return true;
 }

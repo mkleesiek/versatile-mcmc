@@ -1,8 +1,8 @@
-/*
- * random.h
+/**
+ * @file
  *
- *  Created on: 27.07.2016
- *      Author: marco@kleesiek.com
+ * @date 27.07.2016
+ * @author marco@kleesiek.com
  */
 
 #ifndef FMCMC_RANDOM_H_

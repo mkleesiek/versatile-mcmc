@@ -1,8 +1,8 @@
-/*
- * sample.h
+/**
+ * @file
  *
- *  Created on: 05.08.2016
- *      Author: marco@kleesiek.com
+ * @date 05.08.2016
+ * @author marco@kleesiek.com
  */
 
 #ifndef SRC_FMCMC_SAMPLE_H_

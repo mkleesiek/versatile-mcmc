@@ -1,8 +1,8 @@
-/*
- * metropolis.h
+/**
+ * @file
  *
- *  Created on: 29.07.2016
- *      Author: marco@kleesiek.com
+ * @date 29.07.2016
+ * @author marco@kleesiek.com
  */
 
 #ifndef SRC_FMCMC_METROPOLIS_H_
@@ -36,12 +36,17 @@ public:
     void SetBetas(ContainerT betas);
     const std::vector<double>& GetBetas() const { return fBetas; }
 
+    void SetProposalFunction(std::shared_ptr<Proposal> proposalFunction) { fProposalFunction = proposalFunction; }
+    std::shared_ptr<Proposal> GetProposalFunction() { return fProposalFunction; };
+    std::shared_ptr<const Proposal> GetProposalFunction() const { return fProposalFunction; };
+
 protected:
     double fInitialErrorScale;
     double fStartPointRandomization;
+    std::shared_ptr<Proposal> fProposalFunction;
 
     std::vector<double> fBetas;
-    std::vector<std::unique_ptr<Proposal>> fProposalFunctions;
+    std::vector<ParameterSet> fDynamicParamConfigs;
     std::vector<Chain> fSampledChains;
 };
 

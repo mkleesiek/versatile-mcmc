@@ -1,8 +1,8 @@
-/*
- * parameter.cpp
+/**
+ * @file
  *
- *  Created on: 26.07.2016
- *      Author: marco@kleesiek.com
+ * @date 26.07.2016
+ * @author marco@kleesiek.com
  */
 
 #include <fmcmc/parameter.h>
@@ -120,9 +120,14 @@ void ParameterSet::SetCorrelation(size_t p1, size_t p2, double correlation)
         return;
 
     // ensure minimum size
+    const size_t currentSize = fCorrelations.size1();
     const size_t minSize = max(p1, p2) + 1;
-    if (fCorrelations.size1() <= minSize || fCorrelations.size2() <= minSize) {
+
+    if (currentSize < minSize) {
         fCorrelations.resize(minSize, minSize, true);
+        for (size_t i = currentSize; i < minSize; i++)
+            for (size_t j = 0; j < i; j++)
+                fCorrelations(i, j) = 0.0;
     }
 
     limit(correlation, -1.0, 1.0);

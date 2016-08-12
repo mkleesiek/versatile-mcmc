@@ -21,7 +21,7 @@ using namespace fmcmc;
 using namespace boost;
 using namespace boost::accumulators;
 
-TEST(random_test, singleton_initialization) {
+TEST(Random, SingletonInitialization) {
     Random& rand = Random::Instance();
     rand.SetSeed(1);
 
@@ -33,13 +33,13 @@ TEST(random_test, singleton_initialization) {
     ublas::vector<double> mean(100, 0.0);
 }
 
-TEST(random_test, uniform_multithreaded) {
+TEST(Random, UniformMultithreaded) {
     Random::Instance().SetSeed(1);
 
     constexpr size_t sNThreads = 4;
 
     thread myThreads[sNThreads];
-    for (int t = 0; t < sNThreads; ++t) {
+    for (size_t t = 0; t < sNThreads; ++t) {
         myThreads[t] = thread( []() {
 
             accumulator_set<double, stats<tag::mean> > acc;
@@ -51,12 +51,12 @@ TEST(random_test, uniform_multithreaded) {
         });
     }
 
-    for (int t = 0; t < sNThreads; ++t) {
+    for (size_t t = 0; t < sNThreads; ++t) {
         myThreads[t].join();
     }
 }
 
-TEST(random_test, multivariate_normal) {
+TEST(Random, MultivariateNormal) {
     Random& rand = Random::Instance();
     rand.SetSeed(1);
 

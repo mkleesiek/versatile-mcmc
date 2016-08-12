@@ -15,7 +15,7 @@ LOG_DEFINE(myLogger2, "fmcmc.logger2");
 
 using namespace std;
 
-TEST(logging_test, basics) {
+TEST(Logger, Basics) {
 
     LOG(Trace, "Some arbitrary message with arbitrary contents: " << '#' << "\t" << 1E-7);
 

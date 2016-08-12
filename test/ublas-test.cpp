@@ -15,7 +15,7 @@
 using namespace std;
 using namespace fmcmc;
 
-TEST(ublas_test, cholesky) {
+TEST(uBLAS, CholeskyDecomposition) {
 
     constexpr size_t N = 5;
 

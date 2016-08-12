@@ -1,8 +1,8 @@
-/*
- * prior.cpp
+/**
+ * @file
  *
- *  Created on: 01.08.2016
- *      Author: marco@kleesiek.com
+ * @date 01.08.2016
+ * @author marco@kleesiek.com
  */
 
 #include <fmcmc/prior.h>

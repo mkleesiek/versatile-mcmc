@@ -1,44 +1,57 @@
-/*
- * stringutils.h
+/**
+ * @file
  *
- *  Created on: 29.07.2016
- *      Author: marco@kleesiek.com
+ * @date 29.07.2016
+ * @author marco@kleesiek.com
  */
 
 #ifndef FMCMC_STRINGUTILS_H_
 #define FMCMC_STRINGUTILS_H_
 
+#include <fmcmc/typetraits.h>
+
 #include <iterator>
 #include <iostream>
 #include <string>
 
-//#include <boost/numeric/ublas/vector.hpp>
-//#include <boost/numeric/ublas/matrix.hpp>
-//#include <boost/numeric/ublas/triangular.hpp>
 #include <boost/numeric/ublas/io.hpp>
 
 namespace fmcmc {
 
+/**
+ * Join an STL style container and output to a stream with its values joined by
+ * a separator.
+ * @param stream The output stream.
+ * @param sequence The container to be serialized. Must provide STL style
+ * iterators.
+ * @param separator The separator to be inserted between printed values.
+ * @return Reference to the output stream.
+ */
 template <class SequenceT, class SeparatorT>
-inline std::ostream& join(std::ostream& stream, const SequenceT& sequence, const SeparatorT& separator)
+inline std::ostream& join(std::ostream& stream, const SequenceT& sequence, const SeparatorT& separator = "")
 {
     auto itBegin = std::begin(sequence);
     auto itEnd = std::end(sequence);
 
-    // Append first element
     if (itBegin != itEnd) {
         stream << *itBegin;
         ++itBegin;
     }
 
     for (; itBegin != itEnd; ++itBegin) {
-        stream << separator;
-        stream << *itBegin;
+        stream << separator << *itBegin;
     }
 
     return stream;
 }
 
+/**
+ * Join an STL style container to a string.
+ * @param sequence The container to be serialized. Must provide STL style
+ * iterators.
+ * @param separator The separator to be inserted between serialized values.
+ * @return The joined string.
+ */
 template <class SequenceT, class SeparatorT>
 inline std::string join(const SequenceT& sequence, const SeparatorT& separator)
 {
@@ -47,56 +60,34 @@ inline std::string join(const SequenceT& sequence, const SeparatorT& separator)
     return strm.str();
 }
 
-//template <class T>
-//inline std::ostream& operator<< (std::ostream& os, const boost::numeric::ublas::vector<T>& vector)
-//{
-//    typedef typename boost::numeric::ublas::matrix<T>::size_type size_type;
-//
-//    os << "[" << vector.size() << "]";
-//    os << " (";
-//    if (vector.size() > 0)
-//        os << vector(0);
-//    for (size_type c = 1; c < vector.size(); ++c)
-//        os << ", " << vector(c);
-//    os << ")";
-//    return os;
-//}
-//
-//template <class T>
-//inline std::ostream& operator<< (std::ostream& os, const boost::numeric::ublas::matrix<T>& matrix)
-//{
-//    typedef typename boost::numeric::ublas::matrix<T>::size_type size_type;
-//
-//    os << "[" << matrix.size1() << "," << matrix.size2() << "]";
-//
-//    for (size_type r = 0; r < matrix.size1(); ++r) {
-//        os << std::endl << "(";
-//        for (size_type c = 0; c < matrix.size2(); ++c) {
-//            os.width(os.precision() + 7);
-//            os << matrix(r, c);
-//        }
-//        os << " )";
-//    }
-//    return os;
-//}
-//
-//template <class T>
-//inline std::ostream& operator<< (std::ostream& os, const boost::numeric::ublas::triangular_matrix<T>& matrix)
-//{
-//    typedef typename boost::numeric::ublas::triangular_matrix<T>::size_type size_type;
-//
-//    os << "[" << matrix.size1() << "," << matrix.size2() << "]";
-//
-//    for (size_type r = 0; r < matrix.size1(); ++r) {
-//        os << std::endl << "(";
-//        for (size_type c = 0; c < matrix.size2(); ++c) {
-//            os.width(os.precision() + 7);
-//            os << matrix(r, c);
-//        }
-//        os << " )";
-//    }
-//    return os;
-//}
+/**
+ * Serialize any STL container to an output stream.
+ * @param strm An output stream.
+ * @param container A container fulfilling the type trait #fmcmc::is_container.
+ * @return Reference to the output stream.
+ */
+template <class ContainerT>
+inline auto operator<< (std::ostream& strm, const ContainerT& container)
+-> typename std::enable_if<fmcmc::is_container<ContainerT>::value, std::ostream&>::type
+{
+    strm << "[" << container.size() << "](";
+
+    auto itBegin = std::begin(container);
+    auto itEnd = std::end(container);
+
+    if (itBegin != itEnd) {
+        strm << *itBegin;
+        itBegin++;
+    }
+
+    for (; itBegin != itEnd; ++itBegin) {
+        strm << "," << *itBegin;
+    }
+
+    strm << ")";
+
+    return strm;
+}
 
 }
 

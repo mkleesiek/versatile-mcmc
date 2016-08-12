@@ -1,8 +1,8 @@
-/*
- * algorithm.cpp
+/**
+ * @file
  *
- *  Created on: 06.08.2016
- *      Author: marco@kleesiek.com
+ * @date 29.07.2016
+ * @author marco@kleesiek.com
  */
 
 #include <fmcmc/algorithm.h>

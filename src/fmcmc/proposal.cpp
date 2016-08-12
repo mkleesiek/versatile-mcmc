@@ -1,8 +1,8 @@
-/*
- * Proposal.cpp
+/**
+ * @file
  *
- *  Created on: 31.07.2016
- *      Author: marco@kleesiek.com
+ * @date 31.07.2016
+ * @author marco@kleesiek.com
  */
 
 #include <fmcmc/proposal.h>
@@ -66,15 +66,16 @@ ProposalGaussian::~ProposalGaussian()
 double ProposalGaussian::Transition(const ublas::vector<double>& s1, ublas::vector<double>& s2) const
 {
     assert(s1.size() == s2.size());
+    assert(s1.size() == fCholeskyDecomp.size1());
 
-    ublas::triangular_matrix<double, ublas::lower> choleskyDecomp = ParameterConfig().GetCholeskyDecomp();
-    assert(s1.size() == choleskyDecomp.size1());
-
-    // TODO: think about caching the cholesky decomposition matrix
-
-    s2 = Random::Instance().GaussianMultiVariate(s1, choleskyDecomp);
+    s2 = Random::Instance().GaussianMultiVariate(s1, fCholeskyDecomp);
 
     return 1.0;
+}
+
+void ProposalGaussian::SetParameterConfig(const ParameterSet& paramConfig)
+{
+    fCholeskyDecomp = paramConfig.GetCholeskyDecomp();
 }
 
 } /* namespace fmcmc */
