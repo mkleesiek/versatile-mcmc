@@ -59,8 +59,8 @@ matrix:
       compiler: clang
       env: COMPILER=clang++
 
-  allow_failures:
-    - os: osx
+#  allow_failures:
+#    - os: osx
 
 before_script:
   # install OSX packages

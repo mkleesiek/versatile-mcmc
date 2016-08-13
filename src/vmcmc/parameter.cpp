@@ -10,6 +10,7 @@
 #include <vmcmc/numeric.h>
 #include <vmcmc/stringutils.h>
 #include <vmcmc/logger.h>
+#include <vmcmc/random.h>
 
 using namespace std;
 using namespace boost;
@@ -104,6 +105,13 @@ bool Parameter::ReflectFromLimits(double& someValue) const
     }
 }
 
+ParameterSet::ParameterSet() :
+    fErrorScaling( 1.0 )
+{ }
+
+ParameterSet::~ParameterSet()
+{ }
+
 void ParameterSet::SetParameter(size_t pIndex, const Parameter& param)
 {
     if (fParameters.size() <= pIndex)
@@ -145,12 +153,26 @@ double ParameterSet::GetCorrelation(size_t p1, size_t p2) const
     return fCorrelations(p1, p2);
 }
 
-Vector ParameterSet::GetStartValues() const
+Vector ParameterSet::GetStartValues(bool randomized) const
+{
+    Vector startPoint( size() );
+
+    for (size_t pIndex = 0; pIndex < size(); pIndex++)
+        startPoint[pIndex] = GetParameter(pIndex).GetStartValue();
+
+    if (randomized)
+        startPoint = Random::Instance().GaussianMultiVariate(startPoint, GetCholeskyDecomp());
+
+    ConstrainToLimits( startPoint );
+
+    return startPoint;
+}
+
+Vector ParameterSet::GetErrors() const
 {
     Vector result( size() );
-    for (size_t pIndex = 0; pIndex < size(); pIndex++) {
-        result[pIndex] = GetParameter(pIndex).GetStartValue();
-    }
+    for (size_t pIndex = 0; pIndex < size(); pIndex++)
+        result[pIndex] = fErrorScaling * GetParameter(pIndex).GetAbsoluteError();
     return result;
 }
 
@@ -160,7 +182,7 @@ MatrixLower ParameterSet::GetCovarianceMatrix() const
 
     for (size_t i = 0; i < size(); ++i) {
         for (size_t j = 0; j <= i; ++j) {
-            result(i, j) = fCorrelations(i, j)
+            result(i, j) = fCorrelations(i, j) * math::pow<2>(fErrorScaling)
                 * fParameters[i].GetAbsoluteError() * fParameters[j].GetAbsoluteError();
         }
     }
@@ -182,17 +204,51 @@ MatrixLower ParameterSet::GetCholeskyDecomp() const
         for (size_t i = 0; i < result.size1(); i++) {
             for (size_t j = 0; j < i; j++)
                 result(i, j) = 0.0;
-            result(i, i) = fParameters[i].GetAbsoluteError();
+            result(i, i) = fErrorScaling * fParameters[i].GetAbsoluteError();
         }
     }
 
     return result;
 }
 
-void ParameterSet::ScaleErrors(double scaling)
+bool ParameterSet::IsInsideLimits(Vector somePoint) const
 {
-    for (auto& param : fParameters)
-        param.SetAbsoluteError( scaling * param.GetAbsoluteError() );
+    assert( somePoint.size() == fParameters.size() );
+
+    for (size_t i = 0; i < fParameters.size(); i++) {
+        if (!fParameters[i].IsInsideLimits( somePoint[i] ))
+            return false;
+    }
+
+    return true;
+}
+
+bool ParameterSet::ConstrainToLimits(Vector& somePoint) const
+{
+    assert( somePoint.size() == fParameters.size() );
+
+    bool hadToBeConstrained = false;
+
+    for (size_t i = 0; i < fParameters.size(); i++) {
+        if (fParameters[i].ConstrainToLimits( somePoint[i] ))
+            hadToBeConstrained = true;
+    }
+
+    return hadToBeConstrained;
+}
+
+bool ParameterSet::ReflectFromLimits(Vector& somePoint) const
+{
+    assert( somePoint.size() == fParameters.size() );
+
+    bool hadToBeReflected = false;
+
+    for (size_t i = 0; i < fParameters.size(); i++) {
+        if (fParameters[i].ReflectFromLimits( somePoint[i] ))
+            hadToBeReflected = true;
+    }
+
+    return hadToBeReflected;
 }
 
 } /* namespace vmcmc */

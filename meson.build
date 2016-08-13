@@ -10,7 +10,7 @@ project_description = 'A lightweight and extensible Markov Chain Monte Carlo (MC
 # verify C++11 support
 compiler = meson.get_compiler('cpp')
 cpp11_check = '''static_assert(__cplusplus >= 201103L, "No C++11 support.");'''
-cpp11_support = compiler.compiles(cpp11_check, name : 'C++11 check')
+cpp11_support = compiler.compiles(cpp11_check, name : 'C++11 test')
 if not cpp11_support
     error('Your compiler does not support C++11.')
 endif

@@ -23,7 +23,7 @@ double function(const vector<double>& params) {
     return 1.0 / (constants::root_two_pi * sigma) * exp( - 0.5 * math::pow<2>((x - mean) / sigma) );
 }
 
-int main(int argc, char* argv[]){
+int main(int /*argc*/, char* /*argv*/[]){
 
     Random::Instance().SetSeed(0);
 

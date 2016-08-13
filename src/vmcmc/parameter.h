@@ -65,6 +65,9 @@ protected:
 class ParameterSet
 {
 public:
+    ParameterSet();
+    virtual ~ParameterSet();
+
     void SetParameter(size_t pIndex, const Parameter& param);
     const Parameter& GetParameter(size_t pIndex) const { return fParameters[pIndex]; }
 
@@ -72,9 +75,11 @@ public:
     Parameter& operator[](size_t pIndex) { return fParameters[pIndex]; }
     const Parameter& operator[](size_t pIndex) const { return fParameters[pIndex]; }
 
-    Vector GetStartValues() const;
+    void SetErrorScaling(double scaling) { fErrorScaling = scaling; }
+    double GetErrorScaling() const { return fErrorScaling; }
 
-    void ScaleErrors(double scaling);
+    Vector GetStartValues(bool randomized = false) const;
+    Vector GetErrors() const;
 
     template<class XMatrixT>
     void SetCorrelationMatrix(const XMatrixT& matrix) { fCorrelations = matrix; }
@@ -86,8 +91,13 @@ public:
     MatrixLower GetCovarianceMatrix() const;
     MatrixLower GetCholeskyDecomp() const;
 
+    bool IsInsideLimits(Vector somePoint) const;
+    bool ConstrainToLimits(Vector& somePoint) const;
+    bool ReflectFromLimits(Vector& somePoint) const;
+
 private:
     std::vector<Parameter> fParameters;
+    double fErrorScaling;
     MatrixUnitLower fCorrelations;
 };
 

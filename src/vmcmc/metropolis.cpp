@@ -16,9 +16,7 @@ namespace vmcmc
 {
 
 MetropolisHastings::MetropolisHastings() :
-    fInitialErrorScale( 1.0 ),
-    fStartPointRandomization( 1.0 ),
-
+    fRandomizeStartPoint( false ),
     fBetas{ 1.0 }
 { }
 
@@ -27,9 +25,6 @@ MetropolisHastings::~MetropolisHastings()
 
 bool MetropolisHastings::Initialize()
 {
-    Sample startPoint;
-    startPoint.Values() = GetParameterConfig().GetStartValues();
-
     if (fBetas.empty())
         fBetas = { 1.0 };
 
@@ -39,21 +34,15 @@ bool MetropolisHastings::Initialize()
     fSampledChains.assign( nChains, Chain() );
     fDynamicParamConfigs.assign( nChains, fParameterConfig );
 
-    if (fStartPointRandomization != 0.0) {
-        fParameterConfig.ScaleErrors( fStartPointRandomization );
-
-        ProposalGaussian gaussianKernel;
-        gaussianKernel.SetParameterConfig(fParameterConfig);
-
+    if (fRandomizeStartPoint) {
         for (auto& chain : fSampledChains) {
-            Sample randomizedStartPoint;
-            gaussianKernel.Transition( startPoint.Values(), randomizedStartPoint.Values() );
-            EvaluateLikelihood( randomizedStartPoint );
-            chain.push_back( randomizedStartPoint );
+            Sample startPoint( GetParameterConfig().GetStartValues(true) );
+            EvaluateLikelihood( startPoint );
+            chain.push_back( startPoint );
         }
-        fParameterConfig.ScaleErrors( 1.0 / fStartPointRandomization );
     }
     else {
+        Sample startPoint( GetParameterConfig().GetStartValues(false) );
         EvaluateLikelihood( startPoint );
         for (auto& chain : fSampledChains)
             chain.push_back( startPoint );

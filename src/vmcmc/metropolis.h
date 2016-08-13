@@ -41,8 +41,7 @@ public:
     std::shared_ptr<const Proposal> GetProposalFunction() const { return fProposalFunction; };
 
 protected:
-    double fInitialErrorScale;
-    double fStartPointRandomization;
+    bool fRandomizeStartPoint;
     std::shared_ptr<Proposal> fProposalFunction;
 
     std::vector<double> fBetas;
