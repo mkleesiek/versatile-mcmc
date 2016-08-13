@@ -10,4 +10,15 @@
 namespace vmcmc
 {
 
+Prior::Prior()
+{
+    // TODO Auto-generated constructor stub
+
+}
+
+Prior::~Prior()
+{
+    // TODO Auto-generated destructor stub
+}
+
 } /* namespace vmcmc */

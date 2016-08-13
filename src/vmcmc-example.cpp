@@ -1,20 +1,20 @@
-/*
- * fmcmc-example.cpp
+/**
+ * @file
  *
- *  Created on: 24.07.2016
- *      Author: marco@kleesiek.com
+ * @date 24.07.2016
+ * @author marco@kleesiek.com
  */
 
-#include <fmcmc/logger.h>
-#include <fmcmc/random.h>
-#include <fmcmc/stringutils.h>
-#include <fmcmc/metropolis.h>
-#include <fmcmc/numeric.h>
+#include <vmcmc/logger.h>
+#include <vmcmc/random.h>
+#include <vmcmc/stringutils.h>
+#include <vmcmc/metropolis.h>
+#include <vmcmc/numeric.h>
 
-LOG_DEFINE("fmcmc.example")
+LOG_DEFINE("vmcmc.example")
 
 using namespace std;
-using namespace fmcmc;
+using namespace vmcmc;
 
 double function(const vector<double>& params) {
     const double x = params[0];
@@ -32,6 +32,7 @@ int main(int argc, char* argv[]){
 
     MetropolisHastings mcmc;
     mcmc.SetParameterConfig(paramConfig);
+    mcmc.SetBetas( {1.0} );
 
     LOG(Info, "Starting example Metropolis ...");
 

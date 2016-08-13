@@ -1,10 +1,10 @@
-# fast-mcmc
-[![Build Status](https://travis-ci.org/mkleesiek/fast-mcmc.svg?branch=master)](https://travis-ci.org/mkleesiek/fast-mcmc)
+# versatile-mcmc
+[![Build Status](https://travis-ci.org/mkleesiek/versatile-mcmc.svg?branch=master)](https://travis-ci.org/mkleesiek/versatile-mcmc)
 
 A lightweight and extensible Markov Chain Monte Carlo (MCMC) library written in modern C++.
 
 ## Introduction
-With this project I aim at building a modular **C++ framework** for performing **Bayesian inference** and **mathematical optimization** tasks in **high-dimensional models**.
+With this project I aim at building a modular and easy to integrate **C++ framework** for performing **Bayesian inference** and **mathematical optimization** tasks in **high-dimensional models**.
 
 While there are several MCMC algorithms available for the software environment [R](https://www.r-project.org/), similar options for the C++ language, which is still the more popular choice for scientific high-performance computations, are limited.
 
@@ -53,7 +53,7 @@ pip3 install meson
 ## Quick Installation
 - Setup meson in an out-of-source build directory (e.g. a subdirectory in the source root):
 ```
-cd fast-mcmc
+cd versatile-mcmc
 mkdir build
 cd build
 meson .. [--prefix=/install/dir] [--buildtype=(plain|debug|debugoptimized|release)]

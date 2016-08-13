@@ -1,24 +1,69 @@
-/*
- * metropolis.cpp
+/**
+ * @file
  *
- *  Created on: 29.07.2016
- *      Author: marco@kleesiek.com
+ * @date 29.07.2016
+ * @author marco@kleesiek.com
  */
 
-#include <fmcmc/metropolis.h>
-#include <fmcmc/proposal.h>
+#include <vmcmc/metropolis.h>
+#include <vmcmc/proposal.h>
+
+#include <algorithm>
 
 using namespace std;
 
-namespace fmcmc
+namespace vmcmc
 {
 
 MetropolisHastings::MetropolisHastings() :
-    fProposalFunction()
+    fInitialErrorScale( 1.0 ),
+    fStartPointRandomization( 1.0 ),
+
+    fBetas{ 1.0 }
 { }
 
 MetropolisHastings::~MetropolisHastings()
 { }
+
+bool MetropolisHastings::Initialize()
+{
+    Sample startPoint;
+    startPoint.Values() = GetParameterConfig().GetStartValues();
+
+    if (fBetas.empty())
+        fBetas = { 1.0 };
+
+    const size_t nChains = fBetas.size();
+
+    // in case of parallel tempering, setup more than one chain
+    fSampledChains.assign( nChains, Chain() );
+    fDynamicParamConfigs.assign( nChains, fParameterConfig );
+
+    if (fStartPointRandomization != 0.0) {
+        fParameterConfig.ScaleErrors( fStartPointRandomization );
+
+        ProposalGaussian gaussianKernel;
+        gaussianKernel.SetParameterConfig(fParameterConfig);
+
+        for (auto& chain : fSampledChains) {
+            Sample randomizedStartPoint;
+            gaussianKernel.Transition( startPoint.Values(), randomizedStartPoint.Values() );
+            EvaluateLikelihood( randomizedStartPoint );
+            chain.push_back( randomizedStartPoint );
+        }
+        fParameterConfig.ScaleErrors( 1.0 / fStartPointRandomization );
+    }
+    else {
+        EvaluateLikelihood( startPoint );
+        for (auto& chain : fSampledChains)
+            chain.push_back( startPoint );
+    }
+
+    if (!fProposalFunction)
+        fProposalFunction.reset( new ProposalGaussian() );
+
+    return true;
+}
 
 double MetropolisHastings::Advance()
 {
@@ -76,4 +121,4 @@ double MetropolisHastings::Advance()
     return 0.0;
 }
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */

@@ -1,19 +1,18 @@
-/*
- * parameter.h
+/**
+ * @file
  *
- *  Created on: 26.07.2016
- *      Author: marco@kleesiek.com
+ * @date 26.07.2016
+ * @author marco@kleesiek.com
  */
 
 #ifndef FMCMC_PARAMETER_H_
 #define FMCMC_PARAMETER_H_
 
-#include <fmcmc/ublas.h>
-
 #include <string>
 #include <boost/optional.hpp>
+#include "blas.h"
 
-namespace fmcmc
+namespace vmcmc
 {
 
 class Parameter
@@ -22,7 +21,7 @@ public:
     static Parameter FixedParameter(const std::string& name = "", double startValue = 0.0);
 
 public:
-    Parameter(const std::string& name, double startValue, double absoluteErrorHint,
+    Parameter(const std::string& name, double startValue, double absoluteError,
             boost::optional<double> lowerLimit = boost::none,
             boost::optional<double> upperLimit = boost::none,
             bool fixed = false);
@@ -34,10 +33,10 @@ public:
     double GetStartValue() const { return fStartValue; }
     void SetStartValue(double startValue) { fStartValue = startValue; }
 
-    double GetAbsoluteErrorHint() const { return fAbsoluteErrorHint; }
-    void SetAbsoluteErrorHint(double absoluteError) { fAbsoluteErrorHint = absoluteError; }
+    double GetAbsoluteError() const { return fAbsoluteError; }
+    void SetAbsoluteError(double absoluteError) { fAbsoluteError = absoluteError; }
 
-    void SetRelativeErrorHint(double relativeError);
+    void SetRelativeError(double relativeError);
 
     const boost::optional<double>& GetLowerLimit() const { return fLowerLimit; }
     void SetLowerLimit(const boost::optional<double>& lowerLimit) { fLowerLimit = lowerLimit; }
@@ -57,7 +56,7 @@ protected:
 
     std::string fName;
     double fStartValue;
-    double fAbsoluteErrorHint;
+    double fAbsoluteError;
     boost::optional<double> fLowerLimit;
     boost::optional<double> fUpperLimit;
     bool fFixed;
@@ -71,12 +70,27 @@ public:
 
     size_t size() const { return fParameters.size(); }
     Parameter& operator[](size_t pIndex) { return fParameters[pIndex]; }
+    const Parameter& operator[](size_t pIndex) const { return fParameters[pIndex]; }
+
+    Vector GetStartValues() const;
+
+    void ScaleErrors(double scaling);
+
+    template<class XMatrixT>
+    void SetCorrelationMatrix(const XMatrixT& matrix) { fCorrelations = matrix; }
+    const MatrixUnitLower& GetCorrelationMatrix() const { return fCorrelations; }
+
+    void SetCorrelation(size_t p1, size_t p2, double correlation);
+    double GetCorrelation(size_t p1, size_t p2) const;
+
+    MatrixLower GetCovarianceMatrix() const;
+    MatrixLower GetCholeskyDecomp() const;
 
 private:
     std::vector<Parameter> fParameters;
-    ublas::triangular_matrix<double, ublas::lower> fCholeskyDecomp;
+    MatrixUnitLower fCorrelations;
 };
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */
 
 #endif /* FMCMC_PARAMETER_H_ */

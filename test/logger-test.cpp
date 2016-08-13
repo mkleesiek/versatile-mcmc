@@ -1,21 +1,21 @@
-/*
- * logging-test.cpp
+/**
+ * @file
  *
- *  Created on: 24.07.2016
- *      Author: marco@kleesiek.com
+ * @date 24.07.2016
+ * @author marco@kleesiek.com
  */
 
-#include <fmcmc/logger.h>
+#include <vmcmc/logger.h>
 
 #include <gtest/gtest.h>
 
-LOG_DEFINE("fmcmc.default-logger");
-LOG_DEFINE(myLogger1, "fmcmc.logger1");
-LOG_DEFINE(myLogger2, "fmcmc.logger2");
+LOG_DEFINE("vmcmc.default-logger");
+LOG_DEFINE(myLogger1, "vmcmc.logger1");
+LOG_DEFINE(myLogger2, "vmcmc.logger2");
 
 using namespace std;
 
-TEST(logging_test, basics) {
+TEST(Logger, Basics) {
 
     LOG(Trace, "Some arbitrary message with arbitrary contents: " << '#' << "\t" << 1E-7);
 

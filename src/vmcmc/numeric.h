@@ -1,8 +1,8 @@
-/*
- * numeric.h
+/**
+ * @file
  *
- *  Created on: 27.07.2016
- *      Author: marco@kleesiek.com
+ * @date 27.07.2016
+ * @author marco@kleesiek.com
  */
 
 #ifndef FMCMC_NUMERIC_H_
@@ -13,7 +13,7 @@
 #include <boost/math/special_functions/pow.hpp>
 #include <boost/math/constants/constants.hpp>
 
-namespace fmcmc {
+namespace vmcmc {
 
 namespace math = boost::math;
 namespace constants = boost::math::double_constants;
@@ -97,6 +97,6 @@ inline bool essentGreaterOrEqual(T a, T b, T epsilon)
     return a > b || essentiallyEqual(a, b, epsilon);
 }
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */
 
 #endif /* FMCMC_NUMERIC_H_ */

@@ -1,12 +1,12 @@
-/*
- * algorithm.cpp
+/**
+ * @file
  *
- *  Created on: 06.08.2016
- *      Author: marco@kleesiek.com
+ * @date 29.07.2016
+ * @author marco@kleesiek.com
  */
 
-#include <fmcmc/algorithm.h>
-#include <fmcmc/logger.h>
+#include <vmcmc/algorithm.h>
+#include <vmcmc/logger.h>
 
 #include <boost/accumulators/accumulators.hpp>
 #include <boost/accumulators/statistics/mean.hpp>
@@ -17,9 +17,9 @@ using namespace std;
 using namespace boost;
 using namespace boost::accumulators;
 
-namespace fmcmc {
+namespace vmcmc {
 
-LOG_DEFINE("fmcmc.algorithm");
+LOG_DEFINE("vmcmc.algorithm");
 
 Algorithm::Algorithm() :
     fTotalLength( 1E6 )
@@ -36,6 +36,11 @@ void Algorithm::SetParameterConfig(const ParameterSet& paramConfig)
 
 void Algorithm::Run()
 {
+    if (!Initialize()) {
+        LOG(Error, "Initialization failed, aborting.");
+        return;
+    }
+
     accumulator_set<double, stats<tag::mean>> accRateAcc;
 
     for (size_t iStep = 0; iStep < fTotalLength; iStep++) {
@@ -48,4 +53,4 @@ void Algorithm::Run()
     LOG(Info, "Acceptance Rate: " << accRate);
 }
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */

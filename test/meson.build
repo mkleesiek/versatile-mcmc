@@ -1,4 +1,5 @@
-fmcmc_tests = [
+vmcmc_tests = [
+    'blas-test',
     'logger-test',
     'metropolis-test',
     'numeric-test',
@@ -6,15 +7,13 @@ fmcmc_tests = [
     'prior-test',
     'proposal-test',
     'random-test',
-    'sample-test',
-    'stats-test',
-    'ublas-test'
+    'stats-test'
 ]
 
-foreach p : fmcmc_tests
+foreach p : vmcmc_tests
   exe = executable(p, p + '.cpp',
-    include_directories : fmcmc_inc,
-    link_with : fmcmc_lib,
+    include_directories : vmcmc_inc,
+    link_with : vmcmc_lib,
     dependencies : gtest_dep
   )
   test(p, exe,

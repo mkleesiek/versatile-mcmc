@@ -1,19 +1,19 @@
-/*
- * chain.h
+/**
+ * @file
  *
- *  Created on: 05.08.2016
- *      Author: Marco Kleesiek <marco@kleesiek.com>
+ * @date 05.08.2016
+ * @author marco@kleesiek.com
  */
 
 #ifndef FMCMC_STATS_H_
 #define FMCMC_STATS_H_
 
-#include <fmcmc/sample.h>
+#include <vmcmc/sample.h>
 
 #include <deque>
 #include <type_traits>
 
-namespace fmcmc
+namespace vmcmc
 {
 
 namespace stats
@@ -64,6 +64,6 @@ Sample maxl(const XContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endIndex =
 
 };
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */
 
 #endif /* FMCMC_STATS_H_ */

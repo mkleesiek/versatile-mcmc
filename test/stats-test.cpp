@@ -1,13 +1,13 @@
-/*
- * stats-test.cpp
+/**
+ * @file
  *
- *  Created on: 05.08.2016
- *      Author: marco@kleesiek.com
+ * @date 05.08.2016
+ * @author marco@kleesiek.com
  */
 
-#include <fmcmc/stats.h>
+#include <vmcmc/stats.h>
 
-namespace fmcmc
+namespace vmcmc
 {
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */

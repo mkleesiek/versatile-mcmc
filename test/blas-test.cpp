@@ -1,21 +1,21 @@
-/*
- * ublas-test.cpp
+/**
+ * @file
  *
- *  Created on: 24.07.2016
- *      Author: marco@kleesiek.com
+ * @date 24.07.2016
+ * @author marco@kleesiek.com
  */
 
-#include <fmcmc/ublas.h>
-#include <fmcmc/stringutils.h>
+#include <vmcmc/blas.h>
+#include <vmcmc/stringutils.h>
 
 #include <boost/numeric/ublas/triangular.hpp>
 
 #include <gtest/gtest.h>
 
 using namespace std;
-using namespace fmcmc;
+using namespace vmcmc;
 
-TEST(ublas_test, cholesky) {
+TEST(uBLAS, CholeskyDecomposition) {
 
     constexpr size_t N = 5;
 

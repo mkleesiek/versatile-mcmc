@@ -1,12 +1,12 @@
-/*
- * logger.cxx
+/**
+ * @file
  *
- *  Created on: 25.07.2016
- *      Author: marco@kleesiek.com
+ * @date 25.07.2016
+ * @author marco@kleesiek.com
  */
 
-#include <fmcmc/logger.h>
-#include <fmcmc/exception.h>
+#include <vmcmc/logger.h>
+#include <vmcmc/exception.h>
 
 #include <iomanip>
 #include <map>
@@ -35,7 +35,7 @@ constexpr const char* skOtherColor = COLOR_PREFIX COLOR_BRIGHT COLOR_SEPARATOR C
 
 using namespace std;
 
-namespace fmcmc {
+namespace vmcmc {
 
 namespace {
 

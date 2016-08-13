@@ -1,12 +1,12 @@
-/*
- * ublas.h
+/**
+ * @file
  *
- *  Created on: 29.07.2016
- *      Author: marco@kleesiek.com
+ * @date 29.07.2016
+ * @author marco@kleesiek.com
  */
 
-#ifndef FMCMC_UBLAS_H_
-#define FMCMC_UBLAS_H_
+#ifndef FMCMC_BLAS_H_
+#define FMCMC_BLAS_H_
 
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/vector_expression.hpp>
@@ -18,16 +18,21 @@
 
 #include <boost/numeric/ublas/triangular.hpp>
 
-namespace fmcmc {
+namespace vmcmc {
 
 namespace ublas = boost::numeric::ublas;
+
+using Vector          = ublas::vector<double, std::vector<double>>;
+using Matrix          = ublas::matrix<double, ublas::row_major, std::vector<double>>;
+using MatrixLower     = ublas::triangular_matrix<double, ublas::lower, ublas::row_major, std::vector<double>>;
+using MatrixUnitLower = ublas::triangular_matrix<double, ublas::unit_lower, ublas::row_major, std::vector<double>>;
 
 /**
  * Decompose a symmetric positive definit matrix A into product L L^T.
  * @param A A Square symmetric positive definit input matrix. Only the
  * lower triangle is accessed.
  * @param L Lower triangular output matrix, the Cholesky decomposition.
- * @return nonzero if decomposition fails (then the value is 1 + the number
+ * @return Nonzero if decomposition fails (then the value is 1 + the number
  * of the failing row)
  */
 template <class InputMatrix, class OutputTriangularMatrix>
@@ -36,8 +41,8 @@ size_t choleskyDecompose(const InputMatrix& A, OutputTriangularMatrix& L)
     using namespace boost::numeric::ublas;
 
     assert(A.size1() == A.size2());
+    assert(L.size1() == L.size2());
     assert(A.size1() == L.size1());
-    assert(A.size2() == L.size2());
 
     const size_t n = A.size1();
 
@@ -63,6 +68,6 @@ size_t choleskyDecompose(const InputMatrix& A, OutputTriangularMatrix& L)
     return 0;
 }
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */
 
-#endif /* FMCMC_UBLAS_H_ */
+#endif /* FMCMC_BLAS_H_ */
