@@ -5,10 +5,10 @@
  * @author marco@kleesiek.com
  */
 
-#ifndef SRC_FMCMC_PRIOR_H_
-#define SRC_FMCMC_PRIOR_H_
+#ifndef VMCMC_PRIOR_H_
+#define VMCMC_PRIOR_H_
 
-namespace fmcmc
+namespace vmcmc
 {
 
 class Prior
@@ -18,6 +18,6 @@ public:
     virtual ~Prior();
 };
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */
 
-#endif /* SRC_FMCMC_PRIOR_H_ */
+#endif /* VMCMC_PRIOR_H_ */

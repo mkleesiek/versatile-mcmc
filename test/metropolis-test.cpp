@@ -1,13 +1,13 @@
-/*
- * metropolis-test.cpp
+/**
+ * @file
  *
- *  Created on: 29.07.2016
- *      Author: marco@kleesiek.com
+ * @date 29.07.2016
+ * @author marco@kleesiek.com
  */
 
-#include <fmcmc/metropolis.h>
+#include <vmcmc/metropolis.h>
 
-namespace fmcmc
+namespace vmcmc
 {
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */

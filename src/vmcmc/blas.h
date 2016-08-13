@@ -5,8 +5,8 @@
  * @author marco@kleesiek.com
  */
 
-#ifndef FMCMC_UBLAS_H_
-#define FMCMC_UBLAS_H_
+#ifndef FMCMC_BLAS_H_
+#define FMCMC_BLAS_H_
 
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/vector_expression.hpp>
@@ -18,9 +18,14 @@
 
 #include <boost/numeric/ublas/triangular.hpp>
 
-namespace fmcmc {
+namespace vmcmc {
 
 namespace ublas = boost::numeric::ublas;
+
+using Vector          = ublas::vector<double, std::vector<double>>;
+using Matrix          = ublas::matrix<double, ublas::row_major, std::vector<double>>;
+using MatrixLower     = ublas::triangular_matrix<double, ublas::lower, ublas::row_major, std::vector<double>>;
+using MatrixUnitLower = ublas::triangular_matrix<double, ublas::unit_lower, ublas::row_major, std::vector<double>>;
 
 /**
  * Decompose a symmetric positive definit matrix A into product L L^T.
@@ -63,6 +68,6 @@ size_t choleskyDecompose(const InputMatrix& A, OutputTriangularMatrix& L)
     return 0;
 }
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */
 
-#endif /* FMCMC_UBLAS_H_ */
+#endif /* FMCMC_BLAS_H_ */

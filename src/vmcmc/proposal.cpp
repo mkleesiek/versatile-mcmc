@@ -5,17 +5,17 @@
  * @author marco@kleesiek.com
  */
 
-#include <fmcmc/proposal.h>
-#include <fmcmc/random.h>
-#include <fmcmc/logger.h>
-#include <fmcmc/stringutils.h>
+#include <vmcmc/proposal.h>
+#include <vmcmc/random.h>
+#include <vmcmc/logger.h>
+#include <vmcmc/stringutils.h>
 
 #include <cmath>
 
-namespace fmcmc
+namespace vmcmc
 {
 
-LOG_DEFINE("fmcmc.proposal");
+LOG_DEFINE("vmcmc.proposal");
 
 Proposal::Proposal()
 { }
@@ -63,7 +63,7 @@ ProposalGaussian::~ProposalGaussian()
 //    }
 //}
 
-double ProposalGaussian::Transition(const ublas::vector<double>& s1, ublas::vector<double>& s2) const
+double ProposalGaussian::Transition(const Vector& s1, Vector& s2) const
 {
     assert(s1.size() == s2.size());
     assert(s1.size() == fCholeskyDecomp.size1());
@@ -78,4 +78,4 @@ void ProposalGaussian::SetParameterConfig(const ParameterSet& paramConfig)
     fCholeskyDecomp = paramConfig.GetCholeskyDecomp();
 }
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */

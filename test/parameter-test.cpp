@@ -1,18 +1,18 @@
-/*
- * parameter-test.cpp
+/**
+ * @file
  *
- *  Created on: 26.07.2016
- *      Author: marco@kleesiek.com
+ * @date 26.07.2016
+ * @author marco@kleesiek.com
  */
 
-#include <fmcmc/parameter.h>
-#include <fmcmc/exception.h>
-#include <fmcmc/stringutils.h>
+#include <vmcmc/parameter.h>
+#include <vmcmc/exception.h>
+#include <vmcmc/stringutils.h>
 
 #include <gtest/gtest.h>
 
 using namespace std;
-using namespace fmcmc;
+using namespace vmcmc;
 
 TEST(Parameter, Limits)
 {

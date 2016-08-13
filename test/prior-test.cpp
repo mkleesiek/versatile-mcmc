@@ -1,13 +1,13 @@
-/*
- * prior-test.cpp
+/**
+ * @file
  *
- *  Created on: 01.08.2016
- *      Author: marco@kleesiek.com
+ * @date 01.08.2016
+ * @author marco@kleesiek.com
  */
 
-#include <fmcmc/prior.h>
+#include <vmcmc/prior.h>
 
-namespace fmcmc
+namespace vmcmc
 {
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */

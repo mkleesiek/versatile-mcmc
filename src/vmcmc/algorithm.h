@@ -8,15 +8,15 @@
 #ifndef FMCMC_ALGORITHM_H_
 #define FMCMC_ALGORITHM_H_
 
-#include <fmcmc/parameter.h>
-#include <fmcmc/sample.h>
+#include <vmcmc/parameter.h>
+#include <vmcmc/sample.h>
 
 #include <functional>
 #include <vector>
 #include <deque>
 #include <cmath>
 
-namespace fmcmc
+namespace vmcmc
 {
 
 using Chain = std::deque<Sample>;
@@ -49,6 +49,9 @@ public:
     void SetTotalLength(size_t length) { fTotalLength = length; }
     size_t GetTotalLength() const { return fTotalLength; }
 
+    double EvaluateLikelihood(const std::vector<double>& paramValues) const;
+    double EvaluateNegLogLikelihood(const std::vector<double>& paramValues) const;
+
     void Run();
 
     virtual bool Initialize() = 0;
@@ -59,6 +62,8 @@ public:
     virtual const Chain& GetChain(size_t cIndex = 0) = 0;
 
 protected:
+    void EvaluateLikelihood(Sample& sample) const;
+
     ParameterSet fParameterConfig;
     std::vector<std::function<double (double)>> fPriors;
     std::function<double (const std::vector<double>&)> fNegLogLikelihood;
@@ -90,6 +95,23 @@ inline void Algorithm::SetNegLogLikelihoodFunction(XFunctionT negLoglikelihood)
     fNegLogLikelihood = negLoglikelihood;
 }
 
-} /* namespace fmcmc */
+inline double Algorithm::EvaluateLikelihood(const std::vector<double>& paramValues) const
+{
+    assert(fNegLogLikelihood);
+    return exp(-fNegLogLikelihood( paramValues ));
+}
+
+inline double Algorithm::EvaluateNegLogLikelihood(const std::vector<double>& paramValues) const
+{
+    assert(fNegLogLikelihood);
+    return fNegLogLikelihood( paramValues );
+}
+
+inline void Algorithm::EvaluateLikelihood(Sample& sample) const
+{
+    sample.SetLikelihood( EvaluateLikelihood(sample.Values().data()) );
+}
+
+} /* namespace vmcmc */
 
 #endif /* FMCMC_ALGORITHM_H_ */

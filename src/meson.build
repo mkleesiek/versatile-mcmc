@@ -1,18 +1,18 @@
 # build shared library
 
-subdir('fmcmc')
+subdir('vmcmc')
 
 
 # prepare and build executables
 
-fmcmc_apps = [
-    'fmcmc-example'
+vmcmc_apps = [
+    'vmcmc-example'
 ]
 
-foreach a : fmcmc_apps
+foreach a : vmcmc_apps
   executable(a, a + '.cpp',
-    include_directories : fmcmc_inc,
-    link_with : fmcmc_lib,
+    include_directories : vmcmc_inc,
+    link_with : vmcmc_lib,
     install : true,
     install_rpath : final_rpath
   )

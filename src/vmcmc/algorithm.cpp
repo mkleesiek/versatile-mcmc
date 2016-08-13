@@ -5,8 +5,8 @@
  * @author marco@kleesiek.com
  */
 
-#include <fmcmc/algorithm.h>
-#include <fmcmc/logger.h>
+#include <vmcmc/algorithm.h>
+#include <vmcmc/logger.h>
 
 #include <boost/accumulators/accumulators.hpp>
 #include <boost/accumulators/statistics/mean.hpp>
@@ -17,9 +17,9 @@ using namespace std;
 using namespace boost;
 using namespace boost::accumulators;
 
-namespace fmcmc {
+namespace vmcmc {
 
-LOG_DEFINE("fmcmc.algorithm");
+LOG_DEFINE("vmcmc.algorithm");
 
 Algorithm::Algorithm() :
     fTotalLength( 1E6 )
@@ -53,4 +53,4 @@ void Algorithm::Run()
     LOG(Info, "Acceptance Rate: " << accRate);
 }
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */

@@ -1,13 +1,12 @@
-/*
- * random-test.cpp
+/**
+ * @file
  *
- *  Created on: 24.07.2016
- *      Author: marco@kleesiek.com
+ * @date 24.07.2016
+ * @author marco@kleesiek.com
  */
 
-#include <fmcmc/random.h>
-#include <fmcmc/ublas.h>
-#include <fmcmc/stringutils.h>
+#include <vmcmc/random.h>
+#include <vmcmc/stringutils.h>
 
 #include <thread>
 
@@ -15,9 +14,10 @@
 #include <boost/accumulators/statistics.hpp>
 
 #include <gtest/gtest.h>
+#include "../src/vmcmc/blas.h"
 
 using namespace std;
-using namespace fmcmc;
+using namespace vmcmc;
 using namespace boost;
 using namespace boost::accumulators;
 
@@ -29,8 +29,6 @@ TEST(Random, SingletonInitialization) {
             "number generator with unexpected result.";
 
     ASSERT_DOUBLE_EQ(rand.Uniform(-99.0, +99.0), 43.624248925001041);
-
-    ublas::vector<double> mean(100, 0.0);
 }
 
 TEST(Random, UniformMultithreaded) {
@@ -81,10 +79,10 @@ TEST(Random, MultivariateNormal) {
     // TODO: replace boost accumulators by own statistics tools
     accumulator_set<double, stats<tag::covariance<double, tag::covariate1> > > acc01, acc12, acc23, acc34;
 
-    const ublas::vector<double> mean(N, 5.0);
+    const Vector mean(N, 5.0);
 
     for (int i = 0; i < 1000; ++i) {
-        ublas::vector<double> rVector = rand.GaussianMultiVariate(mean, cholesky);
+        Vector rVector = rand.GaussianMultiVariate(mean, cholesky);
         acc01(rVector(0), covariate1 = rVector(1));
         acc12(rVector(1), covariate1 = rVector(2));
         acc23(rVector(2), covariate1 = rVector(3));

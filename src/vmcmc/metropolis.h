@@ -5,16 +5,16 @@
  * @author marco@kleesiek.com
  */
 
-#ifndef SRC_FMCMC_METROPOLIS_H_
-#define SRC_FMCMC_METROPOLIS_H_
+#ifndef VMCMC_METROPOLIS_H_
+#define VMCMC_METROPOLIS_H_
 
-#include <fmcmc/algorithm.h>
+#include <vmcmc/algorithm.h>
 
 #include <memory>
 #include <algorithm>
 #include <initializer_list>
 
-namespace fmcmc
+namespace vmcmc
 {
 
 class Proposal;
@@ -59,6 +59,6 @@ inline void MetropolisHastings::SetBetas(ContainerT betas)
     std::sort(fBetas.begin(), fBetas.end());
 }
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */
 
-#endif /* SRC_FMCMC_METROPOLIS_H_ */
+#endif /* VMCMC_METROPOLIS_H_ */

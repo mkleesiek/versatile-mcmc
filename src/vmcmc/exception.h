@@ -12,7 +12,7 @@
 #include <sstream>
 #include <string>
 
-namespace fmcmc
+namespace vmcmc
 {
 
 /**
@@ -82,6 +82,6 @@ inline std::ostream& operator<<(std::ostream& os, const Exception& e)
     return os << e.what();
 }
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */
 
 #endif /* FMCMC_EXCEPTION_H_ */

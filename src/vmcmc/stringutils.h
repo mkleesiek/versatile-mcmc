@@ -8,7 +8,7 @@
 #ifndef FMCMC_STRINGUTILS_H_
 #define FMCMC_STRINGUTILS_H_
 
-#include <fmcmc/typetraits.h>
+#include <vmcmc/typetraits.h>
 
 #include <iterator>
 #include <iostream>
@@ -16,7 +16,7 @@
 
 #include <boost/numeric/ublas/io.hpp>
 
-namespace fmcmc {
+namespace vmcmc {
 
 /**
  * Join an STL style container and output to a stream with its values joined by
@@ -63,12 +63,12 @@ inline std::string join(const SequenceT& sequence, const SeparatorT& separator)
 /**
  * Serialize any STL container to an output stream.
  * @param strm An output stream.
- * @param container A container fulfilling the type trait #fmcmc::is_container.
+ * @param container A container fulfilling the type trait #vmcmc::is_container.
  * @return Reference to the output stream.
  */
 template <class ContainerT>
 inline auto operator<< (std::ostream& strm, const ContainerT& container)
--> typename std::enable_if<fmcmc::is_container<ContainerT>::value, std::ostream&>::type
+-> typename std::enable_if<vmcmc::is_container<ContainerT>::value, std::ostream&>::type
 {
     strm << "[" << container.size() << "](";
 

@@ -5,9 +5,9 @@
  * @author marco@kleesiek.com
  */
 
-#include <fmcmc/prior.h>
+#include <vmcmc/prior.h>
 
-namespace fmcmc
+namespace vmcmc
 {
 
 Prior::Prior()
@@ -21,4 +21,4 @@ Prior::~Prior()
     // TODO Auto-generated destructor stub
 }
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */

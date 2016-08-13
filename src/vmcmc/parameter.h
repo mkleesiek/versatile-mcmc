@@ -8,12 +8,11 @@
 #ifndef FMCMC_PARAMETER_H_
 #define FMCMC_PARAMETER_H_
 
-#include <fmcmc/ublas.h>
-
 #include <string>
 #include <boost/optional.hpp>
+#include "blas.h"
 
-namespace fmcmc
+namespace vmcmc
 {
 
 class Parameter
@@ -73,25 +72,25 @@ public:
     Parameter& operator[](size_t pIndex) { return fParameters[pIndex]; }
     const Parameter& operator[](size_t pIndex) const { return fParameters[pIndex]; }
 
-    ublas::vector<double> GetStartValues() const;
+    Vector GetStartValues() const;
 
     void ScaleErrors(double scaling);
 
     template<class XMatrixT>
     void SetCorrelationMatrix(const XMatrixT& matrix) { fCorrelations = matrix; }
-    const ublas::triangular_matrix<double, ublas::unit_lower>& GetCorrelationMatrix() const { return fCorrelations; }
+    const MatrixUnitLower& GetCorrelationMatrix() const { return fCorrelations; }
 
     void SetCorrelation(size_t p1, size_t p2, double correlation);
     double GetCorrelation(size_t p1, size_t p2) const;
 
-    ublas::triangular_matrix<double, ublas::lower> GetCovarianceMatrix() const;
-    ublas::triangular_matrix<double, ublas::lower> GetCholeskyDecomp() const;
+    MatrixLower GetCovarianceMatrix() const;
+    MatrixLower GetCholeskyDecomp() const;
 
 private:
     std::vector<Parameter> fParameters;
-    ublas::triangular_matrix<double, ublas::unit_lower> fCorrelations;
+    MatrixUnitLower fCorrelations;
 };
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */
 
 #endif /* FMCMC_PARAMETER_H_ */

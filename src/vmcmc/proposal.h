@@ -5,13 +5,13 @@
  * @author marco@kleesiek.com
  */
 
-#ifndef SRC_FMCMC_PROPOSAL_H_
-#define SRC_FMCMC_PROPOSAL_H_
+#ifndef VMCMC_PROPOSAL_H_
+#define VMCMC_PROPOSAL_H_
 
-#include <fmcmc/ublas.h>
-#include <fmcmc/parameter.h>
+#include <vmcmc/parameter.h>
+#include "blas.h"
 
-namespace fmcmc
+namespace vmcmc
 {
 
 /**
@@ -27,11 +27,11 @@ public:
 
     /**
      * Propose a new state.
-     * @param s1 The original state to start from.
-     * @param s2 The new proposed state.
+     * @param[in] s1 The original state to start from.
+     * @param[out] s2 The new proposed state.
      * @return The asymmetry ratio. (1.0 for symmetric proposal functions).
      */
-    virtual double Transition(const ublas::vector<double>& s1, ublas::vector<double>& s2) const = 0;
+    virtual double Transition(const Vector& s1, Vector& s2) const = 0;
 
     virtual void SetParameterConfig(const ParameterSet& /*paramConfig*/) { };
 };
@@ -47,7 +47,7 @@ public:
     ProposalGaussian();
     ~ProposalGaussian();
 
-    double Transition(const ublas::vector<double>& s1, ublas::vector<double>& s2) const override;
+    double Transition(const Vector& s1, Vector& s2) const override;
 
     void SetParameterConfig(const ParameterSet& paramConfig) override;
 
@@ -55,9 +55,9 @@ public:
 //    void SetCovarianceMatrix(const ublas::triangular_matrix<double, ublas::lower>& cov);
 
 protected:
-    ublas::triangular_matrix<double, ublas::lower> fCholeskyDecomp;
+    MatrixLower fCholeskyDecomp;
 };
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */
 
-#endif /* SRC_FMCMC_PROPOSAL_H_ */
+#endif /* VMCMC_PROPOSAL_H_ */

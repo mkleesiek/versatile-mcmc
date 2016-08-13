@@ -5,12 +5,12 @@
  * @author marco@kleesiek.com
  */
 
-#ifndef SRC_FMCMC_TYPETRAITS_H_
-#define SRC_FMCMC_TYPETRAITS_H_
+#ifndef VMCMC_TYPETRAITS_H_
+#define VMCMC_TYPETRAITS_H_
 
 #include <type_traits>
 
-namespace fmcmc {
+namespace vmcmc {
 
 /**
  * Typetrait checking whether the passed template argument denotes an STL like
@@ -67,4 +67,4 @@ struct is_container<std::string>
 
 }
 
-#endif /* SRC_FMCMC_TYPETRAITS_H_ */
+#endif /* VMCMC_TYPETRAITS_H_ */

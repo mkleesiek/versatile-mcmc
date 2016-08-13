@@ -1,5 +1,6 @@
-fmcmc_headers = [
+vmcmc_headers = [
     'algorithm.h',
+    'blas.h',
     'exception.h',
     'logger.h',
     'metropolis.h',
@@ -11,11 +12,10 @@ fmcmc_headers = [
     'sample.h',
     'stats.h',
     'stringutils.h',
-    'typetraits.h',
-    'ublas.h'
+    'typetraits.h'
 ]
 
-fmcmc_sources = [
+vmcmc_sources = [
     'algorithm.cpp',
     'logger.cpp',
     'metropolis.cpp',
@@ -24,11 +24,11 @@ fmcmc_sources = [
     'proposal.cpp'
 ]
 
-install_headers( fmcmc_headers, subdir : 'fmcmc')
+install_headers( vmcmc_headers, subdir : 'vmcmc')
 
-fmcmc_lib = shared_library( 'fmcmc',
-    fmcmc_sources,
-    include_directories : fmcmc_inc,
+vmcmc_lib = shared_library( 'vmcmc',
+    vmcmc_sources,
+    include_directories : vmcmc_inc,
     dependencies : boost_dep,
     install : true)
                         

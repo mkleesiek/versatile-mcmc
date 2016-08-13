@@ -1,4 +1,4 @@
-project('fast-mcmc', 'cpp',
+project('versatile-mcmc', 'cpp',
   version : '0.0.2',
   license : 'GNU GPL v3' ,
   default_options : ['cpp_std=c++11'],
@@ -44,7 +44,7 @@ if buildtype.startswith('debug')
 endif
 
 # define include directories
-fmcmc_inc = include_directories('src')
+vmcmc_inc = include_directories('src')
 
 
 # subdirectories
@@ -62,9 +62,9 @@ endif
 # generate pkg-config files
 pkg_mod = import('pkgconfig')
 pkg_mod.generate(
-    libraries : fmcmc_lib,
+    libraries : vmcmc_lib,
     version : '0.1',
-    name : 'libfmcmc',
-    filebase : 'fmcmc',
+    name : 'libvmcmc',
+    filebase : 'vmcmc',
     description : project_description
 )

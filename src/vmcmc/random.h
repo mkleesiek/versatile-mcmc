@@ -17,7 +17,7 @@
 #include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/triangular.hpp>
 
-namespace fmcmc
+namespace vmcmc
 {
 
 namespace ublas = boost::numeric::ublas;
@@ -118,14 +118,14 @@ public:
     /**
      * Draw from a multivariate gaussian.
      * @param mean A vector of mean values.
-     * @param cholesky The Cholesky decomposition of the covariance matrix.
-     * The diagonal elements correspond to the std. deviations.
+     * @param cholesky The lower triangular matrix cholesky decomposition of
+     * the covariance matrix. The diagonal elements correspond to the
+     * individual parameter std. deviations.
      * @return
      * @see boost::multivariate_normal_distribution
      */
-    template<class FloatT>
-    ublas::vector<FloatT> GaussianMultiVariate(const ublas::vector<FloatT>& mean,
-        const ublas::triangular_matrix<FloatT, ublas::lower>& cholesky);
+    template<class VectorT, class MatrixT>
+    VectorT GaussianMultiVariate(const VectorT& mean, const MatrixT& cholesky);
 
     /**
      * Draw from a multivariate gaussian without correlations.
@@ -134,9 +134,8 @@ public:
      * @return
      * @see boost::multivariate_normal_distribution
      */
-    template<class FloatT>
-    ublas::vector<FloatT> GaussianMultiVariate(ublas::vector<FloatT> mean,
-        ublas::vector<FloatT> sigma);
+    template<class VectorT>
+    VectorT GaussianMultiVariate(const VectorT& mean, const VectorT& sigma);
 
     /**
      * Draw from an exponential distribution according to exp(-t/tau).
@@ -280,16 +279,14 @@ inline FloatT RandomPrototype<EngineT>::Gaussian(FloatT mean, FloatT sigma)
 }
 
 template<class EngineT>
-template<class FloatT>
-inline ublas::vector<FloatT> RandomPrototype<EngineT>::GaussianMultiVariate(
-    const ublas::vector<FloatT>& mean,
-    const ublas::triangular_matrix<FloatT, ublas::lower>& cholesky)
+template<class VectorT, class MatrixT>
+inline VectorT RandomPrototype<EngineT>::GaussianMultiVariate(const VectorT& mean, const MatrixT& cholesky)
 {
     assert( mean.size() == cholesky.size1() );
 
-    ublas::vector<FloatT> noise( mean.size() );
+    VectorT noise( mean.size() );
 
-    std::normal_distribution<FloatT> dist;
+    std::normal_distribution<typename VectorT::value_type> dist;
     for (size_t i = 0; i < noise.size(); ++i)
         noise[i] = dist(*this);
 
@@ -297,16 +294,14 @@ inline ublas::vector<FloatT> RandomPrototype<EngineT>::GaussianMultiVariate(
 }
 
 template<class EngineT>
-template<class FloatT>
-inline ublas::vector<FloatT> RandomPrototype<EngineT>::GaussianMultiVariate(
-    ublas::vector<FloatT> mean,
-    ublas::vector<FloatT> sigma)
+template<class VectorT>
+inline VectorT RandomPrototype<EngineT>::GaussianMultiVariate(const VectorT& mean, const VectorT& sigma)
 {
     assert( mean.size() == sigma.size1() );
 
-    ublas::vector<FloatT> noise( mean.size() );
+    VectorT noise( mean.size() );
 
-    std::normal_distribution<FloatT> dist;
+    std::normal_distribution<typename VectorT::value_type> dist;
     for (size_t i = 0; i < noise.size(); ++i)
         noise[i] = dist(*this);
 
@@ -369,6 +364,6 @@ inline typename RandomPrototype<EngineT>::result_type RandomPrototype<EngineT>::
  */
 using Random = RandomPrototype<std::mt19937>;
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */
 
 #endif /* FMCMC_RANDOM_H_ */

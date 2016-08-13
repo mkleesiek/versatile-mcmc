@@ -5,14 +5,14 @@
  * @author marco@kleesiek.com
  */
 
-#include <fmcmc/metropolis.h>
-#include <fmcmc/proposal.h>
+#include <vmcmc/metropolis.h>
+#include <vmcmc/proposal.h>
 
 #include <algorithm>
 
 using namespace std;
 
-namespace fmcmc
+namespace vmcmc
 {
 
 MetropolisHastings::MetropolisHastings() :
@@ -39,9 +39,24 @@ bool MetropolisHastings::Initialize()
     fSampledChains.assign( nChains, Chain() );
     fDynamicParamConfigs.assign( nChains, fParameterConfig );
 
-    for (auto& chain : fSampledChains) {
-        Sample randomizedStartPoint = startPoint;
-        chain.push_back( startPoint );
+    if (fStartPointRandomization != 0.0) {
+        fParameterConfig.ScaleErrors( fStartPointRandomization );
+
+        ProposalGaussian gaussianKernel;
+        gaussianKernel.SetParameterConfig(fParameterConfig);
+
+        for (auto& chain : fSampledChains) {
+            Sample randomizedStartPoint;
+            gaussianKernel.Transition( startPoint.Values(), randomizedStartPoint.Values() );
+            EvaluateLikelihood( randomizedStartPoint );
+            chain.push_back( randomizedStartPoint );
+        }
+        fParameterConfig.ScaleErrors( 1.0 / fStartPointRandomization );
+    }
+    else {
+        EvaluateLikelihood( startPoint );
+        for (auto& chain : fSampledChains)
+            chain.push_back( startPoint );
     }
 
     if (!fProposalFunction)
@@ -106,4 +121,4 @@ double MetropolisHastings::Advance()
     return 0.0;
 }
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */

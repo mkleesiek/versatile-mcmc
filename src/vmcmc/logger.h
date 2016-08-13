@@ -42,7 +42,7 @@
 #include <iostream>
 #include <sstream>
 
-namespace fmcmc {
+namespace vmcmc {
 
 /**
  * Very primitive MACRO-centered logging facility.
@@ -123,19 +123,19 @@ private:
     bool fColouredOutput;
 };
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */
 
 // PRIVATE MACROS
 
-#define __LOG_LOCATION         fmcmc::Logger::Location(__FILE__, __FUNC__, __LINE__)
+#define __LOG_LOCATION         vmcmc::Logger::Location(__FILE__, __FUNC__, __LINE__)
 
-#define __LOG_DEFINE_2(I,K)    static fmcmc::Logger I(K);
-#define __LOG_DEFINE_1(K)      static fmcmc::Logger sLocalLoggerInstance(K);
+#define __LOG_DEFINE_2(I,K)    static vmcmc::Logger I(K);
+#define __LOG_DEFINE_1(K)      static vmcmc::Logger sLocalLoggerInstance(K);
 
 #define __LOG_3(I,L,M) \
 { \
-    if (I.IsLevelEnabled(fmcmc::Logger::ELevel::L)) { \
-        I.StartMessage(fmcmc::Logger::ELevel::L, __LOG_LOCATION); \
+    if (I.IsLevelEnabled(vmcmc::Logger::ELevel::L)) { \
+        I.StartMessage(vmcmc::Logger::ELevel::L, __LOG_LOCATION); \
         I.Log() << M; \
         I.EndMessage(); \
     } \
@@ -143,11 +143,11 @@ private:
 
 #define __LOG_ONCE_3(I,L,M) \
 { \
-    if (I.IsLevelEnabled(fmcmc::Logger::ELevel::L)) { \
+    if (I.IsLevelEnabled(vmcmc::Logger::ELevel::L)) { \
         static bool _sLogMarker = false; \
         if (!_sLogMarker) { \
             _sLogMarker = true; \
-            I.StartMessage(fmcmc::Logger::ELevel::L, __LOG_LOCATION); \
+            I.StartMessage(vmcmc::Logger::ELevel::L, __LOG_LOCATION); \
             I.Log() << M; \
             I.EndMessage(); \
         } \

@@ -5,19 +5,19 @@
  * @author marco@kleesiek.com
  */
 
-#include <fmcmc/parameter.h>
-#include <fmcmc/exception.h>
-#include <fmcmc/numeric.h>
-#include <fmcmc/stringutils.h>
-#include <fmcmc/logger.h>
+#include <vmcmc/parameter.h>
+#include <vmcmc/exception.h>
+#include <vmcmc/numeric.h>
+#include <vmcmc/stringutils.h>
+#include <vmcmc/logger.h>
 
 using namespace std;
 using namespace boost;
 
-namespace fmcmc
+namespace vmcmc
 {
 
-LOG_DEFINE("fmcmc.parameter");
+LOG_DEFINE("vmcmc.parameter");
 
 Parameter Parameter::FixedParameter(const string& name, double startValue)
 {
@@ -145,18 +145,18 @@ double ParameterSet::GetCorrelation(size_t p1, size_t p2) const
     return fCorrelations(p1, p2);
 }
 
-ublas::vector<double> ParameterSet::GetStartValues() const
+Vector ParameterSet::GetStartValues() const
 {
-    ublas::vector<double> result( size() );
+    Vector result( size() );
     for (size_t pIndex = 0; pIndex < size(); pIndex++) {
         result[pIndex] = GetParameter(pIndex).GetStartValue();
     }
     return result;
 }
 
-ublas::triangular_matrix<double, ublas::lower> ParameterSet::GetCovarianceMatrix() const
+MatrixLower ParameterSet::GetCovarianceMatrix() const
 {
-    ublas::triangular_matrix<double, ublas::lower> result( size(), size() );
+    MatrixLower result( size(), size() );
 
     for (size_t i = 0; i < size(); ++i) {
         for (size_t j = 0; j <= i; ++j) {
@@ -168,11 +168,11 @@ ublas::triangular_matrix<double, ublas::lower> ParameterSet::GetCovarianceMatrix
     return result;
 }
 
-ublas::triangular_matrix<double, ublas::lower> ParameterSet::GetCholeskyDecomp() const
+MatrixLower ParameterSet::GetCholeskyDecomp() const
 {
-    const ublas::triangular_matrix<double, ublas::lower> cov = GetCovarianceMatrix();
+    const MatrixLower cov = GetCovarianceMatrix();
 
-    ublas::triangular_matrix<double, ublas::lower> result(cov.size1(), cov.size2());
+    MatrixLower result(cov.size1(), cov.size2());
 
     const size_t statusDecomp = choleskyDecompose(cov, result);
     if (statusDecomp != 0) {
@@ -195,4 +195,4 @@ void ParameterSet::ScaleErrors(double scaling)
         param.SetAbsoluteError( scaling * param.GetAbsoluteError() );
 }
 
-} /* namespace fmcmc */
+} /* namespace vmcmc */
