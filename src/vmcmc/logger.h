@@ -45,7 +45,27 @@
 namespace vmcmc {
 
 /**
- * Very primitive MACRO-centered logging facility.
+ * Very primitive MACRO-centered logging facility. It should primarily be used
+ * through MACROs:
+ *
+ * @code{.cpp}
+ * // define a static logger instance:
+ * LOG_DEFINE("some.logger.name");
+ *
+ * // log an expression with given log-level
+ * LOG(Info, "Some example log: " << someVariable << " more text ...");
+ *
+ * // log an expression only once during execution
+ * LOG_ONCE(Info, "This is displayed only once.");
+ *
+ * // make an assertion and abort if false:
+ * LOG_ASSERT( someCondition, "That assertion just failed." );
+ * @endcode
+ *
+ * Available log levels are: Trace, Debug, Info, Warn, Error, Fatal
+ *
+ * By default, if the library is compiled in release-mode, Trace and Debug
+ * outputs are silenced.
  * No external configuration mechanisms (yet).
  */
 class Logger

@@ -45,7 +45,7 @@ protected:
     std::shared_ptr<Proposal> fProposalFunction;
 
     std::vector<double> fBetas;
-    std::vector<ParameterSet> fDynamicParamConfigs;
+    std::vector<ParameterList> fDynamicParamConfigs;
     std::vector<Chain> fSampledChains;
 };
 

@@ -28,9 +28,8 @@ Algorithm::Algorithm() :
 Algorithm::~Algorithm()
 { }
 
-void Algorithm::SetParameterConfig(const ParameterSet& paramConfig)
+void Algorithm::SetParameterConfig(const ParameterList& paramConfig)
 {
-    // TODO: perform consistency checks
     fParameterConfig = paramConfig;
 }
 
@@ -41,37 +40,56 @@ bool Algorithm::Initialize()
         return false;
     }
 
+    // TODO: perform consistency checks on the parameter list
+
     return true;
 }
 
-void Algorithm::Evaluate(const std::vector<double>& paramValues,
-        double& likelihood, double& negLogLikelihood, double& prior) const
+double Algorithm::EvaluatePrior(const std::vector<double>& paramValues) const
 {
-    LOG_ASSERT(fLikelihood || fNegLogLikelihood, "No target function specified.");
-
-    if (fLikelihood) {
-        likelihood = fLikelihood( paramValues );
-        negLogLikelihood = -log(likelihood);
-    }
-    else {
-        negLogLikelihood = fNegLogLikelihood( paramValues );
-        likelihood = exp(-negLogLikelihood);
-    }
-
-    prior = (fPrior) ? fPrior( paramValues ) : 1.0;
+    return (fPrior) ? fPrior( paramValues ) : 1.0;
 }
 
-void Algorithm::Evaluate(Sample& sample) const
+double Algorithm::EvaluateLikelihood(const std::vector<double>& paramValues) const
 {
     LOG_ASSERT(fLikelihood || fNegLogLikelihood, "No target function specified.");
+
+    return (fLikelihood) ? fLikelihood( paramValues ) : exp( -fNegLogLikelihood( paramValues ) );
+}
+
+double Algorithm::EvaluateNegLogLikelihood(const std::vector<double>& paramValues) const
+{
+    LOG_ASSERT(fLikelihood || fNegLogLikelihood, "No target function specified.");
+
+    return (fNegLogLikelihood) ? fNegLogLikelihood( paramValues ) : -log(fLikelihood( paramValues ));
+}
+
+bool Algorithm::Evaluate(Sample& sample) const
+{
+    LOG_ASSERT(fLikelihood || fNegLogLikelihood, "No target function specified.");
+
+    sample.Reset();
 
     const std::vector<double>& paramValues = sample.Values().data();
 
-    const double likelihood = (fLikelihood) ? fLikelihood(paramValues) : exp(-fNegLogLikelihood(paramValues));
-    sample.SetLikelihood( likelihood );
-
     const double prior = (fPrior) ? fPrior( paramValues ) : 1.0;
+    if (prior == 0.0)
+        return false;
+
     sample.SetPrior( prior );
+
+    if (fLikelihood) {
+        const double likelihood = fLikelihood( paramValues );
+        sample.SetLikelihood( likelihood );
+        sample.SetNegLogLikelihood( -log(likelihood) );
+    }
+    else {
+        const double negLogLikelihood = fNegLogLikelihood( paramValues );
+        sample.SetNegLogLikelihood( negLogLikelihood );
+        sample.SetLikelihood( exp(-negLogLikelihood) );
+    }
+
+    return true;
 }
 
 void Algorithm::Run()

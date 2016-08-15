@@ -34,8 +34,8 @@ public:
     Algorithm();
     virtual ~Algorithm();
 
-    void SetParameterConfig(const ParameterSet& paramConfig);
-    const ParameterSet& GetParameterConfig() const { return fParameterConfig; }
+    void SetParameterConfig(const ParameterList& paramConfig);
+    const ParameterList& GetParameterConfig() const { return fParameterConfig; }
 
     template<class FunctionT>
     void SetPrior(FunctionT prior) { fPrior = prior; }
@@ -49,15 +49,25 @@ public:
     size_t GetTotalLength() const { return fTotalLength; }
 
     /**
-     * Evaluates the likelihood or -log(likelihood) function for the given
-     * parameter values.
-     * @param[in] paramValues
-     * @param[out] likelihood
-     * @param[out] negLogLikelihood
-     * @param[out] prior
+     * Evaluate the prior for the given parameter values.
+     * @param paramValues
+     * @return The prior value. Returns 1.0 if no priors were defined.
      */
-    void Evaluate(const std::vector<double>& paramValues,
-        double& likelihood, double& negLogLikelihood, double& prior) const;
+    double EvaluatePrior(const std::vector<double>& paramValues) const;
+
+    /**
+     * Evaluate the target function likelihood for the given parameter values.
+     * @param paramValues
+     * @return The likelihood value.
+     */
+    double EvaluateLikelihood(const std::vector<double>& paramValues) const;
+
+    /**
+     * Evaluate the target function -log(likelihood) for the given parameter values.
+     * @param paramValues
+     * @return The negative logarithm (natural base) of the likelihood.
+     */
+    double EvaluateNegLogLikelihood(const std::vector<double>& paramValues) const;
 
     void Run();
 
@@ -69,9 +79,17 @@ public:
     virtual const Chain& GetChain(size_t cIndex = 0) = 0;
 
 protected:
-    void Evaluate(Sample& sample) const;
 
-    ParameterSet fParameterConfig;
+    /**
+     * Evalutate the target function prior, likelihood and -log(likelihood)
+     * at the position defined by the @p sample, and update the \p sample.
+     * @param sample
+     * @return False if the likelihood was not evaluated (e.g. due to a zero
+     * prior).
+     */
+    bool Evaluate(Sample& sample) const;
+
+    ParameterList fParameterConfig;
     std::function<double (const std::vector<double>&)> fPrior;
 
     std::function<double (const std::vector<double>&)> fLikelihood;

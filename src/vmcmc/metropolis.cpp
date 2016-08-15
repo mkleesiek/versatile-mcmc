@@ -7,6 +7,7 @@
 
 #include <vmcmc/metropolis.h>
 #include <vmcmc/proposal.h>
+#include <vmcmc/random.h>
 #include <vmcmc/logger.h>
 
 #include <algorithm>
@@ -64,71 +65,55 @@ double MetropolisHastings::Advance()
 {
     LOG_ASSERT( fProposalFunction, "No proposal function defined." );
 
+    bool chain0Accepted = false;
+
     for (size_t cIndex = 0; cIndex < fSampledChains.size(); cIndex++) {
 
         auto& chain = fSampledChains[cIndex];
         LOG_ASSERT( !chain.empty(), "No starting point in chain " << cIndex << "." );
 
-        const Sample& currentState = chain.back();
-        Sample nextState( currentState.size() );
+        const Sample& previousState = chain.back();
 
+        // prepare the upcoming sample
+        Sample nextState( previousState );
+        nextState.IncrementGeneration();
+        nextState.Reset();
+
+        // propose the next point in the parameter space
         fProposalFunction->SetParameterConfig( fDynamicParamConfigs[cIndex] );
-        const double proposalAsymmetry = fProposalFunction->Transition( currentState, nextState );
+        const double proposalAsymmetry = fProposalFunction->Transition( previousState, nextState );
 
+        // attempt reflection if limits are exceeded
+        fDynamicParamConfigs[cIndex].ReflectFromLimits( nextState.Values() );
+
+        // evaluate likelihood and prior
         Evaluate( nextState );
+
+        double mhRatio = 0.0;
+
+        if (nextState.GetPrior() > 0.0) {
+            // calculate Metropolis-Hastings ratio
+            mhRatio = std::min(1.0, proposalAsymmetry
+                * nextState.GetPrior()/previousState.GetPrior()
+                * exp( fBetas[cIndex] * (previousState.GetNegLogLikelihood() - nextState.GetNegLogLikelihood()) )
+            );
+        }
+
+        const bool proposalAccepted = Random::Instance().Bool( mhRatio );
+
+        if (proposalAccepted) {
+            chain.push_back( nextState );
+            if (cIndex == 0)
+                chain0Accepted = true;
+        }
+        else {
+            nextState = previousState;
+            nextState.IncrementGeneration();
+            chain.push_back( nextState );
+        }
     }
 
-    /*
-
-    // regular MH algorithm
-
-    fNextStateBuffer = fCurrentState;
-    const double transRatio = fProposal->Transition(fCurrentState, fNextStateBuffer);
-
-    const double priorCurrent = GetParameterConfig().Prior(fCurrentState);
-    const double priorNext = GetParameterConfig().Prior(fNextStateBuffer);
-
-    if (priorCurrent <= 0.0)
-        return 1.0;
-    else if (priorNext <= 0.0)
-        return 0.0;
-    else {
-        if (GetCurveFitter()->DoesLikelihoodFluctuate())
-            UpdateNegLogLikelihood(fCurrentState);
-
-        UpdateNegLogLikelihood(fNextStateBuffer);
-        const double mhRatio = min(1.0, transRatio * priorNext/priorCurrent * exp( fBeta * (fCurrentState.GetNegLogLikelihood() - fNextStateBuffer.GetNegLogLikelihood()) ) );
-
-//        if (fDoBurnIn && mhRatio < 1.0)
-//            return 0.0;
-        return mhRatio;
-    }
-
-
-
-    assert(GetParameterConfig().Size() == NumberOfParameters() && fSavedStates.Size() > 0 );
-
-    const double acceptanceProb = NextStepProbability();
-
-    const bool accepted = (acceptanceProb >= 1.0 || KRandom::GetInstance().Bool(acceptanceProb));
-
-    if (accepted) {
-        fCurrentState = fNextStateBuffer;
-//      KDEBUG(i << ": Accepted. p=" << acceptanceProb);
-    }
-//    else {
-//        KDEBUG(i << ": Denied. p=" << acceptanceProb);
-//    }
-
-    fCurrentState.IncrementTime();
-    fNextStateBuffer.IncrementTime();
-
-    return (accepted) ? 1.0 : 0.0;
-
-
-    */
-
-    return 0.0;
+    return (chain0Accepted) ? 1.0 : 0.0;
 }
 
 } /* namespace vmcmc */

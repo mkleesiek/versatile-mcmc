@@ -60,8 +60,8 @@ void Parameter::CheckLimits()
     if (!IsInsideLimits(fStartValue)) {
         throw Exception() << "Start value (" << fStartValue << ") of fit parameter '"
             << fName << "' is not inside its specified limits ["
-            << fLowerLimit.get_value_or( NaN<double>() ) << ", "
-            << fUpperLimit.get_value_or( NaN<double>() ) << "].";
+            << fLowerLimit.get_value_or( NaN() ) << ", "
+            << fUpperLimit.get_value_or( NaN() ) << "].";
     }
 }
 
@@ -71,19 +71,12 @@ bool Parameter::IsInsideLimits(double someValue) const
            (!fUpperLimit || someValue <= fUpperLimit.get());
 }
 
-bool Parameter::ConstrainToLimits(double& someValue) const
+void Parameter::ConstrainToLimits(double& someValue) const
 {
-    if (fLowerLimit && someValue < fLowerLimit.get()) {
+    if (fLowerLimit && someValue < fLowerLimit.get())
         someValue = fLowerLimit.get();
-        return true;
-    }
-    else if (fUpperLimit && someValue > fUpperLimit.get()) {
+    else if (fUpperLimit && someValue > fUpperLimit.get())
         someValue = fUpperLimit.get();
-        return true;
-    }
-    else {
-        return false;
-    }
 }
 
 bool Parameter::ReflectFromLimits(double& someValue) const
@@ -105,27 +98,29 @@ bool Parameter::ReflectFromLimits(double& someValue) const
     }
 }
 
-ParameterSet::ParameterSet() :
+ParameterList::ParameterList() :
     fErrorScaling( 1.0 )
 { }
 
-ParameterSet::~ParameterSet()
+ParameterList::~ParameterList()
 { }
 
-void ParameterSet::SetParameter(size_t pIndex, const Parameter& param)
+void ParameterList::SetParameter(size_t pIndex, const Parameter& param)
 {
-    if (fParameters.size() <= pIndex)
+    if (fParameters.size() <= pIndex) {
+        // resize parameter vector
         fParameters.resize( pIndex+1, Parameter::FixedParameter("", 0.0) );
+        // trigger resize of correlation matrix
+        SetCorrelation(pIndex, pIndex, 1.0);
+    }
 
     fParameters[pIndex] = param;
 }
 
-void ParameterSet::SetCorrelation(size_t p1, size_t p2, double correlation)
+void ParameterList::SetCorrelation(size_t p1, size_t p2, double correlation)
 {
     if (p1 < p2)
         swap(p1, p2);
-    else if (p1 == p2)
-        return;
 
     // ensure minimum size
     const size_t currentSize = fCorrelations.size1();
@@ -138,12 +133,15 @@ void ParameterSet::SetCorrelation(size_t p1, size_t p2, double correlation)
                 fCorrelations(i, j) = 0.0;
     }
 
+    if (p1 == p2)
+        return;
+
     limit(correlation, -1.0, 1.0);
 
     fCorrelations(p1, p2) = correlation;
 }
 
-double ParameterSet::GetCorrelation(size_t p1, size_t p2) const
+double ParameterList::GetCorrelation(size_t p1, size_t p2) const
 {
     if (p1 < p2)
         swap(p1, p2);
@@ -153,7 +151,7 @@ double ParameterSet::GetCorrelation(size_t p1, size_t p2) const
     return fCorrelations(p1, p2);
 }
 
-Vector ParameterSet::GetStartValues(bool randomized) const
+Vector ParameterList::GetStartValues(bool randomized) const
 {
     Vector startPoint( size() );
 
@@ -168,7 +166,7 @@ Vector ParameterSet::GetStartValues(bool randomized) const
     return startPoint;
 }
 
-Vector ParameterSet::GetErrors() const
+Vector ParameterList::GetErrors() const
 {
     Vector result( size() );
     for (size_t pIndex = 0; pIndex < size(); pIndex++)
@@ -176,7 +174,7 @@ Vector ParameterSet::GetErrors() const
     return result;
 }
 
-MatrixLower ParameterSet::GetCovarianceMatrix() const
+MatrixLower ParameterList::GetCovarianceMatrix() const
 {
     MatrixLower result( size(), size() );
 
@@ -190,7 +188,7 @@ MatrixLower ParameterSet::GetCovarianceMatrix() const
     return result;
 }
 
-MatrixLower ParameterSet::GetCholeskyDecomp() const
+MatrixLower ParameterList::GetCholeskyDecomp() const
 {
     const MatrixLower cov = GetCovarianceMatrix();
 
@@ -211,7 +209,7 @@ MatrixLower ParameterSet::GetCholeskyDecomp() const
     return result;
 }
 
-bool ParameterSet::IsInsideLimits(Vector somePoint) const
+bool ParameterList::IsInsideLimits(Vector somePoint) const
 {
     LOG_ASSERT( somePoint.size() == fParameters.size() );
 
@@ -223,32 +221,26 @@ bool ParameterSet::IsInsideLimits(Vector somePoint) const
     return true;
 }
 
-bool ParameterSet::ConstrainToLimits(Vector& somePoint) const
+void ParameterList::ConstrainToLimits(Vector& somePoint) const
 {
     LOG_ASSERT( somePoint.size() == fParameters.size() );
 
-    bool hadToBeConstrained = false;
-
-    for (size_t i = 0; i < fParameters.size(); i++) {
-        if (fParameters[i].ConstrainToLimits( somePoint[i] ))
-            hadToBeConstrained = true;
-    }
-
-    return hadToBeConstrained;
+    for (size_t i = 0; i < fParameters.size(); i++)
+        fParameters[i].ConstrainToLimits( somePoint[i] );
 }
 
-bool ParameterSet::ReflectFromLimits(Vector& somePoint) const
+bool ParameterList::ReflectFromLimits(Vector& somePoint) const
 {
     LOG_ASSERT( somePoint.size() == fParameters.size() );
 
-    bool hadToBeReflected = false;
+    bool reflectionSuccessful = false;
 
     for (size_t i = 0; i < fParameters.size(); i++) {
         if (fParameters[i].ReflectFromLimits( somePoint[i] ))
-            hadToBeReflected = true;
+            reflectionSuccessful = true;
     }
 
-    return hadToBeReflected;
+    return reflectionSuccessful;
 }
 
 } /* namespace vmcmc */

@@ -14,7 +14,7 @@ namespace vmcmc {
 
 /**
  * Typetrait checking whether the passed template argument denotes an STL like
- * container. In that case, the static #is_container::value property evaluates
+ * container. In that case, the static ::value member variable evaluates
  * to true.
  * @tparam T
  */
@@ -60,14 +60,13 @@ struct is_container
     static constexpr bool value = test<test_type>(nullptr);
 };
 
-/**
- * @internal
- */
+/// @cond
 template <>
 struct is_container<std::string>
 {
     static constexpr bool value = false;
 };
+/// @endcond
 
 }
 

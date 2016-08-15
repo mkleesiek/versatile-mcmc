@@ -16,7 +16,7 @@ LOG_DEFINE("vmcmc.example")
 using namespace std;
 using namespace vmcmc;
 
-double function(const vector<double>& params) {
+double targetFunction(const vector<double>& params) {
     const double x = params[0];
     constexpr double mean = 0.0;
     constexpr double sigma = 1.0;
@@ -27,26 +27,19 @@ int main(int /*argc*/, char* /*argv*/[]){
 
     Random::Instance().SetSeed(0);
 
-    ParameterSet paramConfig;
+    ParameterList paramConfig;
     paramConfig.SetParameter(0, Parameter("mean", 0.0, 1.0) );
 
     MetropolisHastings mcmc;
     mcmc.SetParameterConfig(paramConfig);
     mcmc.SetBetas( {1.0} );
+    mcmc.SetLikelihoodFunction( targetFunction );
 
     LOG(Info, "Starting example Metropolis ...");
 
     mcmc.Run();
 
     LOG(Info, "Done.");
-
-    double test = 0.0;
-
-    for (uint64_t i = 0; i < 100000000; ++i) {
-        test += exp( 1.0 / (double) i );
-    }
-
-    LOG(Info, "Test finished.");
 
     return 0;
 }
