@@ -8,6 +8,8 @@
 #ifndef FMCMC_RANDOM_H_
 #define FMCMC_RANDOM_H_
 
+#include <vmcmc/logger.h>
+
 #include <random>
 #include <type_traits>
 #include <cmath>
@@ -282,7 +284,8 @@ template<class EngineT>
 template<class VectorT, class MatrixT>
 inline VectorT RandomPrototype<EngineT>::GaussianMultiVariate(const VectorT& mean, const MatrixT& cholesky)
 {
-    assert( mean.size() == cholesky.size1() );
+    LOG_DEFINE("vmcmc.random");
+    LOG_ASSERT( mean.size() == cholesky.size1() );
 
     VectorT noise( mean.size() );
 
@@ -297,7 +300,8 @@ template<class EngineT>
 template<class VectorT>
 inline VectorT RandomPrototype<EngineT>::GaussianMultiVariate(const VectorT& mean, const VectorT& sigma)
 {
-    assert( mean.size() == sigma.size1() );
+    LOG_DEFINE("vmcmc.random");
+    LOG_ASSERT( mean.size() == sigma.size1() );
 
     VectorT noise( mean.size() );
 

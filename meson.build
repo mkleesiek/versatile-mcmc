@@ -39,8 +39,8 @@ if tbb_dep.found() and get_option('use_tbb')
     add_global_arguments('-DUSE_TBB', language : 'cpp')
 endif
 
-if buildtype.startswith('debug')
-    add_global_arguments('-DDEBUG', language : 'cpp')
+if not buildtype.startswith('debug')
+    add_global_arguments('-DNDEBUG', language : 'cpp')
 endif
 
 # define include directories

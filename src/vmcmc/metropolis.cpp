@@ -7,6 +7,7 @@
 
 #include <vmcmc/metropolis.h>
 #include <vmcmc/proposal.h>
+#include <vmcmc/logger.h>
 
 #include <algorithm>
 
@@ -14,6 +15,8 @@ using namespace std;
 
 namespace vmcmc
 {
+
+LOG_DEFINE("vmcmc.metropolis");
 
 MetropolisHastings::MetropolisHastings() :
     fRandomizeStartPoint( false ),
@@ -25,6 +28,9 @@ MetropolisHastings::~MetropolisHastings()
 
 bool MetropolisHastings::Initialize()
 {
+    if (!Algorithm::Initialize())
+        return false;
+
     if (fBetas.empty())
         fBetas = { 1.0 };
 
@@ -37,13 +43,13 @@ bool MetropolisHastings::Initialize()
     if (fRandomizeStartPoint) {
         for (auto& chain : fSampledChains) {
             Sample startPoint( GetParameterConfig().GetStartValues(true) );
-            EvaluateLikelihood( startPoint );
+            Evaluate( startPoint );
             chain.push_back( startPoint );
         }
     }
     else {
         Sample startPoint( GetParameterConfig().GetStartValues(false) );
-        EvaluateLikelihood( startPoint );
+        Evaluate( startPoint );
         for (auto& chain : fSampledChains)
             chain.push_back( startPoint );
     }
@@ -56,6 +62,21 @@ bool MetropolisHastings::Initialize()
 
 double MetropolisHastings::Advance()
 {
+    LOG_ASSERT( fProposalFunction, "No proposal function defined." );
+
+    for (size_t cIndex = 0; cIndex < fSampledChains.size(); cIndex++) {
+
+        auto& chain = fSampledChains[cIndex];
+        LOG_ASSERT( !chain.empty(), "No starting point in chain " << cIndex << "." );
+
+        const Sample& currentState = chain.back();
+        Sample nextState( currentState.size() );
+
+        fProposalFunction->SetParameterConfig( fDynamicParamConfigs[cIndex] );
+        const double proposalAsymmetry = fProposalFunction->Transition( currentState, nextState );
+
+        Evaluate( nextState );
+    }
 
     /*
 

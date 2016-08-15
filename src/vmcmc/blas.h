@@ -8,6 +8,8 @@
 #ifndef FMCMC_BLAS_H_
 #define FMCMC_BLAS_H_
 
+#include <vmcmc/logger.h>
+
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/vector_expression.hpp>
 #include <boost/numeric/ublas/vector_proxy.hpp>
@@ -38,11 +40,12 @@ using MatrixUnitLower = ublas::triangular_matrix<double, ublas::unit_lower, ubla
 template <class InputMatrix, class OutputTriangularMatrix>
 size_t choleskyDecompose(const InputMatrix& A, OutputTriangularMatrix& L)
 {
+    LOG_DEFINE("vmcmc.blas");
     using namespace boost::numeric::ublas;
 
-    assert(A.size1() == A.size2());
-    assert(L.size1() == L.size2());
-    assert(A.size1() == L.size1());
+    LOG_ASSERT(A.size1() == A.size2());
+    LOG_ASSERT(L.size1() == L.size2());
+    LOG_ASSERT(A.size1() == L.size1());
 
     const size_t n = A.size1();
 

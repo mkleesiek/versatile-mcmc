@@ -158,7 +158,7 @@ Vector ParameterSet::GetStartValues(bool randomized) const
     Vector startPoint( size() );
 
     for (size_t pIndex = 0; pIndex < size(); pIndex++)
-        startPoint[pIndex] = GetParameter(pIndex).GetStartValue();
+        startPoint[pIndex] = fParameters[pIndex].GetStartValue();
 
     if (randomized)
         startPoint = Random::Instance().GaussianMultiVariate(startPoint, GetCholeskyDecomp());
@@ -172,7 +172,7 @@ Vector ParameterSet::GetErrors() const
 {
     Vector result( size() );
     for (size_t pIndex = 0; pIndex < size(); pIndex++)
-        result[pIndex] = fErrorScaling * GetParameter(pIndex).GetAbsoluteError();
+        result[pIndex] = fErrorScaling * fParameters[pIndex].GetAbsoluteError();
     return result;
 }
 
@@ -213,7 +213,7 @@ MatrixLower ParameterSet::GetCholeskyDecomp() const
 
 bool ParameterSet::IsInsideLimits(Vector somePoint) const
 {
-    assert( somePoint.size() == fParameters.size() );
+    LOG_ASSERT( somePoint.size() == fParameters.size() );
 
     for (size_t i = 0; i < fParameters.size(); i++) {
         if (!fParameters[i].IsInsideLimits( somePoint[i] ))
@@ -225,7 +225,7 @@ bool ParameterSet::IsInsideLimits(Vector somePoint) const
 
 bool ParameterSet::ConstrainToLimits(Vector& somePoint) const
 {
-    assert( somePoint.size() == fParameters.size() );
+    LOG_ASSERT( somePoint.size() == fParameters.size() );
 
     bool hadToBeConstrained = false;
 
@@ -239,7 +239,7 @@ bool ParameterSet::ConstrainToLimits(Vector& somePoint) const
 
 bool ParameterSet::ReflectFromLimits(Vector& somePoint) const
 {
-    assert( somePoint.size() == fParameters.size() );
+    LOG_ASSERT( somePoint.size() == fParameters.size() );
 
     bool hadToBeReflected = false;
 

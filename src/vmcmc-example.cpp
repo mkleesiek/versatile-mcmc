@@ -38,6 +38,16 @@ int main(int /*argc*/, char* /*argv*/[]){
 
     mcmc.Run();
 
+    LOG(Info, "Done.");
+
+    double test = 0.0;
+
+    for (uint64_t i = 0; i < 100000000; ++i) {
+        test += exp( 1.0 / (double) i );
+    }
+
+    LOG(Info, "Test finished.");
+
     return 0;
 }
 

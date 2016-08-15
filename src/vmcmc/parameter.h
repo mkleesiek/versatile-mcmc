@@ -10,7 +10,7 @@
 
 #include <string>
 #include <boost/optional.hpp>
-#include "blas.h"
+#include <vmcmc/blas.h>
 
 namespace vmcmc
 {
@@ -69,7 +69,7 @@ public:
     virtual ~ParameterSet();
 
     void SetParameter(size_t pIndex, const Parameter& param);
-    const Parameter& GetParameter(size_t pIndex) const { return fParameters[pIndex]; }
+//    const Parameter& GetParameter(size_t pIndex) const { return fParameters[pIndex]; }
 
     size_t size() const { return fParameters.size(); }
     Parameter& operator[](size_t pIndex) { return fParameters[pIndex]; }

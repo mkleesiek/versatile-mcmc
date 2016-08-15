@@ -8,8 +8,9 @@
 #ifndef VMCMC_PROPOSAL_H_
 #define VMCMC_PROPOSAL_H_
 
+#include <vmcmc/sample.h>
 #include <vmcmc/parameter.h>
-#include "blas.h"
+#include <vmcmc/blas.h>
 
 namespace vmcmc
 {
@@ -33,6 +34,8 @@ public:
      */
     virtual double Transition(const Vector& s1, Vector& s2) const = 0;
 
+    double Transition(const Sample& s1, Sample& s2);
+
     virtual void SetParameterConfig(const ParameterSet& /*paramConfig*/) { };
 };
 
@@ -51,12 +54,14 @@ public:
 
     void SetParameterConfig(const ParameterSet& paramConfig) override;
 
-//    void SetStandardDeviations(const ublas::vector<double>& errors);
-//    void SetCovarianceMatrix(const ublas::triangular_matrix<double, ublas::lower>& cov);
-
 protected:
     MatrixLower fCholeskyDecomp;
 };
+
+inline double Proposal::Transition(const Sample& s1, Sample& s2)
+{
+    return Transition(s1.Values(), s2.Values());
+}
 
 } /* namespace vmcmc */
 

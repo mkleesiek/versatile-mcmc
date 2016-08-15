@@ -61,9 +61,7 @@ public:
      * Not to be used directly by the user.
      */
     struct Location {
-        Location(const char* const fileName = "", const char* const functionName = "", int lineNumber = -1) :
-            fLineNumber(lineNumber), fFileName(fileName), fFunctionName(functionName)
-            { }
+        Location(const char* const fileName = "", const char* const functionName = "", int lineNumber = -1);
         int fLineNumber;
         std::string fFileName;
         std::string fFunctionName;
@@ -112,7 +110,7 @@ public:
      */
     void StartMessage(ELevel level, const Location& loc = Location());
 
-    std::ostream& Log();
+    std::ostream& Log() { return *fActiveStream; }
 
     void EndMessage();
 
@@ -154,14 +152,24 @@ private:
     } \
 }
 
-#define __LOG_2(L,M)       __LOG_3(sLocalLoggerInstance,L,M)
-#define __LOG_1(M)         __LOG_3(sLocalLoggerInstance,Debug,M)
+#define __LOG_ASSERT_3(I,C,M) \
+{ \
+    if (I.IsLevelEnabled(vmcmc::Logger::ELevel::Error) && !(C)) { \
+        I.StartMessage(vmcmc::Logger::ELevel::Error, __LOG_LOCATION); \
+        I.Log() << "Assertion '(" << TOSTRING(C) << ")' failed. " << M; \
+        I.EndMessage(); \
+        abort(); \
+    } \
+}
 
-#define __LOG_ONCE_2(L,M)       __LOG_ONCE_3(sLocalLoggerInstance,L,M)
-#define __LOG_ONCE_1(M)         __LOG_ONCE_3(sLocalLoggerInstance,Debug,M)
+#define __LOG_2(L,M)          __LOG_3(sLocalLoggerInstance,L,M)
+#define __LOG_1(M)            __LOG_3(sLocalLoggerInstance,Debug,M)
 
-#define __LOG_ASSERT_3(I,C,M)       if (!(C)) { __LOG_3(I,Error,M) }
-#define __LOG_ASSERT_2(C,M)         if (!(C)) { __LOG_3(sLocalLoggerInstance,Error,M) }
+#define __LOG_ONCE_2(L,M)     __LOG_ONCE_3(sLocalLoggerInstance,L,M)
+#define __LOG_ONCE_1(M)       __LOG_ONCE_3(sLocalLoggerInstance,Debug,M)
+
+#define __LOG_ASSERT_1(C)     __LOG_ASSERT_3(sLocalLoggerInstance,C,"")
+#define __LOG_ASSERT_2(C,M)   __LOG_ASSERT_3(sLocalLoggerInstance,C,M)
 
 
 // PUBLIC MACROS

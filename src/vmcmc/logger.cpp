@@ -11,6 +11,7 @@
 #include <iomanip>
 #include <map>
 #include <utility>
+#include <chrono>
 
 // COLOR DEFINITIONS
 #define COLOR_NORMAL "0"
@@ -79,16 +80,43 @@ const char* level2Str(Logger::ELevel level)
     }
 }
 
+void printTime(ostream& strm)
+{
+    using namespace std::chrono;
+
+    const auto now = high_resolution_clock::now();
+    const time_t cTime = high_resolution_clock::to_time_t(now);
+
+    auto duration = now.time_since_epoch();
+    duration -= duration_cast<seconds>(duration);
+
+    char dateTimeStr[24];
+    strftime(dateTimeStr, sizeof(dateTimeStr), "%F %T", localtime(&cTime));
+    strm << dateTimeStr;
+    strm << "." << setfill('0') << setw(3) << duration_cast<milliseconds>(duration).count();
+    strm << setfill(' ');
+}
+
+}
+
+Logger::Location::Location(const char* const fileName, const char* const functionName, int lineNumber) :
+    fLineNumber(lineNumber),
+    fFileName(fileName),
+    fFunctionName(functionName)
+{
+    const size_t slashPos = fFileName.find_last_of('/');
+    if (slashPos != string::npos)
+        fFileName = fFileName.substr( slashPos+1 );
 }
 
 Logger::Logger(const std::string& name) :
     fName( name ),
     fActiveStream( nullptr ),
-    fMinLevel( ELevel::Info ),
+    fMinLevel( ELevel::Trace ),
     fColouredOutput( true )
 {
-#ifdef DEBUG
-    fMinLevel = ELevel::Trace;
+#ifdef NDEBUG
+    fMinLevel = ELevel::Info;
 #endif
 
 }
@@ -118,6 +146,7 @@ void Logger::SetColoured(bool coloured)
 
 void Logger::StartMessage(ELevel level, const Location& loc)
 {
+
     const char* levelStr = level2Str(level);
 
     fActiveStream = (level >= ELevel::Error) ? &cerr : &cout;
@@ -127,21 +156,10 @@ void Logger::StartMessage(ELevel level, const Location& loc)
         *fActiveStream << color;
     }
 
-    const size_t slashPos = loc.fFileName.find_last_of('/');
-    const string truncFileName = (slashPos == string::npos)
-            ? loc.fFileName
-            : loc.fFileName.substr(slashPos+1);
+    printTime( *fActiveStream );
 
-    *fActiveStream << __DATE__ " " __TIME__ " [" << setw(5) << levelStr << "] "
-        << setfill(' ') << setw(18) << truncFileName << "(" << setw(3) << loc.fLineNumber << ") ";
-}
-
-ostream& Logger::Log()
-{
-    if (!fActiveStream)
-        throw Exception() << "No active logger available.";
-
-    return *fActiveStream;
+    *fActiveStream << setfill(' ') << " [" << setw(5) << levelStr << "] "
+        << setw(18) << loc.fFileName << "(" << setw(3) << loc.fLineNumber << ") ";
 }
 
 void Logger::EndMessage()

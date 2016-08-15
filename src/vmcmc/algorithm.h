@@ -37,24 +37,31 @@ public:
     void SetParameterConfig(const ParameterSet& paramConfig);
     const ParameterSet& GetParameterConfig() const { return fParameterConfig; }
 
-    template<class XFunctionT>
-    void SetPrior(size_t pIndex, XFunctionT prior);
+    template<class FunctionT>
+    void SetPrior(FunctionT prior) { fPrior = prior; }
 
-    template<class XFunctionT>
-    void SetLikelihoodFunction(XFunctionT likelihood);
-
-    template<class XFunctionT>
-    void SetNegLogLikelihoodFunction(XFunctionT negLoglikelihood);
+    template<class FunctionT>
+    void SetLikelihoodFunction(FunctionT likelihood);
+    template<class FunctionT>
+    void SetNegLogLikelihoodFunction(FunctionT negLoglikelihood);
 
     void SetTotalLength(size_t length) { fTotalLength = length; }
     size_t GetTotalLength() const { return fTotalLength; }
 
-    double EvaluateLikelihood(const std::vector<double>& paramValues) const;
-    double EvaluateNegLogLikelihood(const std::vector<double>& paramValues) const;
+    /**
+     * Evaluates the likelihood or -log(likelihood) function for the given
+     * parameter values.
+     * @param[in] paramValues
+     * @param[out] likelihood
+     * @param[out] negLogLikelihood
+     * @param[out] prior
+     */
+    void Evaluate(const std::vector<double>& paramValues,
+        double& likelihood, double& negLogLikelihood, double& prior) const;
 
     void Run();
 
-    virtual bool Initialize() = 0;
+    virtual bool Initialize();
 
     virtual double Advance() = 0;
 
@@ -62,54 +69,33 @@ public:
     virtual const Chain& GetChain(size_t cIndex = 0) = 0;
 
 protected:
-    void EvaluateLikelihood(Sample& sample) const;
+    void Evaluate(Sample& sample) const;
 
     ParameterSet fParameterConfig;
-    std::vector<std::function<double (double)>> fPriors;
+    std::function<double (const std::vector<double>&)> fPrior;
+
+    std::function<double (const std::vector<double>&)> fLikelihood;
     std::function<double (const std::vector<double>&)> fNegLogLikelihood;
 
     size_t fTotalLength;
 };
 
-template<class XFunctionT>
-inline void Algorithm::SetPrior(size_t pIndex, XFunctionT prior)
+template<class FunctionT>
+inline void Algorithm::SetLikelihoodFunction(FunctionT likelihood)
 {
-    if (fPriors.size() <= pIndex)
-        fPriors.resize( pIndex+1, nullptr );
-
-    fPriors[pIndex] = prior;
+//    fNegLogLikelihood = [likelihood]
+//        (const std::vector<double>& params) -> double {
+//            return std::exp(-likelihood(params));
+//        };
+    fLikelihood = likelihood;
+    fNegLogLikelihood = nullptr;
 }
 
-template<class XFunctionT>
-inline void Algorithm::SetLikelihoodFunction(XFunctionT likelihood)
+template<class FunctionT>
+inline void Algorithm::SetNegLogLikelihoodFunction(FunctionT negLoglikelihood)
 {
-    fNegLogLikelihood = [likelihood]
-        (const std::vector<double>& params) -> double {
-            return std::exp(-likelihood(params));
-        };
-}
-
-template<class XFunctionT>
-inline void Algorithm::SetNegLogLikelihoodFunction(XFunctionT negLoglikelihood)
-{
+    fLikelihood = nullptr;
     fNegLogLikelihood = negLoglikelihood;
-}
-
-inline double Algorithm::EvaluateLikelihood(const std::vector<double>& paramValues) const
-{
-    assert(fNegLogLikelihood);
-    return exp(-fNegLogLikelihood( paramValues ));
-}
-
-inline double Algorithm::EvaluateNegLogLikelihood(const std::vector<double>& paramValues) const
-{
-    assert(fNegLogLikelihood);
-    return fNegLogLikelihood( paramValues );
-}
-
-inline void Algorithm::EvaluateLikelihood(Sample& sample) const
-{
-    sample.SetLikelihood( EvaluateLikelihood(sample.Values().data()) );
 }
 
 } /* namespace vmcmc */

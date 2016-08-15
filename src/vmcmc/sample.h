@@ -8,8 +8,7 @@
 #ifndef VMCMC_SAMPLE_H_
 #define VMCMC_SAMPLE_H_
 
-#include <boost/optional.hpp>
-#include "blas.h"
+#include <vmcmc/blas.h>
 
 namespace vmcmc
 {
@@ -18,27 +17,27 @@ class Sample
 {
 public:
     Sample(const Vector& pValues) :
-        fParameterValues( pValues ) { }
+        fParameterValues( pValues ), fLikelihood( 0.0 ), fPrior( 0.0 ) { }
     Sample(size_t nParams = 0) :
-        fParameterValues( nParams ) { }
+        fParameterValues( nParams ), fLikelihood( 0.0 ), fPrior( 0.0 ) { }
     virtual ~Sample() { }
 
     Vector& Values() { return fParameterValues; }
     const Vector& Values() const { return fParameterValues; }
 
-    double GetLikelihoodOr(double defaultValue = 0.0) const;
-    void SetLikelihood(const boost::optional<double>& value) { fLikelihood = value; }
+    void SetLikelihood(double value) { fLikelihood = value; }
+    double GetLikelihood() const { return fLikelihood; }
+
+    void SetPrior(double value) { fPrior = value; }
+    double GetPrior() const { return fPrior; }
+
+    size_t size() const { return fParameterValues.size(); }
 
 private:
     Vector fParameterValues;
-    boost::optional<double> fLikelihood;
+    double fLikelihood;
+    double fPrior;
 };
-
-inline double Sample::GetLikelihoodOr(double defaultValue) const
-{
-    return fLikelihood.get_value_or(defaultValue);
-}
-
 
 } /* namespace vmcmc */
 
