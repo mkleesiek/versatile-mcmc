@@ -12,6 +12,8 @@
 #include <vmcmc/logger.h>
 #include <vmcmc/random.h>
 
+#include <boost/numeric/ublas/io.hpp>
+
 using namespace std;
 using namespace boost;
 
@@ -209,7 +211,7 @@ MatrixLower ParameterList::GetCholeskyDecomp() const
     return result;
 }
 
-bool ParameterList::IsInsideLimits(Vector somePoint) const
+bool ParameterList::IsInsideLimits(const Vector& somePoint) const
 {
     LOG_ASSERT( somePoint.size() == fParameters.size() );
 

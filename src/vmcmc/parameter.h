@@ -145,7 +145,7 @@ public:
      * @return False, if for some parameter index i,
      * @p somePoint[i] < fParameter[i].fLowerLimit || @p somePoint[i] > fParameter[i].fUpperLimit.
      */
-    bool IsInsideLimits(Vector somePoint) const;
+    bool IsInsideLimits(const Vector& somePoint) const;
 
     /**
      * If a vector lies outside the parameter limits, constrain it accordingly.

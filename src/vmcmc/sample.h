@@ -11,6 +11,8 @@
 #include <vmcmc/blas.h>
 #include <vmcmc/numeric.h>
 
+#include <initializer_list>
+
 namespace vmcmc
 {
 
@@ -24,6 +26,7 @@ class Sample
 {
 public:
     Sample(const Vector& pValues);
+    Sample(std::initializer_list<double> pValues);
     Sample(size_t nParams = 0);
     virtual ~Sample() { }
 
@@ -66,9 +69,17 @@ inline Sample::Sample(const Vector& pValues) :
     fPrior( 0.0 )
 { }
 
+inline Sample::Sample(std::initializer_list<double> pValues) :
+    fGeneration( 0 ),
+    fParameterValues( pValues ),
+    fLikelihood( 0.0 ),
+    fNegLogLikelihood( -Inf() ),
+    fPrior( 0.0 )
+{ }
+
 inline Sample::Sample(size_t nParams) :
     fGeneration( 0 ),
-    fParameterValues( nParams ),
+    fParameterValues( nParams, 0.0 ),
     fLikelihood( 0.0 ),
     fNegLogLikelihood( -Inf() ),
     fPrior( 0.0 )

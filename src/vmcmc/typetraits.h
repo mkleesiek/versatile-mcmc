@@ -9,6 +9,7 @@
 #define VMCMC_TYPETRAITS_H_
 
 #include <type_traits>
+#include <string>
 
 namespace vmcmc {
 

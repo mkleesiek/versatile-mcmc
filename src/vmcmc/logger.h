@@ -101,25 +101,25 @@ public:
      * @param level The log level as string representation.
      * @return
      */
-    bool IsLevelEnabled(ELevel level) const;
+    bool IsLevelEnabled(ELevel level) const { return fMinLevel <= level; }
 
     /**
      * Get a loggers minimum logging level
      * @return level enum item identifying the log level
      */
-    ELevel GetLevel() const;
+    ELevel GetLevel() const { return fMinLevel; }
 
     /**
      * Set a loggers minimum logging level
      * @param level enum item identifying the log level
      */
-    void SetLevel(ELevel level);
+    void SetLevel(ELevel level) { fMinLevel = level; }
 
     /**
      * Set whether the output should be coloured or not.
      * @param coloured
      */
-    void SetColoured(bool coloured);
+    void SetColoured(bool coloured) { fColouredOutput = coloured; }
 
     /**
      * Log a message with the specified level.

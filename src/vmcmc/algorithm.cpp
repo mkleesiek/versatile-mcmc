@@ -7,6 +7,7 @@
 
 #include <vmcmc/algorithm.h>
 #include <vmcmc/logger.h>
+#include <vmcmc/stringutils.h>
 
 #include <boost/accumulators/accumulators.hpp>
 #include <boost/accumulators/statistics/mean.hpp>
@@ -47,6 +48,9 @@ bool Algorithm::Initialize()
 
 double Algorithm::EvaluatePrior(const std::vector<double>& paramValues) const
 {
+    if (!fParameterConfig.IsInsideLimits( paramValues ))
+        return 0.0;
+
     return (fPrior) ? fPrior( paramValues ) : 1.0;
 }
 
@@ -71,6 +75,9 @@ bool Algorithm::Evaluate(Sample& sample) const
     sample.Reset();
 
     const std::vector<double>& paramValues = sample.Values().data();
+
+    if (!fParameterConfig.IsInsideLimits( sample.Values() ))
+        return false;
 
     const double prior = (fPrior) ? fPrior( paramValues ) : 1.0;
     if (prior == 0.0)
@@ -103,6 +110,10 @@ void Algorithm::Run()
 
     for (size_t iStep = 0; iStep < fTotalLength; iStep++) {
         const double accRateStep = Advance();
+
+        const Sample& sample = GetChain(0).back();
+        LOG(Debug, iStep << ": " << sample);
+
         accRateAcc( accRateStep );
     }
 

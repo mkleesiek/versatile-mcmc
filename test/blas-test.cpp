@@ -15,7 +15,7 @@
 using namespace std;
 using namespace vmcmc;
 
-TEST(uBLAS, CholeskyDecomposition) {
+TEST(BLAS, CholeskyDecomposition) {
 
     constexpr size_t N = 5;
 
@@ -52,5 +52,4 @@ TEST(uBLAS, CholeskyDecomposition) {
                 << "Cholesky decomposition seems faulty for element(" << i << ", " << j << ").";
         }
     }
-
 }

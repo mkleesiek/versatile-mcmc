@@ -90,6 +90,10 @@ void printTime(ostream& strm)
     auto duration = now.time_since_epoch();
     duration -= duration_cast<seconds>(duration);
 
+    /*
+     * Unfortunately, g++ < 5.0 does not implement std::put_time, so I have to
+     * resort to strftime at this point:
+     */
     char dateTimeStr[24];
     strftime(dateTimeStr, sizeof(dateTimeStr), "%F %T", localtime(&cTime));
     strm << dateTimeStr;
@@ -118,35 +122,13 @@ Logger::Logger(const std::string& name) :
 #ifdef NDEBUG
     fMinLevel = ELevel::Info;
 #endif
-
 }
 
 Logger::~Logger()
 { }
 
-bool Logger::IsLevelEnabled(ELevel level) const
-{
-    return fMinLevel <= level;
-}
-
-Logger::ELevel Logger::GetLevel() const
-{
-    return fMinLevel;
-}
-
-void Logger::SetLevel(ELevel level)
-{
-    fMinLevel = level;
-}
-
-void Logger::SetColoured(bool coloured)
-{
-    fColouredOutput = coloured;
-}
-
 void Logger::StartMessage(ELevel level, const Location& loc)
 {
-
     const char* levelStr = level2Str(level);
 
     fActiveStream = (level >= ELevel::Error) ? &cerr : &cout;
@@ -168,6 +150,8 @@ void Logger::EndMessage()
         *fActiveStream << skEndColor;
 
     *fActiveStream << endl;
+
+    fActiveStream->flush();
 }
 
 }

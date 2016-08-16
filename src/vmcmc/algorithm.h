@@ -69,6 +69,15 @@ public:
      */
     double EvaluateNegLogLikelihood(const std::vector<double>& paramValues) const;
 
+    /**
+     * Evalutate the target function prior, likelihood and -log(likelihood)
+     * at the position defined by the @p sample, and update the \p sample.
+     * @param sample
+     * @return False if the likelihood was not evaluated (e.g. due to a zero
+     * prior).
+     */
+    bool Evaluate(Sample& sample) const;
+
     void Run();
 
     virtual bool Initialize();
@@ -79,16 +88,6 @@ public:
     virtual const Chain& GetChain(size_t cIndex = 0) = 0;
 
 protected:
-
-    /**
-     * Evalutate the target function prior, likelihood and -log(likelihood)
-     * at the position defined by the @p sample, and update the \p sample.
-     * @param sample
-     * @return False if the likelihood was not evaluated (e.g. due to a zero
-     * prior).
-     */
-    bool Evaluate(Sample& sample) const;
-
     ParameterList fParameterConfig;
     std::function<double (const std::vector<double>&)> fPrior;
 
@@ -101,10 +100,6 @@ protected:
 template<class FunctionT>
 inline void Algorithm::SetLikelihoodFunction(FunctionT likelihood)
 {
-//    fNegLogLikelihood = [likelihood]
-//        (const std::vector<double>& params) -> double {
-//            return std::exp(-likelihood(params));
-//        };
     fLikelihood = likelihood;
     fNegLogLikelihood = nullptr;
 }

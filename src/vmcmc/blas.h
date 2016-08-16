@@ -61,8 +61,8 @@ size_t choleskyDecompose(const InputMatrix& A, OutputTriangularMatrix& L)
         else {
             double L_kk = sqrt(qL_kk);
             L(k, k) = L_kk;
+            matrix_column<OutputTriangularMatrix> cLk(L, k);
 
-            matrix_column < OutputTriangularMatrix > cLk(L, k);
             project(cLk, range(k + 1, n)) = (project(column(A, k),
                 range(k + 1, n)) - prod(project(L, range(k + 1, n), range(0, k)),
                 project(row(L, k), range(0, k)))) / L_kk;

@@ -9,6 +9,8 @@
 #include <vmcmc/exception.h>
 #include <vmcmc/stringutils.h>
 
+#include <boost/numeric/ublas/io.hpp>
+
 #include <gtest/gtest.h>
 
 using namespace std;

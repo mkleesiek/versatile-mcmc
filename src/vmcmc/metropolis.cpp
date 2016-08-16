@@ -61,6 +61,19 @@ bool MetropolisHastings::Initialize()
     return true;
 }
 
+double MetropolisHastings::CalculateMHRatio(const Sample& prevState, const Sample& nextState,
+    double proposalAsymmetry, double beta)
+{
+    if (nextState.GetPrior() == 0.0)
+        return 0.0;
+
+    // calculate Metropolis-Hastings ratio
+    return std::min(1.0, proposalAsymmetry
+        * nextState.GetPrior()/prevState.GetPrior()
+        * exp( beta * (prevState.GetNegLogLikelihood() - nextState.GetNegLogLikelihood()) )
+    );
+}
+
 double MetropolisHastings::Advance()
 {
     LOG_ASSERT( fProposalFunction, "No proposal function defined." );
@@ -89,15 +102,7 @@ double MetropolisHastings::Advance()
         // evaluate likelihood and prior
         Evaluate( nextState );
 
-        double mhRatio = 0.0;
-
-        if (nextState.GetPrior() > 0.0) {
-            // calculate Metropolis-Hastings ratio
-            mhRatio = std::min(1.0, proposalAsymmetry
-                * nextState.GetPrior()/previousState.GetPrior()
-                * exp( fBetas[cIndex] * (previousState.GetNegLogLikelihood() - nextState.GetNegLogLikelihood()) )
-            );
-        }
+        const double mhRatio = CalculateMHRatio(previousState, nextState, proposalAsymmetry, fBetas[cIndex]);
 
         const bool proposalAccepted = Random::Instance().Bool( mhRatio );
 

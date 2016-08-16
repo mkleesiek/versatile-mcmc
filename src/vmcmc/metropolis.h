@@ -22,6 +22,10 @@ class Proposal;
 class MetropolisHastings: public Algorithm
 {
 public:
+    static double CalculateMHRatio(const Sample& prevState, const Sample& nextState,
+        double proposalAsymmetry = 1.0, double beta = 1.0);
+
+public:
     MetropolisHastings();
     virtual ~MetropolisHastings();
 
