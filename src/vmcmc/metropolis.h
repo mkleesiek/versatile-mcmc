@@ -42,7 +42,10 @@ public:
 
     void SetProposalFunction(std::shared_ptr<Proposal> proposalFunction) { fProposalFunction = proposalFunction; }
     std::shared_ptr<Proposal> GetProposalFunction() { return fProposalFunction; };
-    std::shared_ptr<const Proposal> GetProposalFunction() const { return fProposalFunction; };
+    std::shared_ptr<const Proposal> GetProposalFunction() const { return fProposalFunction; }
+
+    void SetRandomizeStartPoint(bool randomizeStartPoint) { fRandomizeStartPoint = randomizeStartPoint; }
+    bool IsRandomizeStartPoint() const { return fRandomizeStartPoint; }
 
 protected:
     bool fRandomizeStartPoint;

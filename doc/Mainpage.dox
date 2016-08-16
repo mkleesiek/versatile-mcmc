@@ -1,7 +1,5 @@
-# versatile-mcmc
-[![Build Status](https://travis-ci.org/mkleesiek/versatile-mcmc.svg?branch=master)](https://travis-ci.org/mkleesiek/versatile-mcmc)
-
-A lightweight and extensible Markov Chain Monte Carlo (MCMC) library written in modern C++.
+/**
+@mainpage
 
 ## Introduction
 With this project I aim at building a modular and easy to integrate **C++ framework** for performing **Bayesian inference** and **mathematical optimization** tasks in **high-dimensional models**.
@@ -33,50 +31,5 @@ Currently the build is being tested on [Travis CI](https://travis-ci.org/mkleesi
   - clang++ 3.9
 - OS X El Capitan (10.11.5)
   - Xcode (clang) 7.3
-
-## Prerequisits
-- [Meson build system](http://mesonbuild.com/) with [Ninja](https://ninja-build.org/) as backend
-- [Boost C++ libraries](http://www.boost.org/) (>= 1.45.0)
-- Optional:
-  - [Doxygen](http://www.doxygen.org)
-  - Intel's [Threading Building Blocks](https://www.threadingbuildingblocks.org/)
-  - Google's C++ test framework [Google Test](https://github.com/google/googletest)
-
-On Debian-based systems simply use apt-get:
-```
-sudo apt-get install meson ninja libboost-all-dev doxygen libtbb-dev libgtest-dev 
-```
-If meson is not provided by your package manager, you can use the python 3 installer:
-```
-pip3 install meson
-```
-
-## Quick Installation
-- Setup meson in an out-of-source build directory (e.g. a subdirectory in the source root):
-```
-cd versatile-mcmc
-mkdir build
-cd build
-meson .. [--prefix=/install/dir] [--buildtype=(plain|debug|debugoptimized|release)]
-```
-- Use mesonconf to revise or modify your configuration:
-```
-mesonconf
-```
-- Both meson(.py) and mesonconf(.py) offer decent command-line help if executed with the option --help.
-- To compile the code, execute ninja in the build directory:
-```
-ninja [-j NTHREADS] [-v]
-```
-- Install:
-```
-ninja install
-```
-- Run unit tests:
-```
-ninja test
-```
-- Generate source documentation (requires doxygen):
-```
-ninja doc
-```
+  
+**/

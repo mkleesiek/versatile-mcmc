@@ -111,8 +111,10 @@ void Algorithm::Run()
     for (size_t iStep = 0; iStep < fTotalLength; iStep++) {
         const double accRateStep = Advance();
 
-        const Sample& sample = GetChain(0).back();
-        LOG(Debug, iStep << ": " << sample);
+        if (iStep % 100 == 0) {
+            const Sample& sample = GetChain(0).back();
+            LOG(Debug, iStep << ": " << sample);
+        }
 
         accRateAcc( accRateStep );
     }

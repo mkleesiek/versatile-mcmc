@@ -46,12 +46,14 @@ int main(int /*argc*/, char* /*argv*/[]){
     ParameterList paramConfig;
     paramConfig.SetParameter(0, Parameter("x1", 0.0, 1.0) );
     paramConfig.SetParameter(1, Parameter("x2", 0.0, 1.0) );
+    paramConfig.SetErrorScaling( 5.0 );
 
     MetropolisHastings mcmc;
     mcmc.SetParameterConfig(paramConfig);
+    mcmc.SetRandomizeStartPoint(true);
     mcmc.SetBetas( {1.0} );
     mcmc.SetLikelihoodFunction( targetFunction );
-    mcmc.SetTotalLength(1E5);
+    mcmc.SetTotalLength(1E6);
 
     LOG(Info, "Starting example Metropolis ...");
 
