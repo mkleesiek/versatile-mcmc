@@ -84,7 +84,7 @@ void printTime(ostream& strm)
 {
     using namespace std::chrono;
 
-    const auto now = high_resolution_clock::now();
+    const auto now = system_clock::now();
     const time_t cTime = system_clock::to_time_t(now);
 
     auto duration = now.time_since_epoch();
