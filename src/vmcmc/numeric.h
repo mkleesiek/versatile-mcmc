@@ -18,10 +18,16 @@ namespace vmcmc {
 namespace math = boost::math;
 namespace constants = boost::math::double_constants;
 
-template <class T>
+template <class T = double>
 inline T NaN()
 {
     return std::numeric_limits<T>::quiet_NaN();
+}
+
+template <class T = double>
+inline T Inf()
+{
+    return std::numeric_limits<T>::infinity();
 }
 
 template<class IntegerT>

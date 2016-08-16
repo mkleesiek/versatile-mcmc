@@ -22,6 +22,10 @@ class Proposal;
 class MetropolisHastings: public Algorithm
 {
 public:
+    static double CalculateMHRatio(const Sample& prevState, const Sample& nextState,
+        double proposalAsymmetry = 1.0, double beta = 1.0);
+
+public:
     MetropolisHastings();
     virtual ~MetropolisHastings();
 
@@ -41,12 +45,11 @@ public:
     std::shared_ptr<const Proposal> GetProposalFunction() const { return fProposalFunction; };
 
 protected:
-    double fInitialErrorScale;
-    double fStartPointRandomization;
+    bool fRandomizeStartPoint;
     std::shared_ptr<Proposal> fProposalFunction;
 
     std::vector<double> fBetas;
-    std::vector<ParameterSet> fDynamicParamConfigs;
+    std::vector<ParameterList> fDynamicParamConfigs;
     std::vector<Chain> fSampledChains;
 };
 

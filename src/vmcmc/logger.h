@@ -45,7 +45,27 @@
 namespace vmcmc {
 
 /**
- * Very primitive MACRO-centered logging facility.
+ * Very primitive MACRO-centered logging facility. It should primarily be used
+ * through MACROs:
+ *
+ * @code{.cpp}
+ * // define a static logger instance:
+ * LOG_DEFINE("some.logger.name");
+ *
+ * // log an expression with given log-level
+ * LOG(Info, "Some example log: " << someVariable << " more text ...");
+ *
+ * // log an expression only once during execution
+ * LOG_ONCE(Info, "This is displayed only once.");
+ *
+ * // make an assertion and abort if false:
+ * LOG_ASSERT( someCondition, "That assertion just failed." );
+ * @endcode
+ *
+ * Available log levels are: Trace, Debug, Info, Warn, Error, Fatal
+ *
+ * By default, if the library is compiled in release-mode, Trace and Debug
+ * outputs are silenced.
  * No external configuration mechanisms (yet).
  */
 class Logger
@@ -61,9 +81,7 @@ public:
      * Not to be used directly by the user.
      */
     struct Location {
-        Location(const char* const fileName = "", const char* const functionName = "", int lineNumber = -1) :
-            fLineNumber(lineNumber), fFileName(fileName), fFunctionName(functionName)
-            { }
+        Location(const char* const fileName = "", const char* const functionName = "", int lineNumber = -1);
         int fLineNumber;
         std::string fFileName;
         std::string fFunctionName;
@@ -83,25 +101,25 @@ public:
      * @param level The log level as string representation.
      * @return
      */
-    bool IsLevelEnabled(ELevel level) const;
+    bool IsLevelEnabled(ELevel level) const { return fMinLevel <= level; }
 
     /**
      * Get a loggers minimum logging level
      * @return level enum item identifying the log level
      */
-    ELevel GetLevel() const;
+    ELevel GetLevel() const { return fMinLevel; }
 
     /**
      * Set a loggers minimum logging level
      * @param level enum item identifying the log level
      */
-    void SetLevel(ELevel level);
+    void SetLevel(ELevel level) { fMinLevel = level; }
 
     /**
      * Set whether the output should be coloured or not.
      * @param coloured
      */
-    void SetColoured(bool coloured);
+    void SetColoured(bool coloured) { fColouredOutput = coloured; }
 
     /**
      * Log a message with the specified level.
@@ -112,7 +130,7 @@ public:
      */
     void StartMessage(ELevel level, const Location& loc = Location());
 
-    std::ostream& Log();
+    std::ostream& Log() { return *fActiveStream; }
 
     void EndMessage();
 
@@ -154,14 +172,24 @@ private:
     } \
 }
 
-#define __LOG_2(L,M)       __LOG_3(sLocalLoggerInstance,L,M)
-#define __LOG_1(M)         __LOG_3(sLocalLoggerInstance,Debug,M)
+#define __LOG_ASSERT_3(I,C,M) \
+{ \
+    if (I.IsLevelEnabled(vmcmc::Logger::ELevel::Error) && !(C)) { \
+        I.StartMessage(vmcmc::Logger::ELevel::Error, __LOG_LOCATION); \
+        I.Log() << "Assertion '(" << TOSTRING(C) << ")' failed. " << M; \
+        I.EndMessage(); \
+        abort(); \
+    } \
+}
 
-#define __LOG_ONCE_2(L,M)       __LOG_ONCE_3(sLocalLoggerInstance,L,M)
-#define __LOG_ONCE_1(M)         __LOG_ONCE_3(sLocalLoggerInstance,Debug,M)
+#define __LOG_2(L,M)          __LOG_3(sLocalLoggerInstance,L,M)
+#define __LOG_1(M)            __LOG_3(sLocalLoggerInstance,Debug,M)
 
-#define __LOG_ASSERT_3(I,C,M)       if (!(C)) { __LOG_3(I,Error,M) }
-#define __LOG_ASSERT_2(C,M)         if (!(C)) { __LOG_3(sLocalLoggerInstance,Error,M) }
+#define __LOG_ONCE_2(L,M)     __LOG_ONCE_3(sLocalLoggerInstance,L,M)
+#define __LOG_ONCE_1(M)       __LOG_ONCE_3(sLocalLoggerInstance,Debug,M)
+
+#define __LOG_ASSERT_1(C)     __LOG_ASSERT_3(sLocalLoggerInstance,C,"")
+#define __LOG_ASSERT_2(C,M)   __LOG_ASSERT_3(sLocalLoggerInstance,C,M)
 
 
 // PUBLIC MACROS

@@ -23,10 +23,10 @@ TEST(Logger, Basics) {
     LOG(myLogger1, Debug, "This is a debug message.");
     string output = testing::internal::GetCapturedStdout();
 
-#ifdef DEBUG
-    ASSERT_NE( output.find("debug message"), string::npos );
-#else
+#ifdef NDEBUG
     ASSERT_EQ( output.find("debug message"), string::npos );
+#else
+    ASSERT_NE( output.find("debug message"), string::npos );
 #endif
 
     testing::internal::CaptureStderr();

@@ -21,7 +21,8 @@ vmcmc_sources = [
     'metropolis.cpp',
     'parameter.cpp',
     'prior.cpp',
-    'proposal.cpp'
+    'proposal.cpp',
+    'stringutils.cpp'
 ]
 
 install_headers( vmcmc_headers, subdir : 'vmcmc')

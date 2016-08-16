@@ -9,14 +9,16 @@
 #define FMCMC_STRINGUTILS_H_
 
 #include <vmcmc/typetraits.h>
+#include <vmcmc/sample.h>
 
-#include <iterator>
 #include <iostream>
 #include <string>
 
-#include <boost/numeric/ublas/io.hpp>
-
 namespace vmcmc {
+
+class Sample;
+
+std::ostream& operator<< (std::ostream& strm, const Sample& sample);
 
 /**
  * Join an STL style container and output to a stream with its values joined by
@@ -90,7 +92,5 @@ inline auto operator<< (std::ostream& strm, const ContainerT& container)
 }
 
 }
-
-
 
 #endif /* FMCMC_STRINGUTILS_H_ */
