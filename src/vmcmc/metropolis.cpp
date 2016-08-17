@@ -12,6 +12,12 @@
 
 #include <algorithm>
 
+#ifdef USE_TBB
+#include <tbb/parallel_for.h>
+#include <tbb/blocked_range.h>
+using namespace tbb;
+#endif
+
 using namespace std;
 
 namespace vmcmc
@@ -21,6 +27,7 @@ LOG_DEFINE("vmcmc.metropolis");
 
 MetropolisHastings::MetropolisHastings() :
     fRandomizeStartPoint( false ),
+    fProposalFunctions( {nullptr} ),
     fBetas{ 1.0 }
 { }
 
@@ -39,8 +46,15 @@ bool MetropolisHastings::Initialize()
 
     // in case of parallel tempering, setup more than one chain
     fSampledChains.assign( nChains, Chain() );
-    fDynamicParamConfigs.assign( nChains, fParameterConfig );
 
+    // for each chain, setup an individual parameter configuration
+    const double initialErrorScaling = fParameterConfig.GetErrorScaling();
+    fDynamicParamConfigs.assign( nChains, fParameterConfig );
+    for (size_t iChain = 1; iChain < nChains; ++iChain) {
+        fDynamicParamConfigs[iChain].SetErrorScaling( initialErrorScaling * exp(1.0 - fBetas[iChain]) );
+    }
+
+    // if require, randomize the starting vector for each chain
     if (fRandomizeStartPoint) {
         for (auto& chain : fSampledChains) {
             Sample startPoint( GetParameterConfig().GetStartValues(true) );
@@ -55,8 +69,20 @@ bool MetropolisHastings::Initialize()
             chain.push_back( startPoint );
     }
 
-    if (!fProposalFunction)
-        fProposalFunction.reset( new ProposalGaussian() );
+
+    fProposalFunctions.resize(nChains);
+    // if not set by the user, instantiate default proposal function
+    if (!fProposalFunctions[0]) {
+        LOG(Info, "Using default proposal function 'ProposalGaussian'.");
+        fProposalFunctions = { make_shared<ProposalGaussian>() };
+    }
+    for (size_t iChain = 0; iChain < nChains; ++iChain) {
+        // clone the proposal function from chain 0 to all others
+        if (iChain > 0)
+            fProposalFunctions[iChain].reset( fProposalFunctions[0]->Clone() );
+        // update parameter configuration
+        fProposalFunctions[iChain]->UpdateParameterConfig( fDynamicParamConfigs[iChain] );
+    }
 
     return true;
 }
@@ -74,51 +100,59 @@ double MetropolisHastings::CalculateMHRatio(const Sample& prevState, const Sampl
     );
 }
 
-double MetropolisHastings::Advance()
+void MetropolisHastings::Advance()
 {
-    LOG_ASSERT( fProposalFunction, "No proposal function defined." );
+    const size_t nChains = fSampledChains.size();
 
-    bool chain0Accepted = false;
-
-    for (size_t cIndex = 0; cIndex < fSampledChains.size(); cIndex++) {
-
-        auto& chain = fSampledChains[cIndex];
-        LOG_ASSERT( !chain.empty(), "No starting point in chain " << cIndex << "." );
-
-        const Sample& previousState = chain.back();
-
-        // prepare the upcoming sample
-        Sample nextState( previousState );
-        nextState.IncrementGeneration();
-        nextState.Reset();
-
-        // propose the next point in the parameter space
-        fProposalFunction->SetParameterConfig( fDynamicParamConfigs[cIndex] );
-        const double proposalAsymmetry = fProposalFunction->Transition( previousState, nextState );
-
-        // attempt reflection if limits are exceeded
-        fDynamicParamConfigs[cIndex].ReflectFromLimits( nextState.Values() );
-
-        // evaluate likelihood and prior
-        Evaluate( nextState );
-
-        const double mhRatio = CalculateMHRatio(previousState, nextState, proposalAsymmetry, fBetas[cIndex]);
-
-        const bool proposalAccepted = Random::Instance().Bool( mhRatio );
-
-        if (proposalAccepted) {
-            chain.push_back( nextState );
-            if (cIndex == 0)
-                chain0Accepted = true;
+#ifdef USE_TBB
+    parallel_for(
+        blocked_range<size_t>(0,nChains),
+        [this](const blocked_range<size_t>& range) {
+            for (size_t iChain = range.begin(); iChain < range.end(); iChain++)
+                this->AdvanceChain( iChain );
         }
-        else {
-            nextState = previousState;
-            nextState.IncrementGeneration();
-            chain.push_back( nextState );
-        }
+    );
+#else
+    for (size_t iChain = 0; iChain < nChains; iChain++)
+        AdvanceChain( iChain );
+#endif
+}
+
+void MetropolisHastings::AdvanceChain(size_t iChain)
+{
+    LOG_ASSERT( fProposalFunctions[iChain], "No proposal function defined." );
+
+    auto& chain = fSampledChains[iChain];
+    LOG_ASSERT( !chain.empty(), "No starting point in chain " << iChain << "." );
+
+    const Sample& previousState = chain.back();
+
+    // prepare the upcoming sample
+    Sample nextState( previousState );
+    nextState.IncrementGeneration();
+    nextState.Reset();
+
+    // propose the next point in the parameter space
+    const double proposalAsymmetry = fProposalFunctions[iChain]->Transition( previousState, nextState );
+
+    // attempt reflection if limits are exceeded
+    fDynamicParamConfigs[iChain].ReflectFromLimits( nextState.Values() );
+
+    // evaluate likelihood and prior
+    Evaluate( nextState );
+
+    const double mhRatio = CalculateMHRatio(previousState, nextState, proposalAsymmetry, fBetas[iChain]);
+
+    const bool proposalAccepted = Random::Instance().Bool( mhRatio );
+
+    if (proposalAccepted) {
+        chain.push_back( nextState );
     }
-
-    return (chain0Accepted) ? 1.0 : 0.0;
+    else {
+        nextState = previousState;
+        nextState.IncrementGeneration();
+        chain.push_back( nextState );
+    }
 }
 
 } /* namespace vmcmc */

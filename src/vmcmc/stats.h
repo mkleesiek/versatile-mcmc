@@ -37,6 +37,10 @@ Sample error(const XContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endIndex 
 template<class XContainerT>
 Sample maxl(const XContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endIndex = -1);
 
+template<class XContainerT>
+double accRate(const XContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endIndex = -1);
+
+
 //double AutoCorrelation(uint64_t lag, int64_t startIndex = 0, int64_t endIndex = -1);
 //double AutoCorrelation(uint64_t lag, int64_t startIndex, int64_t endIndex, const Sample& mean);
 //std::vector<double> AutoCorrelationForSingleParams(uint64_t lag, int64_t startIndex = 0, int64_t endIndex = -1);
@@ -60,7 +64,56 @@ Sample maxl(const XContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endIndex =
 //uint64_t Reduce(int thinning);
 //
 //uint64_t CheckIndices(int64_t& startIndex, int64_t& endIndex);
-//std::pair<const_iterator, const_iterator> GetIterators(int64_t startIndex, int64_t endIndex);
+
+template<class XContainerT>
+std::pair<typename XContainerT::const_iterator, typename XContainerT::const_iterator>
+iterators(const XContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endIndex = -1);
+
+
+
+
+
+template<class XContainerT>
+inline double accRate(const XContainerT& c, ptrdiff_t startIndex, ptrdiff_t endIndex)
+{
+    auto itRange = iterators(c, startIndex, endIndex);
+
+    auto it1 = itRange.first;
+    // create a second iterator it2, which is 1 step ahead of the it1
+    auto it2 = (itRange.first != itRange.second) ? std::next(itRange.first) : itRange.second;
+
+    size_t accepted = 0;
+    size_t total = 0;
+
+    for (; it2 != itRange.second; it1++, it2++) {
+        // Assume, the next sample has been accepted, if its parameter values
+        // have changed from the previous one.
+        if (it2->Values() != it1->Values())
+            accepted++;
+        total++;
+    }
+
+    return (total == 0) ? 0.0 : (double) accepted / (double) total;
+}
+
+template<class XContainerT>
+inline std::pair<typename XContainerT::const_iterator, typename XContainerT::const_iterator>
+iterators(const XContainerT& c, ptrdiff_t startIndex, ptrdiff_t endIndex)
+{
+    const size_t N = c.size();
+
+    if (startIndex < 0)
+        startIndex = N + startIndex;
+    if (endIndex < 0)
+        endIndex = N + endIndex + 1;
+
+    endIndex = std::min<size_t>(N, endIndex);
+    startIndex = std::min<size_t>(N, startIndex);
+
+    assert(startIndex >= 0 && endIndex >= startIndex);
+
+    return std::make_pair( std::next(std::begin(c), startIndex), std::next(std::begin(c), endIndex) );
+}
 
 };
 

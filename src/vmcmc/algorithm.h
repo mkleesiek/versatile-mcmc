@@ -13,13 +13,10 @@
 
 #include <functional>
 #include <vector>
-#include <deque>
 #include <cmath>
 
 namespace vmcmc
 {
-
-using Chain = std::deque<Sample>;
 
 /**
  * This base class models the sampling algorithm of an MCMC, advancing to a
@@ -71,7 +68,8 @@ public:
 
     /**
      * Evalutate the target function prior, likelihood and -log(likelihood)
-     * at the position defined by the @p sample, and update the \p sample.
+     * at the position defined by the @p sample, and update the \p sample
+     * accordingly.
      * @param sample
      * @return False if the likelihood was not evaluated (e.g. due to a zero
      * prior).
@@ -82,7 +80,7 @@ public:
 
     virtual bool Initialize();
 
-    virtual double Advance() = 0;
+    virtual void Advance() = 0;
 
     virtual size_t NChains() = 0;
     virtual const Chain& GetChain(size_t cIndex = 0) = 0;

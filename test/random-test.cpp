@@ -7,14 +7,17 @@
 
 #include <vmcmc/random.h>
 #include <vmcmc/stringutils.h>
+#include <vmcmc/blas.h>
 
 #include <thread>
 
 #include <boost/accumulators/accumulators.hpp>
-#include <boost/accumulators/statistics.hpp>
+#include <boost/accumulators/statistics/stats.hpp>
+#include <boost/accumulators/statistics/mean.hpp>
+#include <boost/accumulators/statistics/covariance.hpp>
+#include <boost/accumulators/statistics/variates/covariate.hpp>
 
 #include <gtest/gtest.h>
-#include "../src/vmcmc/blas.h"
 
 using namespace std;
 using namespace vmcmc;

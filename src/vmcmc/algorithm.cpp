@@ -8,15 +8,15 @@
 #include <vmcmc/algorithm.h>
 #include <vmcmc/logger.h>
 #include <vmcmc/stringutils.h>
+#include <vmcmc/stats.h>
 
-#include <boost/accumulators/accumulators.hpp>
-#include <boost/accumulators/statistics/mean.hpp>
-#include <boost/accumulators/statistics/variance.hpp>
-#include <boost/accumulators/statistics/stats.hpp>
+//#include <boost/accumulators/accumulators.hpp>
+//#include <boost/accumulators/statistics/mean.hpp>
+//#include <boost/accumulators/statistics/variance.hpp>
+//#include <boost/accumulators/statistics/stats.hpp>
 
 using namespace std;
 using namespace boost;
-using namespace boost::accumulators;
 
 namespace vmcmc {
 
@@ -106,22 +106,29 @@ void Algorithm::Run()
         return;
     }
 
-    accumulator_set<double, stats<tag::mean>> accRateAcc;
-
     for (size_t iStep = 0; iStep < fTotalLength; iStep++) {
-        const double accRateStep = Advance();
+        Advance();
 
-        if (iStep % 100 == 0) {
-            const Sample& sample = GetChain(0).back();
-            LOG(Debug, iStep << ": " << sample);
+        if (iStep % (fTotalLength/100) == 0) {
+            for (size_t iChain = 0; iChain < NChains(); iChain++) {
+                const Sample& sample = GetChain(iChain).back();
+                LOG(Debug, "(" << iChain << ") " << iStep << ": " << sample);
+            }
         }
 
-        accRateAcc( accRateStep );
     }
 
-    const double accRate = mean( accRateAcc );
+    for (size_t iChain = 0; iChain < NChains(); iChain++) {
+        const Chain& chain = GetChain(iChain);
 
-    LOG(Info, "Acceptance Rate: " << accRate);
+        LOG(Info, "Diagnostics for chain " << iChain << ":");
+
+        const double accRate = stats::accRate(chain);
+
+        LOG(Info, "  Acceptance Rate: " << accRate);
+    }
+
+    LOG(Info, "MCMC run finished.");
 }
 
 } /* namespace vmcmc */

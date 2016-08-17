@@ -38,7 +38,7 @@ using MatrixUnitLower = ublas::triangular_matrix<double, ublas::unit_lower, ubla
  * of the failing row)
  */
 template <class InputMatrix, class OutputTriangularMatrix>
-size_t choleskyDecompose(const InputMatrix& A, OutputTriangularMatrix& L)
+inline size_t choleskyDecompose(const InputMatrix& A, OutputTriangularMatrix& L)
 {
     LOG_DEFINE("vmcmc.blas");
     using namespace boost::numeric::ublas;
@@ -69,6 +69,16 @@ size_t choleskyDecompose(const InputMatrix& A, OutputTriangularMatrix& L)
         }
     }
     return 0;
+}
+
+inline bool operator== (const Vector& v1, const Vector& v2)
+{
+    return v1.data() == v2.data();
+}
+
+inline bool operator!= (const Vector& v1, const Vector& v2)
+{
+    return v1.data() != v2.data();
 }
 
 } /* namespace vmcmc */

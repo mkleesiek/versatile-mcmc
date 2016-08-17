@@ -26,6 +26,8 @@ public:
     Proposal();
     virtual ~Proposal();
 
+    virtual Proposal* Clone() const = 0;
+
     /**
      * Propose a new state.
      * @param[in] s1 The original state to start from.
@@ -36,7 +38,7 @@ public:
 
     double Transition(const Sample& s1, Sample& s2);
 
-    virtual void SetParameterConfig(const ParameterList& /*paramConfig*/) { };
+    virtual void UpdateParameterConfig(const ParameterList& /*paramConfig*/) { };
 };
 
 /**
@@ -48,11 +50,13 @@ class ProposalGaussian : public Proposal
 {
 public:
     ProposalGaussian();
-    ~ProposalGaussian();
+    ~ProposalGaussian() override;
+
+    ProposalGaussian* Clone() const override { return new ProposalGaussian(*this); };
 
     double Transition(const Vector& s1, Vector& s2) const override;
 
-    void SetParameterConfig(const ParameterList& paramConfig) override;
+    void UpdateParameterConfig(const ParameterList& paramConfig) override;
 
 protected:
     MatrixLower fCholeskyDecomp;

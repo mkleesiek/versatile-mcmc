@@ -1,5 +1,5 @@
 project('versatile-mcmc', 'cpp',
-  version : '0.0.2',
+  version : '0.1.0',
   license : 'GNU GPL v3' ,
   default_options : ['cpp_std=c++11'],
   meson_version : '>=0.25.0' )

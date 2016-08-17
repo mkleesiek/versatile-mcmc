@@ -51,7 +51,7 @@ int main(int /*argc*/, char* /*argv*/[]){
     MetropolisHastings mcmc;
     mcmc.SetParameterConfig(paramConfig);
     mcmc.SetRandomizeStartPoint(true);
-    mcmc.SetBetas( {1.0} );
+    mcmc.SetBetas( {1.0, 0.1, 0.01, 0.001} );
     mcmc.SetLikelihoodFunction( targetFunction );
     mcmc.SetTotalLength(1E6);
 

@@ -12,6 +12,7 @@
 #include <vmcmc/numeric.h>
 
 #include <initializer_list>
+#include <deque>
 
 namespace vmcmc
 {
@@ -60,6 +61,8 @@ private:
     double fNegLogLikelihood;
     double fPrior;
 };
+
+using Chain = std::deque<Sample>;
 
 inline Sample::Sample(const Vector& pValues) :
     fGeneration( 0 ),
