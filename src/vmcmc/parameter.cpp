@@ -62,8 +62,8 @@ void Parameter::CheckLimits()
     if (!IsInsideLimits(fStartValue)) {
         throw Exception() << "Start value (" << fStartValue << ") of fit parameter '"
             << fName << "' is not inside its specified limits ["
-            << fLowerLimit.get_value_or( NaN() ) << ", "
-            << fUpperLimit.get_value_or( NaN() ) << "].";
+            << fLowerLimit.get_value_or( numeric::NaN() ) << ", "
+            << fUpperLimit.get_value_or( numeric::NaN() ) << "].";
     }
 }
 
@@ -138,7 +138,7 @@ void ParameterList::SetCorrelation(size_t p1, size_t p2, double correlation)
     if (p1 == p2)
         return;
 
-    limit(correlation, -1.0, 1.0);
+    numeric::constrain(correlation, -1.0, 1.0);
 
     fCorrelations(p1, p2) = correlation;
 }

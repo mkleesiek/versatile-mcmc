@@ -17,6 +17,6 @@ TEST(Numeric, Pow) {
 }
 
 TEST(Numeric, FloatComparisons) {
-    ASSERT_TRUE( approxEqual(0.9995, 1.0, 0.001) );
-    ASSERT_TRUE( essentEqual(0.9995, 1.0, 0.001) );
+    ASSERT_TRUE( numeric::approxEqual(0.9995, 1.0, 0.001) );
+    ASSERT_TRUE( numeric::essentEqual(0.9995, 1.0, 0.001) );
 }

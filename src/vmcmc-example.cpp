@@ -53,7 +53,7 @@ int main(int /*argc*/, char* /*argv*/[]){
     mcmc.SetRandomizeStartPoint(true);
     mcmc.SetBetas( {1.0, 0.1, 0.01, 0.001} );
     mcmc.SetLikelihoodFunction( targetFunction );
-    mcmc.SetTotalLength(1E6);
+    mcmc.SetTotalLength(1E5);
 
     LOG(Info, "Starting example Metropolis ...");
 

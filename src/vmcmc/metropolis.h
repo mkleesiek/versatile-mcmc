@@ -19,6 +19,19 @@ namespace vmcmc
 
 class Proposal;
 
+/**
+ * Implementation of the Metropolis-Hastings algorithm.
+ *
+ * The transition kernel alias proposal function can be defined by the user
+ * according to the interface of #Proposal. By default, a multivariate
+ * Gaussian is used, based on the parameter configuration.
+ *
+ * Parallel tempering (useful for multimodal likelihoods) can be activated by
+ * specifying additional values for beta < 1 (reciprocal temperature),
+ * thus constructing flatter distributions. For each value of beta, an
+ * individual sampling chain, together with it's own parameter configuration
+ * and proposal function is set up.
+ */
 class MetropolisHastings: public Algorithm
 {
 public:
@@ -31,7 +44,7 @@ public:
 
     virtual bool Initialize() override;
 
-    virtual void Advance() override;
+    virtual void Advance(size_t nSteps = 1) override;
 
     virtual size_t NChains() override { return fSampledChains.size(); }
     virtual const Chain& GetChain(size_t cIndex = 0) override { return fSampledChains[cIndex]; }
@@ -48,14 +61,16 @@ public:
     bool IsRandomizeStartPoint() const { return fRandomizeStartPoint; }
 
 protected:
-    void AdvanceChain(size_t iChain);
+    void AdvanceChain(size_t iChain, size_t nSteps = 1);
 
     bool fRandomizeStartPoint;
 
-    std::vector<std::shared_ptr<Proposal>> fProposalFunctions;
     std::vector<double> fBetas;
     std::vector<ParameterList> fDynamicParamConfigs;
+    std::vector<std::shared_ptr<Proposal>> fProposalFunctions;
     std::vector<Chain> fSampledChains;
+
+    size_t fPtFrequency;
 };
 
 template<class ContainerT>

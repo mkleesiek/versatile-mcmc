@@ -23,7 +23,8 @@ namespace vmcmc {
 LOG_DEFINE("vmcmc.algorithm");
 
 Algorithm::Algorithm() :
-    fTotalLength( 1E6 )
+    fTotalLength( 1E6 ),
+    fCycleLength( 50 )
 { }
 
 Algorithm::~Algorithm()
@@ -40,6 +41,8 @@ bool Algorithm::Initialize()
         LOG(Error, "No target function specified.");
         return false;
     }
+
+    numeric::constrain<size_t>(fCycleLength, 1, fTotalLength);
 
     // TODO: perform consistency checks on the parameter list
 
@@ -106,17 +109,29 @@ void Algorithm::Run()
         return;
     }
 
-    for (size_t iStep = 0; iStep < fTotalLength; iStep++) {
-        Advance();
+    // Let the derived sampler instance advance the Markov chain for
+    // nCycles of fCycleLength plus nRemainingSteps to yield a total chain
+    // length of fTotalLength
 
-        if (iStep % (fTotalLength/100) == 0) {
+    size_t nCycles = fTotalLength / fCycleLength;
+
+    for (size_t iCycle = 0; iCycle < nCycles; iCycle++) {
+        Advance(fCycleLength);
+
+        if (iCycle % (nCycles/100) == 0) {
+            const size_t iStep = iCycle * fCycleLength;
             for (size_t iChain = 0; iChain < NChains(); iChain++) {
                 const Sample& sample = GetChain(iChain).back();
                 LOG(Debug, "(" << iChain << ") " << iStep << ": " << sample);
             }
         }
-
     }
+
+    const size_t nRemainingSteps = fTotalLength % fCycleLength;
+    if (nRemainingSteps > 0)
+        Advance(nRemainingSteps);
+
+    // print some diagnostics for each chain to console
 
     for (size_t iChain = 0; iChain < NChains(); iChain++) {
         const Chain& chain = GetChain(iChain);

@@ -80,7 +80,7 @@ public:
 
     virtual bool Initialize();
 
-    virtual void Advance() = 0;
+    virtual void Advance(size_t nSteps = 1) = 0;
 
     virtual size_t NChains() = 0;
     virtual const Chain& GetChain(size_t cIndex = 0) = 0;
@@ -93,6 +93,7 @@ protected:
     std::function<double (const std::vector<double>&)> fNegLogLikelihood;
 
     size_t fTotalLength;
+    size_t fCycleLength;
 };
 
 template<class FunctionT>

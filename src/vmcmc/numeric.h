@@ -18,6 +18,8 @@ namespace vmcmc {
 namespace math = boost::math;
 namespace constants = boost::math::double_constants;
 
+namespace numeric {
+
 template <class T = double>
 inline T NaN()
 {
@@ -25,7 +27,7 @@ inline T NaN()
 }
 
 template <class T = double>
-inline T Inf()
+inline T inf()
 {
     return std::numeric_limits<T>::infinity();
 }
@@ -43,7 +45,7 @@ inline bool isEven(const IntegerT& v)
 }
 
 template<class T>
-inline void limit(T& input, const T& min, const T& max)
+inline void constrain(T& input, const T& min, const T& max)
 {
     if (min > max)
         return;
@@ -102,6 +104,8 @@ inline bool essentGreaterOrEqual(T a, T b, T epsilon)
 {
     return a > b || essentiallyEqual(a, b, epsilon);
 }
+
+} /* namespace numeric */
 
 } /* namespace vmcmc */
 

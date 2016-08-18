@@ -68,7 +68,7 @@ inline Sample::Sample(const Vector& pValues) :
     fGeneration( 0 ),
     fParameterValues( pValues ),
     fLikelihood( 0.0 ),
-    fNegLogLikelihood( -Inf() ),
+    fNegLogLikelihood( -numeric::inf() ),
     fPrior( 0.0 )
 { }
 
@@ -76,7 +76,7 @@ inline Sample::Sample(std::initializer_list<double> pValues) :
     fGeneration( 0 ),
     fParameterValues( pValues ),
     fLikelihood( 0.0 ),
-    fNegLogLikelihood( -Inf() ),
+    fNegLogLikelihood( -numeric::inf() ),
     fPrior( 0.0 )
 { }
 
@@ -84,14 +84,14 @@ inline Sample::Sample(size_t nParams) :
     fGeneration( 0 ),
     fParameterValues( nParams, 0.0 ),
     fLikelihood( 0.0 ),
-    fNegLogLikelihood( -Inf() ),
+    fNegLogLikelihood( -numeric::inf() ),
     fPrior( 0.0 )
 { }
 
 inline void Sample::Reset()
 {
     fPrior = fLikelihood = 0.0;
-    fNegLogLikelihood = -Inf();
+    fNegLogLikelihood = -numeric::inf();
 }
 
 } /* namespace vmcmc */
