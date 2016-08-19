@@ -1,5 +1,0 @@
-option('use_tbb', type : 'boolean', value : true, description : 'Use multi-core parallelization (requries libtbb-dev).')
-option('build_tests', type : 'boolean', value : true, description : 'Build unit tests (requries libgtest-dev).')
-
-# option('prefix', type : 'string', value : 'install', description : 'Default installation prefix, relative to source directory.')
-# option('combo_opt', type : 'combo', choices : ['one', 'two', 'three'], value : 'three')
