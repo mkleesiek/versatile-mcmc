@@ -4,7 +4,7 @@ conf_data.set('version', meson.project_version())
 conf_data.set('description', project_description)
 conf_data.set('source_root', meson.source_root())
 conf_data.set('build_dir', meson.current_build_dir())
-conf_data.set('install_dir', meson.current_build_dir())
+conf_data.set('install_dir', meson.source_root() + '/doc')
 
 # configure the doxygen configuration file
 configure_file(
