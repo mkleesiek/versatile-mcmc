@@ -1,8 +1,8 @@
-<map id="/home/marco/workspace/versatile&#45;mcmc/src/vmcmc/typetraits.h" name="/home/marco/workspace/versatile&#45;mcmc/src/vmcmc/typetraits.h">
-<area shape="rect" id="node2" href="$stringutils_8h.html" title="/home/marco/workspace\l/versatile&#45;mcmc/src/vmcmc\l/stringutils.h" alt="" coords="421,109,605,165"/>
-<area shape="rect" id="node3" href="$algorithm_8cpp.html" title="/home/marco/workspace\l/versatile&#45;mcmc/src/vmcmc\l/algorithm.cpp" alt="" coords="5,213,189,269"/>
-<area shape="rect" id="node4" href="$parameter_8cpp.html" title="/home/marco/workspace\l/versatile&#45;mcmc/src/vmcmc\l/parameter.cpp" alt="" coords="213,213,397,269"/>
-<area shape="rect" id="node5" href="$proposal_8cpp.html" title="/home/marco/workspace\l/versatile&#45;mcmc/src/vmcmc\l/proposal.cpp" alt="" coords="421,213,605,269"/>
-<area shape="rect" id="node6" href="$stringutils_8cpp.html" title="/home/marco/workspace\l/versatile&#45;mcmc/src/vmcmc\l/stringutils.cpp" alt="" coords="629,213,813,269"/>
-<area shape="rect" id="node7" href="$vmcmc-example_8cpp.html" title="/home/marco/workspace\l/versatile&#45;mcmc/src/vmcmc\l&#45;example.cpp" alt="" coords="837,213,1021,269"/>
+<map id="vmcmc/typetraits.h" name="vmcmc/typetraits.h">
+<area shape="rect" id="node2" href="$stringutils_8h.html" title="vmcmc/stringutils.h" alt="" coords="356,80,492,107"/>
+<area shape="rect" id="node3" href="$algorithm_8cpp.html" title="vmcmc/algorithm.cpp" alt="" coords="5,155,152,181"/>
+<area shape="rect" id="node4" href="$parameter_8cpp.html" title="vmcmc/parameter.cpp" alt="" coords="176,155,328,181"/>
+<area shape="rect" id="node5" href="$proposal_8cpp.html" title="vmcmc/proposal.cpp" alt="" coords="353,155,495,181"/>
+<area shape="rect" id="node6" href="$stringutils_8cpp.html" title="vmcmc/stringutils.cpp" alt="" coords="519,155,670,181"/>
+<area shape="rect" id="node7" href="$vmcmc-example_8cpp.html" title="vmcmc&#45;example.cpp" alt="" coords="694,155,837,181"/>
 </map>

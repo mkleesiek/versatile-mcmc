@@ -1,6 +1,6 @@
-<map id="/home/marco/workspace/versatile&#45;mcmc/src/vmcmc/random.h" name="/home/marco/workspace/versatile&#45;mcmc/src/vmcmc/random.h">
-<area shape="rect" id="node2" href="$metropolis_8cpp.html" title="/home/marco/workspace\l/versatile&#45;mcmc/src/vmcmc\l/metropolis.cpp" alt="" coords="5,109,189,165"/>
-<area shape="rect" id="node3" href="$parameter_8cpp.html" title="/home/marco/workspace\l/versatile&#45;mcmc/src/vmcmc\l/parameter.cpp" alt="" coords="213,109,397,165"/>
-<area shape="rect" id="node4" href="$proposal_8cpp.html" title="/home/marco/workspace\l/versatile&#45;mcmc/src/vmcmc\l/proposal.cpp" alt="" coords="421,109,605,165"/>
-<area shape="rect" id="node5" href="$vmcmc-example_8cpp.html" title="/home/marco/workspace\l/versatile&#45;mcmc/src/vmcmc\l&#45;example.cpp" alt="" coords="629,109,813,165"/>
+<map id="vmcmc/random.h" name="vmcmc/random.h">
+<area shape="rect" id="node2" href="$metropolis_8cpp.html" title="vmcmc/metropolis.cpp" alt="" coords="5,80,160,107"/>
+<area shape="rect" id="node3" href="$parameter_8cpp.html" title="vmcmc/parameter.cpp" alt="" coords="184,80,336,107"/>
+<area shape="rect" id="node4" href="$proposal_8cpp.html" title="vmcmc/proposal.cpp" alt="" coords="361,80,503,107"/>
+<area shape="rect" id="node5" href="$vmcmc-example_8cpp.html" title="vmcmc&#45;example.cpp" alt="" coords="527,80,670,107"/>
 </map>

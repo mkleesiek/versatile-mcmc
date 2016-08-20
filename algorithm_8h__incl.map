@@ -1,7 +1,7 @@
-<map id="/home/marco/workspace/versatile&#45;mcmc/src/vmcmc/algorithm.h" name="/home/marco/workspace/versatile&#45;mcmc/src/vmcmc/algorithm.h">
-<area shape="rect" id="node2" href="$parameter_8h.html" title="vmcmc/parameter.h" alt="" coords="642,109,781,136"/>
-<area shape="rect" id="node16" href="$sample_8h.html" title="vmcmc/sample.h" alt="" coords="1355,109,1478,136"/>
-<area shape="rect" id="node5" href="$blas_8h.html" title="vmcmc/blas.h" alt="" coords="730,184,834,211"/>
-<area shape="rect" id="node6" href="$logger_8h.html" title="vmcmc/logger.h" alt="" coords="67,266,182,293"/>
-<area shape="rect" id="node17" href="$numeric_8h.html" title="vmcmc/numeric.h" alt="" coords="1353,184,1480,211"/>
+<map id="vmcmc/algorithm.h" name="vmcmc/algorithm.h">
+<area shape="rect" id="node2" href="$parameter_8h.html" title="vmcmc/parameter.h" alt="" coords="642,80,781,107"/>
+<area shape="rect" id="node16" href="$sample_8h.html" title="vmcmc/sample.h" alt="" coords="1355,80,1478,107"/>
+<area shape="rect" id="node5" href="$blas_8h.html" title="vmcmc/blas.h" alt="" coords="730,155,834,181"/>
+<area shape="rect" id="node6" href="$logger_8h.html" title="vmcmc/logger.h" alt="" coords="67,237,182,263"/>
+<area shape="rect" id="node17" href="$numeric_8h.html" title="vmcmc/numeric.h" alt="" coords="1353,155,1480,181"/>
 </map>

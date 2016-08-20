@@ -1,11 +1,11 @@
-<map id="/home/marco/workspace/versatile&#45;mcmc/src/vmcmc/proposal.cpp" name="/home/marco/workspace/versatile&#45;mcmc/src/vmcmc/proposal.cpp">
-<area shape="rect" id="node2" href="$proposal_8h.html" title="vmcmc/proposal.h" alt="" coords="1045,109,1174,136"/>
-<area shape="rect" id="node5" href="$logger_8h.html" title="vmcmc/logger.h" alt="" coords="1221,341,1336,367"/>
-<area shape="rect" id="node24" href="$random_8h.html" title="vmcmc/random.h" alt="" coords="1505,259,1628,285"/>
-<area shape="rect" id="node29" href="$stringutils_8h.html" title="vmcmc/stringutils.h" alt="" coords="2067,109,2203,136"/>
-<area shape="rect" id="node3" href="$sample_8h.html" title="vmcmc/sample.h" alt="" coords="1336,184,1459,211"/>
-<area shape="rect" id="node4" href="$blas_8h.html" title="vmcmc/blas.h" alt="" coords="913,259,1017,285"/>
-<area shape="rect" id="node22" href="$parameter_8h.html" title="vmcmc/parameter.h" alt="" coords="499,184,637,211"/>
-<area shape="rect" id="node16" href="$numeric_8h.html" title="vmcmc/numeric.h" alt="" coords="1850,259,1977,285"/>
-<area shape="rect" id="node30" href="$typetraits_8h.html" title="vmcmc/typetraits.h" alt="" coords="2067,259,2202,285"/>
+<map id="vmcmc/proposal.cpp" name="vmcmc/proposal.cpp">
+<area shape="rect" id="node2" href="$proposal_8h.html" title="vmcmc/proposal.h" alt="" coords="1045,80,1174,107"/>
+<area shape="rect" id="node5" href="$logger_8h.html" title="vmcmc/logger.h" alt="" coords="1221,311,1336,338"/>
+<area shape="rect" id="node24" href="$random_8h.html" title="vmcmc/random.h" alt="" coords="1505,229,1628,256"/>
+<area shape="rect" id="node29" href="$stringutils_8h.html" title="vmcmc/stringutils.h" alt="" coords="2067,80,2203,107"/>
+<area shape="rect" id="node3" href="$sample_8h.html" title="vmcmc/sample.h" alt="" coords="1336,155,1459,181"/>
+<area shape="rect" id="node4" href="$blas_8h.html" title="vmcmc/blas.h" alt="" coords="913,229,1017,256"/>
+<area shape="rect" id="node22" href="$parameter_8h.html" title="vmcmc/parameter.h" alt="" coords="499,155,637,181"/>
+<area shape="rect" id="node16" href="$numeric_8h.html" title="vmcmc/numeric.h" alt="" coords="1850,229,1977,256"/>
+<area shape="rect" id="node30" href="$typetraits_8h.html" title="vmcmc/typetraits.h" alt="" coords="2067,229,2202,256"/>
 </map>

@@ -1,10 +1,10 @@
-<map id="/home/marco/workspace/versatile&#45;mcmc/src/vmcmc/parameter.h" name="/home/marco/workspace/versatile&#45;mcmc/src/vmcmc/parameter.h">
-<area shape="rect" id="node2" href="$algorithm_8h.html" title="/home/marco/workspace\l/versatile&#45;mcmc/src/vmcmc\l/algorithm.h" alt="" coords="31,109,215,165"/>
-<area shape="rect" id="node7" href="$parameter_8cpp.html" title="/home/marco/workspace\l/versatile&#45;mcmc/src/vmcmc\l/parameter.cpp" alt="" coords="239,109,423,165"/>
-<area shape="rect" id="node8" href="$proposal_8h.html" title="/home/marco/workspace\l/versatile&#45;mcmc/src/vmcmc\l/proposal.h" alt="" coords="447,109,631,165"/>
-<area shape="rect" id="node3" href="$algorithm_8cpp.html" title="/home/marco/workspace\l/versatile&#45;mcmc/src/vmcmc\l/algorithm.cpp" alt="" coords="5,213,189,269"/>
-<area shape="rect" id="node4" href="$metropolis_8h.html" title="/home/marco/workspace\l/versatile&#45;mcmc/src/vmcmc\l/metropolis.h" alt="" coords="213,213,397,269"/>
-<area shape="rect" id="node5" href="$metropolis_8cpp.html" title="/home/marco/workspace\l/versatile&#45;mcmc/src/vmcmc\l/metropolis.cpp" alt="" coords="381,317,565,373"/>
-<area shape="rect" id="node6" href="$vmcmc-example_8cpp.html" title="/home/marco/workspace\l/versatile&#45;mcmc/src/vmcmc\l&#45;example.cpp" alt="" coords="173,317,357,373"/>
-<area shape="rect" id="node9" href="$proposal_8cpp.html" title="/home/marco/workspace\l/versatile&#45;mcmc/src/vmcmc\l/proposal.cpp" alt="" coords="511,213,695,269"/>
+<map id="vmcmc/parameter.h" name="vmcmc/parameter.h">
+<area shape="rect" id="node2" href="$algorithm_8h.html" title="vmcmc/algorithm.h" alt="" coords="44,80,177,107"/>
+<area shape="rect" id="node7" href="$parameter_8cpp.html" title="vmcmc/parameter.cpp" alt="" coords="201,80,353,107"/>
+<area shape="rect" id="node8" href="$proposal_8h.html" title="vmcmc/proposal.h" alt="" coords="378,80,507,107"/>
+<area shape="rect" id="node3" href="$algorithm_8cpp.html" title="vmcmc/algorithm.cpp" alt="" coords="5,155,152,181"/>
+<area shape="rect" id="node4" href="$metropolis_8h.html" title="vmcmc/metropolis.h" alt="" coords="177,155,317,181"/>
+<area shape="rect" id="node5" href="$metropolis_8cpp.html" title="vmcmc/metropolis.cpp" alt="" coords="311,229,465,256"/>
+<area shape="rect" id="node6" href="$vmcmc-example_8cpp.html" title="vmcmc&#45;example.cpp" alt="" coords="143,229,286,256"/>
+<area shape="rect" id="node9" href="$proposal_8cpp.html" title="vmcmc/proposal.cpp" alt="" coords="426,155,569,181"/>
 </map>
