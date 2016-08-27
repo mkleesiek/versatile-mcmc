@@ -67,6 +67,8 @@ namespace vmcmc {
  * By default, if the library is compiled in release-mode, Trace and Debug
  * outputs are silenced.
  * No external configuration mechanisms (yet).
+ *
+ * This facility might possibly be replaced by boost log.
  */
 class Logger
 {

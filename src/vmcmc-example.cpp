@@ -3,13 +3,19 @@
  *
  * @date 24.07.2016
  * @author marco@kleesiek.com
+ *
+ * @description A simple, very preliminary example of how the v-mcmc
+ * library can be used to run a metropolis-hastings sampler on a simple
+ * statistical distribution and save the output to an ASCII file.
  */
 
 #include <vmcmc/logger.h>
 #include <vmcmc/random.h>
 #include <vmcmc/stringutils.h>
 #include <vmcmc/metropolis.h>
+#include <vmcmc/proposal.h>
 #include <vmcmc/numeric.h>
+#include <vmcmc/io.h>
 
 LOG_DEFINE("vmcmc.example")
 
@@ -69,7 +75,7 @@ int main(int /*argc*/, char* /*argv*/[]){
     Random::Instance().SetSeed(0);
 
     // setup the parameter configuration
-    ParameterList paramConfig;
+    ParameterConfig paramConfig;
     paramConfig.SetParameter(0, Parameter("x1", 0.0, 1.0) );
     paramConfig.SetParameter(1, Parameter("x2", 0.0, 1.0) );
     paramConfig.SetErrorScaling( 5.0 );
@@ -80,7 +86,9 @@ int main(int /*argc*/, char* /*argv*/[]){
     mcmc.SetRandomizeStartPoint(true);
     mcmc.SetBetas( {1.0, 0.1, 0.01, 0.001} );
     mcmc.SetLikelihoodFunction( targetFunction );
+    mcmc.SetProposalFunction<ProposalGaussian>();
     mcmc.SetTotalLength(1E7);
+    mcmc.SetWriter<AsciiWriter>(".", "vmcmc-example");
 
     LOG(Info, "Starting example Metropolis ...");
 

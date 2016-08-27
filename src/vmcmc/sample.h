@@ -54,44 +54,37 @@ public:
     void SetPrior(double value) { fPrior = value; }
     double GetPrior() const { return fPrior; }
 
+    void SetAccepted(bool value) { fAccepted = value; }
+    double IsAccepted() const { return fAccepted; }
+
 private:
-    size_t fGeneration;
+    size_t fGeneration       = 0;
     Vector fParameterValues;
-    double fLikelihood;
-    double fNegLogLikelihood;
-    double fPrior;
+    double fLikelihood       = 0.0;
+    double fNegLogLikelihood = -numeric::inf();
+    double fPrior            = 0.0;
+    bool fAccepted           = false;
 };
 
 using Chain = std::deque<Sample>;
 
 inline Sample::Sample(const Vector& pValues) :
-    fGeneration( 0 ),
-    fParameterValues( pValues ),
-    fLikelihood( 0.0 ),
-    fNegLogLikelihood( -numeric::inf() ),
-    fPrior( 0.0 )
+    fParameterValues( pValues )
 { }
 
 inline Sample::Sample(std::initializer_list<double> pValues) :
-    fGeneration( 0 ),
-    fParameterValues( pValues ),
-    fLikelihood( 0.0 ),
-    fNegLogLikelihood( -numeric::inf() ),
-    fPrior( 0.0 )
+    fParameterValues( pValues )
 { }
 
 inline Sample::Sample(size_t nParams) :
-    fGeneration( 0 ),
-    fParameterValues( nParams, 0.0 ),
-    fLikelihood( 0.0 ),
-    fNegLogLikelihood( -numeric::inf() ),
-    fPrior( 0.0 )
+    fParameterValues( nParams, 0.0 )
 { }
 
 inline void Sample::Reset()
 {
     fPrior = fLikelihood = 0.0;
     fNegLogLikelihood = -numeric::inf();
+    fAccepted = false;
 }
 
 } /* namespace vmcmc */

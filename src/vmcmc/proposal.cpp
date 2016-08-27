@@ -40,7 +40,7 @@ double ProposalGaussian::Transition(const Vector& s1, Vector& s2) const
     return 1.0;
 }
 
-void ProposalGaussian::UpdateParameterConfig(const ParameterList& paramConfig)
+void ProposalGaussian::UpdateParameterConfig(const ParameterConfig& paramConfig)
 {
     fCholeskyDecomp = paramConfig.GetCholeskyDecomp();
 }

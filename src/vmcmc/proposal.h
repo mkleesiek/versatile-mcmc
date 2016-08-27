@@ -38,7 +38,7 @@ public:
 
     double Transition(const Sample& s1, Sample& s2);
 
-    virtual void UpdateParameterConfig(const ParameterList& /*paramConfig*/) { };
+    virtual void UpdateParameterConfig(const ParameterConfig& /*paramConfig*/) { };
 };
 
 /**
@@ -56,7 +56,7 @@ public:
 
     double Transition(const Vector& s1, Vector& s2) const override;
 
-    void UpdateParameterConfig(const ParameterList& paramConfig) override;
+    void UpdateParameterConfig(const ParameterConfig& paramConfig) override;
 
 protected:
     MatrixLower fCholeskyDecomp;

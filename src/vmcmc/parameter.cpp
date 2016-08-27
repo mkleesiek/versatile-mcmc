@@ -100,14 +100,14 @@ bool Parameter::ReflectFromLimits(double& someValue) const
     }
 }
 
-ParameterList::ParameterList() :
+ParameterConfig::ParameterConfig() :
     fErrorScaling( 1.0 )
 { }
 
-ParameterList::~ParameterList()
+ParameterConfig::~ParameterConfig()
 { }
 
-void ParameterList::SetParameter(size_t pIndex, const Parameter& param)
+void ParameterConfig::SetParameter(size_t pIndex, const Parameter& param)
 {
     if (fParameters.size() <= pIndex) {
         // resize parameter vector
@@ -119,7 +119,7 @@ void ParameterList::SetParameter(size_t pIndex, const Parameter& param)
     fParameters[pIndex] = param;
 }
 
-void ParameterList::SetCorrelation(size_t p1, size_t p2, double correlation)
+void ParameterConfig::SetCorrelation(size_t p1, size_t p2, double correlation)
 {
     if (p1 < p2)
         swap(p1, p2);
@@ -143,7 +143,7 @@ void ParameterList::SetCorrelation(size_t p1, size_t p2, double correlation)
     fCorrelations(p1, p2) = correlation;
 }
 
-double ParameterList::GetCorrelation(size_t p1, size_t p2) const
+double ParameterConfig::GetCorrelation(size_t p1, size_t p2) const
 {
     if (p1 < p2)
         swap(p1, p2);
@@ -153,7 +153,7 @@ double ParameterList::GetCorrelation(size_t p1, size_t p2) const
     return fCorrelations(p1, p2);
 }
 
-Vector ParameterList::GetStartValues(bool randomized) const
+Vector ParameterConfig::GetStartValues(bool randomized) const
 {
     Vector startPoint( size() );
 
@@ -168,7 +168,7 @@ Vector ParameterList::GetStartValues(bool randomized) const
     return startPoint;
 }
 
-Vector ParameterList::GetErrors() const
+Vector ParameterConfig::GetErrors() const
 {
     Vector result( size() );
     for (size_t pIndex = 0; pIndex < size(); pIndex++)
@@ -176,7 +176,7 @@ Vector ParameterList::GetErrors() const
     return result;
 }
 
-MatrixLower ParameterList::GetCovarianceMatrix() const
+MatrixLower ParameterConfig::GetCovarianceMatrix() const
 {
     MatrixLower result( size(), size() );
 
@@ -190,7 +190,7 @@ MatrixLower ParameterList::GetCovarianceMatrix() const
     return result;
 }
 
-MatrixLower ParameterList::GetCholeskyDecomp() const
+MatrixLower ParameterConfig::GetCholeskyDecomp() const
 {
     const MatrixLower cov = GetCovarianceMatrix();
 
@@ -211,7 +211,7 @@ MatrixLower ParameterList::GetCholeskyDecomp() const
     return result;
 }
 
-bool ParameterList::IsInsideLimits(const Vector& somePoint) const
+bool ParameterConfig::IsInsideLimits(const Vector& somePoint) const
 {
     LOG_ASSERT( somePoint.size() == fParameters.size() );
 
@@ -223,7 +223,7 @@ bool ParameterList::IsInsideLimits(const Vector& somePoint) const
     return true;
 }
 
-void ParameterList::ConstrainToLimits(Vector& somePoint) const
+void ParameterConfig::ConstrainToLimits(Vector& somePoint) const
 {
     LOG_ASSERT( somePoint.size() == fParameters.size() );
 
@@ -231,7 +231,7 @@ void ParameterList::ConstrainToLimits(Vector& somePoint) const
         fParameters[i].ConstrainToLimits( somePoint[i] );
 }
 
-bool ParameterList::ReflectFromLimits(Vector& somePoint) const
+bool ParameterConfig::ReflectFromLimits(Vector& somePoint) const
 {
     LOG_ASSERT( somePoint.size() == fParameters.size() );
 

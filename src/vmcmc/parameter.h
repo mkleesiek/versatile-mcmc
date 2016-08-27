@@ -100,11 +100,11 @@ protected:
  * to be evaluated. In addition to listing the individual parameter properties,
  * a correlation matrix can be specified.
  */
-class ParameterList
+class ParameterConfig
 {
 public:
-    ParameterList();
-    virtual ~ParameterList();
+    ParameterConfig();
+    virtual ~ParameterConfig();
 
     void SetParameter(size_t pIndex, const Parameter& param);
 //    const Parameter& GetParameter(size_t pIndex) const { return fParameters[pIndex]; }

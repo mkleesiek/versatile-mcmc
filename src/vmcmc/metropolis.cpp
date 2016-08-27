@@ -60,12 +60,14 @@ bool MetropolisHastings::Initialize()
         for (auto& chain : fSampledChains) {
             Sample startPoint( GetParameterConfig().GetStartValues(true) );
             Evaluate( startPoint );
+            startPoint.SetAccepted( true );
             chain.push_back( startPoint );
         }
     }
     else {
         Sample startPoint( GetParameterConfig().GetStartValues(false) );
         Evaluate( startPoint );
+        startPoint.SetAccepted( true );
         for (auto& chain : fSampledChains)
             chain.push_back( startPoint );
     }
@@ -176,10 +178,12 @@ void MetropolisHastings::AdvanceChain(size_t iChain, size_t nSteps)
         const bool proposalAccepted = Random::Instance().Bool( mhRatio );
 
         if (proposalAccepted) {
+            nextState.SetAccepted( true );
             chain.push_back( nextState );
         }
         else {
             nextState = previousState;
+            nextState.SetAccepted( false );
             nextState.IncrementGeneration();
             chain.push_back( nextState );
         }

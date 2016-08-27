@@ -53,6 +53,8 @@ public:
     void SetBetas(ContainerT betas);
     const std::vector<double>& GetBetas() const { return fBetas; }
 
+    template<class ProposalT, class... ArgsT>
+    void SetProposalFunction(ArgsT&&... args);
     void SetProposalFunction(std::shared_ptr<Proposal> proposalFunction) { fProposalFunctions[0] = proposalFunction; }
     std::shared_ptr<Proposal> GetProposalFunction() { return fProposalFunctions[0]; };
     std::shared_ptr<const Proposal> GetProposalFunction() const { return fProposalFunctions[0]; }
@@ -66,12 +68,20 @@ protected:
     bool fRandomizeStartPoint;
 
     std::vector<double> fBetas;
-    std::vector<ParameterList> fDynamicParamConfigs;
+    std::vector<ParameterConfig> fDynamicParamConfigs;
     std::vector<std::shared_ptr<Proposal>> fProposalFunctions;
     std::vector<Chain> fSampledChains;
 
     size_t fPtFrequency;
 };
+
+template<class ProposalT, class... ArgsT>
+inline void MetropolisHastings::SetProposalFunction(ArgsT&&... args)
+{
+    fProposalFunctions[0] = std::make_shared<ProposalT>(
+        std::forward<ArgsT>(args)...
+    );
+}
 
 template<class ContainerT>
 inline void MetropolisHastings::SetBetas(ContainerT betas)

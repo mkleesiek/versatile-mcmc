@@ -9,6 +9,7 @@
 #include <vmcmc/logger.h>
 #include <vmcmc/stringutils.h>
 #include <vmcmc/stats.h>
+#include <vmcmc/io.h>
 
 //#include <boost/accumulators/accumulators.hpp>
 //#include <boost/accumulators/statistics/mean.hpp>
@@ -30,7 +31,7 @@ Algorithm::Algorithm() :
 Algorithm::~Algorithm()
 { }
 
-void Algorithm::SetParameterConfig(const ParameterList& paramConfig)
+void Algorithm::SetParameterConfig(const ParameterConfig& paramConfig)
 {
     fParameterConfig = paramConfig;
 }
@@ -113,14 +114,31 @@ void Algorithm::Run()
     // nCycles of fCycleLength plus nRemainingSteps to yield a total chain
     // length of fTotalLength
 
-    size_t nCycles = fTotalLength / fCycleLength;
+    const size_t nCycles = fTotalLength / fCycleLength;
+    const size_t nChains = NChains();
+
+    vector<unique_ptr<Writer>> writers(nChains);
+    if (fWriter) {
+        for (size_t iChain = 0; iChain < nChains; iChain++) {
+            writers[iChain].reset( fWriter->Clone() );
+            writers[iChain]->Initialize(iChain, nChains);
+        }
+    }
 
     for (size_t iCycle = 0; iCycle < nCycles; iCycle++) {
         Advance(fCycleLength);
 
+        // output
+        if (fWriter) {
+            for (size_t iChain = 0; iChain < nChains; iChain++) {
+                writers[iChain]->Write( GetChain(iChain) );
+            }
+        }
+
+        // some intermediate logging
         if (iCycle % (nCycles/100) == 0) {
             const size_t iStep = iCycle * fCycleLength;
-            for (size_t iChain = 0; iChain < NChains(); iChain++) {
+            for (size_t iChain = 0; iChain < nChains; iChain++) {
                 const Sample& sample = GetChain(iChain).back();
                 LOG(Debug, "(" << iChain << ") " << iStep << ": " << sample);
             }

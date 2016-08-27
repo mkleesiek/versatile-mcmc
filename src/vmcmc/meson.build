@@ -2,6 +2,7 @@ vmcmc_headers = [
     'algorithm.h',
     'blas.h',
     'exception.h',
+    'io.h',
     'logger.h',
     'metropolis.h',
     'numeric.h',
@@ -17,6 +18,7 @@ vmcmc_headers = [
 
 vmcmc_sources = [
     'algorithm.cpp',
+    'io.cpp',
     'logger.cpp',
     'metropolis.cpp',
     'parameter.cpp',

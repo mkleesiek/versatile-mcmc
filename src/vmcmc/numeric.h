@@ -9,6 +9,7 @@
 #define FMCMC_NUMERIC_H_
 
 #include <numeric>
+#include <type_traits>
 
 #include <boost/math/special_functions/pow.hpp>
 #include <boost/math/constants/constants.hpp>
@@ -32,27 +33,56 @@ inline T inf()
     return std::numeric_limits<T>::infinity();
 }
 
-template<class IntegerT>
-inline bool isOdd(const IntegerT& v)
+template<class T,
+class = typename std::enable_if<std::is_integral<T>::value>::type>
+inline bool isOdd(const T& v)
 {
     return (v % 2 == 1);
 }
 
-template<class IntegerT>
-inline bool isEven(const IntegerT& v)
+template<class T,
+class = typename std::enable_if<std::is_integral<T>::value>::type>
+inline bool isEven(const T& v)
 {
     return (v % 2 == 0);
 }
 
+template<class T,
+class = typename std::enable_if<std::is_integral<T>::value>::type>
+inline int numberOfDigits(T number)
+{
+    if (number == 0)
+        return 1;
+
+    int nDigits = 0;
+    while (number != 0) {
+        nDigits++;
+        number /= 10;
+    }
+
+    return nDigits;
+}
+
 template<class T>
-inline void constrain(T& input, const T& min, const T& max)
+inline T& constrain(T& input, const T& min, const T& max)
 {
     if (min > max)
-        return;
-    else if (input < min)
+        return input;
+
+    if (input < min)
         input = min;
     else if (input > max)
         input = max;
+
+    return input;
+}
+
+template<class T>
+inline T constrain(T&& input, const T& min, const T& max)
+{
+    T result = input;
+    constrain(result, min, max);
+    return result;
 }
 
 /**
