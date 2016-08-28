@@ -100,9 +100,12 @@ bool Parameter::ReflectFromLimits(double& someValue) const
     }
 }
 
-ParameterConfig::ParameterConfig() :
+ParameterConfig::ParameterConfig(size_t nInitParams) :
     fErrorScaling( 1.0 )
-{ }
+{
+    for (size_t i = 0; i < nInitParams; i++)
+        SetParameter(i, "", 0.0, 1.0);
+}
 
 ParameterConfig::~ParameterConfig()
 { }
@@ -117,6 +120,12 @@ void ParameterConfig::SetParameter(size_t pIndex, const Parameter& param)
     }
 
     fParameters[pIndex] = param;
+}
+
+void ParameterConfig::SetParameter(size_t pIndex, const string& name, double startValue, double absoluteError,
+    optional<double> lowerLimit, optional<double> upperLimit, bool fixed)
+{
+    SetParameter( pIndex, Parameter(name, startValue, absoluteError, lowerLimit, upperLimit, fixed) );
 }
 
 void ParameterConfig::SetCorrelation(size_t p1, size_t p2, double correlation)
@@ -160,8 +169,10 @@ Vector ParameterConfig::GetStartValues(bool randomized) const
     for (size_t pIndex = 0; pIndex < size(); pIndex++)
         startPoint[pIndex] = fParameters[pIndex].GetStartValue();
 
-    if (randomized)
-        startPoint = Random::Instance().GaussianMultiVariate(startPoint, GetCholeskyDecomp());
+    if (randomized) {
+        normal_distribution<double> dist;
+        startPoint = Random::Instance().FromMultiVariateDistribution(dist, startPoint, GetCholeskyDecomp());
+    }
 
     ConstrainToLimits( startPoint );
 

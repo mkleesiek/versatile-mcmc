@@ -99,7 +99,7 @@ public:
 
     virtual void Advance(size_t nSteps = 1) = 0;
 
-    virtual size_t NChains() = 0;
+    virtual size_t NumberOfChains() = 0;
     virtual const Chain& GetChain(size_t cIndex = 0) = 0;
 
 protected:

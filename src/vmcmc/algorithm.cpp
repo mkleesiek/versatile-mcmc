@@ -115,7 +115,7 @@ void Algorithm::Run()
     // length of fTotalLength
 
     const size_t nCycles = fTotalLength / fCycleLength;
-    const size_t nChains = NChains();
+    const size_t nChains = NumberOfChains();
 
     vector<unique_ptr<Writer>> writers(nChains);
     if (fWriter) {
@@ -151,7 +151,7 @@ void Algorithm::Run()
 
     // print some diagnostics for each chain to console
 
-    for (size_t iChain = 0; iChain < NChains(); iChain++) {
+    for (size_t iChain = 0; iChain < NumberOfChains(); iChain++) {
         const Chain& chain = GetChain(iChain);
 
         LOG(Info, "Diagnostics for chain " << iChain << ":");

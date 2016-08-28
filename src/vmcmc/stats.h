@@ -78,17 +78,15 @@ inline double accRate(const XContainerT& c, ptrdiff_t startIndex, ptrdiff_t endI
 {
     auto itRange = iterators(c, startIndex, endIndex);
 
-    auto it1 = itRange.first;
-    // create a second iterator it2, which is 1 step ahead of the it1
-    auto it2 = (itRange.first != itRange.second) ? std::next(itRange.first) : itRange.second;
+    // skip the first element
+    if (itRange.first != itRange.second)
+        std::advance(itRange.first, 1);
 
     size_t accepted = 0;
     size_t total = 0;
 
-    for (; it2 != itRange.second; it1++, it2++) {
-        // Assume, the next sample has been accepted, if its parameter values
-        // have changed from the previous one.
-        if (it2->Values() != it1->Values())
+    for (auto it = itRange.first; it != itRange.second; it++) {
+        if (it->IsAccepted())
             accepted++;
         total++;
     }

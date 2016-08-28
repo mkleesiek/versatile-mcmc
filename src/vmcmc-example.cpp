@@ -83,12 +83,26 @@ int main(int /*argc*/, char* /*argv*/[]){
     // instantiate the MCMC sampler
     MetropolisHastings mcmc;
     mcmc.SetParameterConfig(paramConfig);
+
+    // randomize the start points within their specified errors
     mcmc.SetRandomizeStartPoint(true);
-    mcmc.SetBetas( {1.0, 0.1, 0.01, 0.001} );
+
+    mcmc.SetNumberOfChains( 2 );
+
+    // enable parallel tempering by specifying higher temperatures
+    mcmc.SetBetas( {1.0, 0.1, 0.01} );
+
+    // set the target likelihood
     mcmc.SetLikelihoodFunction( targetFunction );
-    mcmc.SetProposalFunction<ProposalGaussian>();
-    mcmc.SetTotalLength(1E7);
-    mcmc.SetWriter<AsciiWriter>(".", "vmcmc-example");
+
+    // use a Gaussian proposa function
+    mcmc.SetProposalFunction<ProposalNormal>();
+
+    // set the total number of steps per chain
+    mcmc.SetTotalLength(1E5);
+
+    // define the output method
+    mcmc.SetWriter<TextFileWriter>(".", "vmcmc-example");
 
     LOG(Info, "Starting example Metropolis ...");
 
@@ -96,7 +110,6 @@ int main(int /*argc*/, char* /*argv*/[]){
     mcmc.Run();
 
     // TODO: print diagnostics
-    // TODO: very important: save the sampled chain as ASCII file
 
     LOG(Info, "Done.");
 

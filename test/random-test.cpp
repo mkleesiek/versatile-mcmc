@@ -84,8 +84,10 @@ TEST(Random, MultivariateNormal) {
 
     const Vector mean(N, 5.0);
 
-    for (int i = 0; i < 1000; ++i) {
-        Vector rVector = rand.GaussianMultiVariate(mean, cholesky);
+    normal_distribution<double> dist;
+
+    for (int i = 0; i < 200; ++i) {
+        Vector rVector = rand.FromMultiVariateDistribution(dist, mean, cholesky);
         acc01(rVector(0), covariate1 = rVector(1));
         acc12(rVector(1), covariate1 = rVector(2));
         acc23(rVector(2), covariate1 = rVector(3));

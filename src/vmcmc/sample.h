@@ -37,7 +37,7 @@ public:
 
     Vector& Values() { return fParameterValues; }
     const Vector& Values() const { return fParameterValues; }
-//    size_t size() const { return fParameterValues.size(); }
+    Sample& operator= (std::initializer_list<double> pValues);
 
     /**
      * Reset ::fLikelihood, ::fNegLogLikelihood and ::fPrior to their
@@ -79,6 +79,12 @@ inline Sample::Sample(std::initializer_list<double> pValues) :
 inline Sample::Sample(size_t nParams) :
     fParameterValues( nParams, 0.0 )
 { }
+
+inline Sample& Sample::operator= (std::initializer_list<double> pValues)
+{
+    fParameterValues = Vector(pValues);
+    return *this;
+}
 
 inline void Sample::Reset()
 {

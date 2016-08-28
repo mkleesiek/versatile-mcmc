@@ -34,14 +34,14 @@ protected:
     size_t fCurrentIndex = 0;
 };
 
-class AsciiWriter : public Writer
+class TextFileWriter : public Writer
 {
 public:
-    AsciiWriter(const std::string& directory, const std::string& stem,
+    TextFileWriter(const std::string& directory, const std::string& stem,
         const std::string& separator = "-", const std::string& extension = ".txt");
-    virtual ~AsciiWriter();
+    virtual ~TextFileWriter();
 
-    virtual AsciiWriter* Clone() const override;
+    virtual TextFileWriter* Clone() const override;
 
     void SetPrecision(int prec) { fPrecision = prec; }
 
@@ -49,7 +49,7 @@ public:
     virtual void Write(const Sample& sample) override;
 
 private:
-    AsciiWriter(const AsciiWriter& other);
+    TextFileWriter(const TextFileWriter& other);
 
     std::string fDirectory;
     std::string fStem;

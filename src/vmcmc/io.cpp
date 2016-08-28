@@ -17,7 +17,7 @@ using namespace std;
 namespace vmcmc
 {
 
-AsciiWriter::AsciiWriter(const string& directory, const string& stem,
+TextFileWriter::TextFileWriter(const string& directory, const string& stem,
         const string& separator, const string& extension) :
     fDirectory(directory),
     fStem(stem),
@@ -25,12 +25,12 @@ AsciiWriter::AsciiWriter(const string& directory, const string& stem,
     fExtension(extension)
 { }
 
-AsciiWriter::~AsciiWriter()
+TextFileWriter::~TextFileWriter()
 {
     fFileStream.close();
 }
 
-AsciiWriter::AsciiWriter(const AsciiWriter& other) :
+TextFileWriter::TextFileWriter(const TextFileWriter& other) :
     Writer(other),
     fDirectory(other.fDirectory),
     fStem(other.fStem),
@@ -38,12 +38,12 @@ AsciiWriter::AsciiWriter(const AsciiWriter& other) :
     fExtension(other.fExtension)
 { }
 
-AsciiWriter* AsciiWriter::Clone() const
+TextFileWriter* TextFileWriter::Clone() const
 {
-    return new AsciiWriter(*this);
+    return new TextFileWriter(*this);
 }
 
-bool AsciiWriter::Initialize(size_t chainIndex, size_t totalNChains)
+bool TextFileWriter::Initialize(size_t chainIndex, size_t totalNChains)
 {
     if (fFileStream.is_open())
         throw Exception() << "TextWriter target file is already open.";
@@ -62,24 +62,23 @@ bool AsciiWriter::Initialize(size_t chainIndex, size_t totalNChains)
     return (fFileStream.is_open() && fFileStream.good());
 }
 
-void AsciiWriter::Write(const Sample& sample)
+void TextFileWriter::Write(const Sample& sample)
 {
     if (!fFileStream.is_open() || fFileStream.fail())
         throw Exception() << "TextWriter target file is in error state.";
 
     fFileStream.precision(fPrecision);
-    fFileStream.fill('\t');
 
     fFileStream << sample.GetGeneration();
 
     for (const double& v : sample.Values())
-        fFileStream << v;
+        fFileStream << "\t" << v;
 
-    fFileStream << sample.GetNegLogLikelihood();
-    fFileStream << sample.GetLikelihood();
-    fFileStream << sample.GetPrior();
+    fFileStream << "\t" << sample.GetNegLogLikelihood();
+    fFileStream << "\t" << sample.GetLikelihood();
+    fFileStream << "\t" << sample.GetPrior();
 
-    fFileStream << sample.IsAccepted();
+//    fFileStream << "\t" << sample.IsAccepted();
 
     fFileStream << endl;
 }

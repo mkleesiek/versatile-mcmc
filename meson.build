@@ -16,7 +16,7 @@ if not cpp11_support
 endif
 
 # resolve external dependencies
-boost_dep = dependency('boost', version : '>=1.45.0', modules : ['accumulators', 'filesystem', 'log', 'system'])
+boost_dep = dependency('boost', version : '>=1.45.0', modules : ['accumulators'])
 tbb_dep   = dependency('tbb', required : false)
 gtest_dep = dependency('gtest', main : true, required : false)
 doxygen   = find_program('doxygen', required : false)

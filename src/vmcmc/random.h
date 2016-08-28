@@ -115,29 +115,10 @@ public:
      * @return
      */
     template<class FloatT = double>
-    FloatT Gaussian(FloatT mean = 0.0, FloatT sigma = 1.0);
+    FloatT Normal(FloatT mean = 0.0, FloatT sigma = 1.0);
 
-    /**
-     * Draw from a multivariate gaussian.
-     * @param mean A vector of mean values.
-     * @param cholesky The lower triangular matrix cholesky decomposition of
-     * the covariance matrix. The diagonal elements correspond to the
-     * individual parameter std. deviations.
-     * @return
-     * @see boost::multivariate_normal_distribution
-     */
-    template<class VectorT, class MatrixT>
-    VectorT GaussianMultiVariate(const VectorT& mean, const MatrixT& cholesky);
-
-    /**
-     * Draw from a multivariate gaussian without correlations.
-     * @param mean A vector of mean values.
-     * @param sigma A vector of standard deviations.
-     * @return
-     * @see boost::multivariate_normal_distribution
-     */
-    template<class VectorT>
-    VectorT GaussianMultiVariate(const VectorT& mean, const VectorT& sigma);
+    template<class FloatT = double>
+    FloatT StudentT(FloatT n = 1.0, FloatT mean = 0.0, FloatT sigma = 1.0);
 
     /**
      * Draw from an exponential distribution according to exp(-t/tau).
@@ -174,13 +155,36 @@ public:
 
     /**
      * Draw from a custom distribution.
-     * @tparam The type name of the distribution.
+     * @tparam Typename of the distribution.
      * @see http://www.cplusplus.com/reference/random/
      * @param dist
      * @return
      */
     template<class DistributionT>
-    typename DistributionT::result_type FromDistribution(const DistributionT& dist);
+    typename DistributionT::result_type FromDistribution(DistributionT& dist = DistributionT());
+
+    /**
+     * Draw from a custom multivariate distribution.
+     * @param dist
+     * @param mean A vector of mean values.
+     * @param cholesky The lower triangular matrix cholesky decomposition of
+     * the covariance matrix. The diagonal elements correspond to the
+     * individual parameter std. deviations.
+     * @return
+     * @see boost::multivariate_normal_distribution
+     */
+    template<class DistributionT, class VectorT, class MatrixT>
+    VectorT FromMultiVariateDistribution(DistributionT& dist, const VectorT& mean, const MatrixT& cholesky);
+
+    /**
+     * Draw from a custom multivariate distribution without correlations.
+     * @param dist
+     * @param mean A vector of mean values.
+     * @param sigma A vector of standard deviations.
+     * @return
+     */
+    template<class DistributionT, class VectorT>
+    VectorT FromMultiVariateDistribution(DistributionT& dist, const VectorT& mean, const VectorT& sigma);
 
 public:
     static constexpr result_type min() { return engine_type::min(); }
@@ -275,21 +279,27 @@ inline bool RandomPrototype<EngineT>::Bool(FloatT probability)
 
 template<class EngineT>
 template<class FloatT>
-inline FloatT RandomPrototype<EngineT>::Gaussian(FloatT mean, FloatT sigma)
+inline FloatT RandomPrototype<EngineT>::Normal(FloatT mean, FloatT sigma)
 {
     return std::normal_distribution<FloatT>(mean, sigma)(*this);
 }
 
 template<class EngineT>
-template<class VectorT, class MatrixT>
-inline VectorT RandomPrototype<EngineT>::GaussianMultiVariate(const VectorT& mean, const MatrixT& cholesky)
+template<class DistributionT>
+inline typename DistributionT::result_type RandomPrototype<EngineT>::FromDistribution(DistributionT& dist)
+{
+    return dist(*this);
+}
+
+template<class EngineT>
+template<class DistributionT, class VectorT, class MatrixT>
+inline VectorT RandomPrototype<EngineT>::FromMultiVariateDistribution(DistributionT& dist, const VectorT& mean, const MatrixT& cholesky)
 {
     LOG_DEFINE("vmcmc.random");
     LOG_ASSERT( mean.size() == cholesky.size1() );
 
     VectorT noise( mean.size() );
 
-    std::normal_distribution<typename VectorT::value_type> dist;
     for (size_t i = 0; i < noise.size(); ++i)
         noise[i] = dist(*this);
 
@@ -297,20 +307,20 @@ inline VectorT RandomPrototype<EngineT>::GaussianMultiVariate(const VectorT& mea
 }
 
 template<class EngineT>
-template<class VectorT>
-inline VectorT RandomPrototype<EngineT>::GaussianMultiVariate(const VectorT& mean, const VectorT& sigma)
+template<class DistributionT, class VectorT>
+inline VectorT RandomPrototype<EngineT>::FromMultiVariateDistribution(DistributionT& dist, const VectorT& mean, const VectorT& sigma)
 {
     LOG_DEFINE("vmcmc.random");
     LOG_ASSERT( mean.size() == sigma.size1() );
 
     VectorT noise( mean.size() );
 
-    std::normal_distribution<typename VectorT::value_type> dist;
     for (size_t i = 0; i < noise.size(); ++i)
         noise[i] = dist(*this);
 
     return mean + ublas::element_prod(noise, sigma);
 }
+
 
 template<class EngineT>
 template<class IntegerT>
@@ -326,7 +336,7 @@ typename std::enable_if<std::is_floating_point<FloatT>::value, FloatT>::type
 inline RandomPrototype<EngineT>::Poisson(FloatT mean)
 {
     if (mean > std::numeric_limits<uint64_t>::max() / 2.0)
-        return Gaussian<FloatT>(mean, sqrt(mean));
+        return Normal<FloatT>(mean, sqrt(mean));
     else
         return (FloatT) std::poisson_distribution<uint64_t>(mean)(*this);
 }
@@ -343,13 +353,6 @@ template<class ProbRangeT, class IndexType>
 inline IndexType RandomPrototype<EngineT>::Discrete(const ProbRangeT& probabilities)
 {
     return std::discrete_distribution<IndexType>(probabilities.begin(), probabilities.end())(*this);
-}
-
-template<class EngineT>
-template<class DistributionT>
-inline typename DistributionT::result_type RandomPrototype<EngineT>::FromDistribution(const DistributionT& dist)
-{
-    return dist(*this);
 }
 
 template<class EngineT>

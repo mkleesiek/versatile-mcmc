@@ -46,8 +46,10 @@ public:
 
     virtual void Advance(size_t nSteps = 1) override;
 
-    virtual size_t NChains() override { return fSampledChains.size(); }
-    virtual const Chain& GetChain(size_t cIndex = 0) override { return fSampledChains[cIndex]; }
+    virtual size_t NumberOfChains() override { return fChainConfigs.size(); }
+    virtual const Chain& GetChain(size_t cIndex = 0) override;
+
+    void SetNumberOfChains(size_t nChains);
 
     template<class ContainerT = std::initializer_list<double>>
     void SetBetas(ContainerT betas);
@@ -55,30 +57,31 @@ public:
 
     template<class ProposalT, class... ArgsT>
     void SetProposalFunction(ArgsT&&... args);
-    void SetProposalFunction(std::shared_ptr<Proposal> proposalFunction) { fProposalFunctions[0] = proposalFunction; }
-    std::shared_ptr<Proposal> GetProposalFunction() { return fProposalFunctions[0]; };
-    std::shared_ptr<const Proposal> GetProposalFunction() const { return fProposalFunctions[0]; }
+    void SetProposalFunction(std::shared_ptr<Proposal> proposalFunction) { fProposalFunction = proposalFunction; }
+    std::shared_ptr<Proposal> GetProposalFunction() { return fProposalFunction; };
+    std::shared_ptr<const Proposal> GetProposalFunction() const { return fProposalFunction; }
 
     void SetRandomizeStartPoint(bool randomizeStartPoint) { fRandomizeStartPoint = randomizeStartPoint; }
     bool IsRandomizeStartPoint() const { return fRandomizeStartPoint; }
 
 protected:
-    void AdvanceChain(size_t iChain, size_t nSteps = 1);
+    void AdvanceChain(size_t iChainConfig, size_t iBeta, size_t nSteps = 1);
 
     bool fRandomizeStartPoint;
 
     std::vector<double> fBetas;
-    std::vector<ParameterConfig> fDynamicParamConfigs;
-    std::vector<std::shared_ptr<Proposal>> fProposalFunctions;
-    std::vector<Chain> fSampledChains;
+    std::shared_ptr<Proposal> fProposalFunction;
 
     size_t fPtFrequency;
+
+    struct ChainConfig;
+    std::vector<std::unique_ptr<ChainConfig>> fChainConfigs;
 };
 
 template<class ProposalT, class... ArgsT>
 inline void MetropolisHastings::SetProposalFunction(ArgsT&&... args)
 {
-    fProposalFunctions[0] = std::make_shared<ProposalT>(
+    fProposalFunction = std::make_shared<ProposalT>(
         std::forward<ArgsT>(args)...
     );
 }

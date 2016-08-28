@@ -25,15 +25,36 @@ namespace vmcmc
 
 LOG_DEFINE("vmcmc.metropolis");
 
+struct MetropolisHastings::ChainConfig
+{
+    std::vector<Chain> fPtChains;
+    std::vector<ParameterConfig> fDynamicParamConfigs;
+    std::vector<std::unique_ptr<Proposal>> fProposalFunctions;
+};
+
 MetropolisHastings::MetropolisHastings() :
     fRandomizeStartPoint( false ),
     fBetas{ 1.0 },
-    fProposalFunctions( {nullptr} ),
-    fPtFrequency( 100 )
+    fPtFrequency( 100 ),
+    fChainConfigs( 1 )
 { }
 
 MetropolisHastings::~MetropolisHastings()
 { }
+
+const Chain& MetropolisHastings::GetChain(size_t cIndex)
+{
+    assert( fChainConfigs.size() > cIndex && fChainConfigs[cIndex]
+            && !fChainConfigs[cIndex]->fPtChains.empty() );
+
+    // return the 'cold' sampled chain
+    return fChainConfigs[cIndex]->fPtChains.front();
+}
+
+void MetropolisHastings::SetNumberOfChains(size_t nChains)
+{
+    fChainConfigs.resize( std::max<size_t>(nChains, 1) );
+}
 
 bool MetropolisHastings::Initialize()
 {
@@ -43,48 +64,56 @@ bool MetropolisHastings::Initialize()
     if (fBetas.empty())
         fBetas = { 1.0 };
 
-    const size_t nChains = fBetas.size();
+//    const size_t nChainConfigs = fChains.size();
+    const size_t nBetas = fBetas.size();
 
-    // in case of parallel tempering, setup more than one chain
-    fSampledChains.assign( nChains, Chain() );
+    // global start point in parameter space
+    Sample startPoint( fParameterConfig.GetStartValues(false) );
+    Evaluate( startPoint );
+    startPoint.SetAccepted( true );
 
-    // for each chain, setup an individual parameter configuration
-    const double initialErrorScaling = fParameterConfig.GetErrorScaling();
-    fDynamicParamConfigs.assign( nChains, fParameterConfig );
-    for (size_t iChain = 1; iChain < nChains; ++iChain) {
-        fDynamicParamConfigs[iChain].SetErrorScaling( initialErrorScaling / sqrt(fBetas[iChain]) );
+    // if not set by the user, instantiate default proposal function
+    if (!fProposalFunction) {
+        LOG(Info, "Using default proposal function 'ProposalGaussian'.");
+        fProposalFunction = make_shared<ProposalNormal>();
     }
 
-    // if require, randomize the starting vector for each chain
-    if (fRandomizeStartPoint) {
-        for (auto& chain : fSampledChains) {
-            Sample startPoint( GetParameterConfig().GetStartValues(true) );
-            Evaluate( startPoint );
-            startPoint.SetAccepted( true );
+    // initialize chain configurations
+    for (auto& chainConfig : fChainConfigs) {
+        chainConfig.reset( new ChainConfig() );
+
+        // in case of parallel tempering, setup more than one chain
+        chainConfig->fPtChains.assign( nBetas, Chain() );
+        // clone the default proposal function
+        chainConfig->fProposalFunctions.resize( nBetas );
+        // prepare parameter configurations
+        chainConfig->fDynamicParamConfigs.assign( nBetas, fParameterConfig );
+
+        // for each PT (beta) chain, setup an individual parameter configuration
+        const double initialErrorScaling = fParameterConfig.GetErrorScaling();
+        for (size_t iBeta = 0; iBeta < nBetas; iBeta++) {
+
+            // scale parameter configurations
+            if (iBeta > 0)
+                chainConfig->fDynamicParamConfigs[iBeta].SetErrorScaling( initialErrorScaling / sqrt(fBetas[iBeta]) );
+
+            chainConfig->fProposalFunctions[iBeta].reset( fProposalFunction->Clone() );
+
+            // update proposal functions with parameter configuration
+            chainConfig->fProposalFunctions[iBeta]->UpdateParameterConfig(
+                chainConfig->fDynamicParamConfigs[iBeta] );
+        }
+
+        // setup start points
+        for (auto& chain : chainConfig->fPtChains) {
+            // if required, randomize the starting vector for each chain
+            if (fRandomizeStartPoint) {
+                startPoint.Values() = GetParameterConfig().GetStartValues(true);
+                Evaluate( startPoint );
+            }
+
             chain.push_back( startPoint );
         }
-    }
-    else {
-        Sample startPoint( GetParameterConfig().GetStartValues(false) );
-        Evaluate( startPoint );
-        startPoint.SetAccepted( true );
-        for (auto& chain : fSampledChains)
-            chain.push_back( startPoint );
-    }
-
-
-    fProposalFunctions.resize(nChains);
-    // if not set by the user, instantiate default proposal function
-    if (!fProposalFunctions[0]) {
-        LOG(Info, "Using default proposal function 'ProposalGaussian'.");
-        fProposalFunctions = { make_shared<ProposalGaussian>() };
-    }
-    for (size_t iChain = 0; iChain < nChains; ++iChain) {
-        // clone the proposal function from chain 0 to all others
-        if (iChain > 0)
-            fProposalFunctions[iChain].reset( fProposalFunctions[0]->Clone() );
-        // update parameter configuration
-        fProposalFunctions[iChain]->UpdateParameterConfig( fDynamicParamConfigs[iChain] );
     }
 
     return true;
@@ -105,55 +134,81 @@ double MetropolisHastings::CalculateMHRatio(const Sample& prevState, const Sampl
 
 void MetropolisHastings::Advance(size_t nSteps)
 {
-    const size_t nChains = fSampledChains.size();
+    const size_t nChainConfigs = fChainConfigs.size();
+    const size_t nBetas = fBetas.size();
 
 #ifdef USE_TBB
+    const size_t nTotalChains = nChainConfigs * nBetas;
+
     parallel_for(
-        blocked_range<size_t>(0,nChains),
+        blocked_range<size_t>(0, nTotalChains),
         [&](const blocked_range<size_t>& range) {
-            for (size_t iChain = range.begin(); iChain < range.end(); iChain++)
-                this->AdvanceChain( iChain, nSteps );
+            for (size_t iChain = range.begin(); iChain < range.end(); iChain++) {
+                const size_t iChainConfig = iChain / nBetas;
+                const size_t iBeta = iChain % nBetas;
+                this->AdvanceChain( iChainConfig, iBeta, nSteps );
+            }
         }
     );
 #else
-    for (size_t iChain = 0; iChain < nChains; iChain++)
-        AdvanceChain( iChain, nSteps );
+    for (size_t iChainConfig = 0; iChainConfig < nChainConfigs; iChainConfig++)
+        for (size_t iBeta = 0; iBeta < nBetas; iBeta++)
+            AdvanceChain( iChainConfig, iBeta, nSteps );
 #endif
 
-    // propose sample swaps between chains:
-    const bool doProposeSwap = nChains > 1 && Random::Instance().Bool( (double) nSteps / (double) fPtFrequency );
-    if (doProposeSwap) {
-        const size_t colderChainIndex = Random::Instance().Uniform<size_t>(0, nChains-2);
+    if (nBetas <= 1)
+        return;
 
-        Chain& colderChain = fSampledChains[colderChainIndex];
-        const double colderBeta = fBetas[colderChainIndex];
+    // propose sample swaps between tempered chains in each chain config:
 
-        Chain& warmerChain = fSampledChains[colderChainIndex+1];
-        const double warmerBeta = fBetas[colderChainIndex+1];
+    for (auto& chainConfig : fChainConfigs) {
 
-        const double colderNegLogL = colderChain.back().GetNegLogLikelihood();
-        const double warmerNegLogL = warmerChain.back().GetNegLogLikelihood();
+        const bool doProposeSwap = Random::Instance().Bool( (double) nSteps / (double) fPtFrequency );
+        if (doProposeSwap) {
+            const size_t colderChainIndex = Random::Instance().Uniform<size_t>(0, nBetas-2);
 
-        const double ptRatio = std::min(1.0, exp(
-                colderBeta * (colderNegLogL-warmerNegLogL)
-              + warmerBeta * (warmerNegLogL-colderNegLogL)
-        ) );
+            Chain& colderChain = chainConfig->fPtChains[colderChainIndex];
+            const double colderBeta = fBetas[colderChainIndex];
 
-        const bool performSwap = Random::Instance().Bool( ptRatio );
-        if (performSwap) {
-            LOG(Debug, "Sampler " << colderChainIndex << " and " << colderChainIndex+1 << " swapped.");
-            swap(colderChain.back(), warmerChain.back());
+            Chain& warmerChain = chainConfig->fPtChains[colderChainIndex+1];
+            const double warmerBeta = fBetas[colderChainIndex+1];
+
+            const double colderNegLogL = colderChain.back().GetNegLogLikelihood();
+            const double warmerNegLogL = warmerChain.back().GetNegLogLikelihood();
+
+            const double ptRatio = std::min(1.0, exp(
+                    colderBeta * (colderNegLogL-warmerNegLogL)
+                  + warmerBeta * (warmerNegLogL-colderNegLogL)
+            ) );
+
+            const bool performSwap = Random::Instance().Bool( ptRatio );
+            if (performSwap) {
+                LOG(Debug, "Sampler " << colderChainIndex << " and " << colderChainIndex+1 << " swapped.");
+                swap(colderChain.back(), warmerChain.back());
+            }
         }
     }
-
 }
 
-void MetropolisHastings::AdvanceChain(size_t iChain, size_t nSteps)
+void MetropolisHastings::AdvanceChain(size_t iChainConfig, size_t iBeta, size_t nSteps)
 {
-    LOG_ASSERT( fProposalFunctions[iChain], "No proposal function defined." );
+    LOG_ASSERT( fChainConfigs.size() > iChainConfig && fChainConfigs[iChainConfig],
+        "Chain configuration " << iChainConfig << " not initialized.");
 
-    auto& chain = fSampledChains[iChain];
-    LOG_ASSERT( !chain.empty(), "No starting point in chain " << iChain << "." );
+    ChainConfig& chainConfig = *fChainConfigs[iChainConfig];
+
+    LOG_ASSERT( chainConfig.fPtChains.size() > iBeta,
+        "Chain for beta index " << iBeta << " not initialized.");
+
+    LOG_ASSERT( chainConfig.fProposalFunctions[iBeta], "No proposal function defined." );
+
+    Proposal* proposal = chainConfig.fProposalFunctions[iBeta].get();
+    ParameterConfig& paramConfig = chainConfig.fDynamicParamConfigs[iBeta];
+
+    Chain& chain = chainConfig.fPtChains[iBeta];
+
+    LOG_ASSERT( !chain.empty(), "No starting point in chain " << iChainConfig
+        << "/" << iBeta << "." );
 
     for (size_t iStep = 0; iStep < nSteps; iStep++) {
 
@@ -165,15 +220,16 @@ void MetropolisHastings::AdvanceChain(size_t iChain, size_t nSteps)
         nextState.Reset();
 
         // propose the next point in the parameter space
-        const double proposalAsymmetry = fProposalFunctions[iChain]->Transition( previousState, nextState );
+        const double proposalAsymmetry = proposal->Transition( previousState, nextState );
 
         // attempt reflection if limits are exceeded
-        fDynamicParamConfigs[iChain].ReflectFromLimits( nextState.Values() );
+        paramConfig.ReflectFromLimits( nextState.Values() );
 
         // evaluate likelihood and prior
         Evaluate( nextState );
 
-        const double mhRatio = CalculateMHRatio(previousState, nextState, proposalAsymmetry, fBetas[iChain]);
+        const double mhRatio = CalculateMHRatio( previousState, nextState,
+            proposalAsymmetry, fBetas[iBeta] );
 
         const bool proposalAccepted = Random::Instance().Bool( mhRatio );
 

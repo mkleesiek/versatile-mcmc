@@ -12,6 +12,10 @@
 using namespace std;
 using namespace vmcmc;
 
-TEST(ProposalGaussian, Transition) {
-
+TEST(ProposalNormal, Transition) {
+    ProposalNormal prop;
+    prop.UpdateParameterConfig( ParameterConfig(2) );
+    Sample v1( { 0.0, 0.0 } );
+    Sample v2( 2 );
+    prop.Transition(v1, v2);
 }
