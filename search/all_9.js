@@ -1,8 +1,4 @@
 var searchData=
 [
-  ['location',['Location',['../structvmcmc_1_1Logger_1_1Location.html',1,'vmcmc::Logger']]],
-  ['logger',['Logger',['../classvmcmc_1_1Logger.html#abbcb25c710f14be50de8ce0c6f45f5c2',1,'vmcmc::Logger']]],
-  ['logger',['Logger',['../classvmcmc_1_1Logger.html',1,'vmcmc']]],
-  ['logger_2ecpp',['logger.cpp',['../logger_8cpp.html',1,'']]],
-  ['logger_2eh',['logger.h',['../logger_8h.html',1,'']]]
+  ['join',['join',['../stringutils_8h.html#a57d68bb09583bad21de3b73b9c09717d',1,'vmcmc::join(std::ostream &amp;stream, const SequenceT &amp;sequence, const SeparatorT &amp;separator=&quot;&quot;)'],['../stringutils_8h.html#a24dff8c8c9f0da1630cb0a4987c54a2a',1,'vmcmc::join(const SequenceT &amp;sequence, const SeparatorT &amp;separator)']]]
 ];

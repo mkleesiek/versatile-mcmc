@@ -1,10 +1,6 @@
 var searchData=
 [
-  ['setcoloured',['SetColoured',['../classvmcmc_1_1Logger.html#a935ff32572c14d1d3ad004f0ce33784a',1,'vmcmc::Logger']]],
-  ['setcorrelationmatrix',['SetCorrelationMatrix',['../classvmcmc_1_1ParameterList.html#a5a3314be7370019670009d098100ff84',1,'vmcmc::ParameterList']]],
-  ['seterrorscaling',['SetErrorScaling',['../classvmcmc_1_1ParameterList.html#a7c0afadca2a6dcafcc63eac61b9fa686',1,'vmcmc::ParameterList']]],
-  ['setlevel',['SetLevel',['../classvmcmc_1_1Logger.html#ab405437a0eac6dbbad243cdaaa94b5fe',1,'vmcmc::Logger']]],
-  ['setrelativeerror',['SetRelativeError',['../classvmcmc_1_1Parameter.html#a4511d3df204e0d62531c356ff95b1b78',1,'vmcmc::Parameter']]],
-  ['setseed',['SetSeed',['../classvmcmc_1_1RandomPrototype.html#af7b630e485fb4e39d00ec278ae127131',1,'vmcmc::RandomPrototype']]],
-  ['startmessage',['StartMessage',['../classvmcmc_1_1Logger.html#a259b5bd1a7c081b8768f9924e7a6bc9e',1,'vmcmc::Logger']]]
+  ['reflectfromlimits',['ReflectFromLimits',['../classvmcmc_1_1Parameter.html#a35a16c414336fa69cb8028c9d450a5d2',1,'vmcmc::Parameter::ReflectFromLimits()'],['../classvmcmc_1_1ParameterConfig.html#a37ee09b39b66eef4dbb64881ada8068b',1,'vmcmc::ParameterConfig::ReflectFromLimits()']]],
+  ['reset',['Reset',['../classvmcmc_1_1Sample.html#ac1453cb10869a6b503baeeecd2a11dd2',1,'vmcmc::Sample']]],
+  ['run',['Run',['../classvmcmc_1_1Algorithm.html#a5127d6c21fc23581b55117390dc589c5',1,'vmcmc::Algorithm']]]
 ];

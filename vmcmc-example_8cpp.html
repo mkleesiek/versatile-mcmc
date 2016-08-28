@@ -62,6 +62,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -90,35 +91,36 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &lt;<a class="el" href="random_8h_source.html">vmcmc/random.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="stringutils_8h_source.html">vmcmc/stringutils.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="metropolis_8h_source.html">vmcmc/metropolis.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="proposal_8h_source.html">vmcmc/proposal.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="numeric_8h_source.html">vmcmc/numeric.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="io_8h_source.html">vmcmc/io.h</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for vmcmc-example.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="vmcmc-example_8cpp__incl.png" border="0" usemap="#vmcmc-example_8cpp" alt=""/></div>
 <map name="vmcmc-example_8cpp" id="vmcmc-example_8cpp">
-<area shape="rect" id="node2" href="logger_8h.html" title="vmcmc/logger.h" alt="" coords="301,386,416,413"/>
-<area shape="rect" id="node6" href="random_8h.html" title="vmcmc/random.h" alt="" coords="549,304,672,331"/>
-<area shape="rect" id="node14" href="stringutils_8h.html" title="vmcmc/stringutils.h" alt="" coords="213,155,349,181"/>
-<area shape="rect" id="node22" href="numeric_8h.html" title="vmcmc/numeric.h" alt="" coords="1282,304,1409,331"/>
-<area shape="rect" id="node28" href="metropolis_8h.html" title="vmcmc/metropolis.h" alt="" coords="1383,80,1523,107"/>
-<area shape="rect" id="node15" href="typetraits_8h.html" title="vmcmc/typetraits.h" alt="" coords="94,304,229,331"/>
-<area shape="rect" id="node16" href="sample_8h.html" title="vmcmc/sample.h" alt="" coords="999,229,1121,256"/>
-<area shape="rect" id="node17" href="blas_8h.html" title="vmcmc/blas.h" alt="" coords="1008,304,1112,331"/>
-<area shape="rect" id="node29" href="algorithm_8h.html" title="vmcmc/algorithm.h" alt="" coords="1056,155,1189,181"/>
-<area shape="rect" id="node30" href="parameter_8h.html" title="vmcmc/parameter.h" alt="" coords="836,229,975,256"/>
+<area shape="rect" id="node2" href="logger_8h.html" title="vmcmc/logger.h" alt="" coords="2125,386,2240,413"/>
+<area shape="rect" id="node7" href="random_8h.html" title="vmcmc/random.h" alt="" coords="1808,304,1930,331"/>
+<area shape="rect" id="node14" href="stringutils_8h.html" title="vmcmc/stringutils.h" alt="" coords="129,155,265,181"/>
+<area shape="rect" id="node22" href="numeric_8h.html" title="vmcmc/numeric.h" alt="" coords="363,304,490,331"/>
+<area shape="rect" id="node28" href="metropolis_8h.html" title="vmcmc/metropolis.h" alt="" coords="767,80,907,107"/>
+<area shape="rect" id="node36" href="proposal_8h.html" title="vmcmc/proposal.h" alt="" coords="1090,155,1219,181"/>
+<area shape="rect" id="node37" href="io_8h.html" title="vmcmc/io.h" alt="" coords="440,155,530,181"/>
+<area shape="rect" id="node15" href="typetraits_8h.html" title="vmcmc/typetraits.h" alt="" coords="26,304,160,331"/>
+<area shape="rect" id="node16" href="sample_8h.html" title="vmcmc/sample.h" alt="" coords="482,229,605,256"/>
+<area shape="rect" id="node17" href="blas_8h.html" title="vmcmc/blas.h" alt="" coords="1274,304,1378,331"/>
+<area shape="rect" id="node29" href="algorithm_8h.html" title="vmcmc/algorithm.h" alt="" coords="708,155,841,181"/>
+<area shape="rect" id="node30" href="parameter_8h.html" title="vmcmc/parameter.h" alt="" coords="1085,229,1224,256"/>
 </map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:addf1bb8fd73aecc9f7f24ff54e323e80"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="addf1bb8fd73aecc9f7f24ff54e323e80"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>normalPdf</b> (double x, double mean, double sigma)</td></tr>
+<tr class="memitem:addf1bb8fd73aecc9f7f24ff54e323e80"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vmcmc-example_8cpp.html#addf1bb8fd73aecc9f7f24ff54e323e80">normalPdf</a> (double x, double mean, double sigma)</td></tr>
 <tr class="separator:addf1bb8fd73aecc9f7f24ff54e323e80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabd86163dc5c4baebf270fabd174823f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aabd86163dc5c4baebf270fabd174823f"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>biVariateNormalPdf</b> (double x1, double x2, double mean1, double mean2, double sigma1, double sigma2, double corr)</td></tr>
+<tr class="memitem:aabd86163dc5c4baebf270fabd174823f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vmcmc-example_8cpp.html#aabd86163dc5c4baebf270fabd174823f">biVariateNormalPdf</a> (double x1, double x2, double mean1, double mean2, double sigma1, double sigma2, double corr)</td></tr>
 <tr class="separator:aabd86163dc5c4baebf270fabd174823f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ffed214a49ee7c9a1d8ff9b27dc76f7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6ffed214a49ee7c9a1d8ff9b27dc76f7"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>targetFunction</b> (const vector&lt; double &gt; &amp;params)</td></tr>
+<tr class="memitem:a6ffed214a49ee7c9a1d8ff9b27dc76f7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vmcmc-example_8cpp.html#a6ffed214a49ee7c9a1d8ff9b27dc76f7">targetFunction</a> (const vector&lt; double &gt; &amp;params)</td></tr>
 <tr class="separator:a6ffed214a49ee7c9a1d8ff9b27dc76f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81ce304348a420752ee080480d2b3095"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a81ce304348a420752ee080480d2b3095"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> (int, char *[])</td></tr>
@@ -126,8 +128,143 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> (int, char *[
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section date"><dt>Date</dt><dd>24.07.2016 </dd></dl>
-<dl class="section author"><dt>Author</dt><dd><a href="#" onclick="location.href='mai'+'lto:'+'mar'+'co'+'@kl'+'ee'+'sie'+'k.'+'com'; return false;">marco<span style="display: none;">.nosp@m.</span>@kle<span style="display: none;">.nosp@m.</span>esiek<span style="display: none;">.nosp@m.</span>.com</a> </dd></dl>
-</div></div><!-- contents -->
+<dl class="section author"><dt>Author</dt><dd><a href="#" onclick="location.href='mai'+'lto:'+'mar'+'co'+'@kl'+'ee'+'sie'+'k.'+'com'; return false;">marco<span style="display: none;">.nosp@m.</span>@kle<span style="display: none;">.nosp@m.</span>esiek<span style="display: none;">.nosp@m.</span>.com</a></dd></dl>
+<p>A simple, very preliminary example of how the v-mcmc library can be used to run a metropolis-hastings sampler on a simple statistical distribution and save the output to an ASCII file. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="aabd86163dc5c4baebf270fabd174823f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double biVariateNormalPdf </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>x1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>x2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>mean1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>mean2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>sigma1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>sigma2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>corr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>A 2-dimensional normal distribution. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x1</td><td>function argument #1 </td></tr>
+    <tr><td class="paramname">x2</td><td>function argument #2 </td></tr>
+    <tr><td class="paramname">mean1</td><td>distribution mean in dim. 1 </td></tr>
+    <tr><td class="paramname">mean2</td><td>distribution mean in dim. 2 </td></tr>
+    <tr><td class="paramname">sigma1</td><td>standard deviation in dim. 1 </td></tr>
+    <tr><td class="paramname">sigma2</td><td>standard deviation in dim. 2 </td></tr>
+    <tr><td class="paramname">corr</td><td>correlation between x1 and x2 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="addf1bb8fd73aecc9f7f24ff54e323e80"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double normalPdf </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>mean</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>sigma</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>A standard normal (Gaussian) distribution. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>the function argument </td></tr>
+    <tr><td class="paramname">mean</td><td>the mean of the distribution. </td></tr>
+    <tr><td class="paramname">sigma</td><td>the standard deviation. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6ffed214a49ee7c9a1d8ff9b27dc76f7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double targetFunction </td>
+          <td>(</td>
+          <td class="paramtype">const vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>params</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The likelihood function (a bivariate normal distribution) for this particular example run. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">params</td><td>The first two vector elements are used as function parameters. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

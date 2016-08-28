@@ -1,4 +1,11 @@
 var searchData=
 [
-  ['transition',['Transition',['../classvmcmc_1_1Proposal.html#a928d65c867828f54b7792470a663171f',1,'vmcmc::Proposal::Transition()'],['../classvmcmc_1_1ProposalGaussian.html#a10ca52aa993cccb3e267d5f7267fbe61',1,'vmcmc::ProposalGaussian::Transition()']]]
+  ['setcoloured',['SetColoured',['../classvmcmc_1_1Logger.html#a935ff32572c14d1d3ad004f0ce33784a',1,'vmcmc::Logger']]],
+  ['setcorrelationmatrix',['SetCorrelationMatrix',['../classvmcmc_1_1ParameterConfig.html#ad3a075f644e2c8970389fd4d55f70724',1,'vmcmc::ParameterConfig']]],
+  ['seterrorscaling',['SetErrorScaling',['../classvmcmc_1_1ParameterConfig.html#ab6e955c869bd0bac2848a1167e729df0',1,'vmcmc::ParameterConfig']]],
+  ['setlevel',['SetLevel',['../classvmcmc_1_1Logger.html#ab405437a0eac6dbbad243cdaaa94b5fe',1,'vmcmc::Logger']]],
+  ['setparameterconfig',['SetParameterConfig',['../classvmcmc_1_1Algorithm.html#ab8bbbf66bcdca0ea3ec3e5d2df5f7e6c',1,'vmcmc::Algorithm']]],
+  ['setrelativeerror',['SetRelativeError',['../classvmcmc_1_1Parameter.html#a4511d3df204e0d62531c356ff95b1b78',1,'vmcmc::Parameter']]],
+  ['setseed',['SetSeed',['../classvmcmc_1_1RandomPrototype.html#af7b630e485fb4e39d00ec278ae127131',1,'vmcmc::RandomPrototype']]],
+  ['startmessage',['StartMessage',['../classvmcmc_1_1Logger.html#a259b5bd1a7c081b8768f9924e7a6bc9e',1,'vmcmc::Logger']]]
 ];

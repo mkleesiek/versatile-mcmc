@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['parameter',['Parameter',['../classvmcmc_1_1Parameter.html',1,'vmcmc']]],
-  ['parameterlist',['ParameterList',['../classvmcmc_1_1ParameterList.html',1,'vmcmc']]],
-  ['prior',['Prior',['../classvmcmc_1_1Prior.html',1,'vmcmc']]],
-  ['proposal',['Proposal',['../classvmcmc_1_1Proposal.html',1,'vmcmc']]],
-  ['proposalgaussian',['ProposalGaussian',['../classvmcmc_1_1ProposalGaussian.html',1,'vmcmc']]]
+  ['location',['Location',['../structvmcmc_1_1Logger_1_1Location.html',1,'vmcmc::Logger']]],
+  ['logger',['Logger',['../classvmcmc_1_1Logger.html',1,'vmcmc']]]
 ];

@@ -123,6 +123,9 @@ Vector &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>Values</b> ()
 <tr class="memitem:a584c22b017a75946f262fe7441f40212"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a584c22b017a75946f262fe7441f40212"></a>
 const Vector &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>Values</b> () const </td></tr>
 <tr class="separator:a584c22b017a75946f262fe7441f40212"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e647c2bbe60dc081094b13d4cbc0104"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1e647c2bbe60dc081094b13d4cbc0104"></a>
+<a class="el" href="classvmcmc_1_1Sample.html">Sample</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (std::initializer_list&lt; double &gt; pValues)</td></tr>
+<tr class="separator:a1e647c2bbe60dc081094b13d4cbc0104"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1453cb10869a6b503baeeecd2a11dd2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Sample.html#ac1453cb10869a6b503baeeecd2a11dd2">Reset</a> ()</td></tr>
 <tr class="separator:ac1453cb10869a6b503baeeecd2a11dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a434659dc1611329193a702f9a6b9657d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a434659dc1611329193a702f9a6b9657d"></a>
@@ -143,6 +146,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetPrior</b> (double 
 <tr class="memitem:aa0e93e98192bd3b3ecfd24387047360e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa0e93e98192bd3b3ecfd24387047360e"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>GetPrior</b> () const </td></tr>
 <tr class="separator:aa0e93e98192bd3b3ecfd24387047360e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4dcacb6b39342d5374f6dcf6422e3af7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4dcacb6b39342d5374f6dcf6422e3af7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetAccepted</b> (bool value)</td></tr>
+<tr class="separator:a4dcacb6b39342d5374f6dcf6422e3af7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef81fcfac33f1ee8bbaaf6618b961d40"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aef81fcfac33f1ee8bbaaf6618b961d40"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>IsAccepted</b> () const </td></tr>
+<tr class="separator:aef81fcfac33f1ee8bbaaf6618b961d40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A 'sample' represents a node or data point in a Markov Chain. It holds information about the generation, when it was sampled, the point in the parameter space and the corresponding values for the likelihood, -log(likelihood) and the prior value. </p>

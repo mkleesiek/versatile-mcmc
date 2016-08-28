@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['poisson',['Poisson',['../classvmcmc_1_1RandomPrototype.html#a94206a04f0f82be53ec06c144beb5b87',1,'vmcmc::RandomPrototype::Poisson(double mean)'],['../classvmcmc_1_1RandomPrototype.html#ae2842635d180b6ad7bd663dde3ba0bae',1,'vmcmc::RandomPrototype::Poisson(FloatT mean)']]]
+  ['operator_28_29',['operator()',['../classvmcmc_1_1RandomPrototype.html#ac273774533ed465ac42bfe2167bbcc09',1,'vmcmc::RandomPrototype']]],
+  ['operator_3c_3c',['operator&lt;&lt;',['../stringutils_8h.html#a280eb589b705e6ef80c465aa0352ad5a',1,'vmcmc']]]
 ];

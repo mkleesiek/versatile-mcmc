@@ -123,6 +123,9 @@ Public Types</h2></td></tr>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:abbcb25c710f14be50de8ce0c6f45f5c2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Logger.html#abbcb25c710f14be50de8ce0c6f45f5c2">Logger</a> (const std::string &amp;name=&quot;&quot;)</td></tr>
 <tr class="separator:abbcb25c710f14be50de8ce0c6f45f5c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3285f043ad8b3df93b275d254fbc1ae4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3285f043ad8b3df93b275d254fbc1ae4"></a>
+std::mutex &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetMutex</b> ()</td></tr>
+<tr class="separator:a3285f043ad8b3df93b275d254fbc1ae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ca04b9896383d518d047a20db1ba1b3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Logger.html#a9ca04b9896383d518d047a20db1ba1b3">IsLevelEnabled</a> (ELevel level) const </td></tr>
 <tr class="separator:a9ca04b9896383d518d047a20db1ba1b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad54756eb8c95ebf5e9ff1b2e5ff6938c"><td class="memItemLeft" align="right" valign="top">ELevel&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Logger.html#ad54756eb8c95ebf5e9ff1b2e5ff6938c">GetLevel</a> () const </td></tr>
@@ -133,17 +136,16 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a935ff32572c14d1d3ad004f0ce33784a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a259b5bd1a7c081b8768f9924e7a6bc9e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Logger.html#a259b5bd1a7c081b8768f9924e7a6bc9e">StartMessage</a> (ELevel level, const <a class="el" href="structvmcmc_1_1Logger_1_1Location.html">Location</a> &amp;loc=<a class="el" href="structvmcmc_1_1Logger_1_1Location.html">Location</a>())</td></tr>
 <tr class="separator:a259b5bd1a7c081b8768f9924e7a6bc9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad00f2822ebe16835ae8442415e4d010b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad00f2822ebe16835ae8442415e4d010b"></a>
-std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>Log</b> ()</td></tr>
+<tr class="memitem:ad00f2822ebe16835ae8442415e4d010b"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Logger.html#ad00f2822ebe16835ae8442415e4d010b">Log</a> ()</td></tr>
 <tr class="separator:ad00f2822ebe16835ae8442415e4d010b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a095452f9024ca8748a559668c0f62994"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a095452f9024ca8748a559668c0f62994"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>EndMessage</b> ()</td></tr>
+<tr class="memitem:a095452f9024ca8748a559668c0f62994"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Logger.html#a095452f9024ca8748a559668c0f62994">EndMessage</a> ()</td></tr>
 <tr class="separator:a095452f9024ca8748a559668c0f62994"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Very primitive MACRO-centered logging facility. It should primarily be used through MACROs:</p>
 <div class="fragment"><div class="line"><span class="comment">// define a static logger instance:</span></div><div class="line">LOG_DEFINE(<span class="stringliteral">&quot;some.logger.name&quot;</span>);</div><div class="line"></div><div class="line"><span class="comment">// log an expression with given log-level</span></div><div class="line">LOG(Info, <span class="stringliteral">&quot;Some example log: &quot;</span> &lt;&lt; someVariable &lt;&lt; <span class="stringliteral">&quot; more text ...&quot;</span>);</div><div class="line"></div><div class="line"><span class="comment">// log an expression only once during execution</span></div><div class="line">LOG_ONCE(Info, <span class="stringliteral">&quot;This is displayed only once.&quot;</span>);</div><div class="line"></div><div class="line"><span class="comment">// make an assertion and abort if false:</span></div><div class="line">LOG_ASSERT( someCondition, <span class="stringliteral">&quot;That assertion just failed.&quot;</span> );</div></div><!-- fragment --><p>Available log levels are: Trace, Debug, Info, Warn, Error, Fatal</p>
-<p>By default, if the library is compiled in release-mode, Trace and Debug outputs are silenced. No external configuration mechanisms (yet). </p>
+<p>By default, if the library is compiled in release-mode, Trace and Debug outputs are silenced. No external configuration mechanisms (yet).</p>
+<p>This facility might possibly be replaced by boost log. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="abbcb25c710f14be50de8ce0c6f45f5c2"></a>
 <div class="memitem">
@@ -168,6 +170,22 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>EndMessage</b> ()</td
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a095452f9024ca8748a559668c0f62994"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vmcmc::Logger::EndMessage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>End and flush the last message. Do not use directly. </p>
+
+</div>
+</div>
 <a class="anchor" id="ad54756eb8c95ebf5e9ff1b2e5ff6938c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -220,6 +238,30 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>EndMessage</b> ()</td
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad00f2822ebe16835ae8442415e4d010b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream&amp; vmcmc::Logger::Log </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get an output stream for log messages to append. Do not use directly. </p><dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
 </div>
@@ -306,10 +348,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>EndMessage</b> ()</td
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Log a message with the specified level. Use the macro LOG(logger, level, message). </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Start a message with the specified level. Do not use this method directly. Use the macro LOG(logger, level, message) instead. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">level</td><td>The log level. </td></tr>
-    <tr><td class="paramname">message</td><td>The message. </td></tr>
     <tr><td class="paramname">loc</td><td>Source code location (set automatically by the corresponding macro). </td></tr>
   </table>
   </dd>

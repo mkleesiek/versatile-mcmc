@@ -101,7 +101,11 @@ Inheritance diagram for vmcmc::Proposal:</div>
 <div class="dyncontent">
 <div class="center"><img src="classvmcmc_1_1Proposal__inherit__graph.png" border="0" usemap="#vmcmc_1_1Proposal_inherit__map" alt="Inheritance graph"/></div>
 <map name="vmcmc_1_1Proposal_inherit__map" id="vmcmc_1_1Proposal_inherit__map">
-<area shape="rect" id="node2" href="classvmcmc_1_1ProposalGaussian.html" title="vmcmc::ProposalGaussian" alt="" coords="5,80,184,107"/>
+<area shape="rect" id="node2" href="classvmcmc_1_1ProposalDistribution.html" title="vmcmc::ProposalDistribution\l\&lt; std::normal_distribution\l\&lt; double \&gt; \&gt;" alt="" coords="177,5,368,61"/>
+<area shape="rect" id="node4" href="classvmcmc_1_1ProposalDistribution.html" title="vmcmc::ProposalDistribution\l\&lt; std::student_t_distribution\l\&lt; double \&gt; \&gt;" alt="" coords="177,85,368,141"/>
+<area shape="rect" id="node6" href="classvmcmc_1_1ProposalDistribution.html" title="vmcmc::ProposalDistribution\l\&lt; DistributionT \&gt;" alt="" coords="177,165,368,206"/>
+<area shape="rect" id="node3" href="classvmcmc_1_1ProposalNormal.html" title="vmcmc::ProposalNormal" alt="" coords="421,20,588,47"/>
+<area shape="rect" id="node5" href="classvmcmc_1_1ProposalStudentT.html" title="vmcmc::ProposalStudentT" alt="" coords="416,100,593,127"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -110,19 +114,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a60a8ee5cceca9ba10ef0eb2a25f85880"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a60a8ee5cceca9ba10ef0eb2a25f85880"></a>
 virtual <a class="el" href="classvmcmc_1_1Proposal.html">Proposal</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Clone</b> () const =0</td></tr>
 <tr class="separator:a60a8ee5cceca9ba10ef0eb2a25f85880"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a928d65c867828f54b7792470a663171f"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Proposal.html#a928d65c867828f54b7792470a663171f">Transition</a> (const Vector &amp;s1, Vector &amp;s2) const =0</td></tr>
-<tr class="separator:a928d65c867828f54b7792470a663171f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d81ac186ac4cb5f93d18c5d1eac4df3"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Proposal.html#a4d81ac186ac4cb5f93d18c5d1eac4df3">Transition</a> (const Vector &amp;s1, Vector &amp;s2)=0</td></tr>
+<tr class="separator:a4d81ac186ac4cb5f93d18c5d1eac4df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53bb61d8d957570937ccbe5ae28671c4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a53bb61d8d957570937ccbe5ae28671c4"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>Transition</b> (const <a class="el" href="classvmcmc_1_1Sample.html">Sample</a> &amp;s1, <a class="el" href="classvmcmc_1_1Sample.html">Sample</a> &amp;s2)</td></tr>
 <tr class="separator:a53bb61d8d957570937ccbe5ae28671c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35f4e351bab648cf2e1bd9c0796a4b1f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a35f4e351bab648cf2e1bd9c0796a4b1f"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateParameterConfig</b> (const <a class="el" href="classvmcmc_1_1ParameterList.html">ParameterList</a> &amp;)</td></tr>
-<tr class="separator:a35f4e351bab648cf2e1bd9c0796a4b1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4bfee551bb159ed3b2b73803cc46f52"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa4bfee551bb159ed3b2b73803cc46f52"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateParameterConfig</b> (const <a class="el" href="classvmcmc_1_1ParameterConfig.html">ParameterConfig</a> &amp;)</td></tr>
+<tr class="separator:aa4bfee551bb159ed3b2b73803cc46f52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class for proposal functions (alias transition kernels) used by Metropolis-Hastings algorithms to propose a new point in the parameter space. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a928d65c867828f54b7792470a663171f"></a>
+<a class="anchor" id="a4d81ac186ac4cb5f93d18c5d1eac4df3"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -144,7 +148,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateParamet
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> const</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -162,13 +166,12 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateParamet
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The asymmetry ratio. (1.0 for symmetric proposal functions). </dd></dl>
 
-<p>Implemented in <a class="el" href="classvmcmc_1_1ProposalGaussian.html#a10ca52aa993cccb3e267d5f7267fbe61">vmcmc::ProposalGaussian</a>.</p>
+<p>Implemented in <a class="el" href="classvmcmc_1_1ProposalDistribution.html#af1ebe18b48a9b8736a3134c7eabc5003">vmcmc::ProposalDistribution&lt; DistributionT &gt;</a>, <a class="el" href="classvmcmc_1_1ProposalDistribution.html#af1ebe18b48a9b8736a3134c7eabc5003">vmcmc::ProposalDistribution&lt; std::normal_distribution&lt; double &gt; &gt;</a>, and <a class="el" href="classvmcmc_1_1ProposalDistribution.html#af1ebe18b48a9b8736a3134c7eabc5003">vmcmc::ProposalDistribution&lt; std::student_t_distribution&lt; double &gt; &gt;</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>vmcmc/<a class="el" href="proposal_8h_source.html">proposal.h</a></li>
-<li>vmcmc/<a class="el" href="proposal_8cpp.html">proposal.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

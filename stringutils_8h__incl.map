@@ -1,7 +1,7 @@
 <map id="vmcmc/stringutils.h" name="vmcmc/stringutils.h">
-<area shape="rect" id="node2" href="$typetraits_8h.html" title="vmcmc/typetraits.h" alt="" coords="5,80,140,107"/>
-<area shape="rect" id="node5" href="$sample_8h.html" title="vmcmc/sample.h" alt="" coords="1503,80,1626,107"/>
-<area shape="rect" id="node6" href="$blas_8h.html" title="vmcmc/blas.h" alt="" coords="878,155,982,181"/>
-<area shape="rect" id="node17" href="$numeric_8h.html" title="vmcmc/numeric.h" alt="" coords="1501,155,1628,181"/>
-<area shape="rect" id="node7" href="$logger_8h.html" title="vmcmc/logger.h" alt="" coords="215,237,330,263"/>
+<area shape="rect" id="node2" href="$typetraits_8h.html" title="vmcmc/typetraits.h" alt="" coords="25,155,160,181"/>
+<area shape="rect" id="node5" href="$sample_8h.html" title="vmcmc/sample.h" alt="" coords="325,80,447,107"/>
+<area shape="rect" id="node6" href="$blas_8h.html" title="vmcmc/blas.h" alt="" coords="1247,155,1351,181"/>
+<area shape="rect" id="node18" href="$numeric_8h.html" title="vmcmc/numeric.h" alt="" coords="439,155,565,181"/>
+<area shape="rect" id="node7" href="$logger_8h.html" title="vmcmc/logger.h" alt="" coords="1091,237,1206,263"/>
 </map>

@@ -129,15 +129,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9b5105263dee77a613b8af81ab5ab341"><td class="memTemplParams" colspan="2">template&lt;class FloatT  = double&gt; </td></tr>
 <tr class="memitem:a9b5105263dee77a613b8af81ab5ab341"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#a9b5105263dee77a613b8af81ab5ab341">Bool</a> (FloatT probability=0.5)</td></tr>
 <tr class="separator:a9b5105263dee77a613b8af81ab5ab341"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4cc1d6c18462df1afa74ff8dd9d40a5"><td class="memTemplParams" colspan="2">template&lt;class FloatT  = double&gt; </td></tr>
-<tr class="memitem:ac4cc1d6c18462df1afa74ff8dd9d40a5"><td class="memTemplItemLeft" align="right" valign="top">FloatT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#ac4cc1d6c18462df1afa74ff8dd9d40a5">Gaussian</a> (FloatT mean=0.0, FloatT sigma=1.0)</td></tr>
-<tr class="separator:ac4cc1d6c18462df1afa74ff8dd9d40a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a152c45c3611342127d981230bff6206f"><td class="memTemplParams" colspan="2">template&lt;class VectorT , class MatrixT &gt; </td></tr>
-<tr class="memitem:a152c45c3611342127d981230bff6206f"><td class="memTemplItemLeft" align="right" valign="top">VectorT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#a152c45c3611342127d981230bff6206f">GaussianMultiVariate</a> (const VectorT &amp;mean, const MatrixT &amp;cholesky)</td></tr>
-<tr class="separator:a152c45c3611342127d981230bff6206f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abee603deadc6fcc6c9ca696aa2fd9042"><td class="memTemplParams" colspan="2">template&lt;class VectorT &gt; </td></tr>
-<tr class="memitem:abee603deadc6fcc6c9ca696aa2fd9042"><td class="memTemplItemLeft" align="right" valign="top">VectorT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#abee603deadc6fcc6c9ca696aa2fd9042">GaussianMultiVariate</a> (const VectorT &amp;mean, const VectorT &amp;sigma)</td></tr>
-<tr class="separator:abee603deadc6fcc6c9ca696aa2fd9042"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bf77b854d229f265ad38539a92a5fdf"><td class="memTemplParams" colspan="2">template&lt;class FloatT  = double&gt; </td></tr>
+<tr class="memitem:a4bf77b854d229f265ad38539a92a5fdf"><td class="memTemplItemLeft" align="right" valign="top">FloatT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#a4bf77b854d229f265ad38539a92a5fdf">Normal</a> (FloatT mean=0.0, FloatT sigma=1.0)</td></tr>
+<tr class="separator:a4bf77b854d229f265ad38539a92a5fdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae945c8f157b0c897ba02656d27f6fc1d"><td class="memTemplParams" colspan="2"><a class="anchor" id="ae945c8f157b0c897ba02656d27f6fc1d"></a>
+template&lt;class FloatT  = double&gt; </td></tr>
+<tr class="memitem:ae945c8f157b0c897ba02656d27f6fc1d"><td class="memTemplItemLeft" align="right" valign="top">FloatT&#160;</td><td class="memTemplItemRight" valign="bottom"><b>StudentT</b> (FloatT n=1.0, FloatT mean=0.0, FloatT sigma=1.0)</td></tr>
+<tr class="separator:ae945c8f157b0c897ba02656d27f6fc1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9ee8b47db907686aca2a00ded560751"><td class="memTemplParams" colspan="2">template&lt;class FloatT &gt; </td></tr>
 <tr class="memitem:ad9ee8b47db907686aca2a00ded560751"><td class="memTemplItemLeft" align="right" valign="top">FloatT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#ad9ee8b47db907686aca2a00ded560751">Exponential</a> (FloatT tau)</td></tr>
 <tr class="separator:ad9ee8b47db907686aca2a00ded560751"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -150,9 +148,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afb2398bd3d9e0dc5db337d5a77f1c615"><td class="memTemplParams" colspan="2">template&lt;class ProbRangeT , class IndexType  = uint32_t&gt; </td></tr>
 <tr class="memitem:afb2398bd3d9e0dc5db337d5a77f1c615"><td class="memTemplItemLeft" align="right" valign="top">IndexType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#afb2398bd3d9e0dc5db337d5a77f1c615">Discrete</a> (const ProbRangeT &amp;probabilities)</td></tr>
 <tr class="separator:afb2398bd3d9e0dc5db337d5a77f1c615"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a785811a41c444aa08bddfdd3e821886f"><td class="memTemplParams" colspan="2">template&lt;class DistributionT &gt; </td></tr>
-<tr class="memitem:a785811a41c444aa08bddfdd3e821886f"><td class="memTemplItemLeft" align="right" valign="top">DistributionT::result_type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#a785811a41c444aa08bddfdd3e821886f">FromDistribution</a> (const DistributionT &amp;dist)</td></tr>
-<tr class="separator:a785811a41c444aa08bddfdd3e821886f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04f9c284ed92f46ef19d82e0910f57df"><td class="memTemplParams" colspan="2">template&lt;class DistributionT &gt; </td></tr>
+<tr class="memitem:a04f9c284ed92f46ef19d82e0910f57df"><td class="memTemplItemLeft" align="right" valign="top">DistributionT::result_type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#a04f9c284ed92f46ef19d82e0910f57df">FromDistribution</a> (DistributionT &amp;dist=DistributionT())</td></tr>
+<tr class="separator:a04f9c284ed92f46ef19d82e0910f57df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83e39b7dd1ec09f9fdaa4eae180933c7"><td class="memTemplParams" colspan="2">template&lt;class DistributionT , class VectorT , class MatrixT &gt; </td></tr>
+<tr class="memitem:a83e39b7dd1ec09f9fdaa4eae180933c7"><td class="memTemplItemLeft" align="right" valign="top">VectorT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#a83e39b7dd1ec09f9fdaa4eae180933c7">FromMultiVariateDistribution</a> (DistributionT &amp;dist, const VectorT &amp;mean, const MatrixT &amp;cholesky)</td></tr>
+<tr class="separator:a83e39b7dd1ec09f9fdaa4eae180933c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae73ed2194d45a482a171f471c54291e8"><td class="memTemplParams" colspan="2">template&lt;class DistributionT , class VectorT &gt; </td></tr>
+<tr class="memitem:ae73ed2194d45a482a171f471c54291e8"><td class="memTemplItemLeft" align="right" valign="top">VectorT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#ae73ed2194d45a482a171f471c54291e8">FromMultiVariateDistribution</a> (DistributionT &amp;dist, const VectorT &amp;mean, const VectorT &amp;sigma)</td></tr>
+<tr class="separator:ae73ed2194d45a482a171f471c54291e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac273774533ed465ac42bfe2167bbcc09"><td class="memItemLeft" align="right" valign="top">result_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#ac273774533ed465ac42bfe2167bbcc09">operator()</a> ()</td></tr>
 <tr class="separator:ac273774533ed465ac42bfe2167bbcc09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -290,7 +294,7 @@ template&lt;class FloatT &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a785811a41c444aa08bddfdd3e821886f"></a>
+<a class="anchor" id="a04f9c284ed92f46ef19d82e0910f57df"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -304,8 +308,8 @@ template&lt;class DistributionT &gt; </div>
         <tr>
           <td class="memname">DistributionT::result_type <a class="el" href="classvmcmc_1_1RandomPrototype.html">vmcmc::RandomPrototype</a>&lt; EngineT &gt;::FromDistribution </td>
           <td>(</td>
-          <td class="paramtype">const DistributionT &amp;&#160;</td>
-          <td class="paramname"><em>dist</em></td><td>)</td>
+          <td class="paramtype">DistributionT &amp;&#160;</td>
+          <td class="paramname"><em>dist</em> = <code>DistributionT()</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -317,7 +321,7 @@ template&lt;class DistributionT &gt; </div>
 </div><div class="memdoc">
 <p>Draw from a custom distribution. </p><dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">The</td><td>type name of the distribution. </td></tr>
+    <tr><td class="paramname">Typename</td><td>of the distribution. </td></tr>
   </table>
   </dd>
 </dl>
@@ -332,66 +336,26 @@ template&lt;class DistributionT &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ac4cc1d6c18462df1afa74ff8dd9d40a5"></a>
+<a class="anchor" id="a83e39b7dd1ec09f9fdaa4eae180933c7"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class EngineT &gt; </div>
 <div class="memtemplate">
-template&lt;class FloatT &gt; </div>
+template&lt;class DistributionT , class VectorT , class MatrixT &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">FloatT <a class="el" href="classvmcmc_1_1RandomPrototype.html">vmcmc::RandomPrototype</a>&lt; EngineT &gt;::Gaussian </td>
+          <td class="memname">VectorT <a class="el" href="classvmcmc_1_1RandomPrototype.html">vmcmc::RandomPrototype</a>&lt; EngineT &gt;::FromMultiVariateDistribution </td>
           <td>(</td>
-          <td class="paramtype">FloatT&#160;</td>
-          <td class="paramname"><em>mean</em> = <code>0.0</code>, </td>
+          <td class="paramtype">DistributionT &amp;&#160;</td>
+          <td class="paramname"><em>dist</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">FloatT&#160;</td>
-          <td class="paramname"><em>sigma</em> = <code>1.0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Draw from a gaussian / normal distribution. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">mean</td><td></td></tr>
-    <tr><td class="paramname">sigma</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a152c45c3611342127d981230bff6206f"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class EngineT &gt; </div>
-<div class="memtemplate">
-template&lt;class VectorT , class MatrixT &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">VectorT <a class="el" href="classvmcmc_1_1RandomPrototype.html">vmcmc::RandomPrototype</a>&lt; EngineT &gt;::GaussianMultiVariate </td>
-          <td>(</td>
           <td class="paramtype">const VectorT &amp;&#160;</td>
           <td class="paramname"><em>mean</em>, </td>
         </tr>
@@ -413,8 +377,9 @@ template&lt;class VectorT , class MatrixT &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Draw from a multivariate gaussian. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Draw from a custom multivariate distribution. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">dist</td><td></td></tr>
     <tr><td class="paramname">mean</td><td>A vector of mean values. </td></tr>
     <tr><td class="paramname">cholesky</td><td>The lower triangular matrix cholesky decomposition of the covariance matrix. The diagonal elements correspond to the individual parameter std. deviations. </td></tr>
   </table>
@@ -425,20 +390,26 @@ template&lt;class VectorT , class MatrixT &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="abee603deadc6fcc6c9ca696aa2fd9042"></a>
+<a class="anchor" id="ae73ed2194d45a482a171f471c54291e8"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class EngineT &gt; </div>
 <div class="memtemplate">
-template&lt;class VectorT &gt; </div>
+template&lt;class DistributionT , class VectorT &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">VectorT <a class="el" href="classvmcmc_1_1RandomPrototype.html">vmcmc::RandomPrototype</a>&lt; EngineT &gt;::GaussianMultiVariate </td>
+          <td class="memname">VectorT <a class="el" href="classvmcmc_1_1RandomPrototype.html">vmcmc::RandomPrototype</a>&lt; EngineT &gt;::FromMultiVariateDistribution </td>
           <td>(</td>
+          <td class="paramtype">DistributionT &amp;&#160;</td>
+          <td class="paramname"><em>dist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const VectorT &amp;&#160;</td>
           <td class="paramname"><em>mean</em>, </td>
         </tr>
@@ -460,15 +431,15 @@ template&lt;class VectorT &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Draw from a multivariate gaussian without correlations. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Draw from a custom multivariate distribution without correlations. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">dist</td><td></td></tr>
     <tr><td class="paramname">mean</td><td>A vector of mean values. </td></tr>
     <tr><td class="paramname">sigma</td><td>A vector of standard deviations. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
-<dl class="section see"><dt>See also</dt><dd>boost::multivariate_normal_distribution </dd></dl>
 
 </div>
 </div>
@@ -521,6 +492,52 @@ template&lt;class EngineT&gt; </div>
 </table>
 </div><div class="memdoc">
 <p>Get the seed, the random number engine was last initialized with. </p><dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4bf77b854d229f265ad38539a92a5fdf"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class EngineT &gt; </div>
+<div class="memtemplate">
+template&lt;class FloatT &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FloatT <a class="el" href="classvmcmc_1_1RandomPrototype.html">vmcmc::RandomPrototype</a>&lt; EngineT &gt;::Normal </td>
+          <td>(</td>
+          <td class="paramtype">FloatT&#160;</td>
+          <td class="paramname"><em>mean</em> = <code>0.0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FloatT&#160;</td>
+          <td class="paramname"><em>sigma</em> = <code>1.0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Draw from a gaussian / normal distribution. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mean</td><td></td></tr>
+    <tr><td class="paramname">sigma</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
 </div>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['metropolishastings',['MetropolisHastings',['../classvmcmc_1_1MetropolisHastings.html',1,'vmcmc']]]
+  ['is_5fcontainer',['is_container',['../structvmcmc_1_1is__container.html',1,'vmcmc']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['randomprototype',['RandomPrototype',['../classvmcmc_1_1RandomPrototype.html',1,'vmcmc']]]
+  ['metropolishastings',['MetropolisHastings',['../classvmcmc_1_1MetropolisHastings.html',1,'vmcmc']]]
 ];

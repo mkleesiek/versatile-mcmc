@@ -1,12 +1,14 @@
 <map id="vmcmc&#45;example.cpp" name="vmcmc&#45;example.cpp">
-<area shape="rect" id="node2" href="$logger_8h.html" title="vmcmc/logger.h" alt="" coords="301,386,416,413"/>
-<area shape="rect" id="node6" href="$random_8h.html" title="vmcmc/random.h" alt="" coords="549,304,672,331"/>
-<area shape="rect" id="node14" href="$stringutils_8h.html" title="vmcmc/stringutils.h" alt="" coords="213,155,349,181"/>
-<area shape="rect" id="node22" href="$numeric_8h.html" title="vmcmc/numeric.h" alt="" coords="1282,304,1409,331"/>
-<area shape="rect" id="node28" href="$metropolis_8h.html" title="vmcmc/metropolis.h" alt="" coords="1383,80,1523,107"/>
-<area shape="rect" id="node15" href="$typetraits_8h.html" title="vmcmc/typetraits.h" alt="" coords="94,304,229,331"/>
-<area shape="rect" id="node16" href="$sample_8h.html" title="vmcmc/sample.h" alt="" coords="999,229,1121,256"/>
-<area shape="rect" id="node17" href="$blas_8h.html" title="vmcmc/blas.h" alt="" coords="1008,304,1112,331"/>
-<area shape="rect" id="node29" href="$algorithm_8h.html" title="vmcmc/algorithm.h" alt="" coords="1056,155,1189,181"/>
-<area shape="rect" id="node30" href="$parameter_8h.html" title="vmcmc/parameter.h" alt="" coords="836,229,975,256"/>
+<area shape="rect" id="node2" href="$logger_8h.html" title="vmcmc/logger.h" alt="" coords="2125,386,2240,413"/>
+<area shape="rect" id="node7" href="$random_8h.html" title="vmcmc/random.h" alt="" coords="1808,304,1930,331"/>
+<area shape="rect" id="node14" href="$stringutils_8h.html" title="vmcmc/stringutils.h" alt="" coords="129,155,265,181"/>
+<area shape="rect" id="node22" href="$numeric_8h.html" title="vmcmc/numeric.h" alt="" coords="363,304,490,331"/>
+<area shape="rect" id="node28" href="$metropolis_8h.html" title="vmcmc/metropolis.h" alt="" coords="767,80,907,107"/>
+<area shape="rect" id="node36" href="$proposal_8h.html" title="vmcmc/proposal.h" alt="" coords="1090,155,1219,181"/>
+<area shape="rect" id="node37" href="$io_8h.html" title="vmcmc/io.h" alt="" coords="440,155,530,181"/>
+<area shape="rect" id="node15" href="$typetraits_8h.html" title="vmcmc/typetraits.h" alt="" coords="26,304,160,331"/>
+<area shape="rect" id="node16" href="$sample_8h.html" title="vmcmc/sample.h" alt="" coords="482,229,605,256"/>
+<area shape="rect" id="node17" href="$blas_8h.html" title="vmcmc/blas.h" alt="" coords="1274,304,1378,331"/>
+<area shape="rect" id="node29" href="$algorithm_8h.html" title="vmcmc/algorithm.h" alt="" coords="708,155,841,181"/>
+<area shape="rect" id="node30" href="$parameter_8h.html" title="vmcmc/parameter.h" alt="" coords="1085,229,1224,256"/>
 </map>

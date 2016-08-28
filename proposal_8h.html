@@ -62,6 +62,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -93,16 +94,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><code>#include &lt;<a class="el" href="sample_8h_source.html">vmcmc/sample.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="parameter_8h_source.html">vmcmc/parameter.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="blas_8h_source.html">vmcmc/blas.h</a>&gt;</code><br />
+<code>#include &lt;random&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for proposal.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="proposal_8h__incl.png" border="0" usemap="#vmcmc_2proposal_8h" alt=""/></div>
 <map name="vmcmc_2proposal_8h" id="vmcmc_2proposal_8h">
-<area shape="rect" id="node2" href="sample_8h.html" title="vmcmc/sample.h" alt="" coords="269,80,391,107"/>
-<area shape="rect" id="node3" href="blas_8h.html" title="vmcmc/blas.h" alt="" coords="1029,155,1133,181"/>
-<area shape="rect" id="node21" href="parameter_8h.html" title="vmcmc/parameter.h" alt="" coords="1365,80,1503,107"/>
-<area shape="rect" id="node15" href="numeric_8h.html" title="vmcmc/numeric.h" alt="" coords="267,155,393,181"/>
-<area shape="rect" id="node4" href="logger_8h.html" title="vmcmc/logger.h" alt="" coords="1098,237,1213,263"/>
+<area shape="rect" id="node2" href="sample_8h.html" title="vmcmc/sample.h" alt="" coords="351,80,473,107"/>
+<area shape="rect" id="node3" href="blas_8h.html" title="vmcmc/blas.h" alt="" coords="1124,155,1228,181"/>
+<area shape="rect" id="node23" href="parameter_8h.html" title="vmcmc/parameter.h" alt="" coords="1213,80,1352,107"/>
+<area shape="rect" id="node16" href="numeric_8h.html" title="vmcmc/numeric.h" alt="" coords="349,155,475,181"/>
+<area shape="rect" id="node4" href="logger_8h.html" title="vmcmc/logger.h" alt="" coords="1043,237,1157,263"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -112,6 +114,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <map name="vmcmc_2proposal_8hdep" id="vmcmc_2proposal_8hdep">
 <area shape="rect" id="node2" href="metropolis_8cpp.html" title="vmcmc/metropolis.cpp" alt="" coords="5,80,160,107"/>
 <area shape="rect" id="node3" href="proposal_8cpp.html" title="vmcmc/proposal.cpp" alt="" coords="185,80,327,107"/>
+<area shape="rect" id="node4" href="vmcmc-example_8cpp.html" title="vmcmc&#45;example.cpp" alt="" coords="351,80,494,107"/>
 </map>
 </div>
 </div>
@@ -121,7 +124,11 @@ This graph shows which files directly or indirectly include this file:</div>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Proposal.html">vmcmc::Proposal</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1ProposalGaussian.html">vmcmc::ProposalGaussian</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1ProposalDistribution.html">vmcmc::ProposalDistribution&lt; DistributionT &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1ProposalNormal.html">vmcmc::ProposalNormal</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1ProposalStudentT.html">vmcmc::ProposalStudentT</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>

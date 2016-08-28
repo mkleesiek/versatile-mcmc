@@ -88,6 +88,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
@@ -113,10 +114,15 @@ Collaboration diagram for vmcmc::MetropolisHastings:</div>
 <div class="center"><img src="classvmcmc_1_1MetropolisHastings__coll__graph.png" border="0" usemap="#vmcmc_1_1MetropolisHastings_coll__map" alt="Collaboration graph"/></div>
 <map name="vmcmc_1_1MetropolisHastings_coll__map" id="vmcmc_1_1MetropolisHastings_coll__map">
 <area shape="rect" id="node2" href="classvmcmc_1_1Algorithm.html" title="vmcmc::Algorithm" alt="" coords="34,95,162,121"/>
-<area shape="rect" id="node3" href="classvmcmc_1_1ParameterList.html" title="vmcmc::ParameterList" alt="" coords="21,5,175,32"/>
+<area shape="rect" id="node3" href="classvmcmc_1_1ParameterConfig.html" title="vmcmc::ParameterConfig" alt="" coords="13,5,183,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structvmcmc_1_1MetropolisHastings_1_1ChainConfig.html">ChainConfig</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a66c3d7795d6d3d771ad23ef6320f4b23"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a66c3d7795d6d3d771ad23ef6320f4b23"></a>
@@ -125,12 +131,15 @@ virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>Initialize</b
 <tr class="memitem:a31c97802abeff9fb5bfa5c0de80ae7ef"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a31c97802abeff9fb5bfa5c0de80ae7ef"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Advance</b> (size_t nSteps=1) override</td></tr>
 <tr class="separator:a31c97802abeff9fb5bfa5c0de80ae7ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace586e989f2863151923013e17cec40b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ace586e989f2863151923013e17cec40b"></a>
-virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><b>NChains</b> () override</td></tr>
-<tr class="separator:ace586e989f2863151923013e17cec40b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab926497554724653604cadaf62a3cc67"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab926497554724653604cadaf62a3cc67"></a>
+<tr class="memitem:aa5ac269060dec867649fe2834a9fbe95"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa5ac269060dec867649fe2834a9fbe95"></a>
+virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><b>NumberOfChains</b> () override</td></tr>
+<tr class="separator:aa5ac269060dec867649fe2834a9fbe95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a819da8262789656f05a6c467fef1fadf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a819da8262789656f05a6c467fef1fadf"></a>
 virtual const Chain &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetChain</b> (size_t cIndex=0) override</td></tr>
-<tr class="separator:ab926497554724653604cadaf62a3cc67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a819da8262789656f05a6c467fef1fadf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39d5d1819444bcb7d391e94aea38f640"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a39d5d1819444bcb7d391e94aea38f640"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetNumberOfChains</b> (size_t nChains)</td></tr>
+<tr class="separator:a39d5d1819444bcb7d391e94aea38f640"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fca829f6ba9bf6d2d49b8a32b04f657"><td class="memTemplParams" colspan="2"><a class="anchor" id="a2fca829f6ba9bf6d2d49b8a32b04f657"></a>
 template&lt;class ContainerT  = std::initializer_list&lt;double&gt;&gt; </td></tr>
 <tr class="memitem:a2fca829f6ba9bf6d2d49b8a32b04f657"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SetBetas</b> (ContainerT betas)</td></tr>
@@ -138,6 +147,10 @@ template&lt;class ContainerT  = std::initializer_list&lt;double&gt;&gt; </td></t
 <tr class="memitem:a7b2d4d412ce68c4b531eab8eefc240f8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7b2d4d412ce68c4b531eab8eefc240f8"></a>
 const std::vector&lt; double &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetBetas</b> () const </td></tr>
 <tr class="separator:a7b2d4d412ce68c4b531eab8eefc240f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d3c1d15fd8c4a9abe7ef1dbe8316d49"><td class="memTemplParams" colspan="2"><a class="anchor" id="a5d3c1d15fd8c4a9abe7ef1dbe8316d49"></a>
+template&lt;class ProposalT , class... ArgsT&gt; </td></tr>
+<tr class="memitem:a5d3c1d15fd8c4a9abe7ef1dbe8316d49"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SetProposalFunction</b> (ArgsT &amp;&amp;...args)</td></tr>
+<tr class="separator:a5d3c1d15fd8c4a9abe7ef1dbe8316d49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a146635b8c6554646104ebd6549a63376"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a146635b8c6554646104ebd6549a63376"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetProposalFunction</b> (std::shared_ptr&lt; <a class="el" href="classvmcmc_1_1Proposal.html">Proposal</a> &gt; proposalFunction)</td></tr>
 <tr class="separator:a146635b8c6554646104ebd6549a63376"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,12 +167,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetRandomizeStartPoin
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsRandomizeStartPoint</b> () const </td></tr>
 <tr class="separator:afb62c3cba16130617c2f5c571159854f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classvmcmc_1_1Algorithm"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classvmcmc_1_1Algorithm')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classvmcmc_1_1Algorithm.html">vmcmc::Algorithm</a></td></tr>
-<tr class="memitem:a4c50bd8b19b6354bcbe888c6d7f0a583 inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4c50bd8b19b6354bcbe888c6d7f0a583"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetParameterConfig</b> (const <a class="el" href="classvmcmc_1_1ParameterList.html">ParameterList</a> &amp;paramConfig)</td></tr>
-<tr class="separator:a4c50bd8b19b6354bcbe888c6d7f0a583 inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e1730aebf170d4c18e7ed226f8517f3 inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8e1730aebf170d4c18e7ed226f8517f3"></a>
-const <a class="el" href="classvmcmc_1_1ParameterList.html">ParameterList</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetParameterConfig</b> () const </td></tr>
-<tr class="separator:a8e1730aebf170d4c18e7ed226f8517f3 inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8bbbf66bcdca0ea3ec3e5d2df5f7e6c inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Algorithm.html#ab8bbbf66bcdca0ea3ec3e5d2df5f7e6c">SetParameterConfig</a> (const <a class="el" href="classvmcmc_1_1ParameterConfig.html">ParameterConfig</a> &amp;paramConfig)</td></tr>
+<tr class="separator:ab8bbbf66bcdca0ea3ec3e5d2df5f7e6c inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2103827dac13e7f2bde894ba84a70ac8 inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2103827dac13e7f2bde894ba84a70ac8"></a>
+const <a class="el" href="classvmcmc_1_1ParameterConfig.html">ParameterConfig</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetParameterConfig</b> () const </td></tr>
+<tr class="separator:a2103827dac13e7f2bde894ba84a70ac8 inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac68bb522b99a388d3195ae6f66055fec inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memTemplParams" colspan="2"><a class="anchor" id="ac68bb522b99a388d3195ae6f66055fec"></a>
 template&lt;class FunctionT &gt; </td></tr>
 <tr class="memitem:ac68bb522b99a388d3195ae6f66055fec inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SetPrior</b> (FunctionT prior)</td></tr>
@@ -178,6 +190,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetTotalLength</b> (s
 <tr class="memitem:a481b78643ac6885426ec41ea1c18654d inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a481b78643ac6885426ec41ea1c18654d"></a>
 size_t&#160;</td><td class="memItemRight" valign="bottom"><b>GetTotalLength</b> () const </td></tr>
 <tr class="separator:a481b78643ac6885426ec41ea1c18654d inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9906684081d347c44bedeefac5b750cd inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memTemplParams" colspan="2"><a class="anchor" id="a9906684081d347c44bedeefac5b750cd"></a>
+template&lt;class WriterT , class... ArgsT&gt; </td></tr>
+<tr class="memitem:a9906684081d347c44bedeefac5b750cd inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SetWriter</b> (ArgsT &amp;&amp;...args)</td></tr>
+<tr class="separator:a9906684081d347c44bedeefac5b750cd inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa94b20c433981249ffbc4e34590afcc7 inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa94b20c433981249ffbc4e34590afcc7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetWriter</b> (std::shared_ptr&lt; <a class="el" href="classvmcmc_1_1Writer.html">Writer</a> &gt; writer)</td></tr>
+<tr class="separator:aa94b20c433981249ffbc4e34590afcc7 inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07304ea32a58235b632dc375611eacf4 inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Algorithm.html#a07304ea32a58235b632dc375611eacf4">EvaluatePrior</a> (const std::vector&lt; double &gt; &amp;paramValues) const </td></tr>
 <tr class="separator:a07304ea32a58235b632dc375611eacf4 inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5aa2919ce37edf012c415b6978c4e66 inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Algorithm.html#ac5aa2919ce37edf012c415b6978c4e66">EvaluateLikelihood</a> (const std::vector&lt; double &gt; &amp;paramValues) const </td></tr>
@@ -186,8 +205,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><b>GetTotalLength</b> 
 <tr class="separator:abd72557963da7554f3c709ac53ca76d8 inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ef5890f37568210b9f0135e00fa8f10 inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Algorithm.html#a8ef5890f37568210b9f0135e00fa8f10">Evaluate</a> (<a class="el" href="classvmcmc_1_1Sample.html">Sample</a> &amp;sample) const </td></tr>
 <tr class="separator:a8ef5890f37568210b9f0135e00fa8f10 inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5127d6c21fc23581b55117390dc589c5 inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5127d6c21fc23581b55117390dc589c5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Run</b> ()</td></tr>
+<tr class="memitem:a5127d6c21fc23581b55117390dc589c5 inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Algorithm.html#a5127d6c21fc23581b55117390dc589c5">Run</a> ()</td></tr>
 <tr class="separator:a5127d6c21fc23581b55117390dc589c5 inherit pub_methods_classvmcmc_1_1Algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -198,9 +216,9 @@ static double&#160;</td><td class="memItemRight" valign="bottom"><b>CalculateMHR
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:af1b0740e6c507163f9f9a2e2f4500486"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af1b0740e6c507163f9f9a2e2f4500486"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>AdvanceChain</b> (size_t iChain, size_t nSteps=1)</td></tr>
-<tr class="separator:af1b0740e6c507163f9f9a2e2f4500486"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34495a0641e285d8757c28b46c4032d1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a34495a0641e285d8757c28b46c4032d1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AdvanceChain</b> (size_t iChainConfig, size_t iBeta, size_t nSteps=1)</td></tr>
+<tr class="separator:a34495a0641e285d8757c28b46c4032d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -210,22 +228,19 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>fRandomizeStartPoint<
 <tr class="memitem:ab63a4dc1a69adf39dd16e7e551dec6b7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab63a4dc1a69adf39dd16e7e551dec6b7"></a>
 std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>fBetas</b></td></tr>
 <tr class="separator:ab63a4dc1a69adf39dd16e7e551dec6b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4897578f4509b1f09b6e9452006730e7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4897578f4509b1f09b6e9452006730e7"></a>
-std::vector&lt; <a class="el" href="classvmcmc_1_1ParameterList.html">ParameterList</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>fDynamicParamConfigs</b></td></tr>
-<tr class="separator:a4897578f4509b1f09b6e9452006730e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28db2e710ddd5f3fad539a6f50a73df3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a28db2e710ddd5f3fad539a6f50a73df3"></a>
-std::vector&lt; std::shared_ptr&lt; <a class="el" href="classvmcmc_1_1Proposal.html">Proposal</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>fProposalFunctions</b></td></tr>
-<tr class="separator:a28db2e710ddd5f3fad539a6f50a73df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bbb1d7f31d33ae3ceb85d9aeba6522a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3bbb1d7f31d33ae3ceb85d9aeba6522a"></a>
-std::vector&lt; Chain &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>fSampledChains</b></td></tr>
-<tr class="separator:a3bbb1d7f31d33ae3ceb85d9aeba6522a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a54f287d18a6ba40fe4e550558ef996"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2a54f287d18a6ba40fe4e550558ef996"></a>
+std::shared_ptr&lt; <a class="el" href="classvmcmc_1_1Proposal.html">Proposal</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>fProposalFunction</b></td></tr>
+<tr class="separator:a2a54f287d18a6ba40fe4e550558ef996"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71bd2f7b225b696e94263cd36c0fd200"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a71bd2f7b225b696e94263cd36c0fd200"></a>
 size_t&#160;</td><td class="memItemRight" valign="bottom"><b>fPtFrequency</b></td></tr>
 <tr class="separator:a71bd2f7b225b696e94263cd36c0fd200"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43b9d6d6283fe23413c92c080e290137"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a43b9d6d6283fe23413c92c080e290137"></a>
+std::vector&lt; std::unique_ptr&lt; <a class="el" href="structvmcmc_1_1MetropolisHastings_1_1ChainConfig.html">ChainConfig</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>fChainConfigs</b></td></tr>
+<tr class="separator:a43b9d6d6283fe23413c92c080e290137"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classvmcmc_1_1Algorithm"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classvmcmc_1_1Algorithm')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classvmcmc_1_1Algorithm.html">vmcmc::Algorithm</a></td></tr>
-<tr class="memitem:a4c8129fe8134a86034ea137f0f7f0310 inherit pro_attribs_classvmcmc_1_1Algorithm"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4c8129fe8134a86034ea137f0f7f0310"></a>
-<a class="el" href="classvmcmc_1_1ParameterList.html">ParameterList</a>&#160;</td><td class="memItemRight" valign="bottom"><b>fParameterConfig</b></td></tr>
-<tr class="separator:a4c8129fe8134a86034ea137f0f7f0310 inherit pro_attribs_classvmcmc_1_1Algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90ea4da598a26ac9b5845e82a7db2ffb inherit pro_attribs_classvmcmc_1_1Algorithm"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a90ea4da598a26ac9b5845e82a7db2ffb"></a>
+<a class="el" href="classvmcmc_1_1ParameterConfig.html">ParameterConfig</a>&#160;</td><td class="memItemRight" valign="bottom"><b>fParameterConfig</b></td></tr>
+<tr class="separator:a90ea4da598a26ac9b5845e82a7db2ffb inherit pro_attribs_classvmcmc_1_1Algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca7114cc690a4b55a328a6f13395c678 inherit pro_attribs_classvmcmc_1_1Algorithm"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aca7114cc690a4b55a328a6f13395c678"></a>
 std::function&lt; double(const std::vector&lt; double &gt; &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>fPrior</b></td></tr>
 <tr class="separator:aca7114cc690a4b55a328a6f13395c678 inherit pro_attribs_classvmcmc_1_1Algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -241,6 +256,9 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><b>fTotalLength</b></t
 <tr class="memitem:a73a1a9d7fcda8f6e514d0c3b8ad74fdd inherit pro_attribs_classvmcmc_1_1Algorithm"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a73a1a9d7fcda8f6e514d0c3b8ad74fdd"></a>
 size_t&#160;</td><td class="memItemRight" valign="bottom"><b>fCycleLength</b></td></tr>
 <tr class="separator:a73a1a9d7fcda8f6e514d0c3b8ad74fdd inherit pro_attribs_classvmcmc_1_1Algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae7fd1063437084610c9364d6a8a9a36 inherit pro_attribs_classvmcmc_1_1Algorithm"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aae7fd1063437084610c9364d6a8a9a36"></a>
+std::shared_ptr&lt; <a class="el" href="classvmcmc_1_1Writer.html">Writer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>fWriter</b></td></tr>
+<tr class="separator:aae7fd1063437084610c9364d6a8a9a36 inherit pro_attribs_classvmcmc_1_1Algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implementation of the Metropolis-Hastings algorithm.</p>
