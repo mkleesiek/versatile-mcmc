@@ -41,6 +41,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <mutex>
 
 namespace vmcmc {
 
@@ -67,6 +68,8 @@ namespace vmcmc {
  * By default, if the library is compiled in release-mode, Trace and Debug
  * outputs are silenced.
  * No external configuration mechanisms (yet).
+ *
+ * This facility might possibly be replaced by boost log.
  */
 class Logger
 {
@@ -96,6 +99,8 @@ public:
 
     virtual ~Logger();
 
+    std::mutex& GetMutex() { return fMutex; }
+
     /**
      * Check whether a certain log-level is enabled.
      * @param level The log level as string representation.
@@ -122,21 +127,31 @@ public:
     void SetColoured(bool coloured) { fColouredOutput = coloured; }
 
     /**
-     * Log a message with the specified level.
-     * Use the macro LOG(logger, level, message).
+     * Start a message with the specified level.
+     * Do not use this method directly.
+     * Use the macro LOG(logger, level, message) instead.
      * @param level The log level.
-     * @param message The message.
      * @param loc Source code location (set automatically by the corresponding macro).
      */
     void StartMessage(ELevel level, const Location& loc = Location());
 
+    /**
+     * Get an output stream for log messages to append.
+     * Do not use directly.
+     * @return
+     */
     std::ostream& Log() { return *fActiveStream; }
 
+    /**
+     * End and flush the last message.
+     * Do not use directly.
+     */
     void EndMessage();
 
 private:
     std::string fName;
     std::ostream* fActiveStream;
+    std::mutex fMutex;
     ELevel fMinLevel;
     bool fColouredOutput;
 };
@@ -153,6 +168,7 @@ private:
 #define __LOG_3(I,L,M) \
 { \
     if (I.IsLevelEnabled(vmcmc::Logger::ELevel::L)) { \
+        std::lock_guard<std::mutex> _logLock(I.GetMutex()); \
         I.StartMessage(vmcmc::Logger::ELevel::L, __LOG_LOCATION); \
         I.Log() << M; \
         I.EndMessage(); \
@@ -163,6 +179,7 @@ private:
 { \
     if (I.IsLevelEnabled(vmcmc::Logger::ELevel::L)) { \
         static bool _sLogMarker = false; \
+        std::lock_guard<std::mutex> _logLock(I.GetMutex()); \
         if (!_sLogMarker) { \
             _sLogMarker = true; \
             I.StartMessage(vmcmc::Logger::ELevel::L, __LOG_LOCATION); \
@@ -175,6 +192,7 @@ private:
 #define __LOG_ASSERT_3(I,C,M) \
 { \
     if (I.IsLevelEnabled(vmcmc::Logger::ELevel::Error) && !(C)) { \
+        std::lock_guard<std::mutex> _logLock(I.GetMutex()); \
         I.StartMessage(vmcmc::Logger::ELevel::Error, __LOG_LOCATION); \
         I.Log() << "Assertion '(" << TOSTRING(C) << ")' failed. " << M; \
         I.EndMessage(); \

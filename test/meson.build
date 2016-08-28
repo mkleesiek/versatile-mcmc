@@ -1,5 +1,6 @@
 vmcmc_tests = [
     'blas-test',
+    'io-test',
     'logger-test',
     'metropolis-test',
     'numeric-test',

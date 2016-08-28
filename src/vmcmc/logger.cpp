@@ -12,73 +12,48 @@
 #include <map>
 #include <utility>
 #include <chrono>
-
-// COLOR DEFINITIONS
-#define COLOR_NORMAL "0"
-#define COLOR_BRIGHT "1"
-#define COLOR_FOREGROUND_RED "31"
-#define COLOR_FOREGROUND_GREEN "32"
-#define COLOR_FOREGROUND_YELLOW "33"
-#define COLOR_FOREGROUND_CYAN "36"
-#define COLOR_FOREGROUND_WHITE "37"
-#define COLOR_PREFIX "\033["
-#define COLOR_SUFFIX "m"
-#define COLOR_SEPARATOR ";"
-
-constexpr const char* skEndColor =   COLOR_PREFIX COLOR_NORMAL COLOR_SUFFIX;
-constexpr const char* skFatalColor = COLOR_PREFIX COLOR_BRIGHT COLOR_SEPARATOR COLOR_FOREGROUND_RED    COLOR_SUFFIX;
-constexpr const char* skErrorColor = COLOR_PREFIX COLOR_BRIGHT COLOR_SEPARATOR COLOR_FOREGROUND_RED    COLOR_SUFFIX;
-constexpr const char* skWarnColor =  COLOR_PREFIX COLOR_BRIGHT COLOR_SEPARATOR COLOR_FOREGROUND_YELLOW COLOR_SUFFIX;
-constexpr const char* skInfoColor =  COLOR_PREFIX COLOR_BRIGHT COLOR_SEPARATOR COLOR_FOREGROUND_GREEN  COLOR_SUFFIX;
-constexpr const char* skDebugColor = COLOR_PREFIX COLOR_BRIGHT COLOR_SEPARATOR COLOR_FOREGROUND_CYAN   COLOR_SUFFIX;
-constexpr const char* skOtherColor = COLOR_PREFIX COLOR_BRIGHT COLOR_SEPARATOR COLOR_FOREGROUND_WHITE  COLOR_SUFFIX;
-
+#include <unordered_map>
 
 using namespace std;
+
+namespace std {
+/**
+ * Hash specialization for the vmcmc::Logger::ELevel enumeration.
+ */
+template<>
+struct hash<vmcmc::Logger::ELevel>
+{
+    size_t operator() (const vmcmc::Logger::ELevel& level) const {
+        return static_cast<int>(level);
+    }
+};
+}
 
 namespace vmcmc {
 
 namespace {
 
-const char* level2Color(Logger::ELevel level)
-{
-    switch(level) {
-        case Logger::ELevel::Fatal:
-            return skFatalColor;
-        case Logger::ELevel::Error:
-            return skErrorColor;
-        case Logger::ELevel::Warn:
-            return skWarnColor;
-        case Logger::ELevel::Info:
-            return skInfoColor;
-        case Logger::ELevel::Debug:
-            return skDebugColor;
-        case Logger::ELevel::Trace:
-            return skDebugColor;
-        default:
-            return skOtherColor;
-    }
-}
+const string kResetColor =  "\033[0m";  // reset to standard console color
 
-const char* level2Str(Logger::ELevel level)
-{
-    switch(level) {
-        case Logger::ELevel::Trace :
-            return "TRACE";
-        case Logger::ELevel::Debug :
-            return "DEBUG";
-        case Logger::ELevel::Info  :
-            return "INFO";
-        case Logger::ELevel::Warn  :
-            return "WARN";
-        case Logger::ELevel::Error :
-            return "ERROR";
-        case Logger::ELevel::Fatal :
-            return "FATAL";
-        default     :
-            return "XXX";
-    }
-}
+const unordered_map<Logger::ELevel, string> loggerColors = {
+    { Logger::ELevel::Fatal,     "\033[1;31m" },    // red
+    { Logger::ELevel::Error,     "\033[1;31m" },    // red
+    { Logger::ELevel::Warn,      "\033[1;33m" },    // yellow
+    { Logger::ELevel::Info,      "\033[1;32m" },    // green
+    { Logger::ELevel::Debug,     "\033[1;36m" },    // cyan
+    { Logger::ELevel::Trace,     "\033[1;37m" },    // white
+    { Logger::ELevel::Undefined, kResetColor  }     // white
+};
+
+const unordered_map<Logger::ELevel, string> loggerStrings = {
+    { Logger::ELevel::Fatal,     "FATAL" },
+    { Logger::ELevel::Error,     "ERROR" },
+    { Logger::ELevel::Warn,      "WARN" },
+    { Logger::ELevel::Info,      "INFO" },
+    { Logger::ELevel::Debug,     "DEBUG" },
+    { Logger::ELevel::Trace,     "TRACE" },
+    { Logger::ELevel::Undefined, "" }
+};
 
 void printTime(ostream& strm)
 {
@@ -129,25 +104,25 @@ Logger::~Logger()
 
 void Logger::StartMessage(ELevel level, const Location& loc)
 {
-    const char* levelStr = level2Str(level);
+    const string& levelStr = loggerStrings.find(level)->second;
 
     fActiveStream = (level >= ELevel::Error) ? &cerr : &cout;
 
     if (fColouredOutput) {
-        const char* color = level2Color(level);
+        const string& color = loggerColors.find(level)->second;
         *fActiveStream << color;
     }
 
     printTime( *fActiveStream );
 
-    *fActiveStream << setfill(' ') << " [" << setw(5) << levelStr << "] "
+    *fActiveStream << " [" << setw(5) << levelStr << "] "
         << setw(18) << loc.fFileName << "(" << setw(3) << loc.fLineNumber << ") ";
 }
 
 void Logger::EndMessage()
 {
     if (fColouredOutput)
-        *fActiveStream << skEndColor;
+        *fActiveStream << kResetColor;
 
     *fActiveStream << endl;
 

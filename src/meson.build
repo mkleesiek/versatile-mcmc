@@ -9,8 +9,8 @@ vmcmc_apps = [
     'vmcmc-example'
 ]
 
-foreach a : vmcmc_apps
-  executable(a, a + '.cpp',
+foreach appname : vmcmc_apps
+  executable(appname, appname + '.cpp',
     include_directories : vmcmc_inc,
     link_with : vmcmc_lib,
     install : true,

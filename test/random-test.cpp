@@ -7,14 +7,17 @@
 
 #include <vmcmc/random.h>
 #include <vmcmc/stringutils.h>
+#include <vmcmc/blas.h>
 
 #include <thread>
 
 #include <boost/accumulators/accumulators.hpp>
-#include <boost/accumulators/statistics.hpp>
+#include <boost/accumulators/statistics/stats.hpp>
+#include <boost/accumulators/statistics/mean.hpp>
+#include <boost/accumulators/statistics/covariance.hpp>
+#include <boost/accumulators/statistics/variates/covariate.hpp>
 
 #include <gtest/gtest.h>
-#include "../src/vmcmc/blas.h"
 
 using namespace std;
 using namespace vmcmc;
@@ -81,8 +84,10 @@ TEST(Random, MultivariateNormal) {
 
     const Vector mean(N, 5.0);
 
-    for (int i = 0; i < 1000; ++i) {
-        Vector rVector = rand.GaussianMultiVariate(mean, cholesky);
+    normal_distribution<double> dist;
+
+    for (int i = 0; i < 200; ++i) {
+        Vector rVector = rand.FromMultiVariateDistribution(dist, mean, cholesky);
         acc01(rVector(0), covariate1 = rVector(1));
         acc12(rVector(1), covariate1 = rVector(2));
         acc23(rVector(2), covariate1 = rVector(3));

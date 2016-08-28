@@ -8,28 +8,30 @@
 #include <vmcmc/algorithm.h>
 #include <vmcmc/logger.h>
 #include <vmcmc/stringutils.h>
+#include <vmcmc/stats.h>
+#include <vmcmc/io.h>
 
-#include <boost/accumulators/accumulators.hpp>
-#include <boost/accumulators/statistics/mean.hpp>
-#include <boost/accumulators/statistics/variance.hpp>
-#include <boost/accumulators/statistics/stats.hpp>
+//#include <boost/accumulators/accumulators.hpp>
+//#include <boost/accumulators/statistics/mean.hpp>
+//#include <boost/accumulators/statistics/variance.hpp>
+//#include <boost/accumulators/statistics/stats.hpp>
 
 using namespace std;
 using namespace boost;
-using namespace boost::accumulators;
 
 namespace vmcmc {
 
 LOG_DEFINE("vmcmc.algorithm");
 
 Algorithm::Algorithm() :
-    fTotalLength( 1E6 )
+    fTotalLength( 1E6 ),
+    fCycleLength( 50 )
 { }
 
 Algorithm::~Algorithm()
 { }
 
-void Algorithm::SetParameterConfig(const ParameterList& paramConfig)
+void Algorithm::SetParameterConfig(const ParameterConfig& paramConfig)
 {
     fParameterConfig = paramConfig;
 }
@@ -40,6 +42,8 @@ bool Algorithm::Initialize()
         LOG(Error, "No target function specified.");
         return false;
     }
+
+    numeric::constrain<size_t>(fCycleLength, 1, fTotalLength);
 
     // TODO: perform consistency checks on the parameter list
 
@@ -106,22 +110,58 @@ void Algorithm::Run()
         return;
     }
 
-    accumulator_set<double, stats<tag::mean>> accRateAcc;
+    // Let the derived sampler instance advance the Markov chain for
+    // nCycles of fCycleLength plus nRemainingSteps to yield a total chain
+    // length of fTotalLength
 
-    for (size_t iStep = 0; iStep < fTotalLength; iStep++) {
-        const double accRateStep = Advance();
+    const size_t nCycles = fTotalLength / fCycleLength;
+    const size_t nChains = NumberOfChains();
 
-        if (iStep % 100 == 0) {
-            const Sample& sample = GetChain(0).back();
-            LOG(Debug, iStep << ": " << sample);
+    vector<unique_ptr<Writer>> writers(nChains);
+    if (fWriter) {
+        for (size_t iChain = 0; iChain < nChains; iChain++) {
+            writers[iChain].reset( fWriter->Clone() );
+            writers[iChain]->Initialize(iChain, nChains);
         }
-
-        accRateAcc( accRateStep );
     }
 
-    const double accRate = mean( accRateAcc );
+    for (size_t iCycle = 0; iCycle < nCycles; iCycle++) {
+        Advance(fCycleLength);
 
-    LOG(Info, "Acceptance Rate: " << accRate);
+        // output
+        if (fWriter) {
+            for (size_t iChain = 0; iChain < nChains; iChain++) {
+                writers[iChain]->Write( GetChain(iChain) );
+            }
+        }
+
+        // some intermediate logging
+        if (iCycle % (nCycles/100) == 0) {
+            const size_t iStep = iCycle * fCycleLength;
+            for (size_t iChain = 0; iChain < nChains; iChain++) {
+                const Sample& sample = GetChain(iChain).back();
+                LOG(Debug, "(" << iChain << ") " << iStep << ": " << sample);
+            }
+        }
+    }
+
+    const size_t nRemainingSteps = fTotalLength % fCycleLength;
+    if (nRemainingSteps > 0)
+        Advance(nRemainingSteps);
+
+    // print some diagnostics for each chain to console
+
+    for (size_t iChain = 0; iChain < NumberOfChains(); iChain++) {
+        const Chain& chain = GetChain(iChain);
+
+        LOG(Info, "Diagnostics for chain " << iChain << ":");
+
+        const double accRate = stats::accRate(chain);
+
+        LOG(Info, "  Acceptance Rate: " << accRate);
+    }
+
+    LOG(Info, "MCMC run finished.");
 }
 
 } /* namespace vmcmc */

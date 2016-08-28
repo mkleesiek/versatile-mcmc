@@ -14,7 +14,7 @@ using namespace vmcmc;
 
 TEST(Metropolis, CalculateMHRatio) {
     MetropolisHastings mcmc;
-    ParameterList pList;
+    ParameterConfig pList;
     pList.SetParameter( 0, Parameter("test", 0.0, 1.0) );
     mcmc.SetParameterConfig( pList );
     mcmc.SetNegLogLikelihoodFunction( [](const std::vector<double>& params) {

@@ -12,6 +12,7 @@
 #include <vmcmc/numeric.h>
 
 #include <initializer_list>
+#include <deque>
 
 namespace vmcmc
 {
@@ -36,7 +37,7 @@ public:
 
     Vector& Values() { return fParameterValues; }
     const Vector& Values() const { return fParameterValues; }
-//    size_t size() const { return fParameterValues.size(); }
+    Sample& operator= (std::initializer_list<double> pValues);
 
     /**
      * Reset ::fLikelihood, ::fNegLogLikelihood and ::fPrior to their
@@ -53,42 +54,43 @@ public:
     void SetPrior(double value) { fPrior = value; }
     double GetPrior() const { return fPrior; }
 
+    void SetAccepted(bool value) { fAccepted = value; }
+    double IsAccepted() const { return fAccepted; }
+
 private:
-    size_t fGeneration;
+    size_t fGeneration       = 0;
     Vector fParameterValues;
-    double fLikelihood;
-    double fNegLogLikelihood;
-    double fPrior;
+    double fLikelihood       = 0.0;
+    double fNegLogLikelihood = -numeric::inf();
+    double fPrior            = 0.0;
+    bool fAccepted           = false;
 };
 
+using Chain = std::deque<Sample>;
+
 inline Sample::Sample(const Vector& pValues) :
-    fGeneration( 0 ),
-    fParameterValues( pValues ),
-    fLikelihood( 0.0 ),
-    fNegLogLikelihood( -Inf() ),
-    fPrior( 0.0 )
+    fParameterValues( pValues )
 { }
 
 inline Sample::Sample(std::initializer_list<double> pValues) :
-    fGeneration( 0 ),
-    fParameterValues( pValues ),
-    fLikelihood( 0.0 ),
-    fNegLogLikelihood( -Inf() ),
-    fPrior( 0.0 )
+    fParameterValues( pValues )
 { }
 
 inline Sample::Sample(size_t nParams) :
-    fGeneration( 0 ),
-    fParameterValues( nParams, 0.0 ),
-    fLikelihood( 0.0 ),
-    fNegLogLikelihood( -Inf() ),
-    fPrior( 0.0 )
+    fParameterValues( nParams, 0.0 )
 { }
+
+inline Sample& Sample::operator= (std::initializer_list<double> pValues)
+{
+    fParameterValues = Vector(pValues);
+    return *this;
+}
 
 inline void Sample::Reset()
 {
     fPrior = fLikelihood = 0.0;
-    fNegLogLikelihood = -Inf();
+    fNegLogLikelihood = -numeric::inf();
+    fAccepted = false;
 }
 
 } /* namespace vmcmc */

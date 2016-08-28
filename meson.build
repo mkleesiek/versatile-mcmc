@@ -1,5 +1,5 @@
 project('versatile-mcmc', 'cpp',
-  version : '0.0.2',
+  version : '0.1.0',
   license : 'GNU GPL v3' ,
   default_options : ['cpp_std=c++11'],
   meson_version : '>=0.25.0' )
@@ -16,7 +16,7 @@ if not cpp11_support
 endif
 
 # resolve external dependencies
-boost_dep = dependency('boost', version : '>=1.45.0', modules : ['accumulators', 'log'])
+boost_dep = dependency('boost', version : '>=1.45.0', modules : ['accumulators'])
 tbb_dep   = dependency('tbb', required : false)
 gtest_dep = dependency('gtest', main : true, required : false)
 doxygen   = find_program('doxygen', required : false)

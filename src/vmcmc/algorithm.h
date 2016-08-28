@@ -13,13 +13,12 @@
 
 #include <functional>
 #include <vector>
-#include <deque>
 #include <cmath>
 
 namespace vmcmc
 {
 
-using Chain = std::deque<Sample>;
+class Writer;
 
 /**
  * This base class models the sampling algorithm of an MCMC, advancing to a
@@ -34,8 +33,16 @@ public:
     Algorithm();
     virtual ~Algorithm();
 
-    void SetParameterConfig(const ParameterList& paramConfig);
-    const ParameterList& GetParameterConfig() const { return fParameterConfig; }
+    /**
+     * Set the parameter configuration.
+     * This is mandatory for every possible implementations of this class.
+     * From the configuration, the start points and proposal functions of a
+     * sampler a initialized. The number of parameters defines, with how many
+     * arguments the target likelihood function is evaluated.
+     * @param paramConfig
+     */
+    void SetParameterConfig(const ParameterConfig& paramConfig);
+    const ParameterConfig& GetParameterConfig() const { return fParameterConfig; }
 
     template<class FunctionT>
     void SetPrior(FunctionT prior) { fPrior = prior; }
@@ -47,6 +54,10 @@ public:
 
     void SetTotalLength(size_t length) { fTotalLength = length; }
     size_t GetTotalLength() const { return fTotalLength; }
+
+    template<class WriterT, class... ArgsT>
+    void SetWriter(ArgsT&&... args);
+    void SetWriter(std::shared_ptr<Writer> writer) { fWriter = writer; }
 
     /**
      * Evaluate the prior for the given parameter values.
@@ -71,30 +82,37 @@ public:
 
     /**
      * Evalutate the target function prior, likelihood and -log(likelihood)
-     * at the position defined by the @p sample, and update the \p sample.
+     * at the position defined by the @p sample, and update the \p sample
+     * accordingly.
      * @param sample
      * @return False if the likelihood was not evaluated (e.g. due to a zero
      * prior).
      */
     bool Evaluate(Sample& sample) const;
 
+    /**
+     * Start sampling!
+     */
     void Run();
 
     virtual bool Initialize();
 
-    virtual double Advance() = 0;
+    virtual void Advance(size_t nSteps = 1) = 0;
 
-    virtual size_t NChains() = 0;
+    virtual size_t NumberOfChains() = 0;
     virtual const Chain& GetChain(size_t cIndex = 0) = 0;
 
 protected:
-    ParameterList fParameterConfig;
+    ParameterConfig fParameterConfig;
     std::function<double (const std::vector<double>&)> fPrior;
 
     std::function<double (const std::vector<double>&)> fLikelihood;
     std::function<double (const std::vector<double>&)> fNegLogLikelihood;
 
     size_t fTotalLength;
+    size_t fCycleLength;
+
+    std::shared_ptr<Writer> fWriter;
 };
 
 template<class FunctionT>
@@ -109,6 +127,14 @@ inline void Algorithm::SetNegLogLikelihoodFunction(FunctionT negLoglikelihood)
 {
     fLikelihood = nullptr;
     fNegLogLikelihood = negLoglikelihood;
+}
+
+template<class WriterT, class... ArgsT>
+inline void Algorithm::SetWriter(ArgsT&&... args)
+{
+    fWriter = std::make_shared<WriterT>(
+        std::forward<ArgsT>(args)...
+    );
 }
 
 } /* namespace vmcmc */

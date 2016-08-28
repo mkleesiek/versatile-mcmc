@@ -35,9 +35,9 @@ TEST(Parameter, Limits)
     ASSERT_THROW( Parameter("bad parameter", 5.0, 0.0, 2.0, 4.0), Exception );
 }
 
-TEST(ParameterList, Correlations)
+TEST(ParameterConfig, Correlations)
 {
-    ParameterList paramConfig;
+    ParameterConfig paramConfig;
     paramConfig.SetParameter(0, Parameter("p1", 0.0, 1.0) );
     paramConfig.SetParameter(1, Parameter("p2", -1.0, 2.0) );
     paramConfig.SetParameter(2, Parameter("p3", +1.0, 1.5) );

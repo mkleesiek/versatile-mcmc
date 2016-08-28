@@ -100,13 +100,16 @@ protected:
  * to be evaluated. In addition to listing the individual parameter properties,
  * a correlation matrix can be specified.
  */
-class ParameterList
+class ParameterConfig
 {
 public:
-    ParameterList();
-    virtual ~ParameterList();
+    ParameterConfig(size_t nInitParams = 0);
+    virtual ~ParameterConfig();
 
     void SetParameter(size_t pIndex, const Parameter& param);
+    void SetParameter(size_t pIndex, const std::string& name, double startValue,
+        double absoluteError, boost::optional<double> lowerLimit = boost::none,
+        boost::optional<double> upperLimit = boost::none, bool fixed = false);
 //    const Parameter& GetParameter(size_t pIndex) const { return fParameters[pIndex]; }
 
     size_t size() const { return fParameters.size(); }
