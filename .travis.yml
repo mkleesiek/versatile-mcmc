@@ -59,12 +59,12 @@ matrix:
       compiler: clang
       env: COMPILER=clang++
 
-#  allow_failures:
-#    - os: osx
+  allow_failures:
+    - os: osx
 
 before_script:
   # install OSX packages
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update && brew install tbb doxygen python3; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew tap homebrew/versions && brew update && brew install tbb doxygen python3; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export BOOST_ROOT=/usr/local/Cellar/boost/1.60.0_2; fi
   # modify PATH
   - mkdir ~/bin && export PATH=$PATH:~/Library/Python/3.5/bin:~/bin
@@ -76,7 +76,8 @@ before_script:
   
 script:
   # setup the meson build and configure
-  - mkdir build && CXX=$COMPILER meson.py build
+  - mkdir build
+  - CXX=$COMPILER CXXFLAGS=$COMPILER_FLAGS LDFLAGS=$LINKER_FLAGS meson.py build
   # build with ninja
   - cd build
   - ninja -v
