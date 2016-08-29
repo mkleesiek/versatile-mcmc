@@ -14,6 +14,7 @@
 #include <boost/accumulators/accumulators.hpp>
 #include <boost/accumulators/statistics/stats.hpp>
 #include <boost/accumulators/statistics/mean.hpp>
+#include <boost/accumulators/statistics/variance.hpp>
 #include <boost/accumulators/statistics/covariance.hpp>
 #include <boost/accumulators/statistics/variates/covariate.hpp>
 
@@ -25,17 +26,18 @@ using namespace boost;
 using namespace boost::accumulators;
 
 TEST(Random, SingletonInitialization) {
-    Random& rand = Random::Instance();
-    rand.SetSeed(1);
 
-    ASSERT_EQ(rand.Uniform(0, 100), 42) << "Deterministic random"
+    Random::Seed(1);
+
+    Random& rand = Random::Instance();
+
+    ASSERT_EQ(42, rand.Uniform(0, 100)) << "Deterministic random"
             "number generator with unexpected result.";
 
-    ASSERT_DOUBLE_EQ(rand.Uniform(-99.0, +99.0), 43.624248925001041);
+    ASSERT_DOUBLE_EQ(43.624248925001041, rand.Uniform(-99.0, +99.0));
 }
 
 TEST(Random, UniformMultithreaded) {
-    Random::Instance().SetSeed(1);
 
     constexpr size_t sNThreads = 4;
 
@@ -45,10 +47,10 @@ TEST(Random, UniformMultithreaded) {
 
             accumulator_set<double, stats<tag::mean> > acc;
 
-            for (int i = 0; i < 100000; ++i)
+            for (int i = 0; i < 1000; ++i)
                 acc( Random::Instance().Uniform(0.0, 10.0) );
 
-            ASSERT_NEAR(mean(acc), 5.0, 0.05);
+            ASSERT_NEAR(5.0, mean(acc), 0.5);
         });
     }
 
@@ -58,8 +60,8 @@ TEST(Random, UniformMultithreaded) {
 }
 
 TEST(Random, MultivariateNormal) {
+
     Random& rand = Random::Instance();
-    rand.SetSeed(1);
 
     constexpr size_t N = 5;
 
@@ -77,16 +79,16 @@ TEST(Random, MultivariateNormal) {
     cov(4, 3) = 3.0;
 
     ublas::triangular_matrix<double> cholesky(N, N);
-    ASSERT_EQ( choleskyDecompose(cov, cholesky), 0) << "Cholesky decomposition failed.";
+    ASSERT_EQ( 0, choleskyDecompose(cov, cholesky) ) << "Cholesky decomposition failed.";
 
     // TODO: replace boost accumulators by own statistics tools
-    accumulator_set<double, stats<tag::covariance<double, tag::covariate1> > > acc01, acc12, acc23, acc34;
+    accumulator_set<double, stats<tag::mean, tag::variance, tag::covariance<double, tag::covariate1> > > acc01, acc12, acc23, acc34;
 
     const Vector mean(N, 5.0);
 
     normal_distribution<double> dist;
 
-    for (int i = 0; i < 200; ++i) {
+    for (int i = 0; i < 1000; ++i) {
         Vector rVector = rand.FromMultiVariateDistribution(dist, mean, cholesky);
         acc01(rVector(0), covariate1 = rVector(1));
         acc12(rVector(1), covariate1 = rVector(2));
@@ -94,9 +96,9 @@ TEST(Random, MultivariateNormal) {
         acc34(rVector(3), covariate1 = rVector(4));
     }
 
-    ASSERT_NEAR(covariance(acc01), 0.8, 0.16);
-    ASSERT_NEAR(covariance(acc12), 0.0, 0.1);
-    ASSERT_NEAR(covariance(acc23), -1.0, 0.2);
-    ASSERT_NEAR(covariance(acc34), 3.0, 0.6);
+    ASSERT_NEAR( 0.8, covariance(acc01), 0.25 );
+    ASSERT_NEAR( 0.0, covariance(acc12), 0.30 );
+    ASSERT_NEAR( -1.0, covariance(acc23), 0.20 );
+    ASSERT_NEAR( 3.0, covariance(acc34), 0.60 );
 
 }

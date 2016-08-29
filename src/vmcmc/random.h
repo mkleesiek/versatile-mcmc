@@ -13,7 +13,8 @@
 #include <random>
 #include <type_traits>
 #include <cmath>
-#include <mutex>
+#include <atomic>
+#include <thread>
 
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/matrix.hpp>
@@ -25,7 +26,10 @@ namespace vmcmc
 namespace ublas = boost::numeric::ublas;
 
 /**
- * A thread-safe interface for the STL random number generators.
+ * A thread-safe interface for STL style random number generators.
+ * Each thread accesses it's own static instance of a number generator.
+ * The seed, however, is taken from a global variable, combined with the
+ * local thread's id.
  * @tparam EngineT Underlying random number generator (e.g. std::mt19937).
  */
 template<class EngineT>
@@ -35,32 +39,29 @@ public:
     typedef EngineT engine_type;
     typedef typename engine_type::result_type result_type;
 
-public:
+    /**
+     * Set the initial value for the global seed variable.
+     * For seed = 0, a non-deterministic value is generated.
+     * @param seed
+     */
+    static void Seed(result_type seed);
+
+    /**
+     * Get a reference to a static instance for the current thread.
+     * @return
+     */
     static RandomPrototype& Instance();
 
 protected:
-    RandomPrototype(result_type seed = engine_type::default_seed);
+    static std::atomic<result_type> sSeed;
+
+    RandomPrototype();
     virtual ~RandomPrototype();
 
     RandomPrototype(const RandomPrototype& other) = delete;
     void operator=(const RandomPrototype& other) = delete;
 
 public:
-
-    /**
-     * Get the seed, the random number engine was last initialized with.
-     * @return
-     */
-    result_type GetSeed() const { return fSeed; }
-
-    /**
-     * Set the seed on the underlying random number engine.
-     * For a seed = 0, the random result of a non-deterministic generator is used.
-     * @param seed
-     * @return
-     */
-    result_type SetSeed(result_type seed = engine_type::default_seed);
-
     /**
      * Get a reference to the underlying random number engine (mersenne twister).
      * @return
@@ -191,44 +192,41 @@ public:
     static constexpr result_type max() { return engine_type::max(); }
 
     /**
-     * Invokes the underlying random number generator after locking the mutex.
+     * Invokes the underlying random number generator.
      * @return
      */
-    result_type operator()();
+    result_type operator()() { return fEngine(); }
 
 private:
-    result_type fSeed;
     engine_type fEngine;
-    std::mutex fMtx;
 };
+
+template<class EngineT>
+void RandomPrototype<EngineT>::Seed(result_type seed)
+{
+    sSeed = (seed == 0) ? std::random_device()() : seed;
+}
+
+template<class EngineT>
+std::atomic<typename EngineT::result_type> RandomPrototype<EngineT>::sSeed( 0 );
 
 template<class EngineT>
 inline RandomPrototype<EngineT>& RandomPrototype<EngineT>::Instance()
 {
-    static RandomPrototype sInstance;
+    static thread_local RandomPrototype sInstance;
     return sInstance;
 }
 
 template<class EngineT>
-inline RandomPrototype<EngineT>::RandomPrototype(result_type seed) :
-    fSeed(0),
+inline RandomPrototype<EngineT>::RandomPrototype() :
     fEngine()
 {
-    SetSeed(seed);
+    fEngine.seed( sSeed++ );
 }
 
 template<class EngineT>
 inline RandomPrototype<EngineT>::~RandomPrototype()
 { }
-
-template<class EngineT>
-inline typename RandomPrototype<EngineT>::result_type RandomPrototype<EngineT>::SetSeed(result_type value)
-{
-    std::lock_guard<std::mutex> lock(fMtx);
-    fSeed = (value == 0) ? std::random_device()() : value;
-    fEngine.seed(fSeed);
-    return fSeed;
-}
 
 template<class EngineT>
 template<class FloatT>
@@ -355,16 +353,6 @@ inline IndexType RandomPrototype<EngineT>::Discrete(const ProbRangeT& probabilit
     return std::discrete_distribution<IndexType>(probabilities.begin(), probabilities.end())(*this);
 }
 
-template<class EngineT>
-inline typename RandomPrototype<EngineT>::result_type RandomPrototype<EngineT>::operator()()
-{
-    /*
-     * TODO: mutex locks are expensive. think about using a separate generator for
-     * each thread -> requires clever seeding.
-     */
-    std::lock_guard<std::mutex> lock(fMtx);
-    return fEngine();
-}
 
 /**
  * Typedef for the default random number generator, based on the Mersenne Twister.

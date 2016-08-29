@@ -72,7 +72,7 @@ double targetFunction(const vector<double>& params) {
 int main(int /*argc*/, char* /*argv*/[]){
 
     // choose a non-deterministic seed for random number generator:
-    Random::Instance().SetSeed(0);
+    Random::Seed(0);
 
     // setup the parameter configuration
     ParameterConfig paramConfig;

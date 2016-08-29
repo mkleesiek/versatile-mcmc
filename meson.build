@@ -1,5 +1,5 @@
 project('versatile-mcmc', 'cpp',
-  version : '0.1.0',
+  version : '0.1.5',
   license : 'GNU GPL v3' ,
   default_options : ['cpp_std=c++11'],
   meson_version : '>=0.25.0' )
@@ -63,7 +63,7 @@ endif
 pkg_mod = import('pkgconfig')
 pkg_mod.generate(
     libraries : vmcmc_lib,
-    version : '0.1',
+    version : meson.project_version(),
     name : 'libvmcmc',
     filebase : 'vmcmc',
     description : project_description
