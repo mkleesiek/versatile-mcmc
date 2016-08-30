@@ -88,7 +88,7 @@ TEST(Random, MultivariateNormal) {
 
     normal_distribution<double> dist;
 
-    for (int i = 0; i < 1000; ++i) {
+    for (int i = 0; i < 10000; ++i) {
         Vector rVector = rand.FromMultiVariateDistribution(dist, mean, cholesky);
         acc01(rVector(0), covariate1 = rVector(1));
         acc12(rVector(1), covariate1 = rVector(2));

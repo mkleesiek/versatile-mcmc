@@ -15,6 +15,14 @@ if not cpp11_support
     error('Your compiler does not support C++11.')
 endif
 
+# verify thread_local support
+tls_check = '''#include <thread>\nstatic thread_local int = 0;'''
+tls_support = compiler.compiles(tls_check, name : 'thread_local test')
+if not tls_support
+    message('Your compiler does not support "thread_local".')
+    add_global_arguments('-DNO_TLS', language : 'cpp')
+endif
+
 # resolve external dependencies
 boost_dep = dependency('boost', version : '>=1.45.0', modules : ['accumulators'])
 tbb_dep   = dependency('tbb', required : false)
