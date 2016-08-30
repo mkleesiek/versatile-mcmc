@@ -26,10 +26,12 @@ namespace vmcmc
 namespace ublas = boost::numeric::ublas;
 
 /**
- * A thread-safe interface for STL style random number generators.
- * Each thread accesses it's own static instance of a number generator.
- * The seed, however, is taken from a global variable, combined with the
- * local thread's id.
+ * A thread-safe interface for STL style pesudo random number generators (PRNG).
+ * Each thread accesses it's own static instance of a PRNG, which is
+ * realized using the thread_local keyword.
+ * In order for each new PRNG instance to be constructed with a new seed, a
+ * global variable Random::sSeed (initially to be set with Random::Seed),
+ * is incremented and used in each PRNG's constructor.
  * @tparam EngineT Underlying random number generator (e.g. std::mt19937).
  */
 template<class EngineT>
