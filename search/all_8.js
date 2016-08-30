@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['instance',['Instance',['../classvmcmc_1_1RandomPrototype.html#aa274a8d5d9ecc16659d5ae9cdad18595',1,'vmcmc::RandomPrototype']]],
   ['io_2ecpp',['io.cpp',['../io_8cpp.html',1,'']]],
   ['io_2eh',['io.h',['../io_8h.html',1,'']]],
   ['is_5fcontainer',['is_container',['../structvmcmc_1_1is__container.html',1,'vmcmc']]],

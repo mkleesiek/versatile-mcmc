@@ -1,11 +1,11 @@
 <map id="vmcmc/parameter.cpp" name="vmcmc/parameter.cpp">
-<area shape="rect" id="node2" href="$parameter_8h.html" title="vmcmc/parameter.h" alt="" coords="1865,169,2004,196"/>
-<area shape="rect" id="node6" href="$logger_8h.html" title="vmcmc/logger.h" alt="" coords="299,326,413,353"/>
+<area shape="rect" id="node2" href="$parameter_8h.html" title="vmcmc/parameter.h" alt="" coords="687,169,825,196"/>
+<area shape="rect" id="node6" href="$logger_8h.html" title="vmcmc/logger.h" alt="" coords="333,326,448,353"/>
 <area shape="rect" id="node17" href="$exception_8h.html" title="vmcmc/exception.h" alt="" coords="5,326,141,353"/>
-<area shape="rect" id="node19" href="$numeric_8h.html" title="vmcmc/numeric.h" alt="" coords="1882,244,2009,271"/>
-<area shape="rect" id="node24" href="$stringutils_8h.html" title="vmcmc/stringutils.h" alt="" coords="1061,87,1197,114"/>
-<area shape="rect" id="node29" href="$random_8h.html" title="vmcmc/random.h" alt="" coords="405,244,528,271"/>
-<area shape="rect" id="node5" href="$blas_8h.html" title="vmcmc/blas.h" alt="" coords="1321,244,1425,271"/>
-<area shape="rect" id="node25" href="$typetraits_8h.html" title="vmcmc/typetraits.h" alt="" coords="2203,244,2338,271"/>
-<area shape="rect" id="node26" href="$sample_8h.html" title="vmcmc/sample.h" alt="" coords="1152,169,1275,196"/>
+<area shape="rect" id="node19" href="$numeric_8h.html" title="vmcmc/numeric.h" alt="" coords="2334,244,2461,271"/>
+<area shape="rect" id="node24" href="$stringutils_8h.html" title="vmcmc/stringutils.h" alt="" coords="1920,87,2056,114"/>
+<area shape="rect" id="node29" href="$random_8h.html" title="vmcmc/random.h" alt="" coords="444,244,567,271"/>
+<area shape="rect" id="node5" href="$blas_8h.html" title="vmcmc/blas.h" alt="" coords="1125,244,1229,271"/>
+<area shape="rect" id="node25" href="$typetraits_8h.html" title="vmcmc/typetraits.h" alt="" coords="1921,244,2055,271"/>
+<area shape="rect" id="node26" href="$sample_8h.html" title="vmcmc/sample.h" alt="" coords="2131,169,2253,196"/>
 </map>

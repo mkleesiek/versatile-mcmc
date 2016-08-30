@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">versatile-mcmc
-   &#160;<span id="projectnumber">0.1.0</span>
+   &#160;<span id="projectnumber">0.1.5</span>
    </div>
   </td>
  </tr>
@@ -92,6 +92,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-static-attribs">Static Protected Attributes</a> &#124;
 <a href="classvmcmc_1_1RandomPrototype-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">vmcmc::RandomPrototype&lt; EngineT &gt; Class Template Reference</div>  </div>
@@ -111,10 +112,6 @@ typedef engine_type::result_type&#160;</td><td class="memItemRight" valign="bott
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a324d9db149399fe5ef5572517d91c155"><td class="memItemLeft" align="right" valign="top">result_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#a324d9db149399fe5ef5572517d91c155">GetSeed</a> () const </td></tr>
-<tr class="separator:a324d9db149399fe5ef5572517d91c155"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7b630e485fb4e39d00ec278ae127131"><td class="memItemLeft" align="right" valign="top">result_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#af7b630e485fb4e39d00ec278ae127131">SetSeed</a> (result_type seed=engine_type::default_seed)</td></tr>
-<tr class="separator:af7b630e485fb4e39d00ec278ae127131"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae8b9121611114689c55238b58d0f568"><td class="memItemLeft" align="right" valign="top">engine_type &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#aae8b9121611114689c55238b58d0f568">GetEngine</a> ()</td></tr>
 <tr class="separator:aae8b9121611114689c55238b58d0f568"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a273eb0c7df4d21c03a5c0411705c3fe7"><td class="memTemplParams" colspan="2">template&lt;class FloatT &gt; </td></tr>
@@ -157,13 +154,14 @@ template&lt;class FloatT  = double&gt; </td></tr>
 <tr class="memitem:ae73ed2194d45a482a171f471c54291e8"><td class="memTemplParams" colspan="2">template&lt;class DistributionT , class VectorT &gt; </td></tr>
 <tr class="memitem:ae73ed2194d45a482a171f471c54291e8"><td class="memTemplItemLeft" align="right" valign="top">VectorT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#ae73ed2194d45a482a171f471c54291e8">FromMultiVariateDistribution</a> (DistributionT &amp;dist, const VectorT &amp;mean, const VectorT &amp;sigma)</td></tr>
 <tr class="separator:ae73ed2194d45a482a171f471c54291e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac273774533ed465ac42bfe2167bbcc09"><td class="memItemLeft" align="right" valign="top">result_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#ac273774533ed465ac42bfe2167bbcc09">operator()</a> ()</td></tr>
-<tr class="separator:ac273774533ed465ac42bfe2167bbcc09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a159e23a671d62b02343671a71476be88"><td class="memItemLeft" align="right" valign="top">result_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#a159e23a671d62b02343671a71476be88">operator()</a> ()</td></tr>
+<tr class="separator:a159e23a671d62b02343671a71476be88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aa274a8d5d9ecc16659d5ae9cdad18595"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa274a8d5d9ecc16659d5ae9cdad18595"></a>
-static <a class="el" href="classvmcmc_1_1RandomPrototype.html">RandomPrototype</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>Instance</b> ()</td></tr>
+<tr class="memitem:aed1be679ef3b5e56a17630bc7103070c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#aed1be679ef3b5e56a17630bc7103070c">Seed</a> (result_type seed)</td></tr>
+<tr class="separator:aed1be679ef3b5e56a17630bc7103070c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa274a8d5d9ecc16659d5ae9cdad18595"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classvmcmc_1_1RandomPrototype.html">RandomPrototype</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#aa274a8d5d9ecc16659d5ae9cdad18595">Instance</a> ()</td></tr>
 <tr class="separator:aa274a8d5d9ecc16659d5ae9cdad18595"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9beac32bcb1c2e5a9e1c29b7d8753a6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab9beac32bcb1c2e5a9e1c29b7d8753a6"></a>
 static constexpr result_type&#160;</td><td class="memItemRight" valign="bottom"><b>min</b> ()</td></tr>
@@ -174,21 +172,21 @@ static constexpr result_type&#160;</td><td class="memItemRight" valign="bottom">
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a58f6c8c09b147daafd4bf2c0d3611322"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a58f6c8c09b147daafd4bf2c0d3611322"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>RandomPrototype</b> (result_type seed=engine_type::default_seed)</td></tr>
-<tr class="separator:a58f6c8c09b147daafd4bf2c0d3611322"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad14a8f8bb1546b63fc2b9be408ba26b1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad14a8f8bb1546b63fc2b9be408ba26b1"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>RandomPrototype</b> (const <a class="el" href="classvmcmc_1_1RandomPrototype.html">RandomPrototype</a> &amp;other)=delete</td></tr>
 <tr class="separator:ad14a8f8bb1546b63fc2b9be408ba26b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a836c6742190081b11f1cd976bf9bd82a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a836c6742190081b11f1cd976bf9bd82a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classvmcmc_1_1RandomPrototype.html">RandomPrototype</a> &amp;other)=delete</td></tr>
-<tr class="separator:a836c6742190081b11f1cd976bf9bd82a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-attribs"></a>
+Static Protected Attributes</h2></td></tr>
+<tr class="memitem:a2d51a3333cbccabf9f4509632e5682a0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2d51a3333cbccabf9f4509632e5682a0"></a>
+static std::atomic&lt; result_type &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>sSeed</b></td></tr>
+<tr class="separator:a2d51a3333cbccabf9f4509632e5682a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;class EngineT&gt;<br />
 class vmcmc::RandomPrototype&lt; EngineT &gt;</h3>
 
-<p>A thread-safe interface for the STL random number generators. </p><dl class="tparams"><dt>Template Parameters</dt><dd>
+<p>A thread-safe interface for STL style pesudo random number generators (PRNG). Each thread accesses it's own static instance of a PRNG, which is realized using the thread_local keyword. In order for each new PRNG instance to be constructed with a new seed, a global variable Random::sSeed (initially to be set with <a class="el" href="classvmcmc_1_1RandomPrototype.html#aed1be679ef3b5e56a17630bc7103070c">Random::Seed</a>), is incremented and used in each PRNG's constructor. </p><dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">EngineT</td><td>Underlying random number generator (e.g. std::mt19937). </td></tr>
   </table>
@@ -447,7 +445,7 @@ template&lt;class DistributionT , class VectorT &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class EngineT&gt; </div>
+template&lt;class EngineT &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -469,29 +467,29 @@ template&lt;class EngineT&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a324d9db149399fe5ef5572517d91c155"></a>
+<a class="anchor" id="aa274a8d5d9ecc16659d5ae9cdad18595"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class EngineT&gt; </div>
+template&lt;class EngineT &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">result_type <a class="el" href="classvmcmc_1_1RandomPrototype.html">vmcmc::RandomPrototype</a>&lt; EngineT &gt;::GetSeed </td>
+          <td class="memname"><a class="el" href="classvmcmc_1_1RandomPrototype.html">RandomPrototype</a>&lt; EngineT &gt; &amp; <a class="el" href="classvmcmc_1_1RandomPrototype.html">vmcmc::RandomPrototype</a>&lt; EngineT &gt;::Instance </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get the seed, the random number engine was last initialized with. </p><dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<p>Get a reference to a static instance for the current thread. </p><dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
 </div>
@@ -541,7 +539,7 @@ template&lt;class FloatT &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ac273774533ed465ac42bfe2167bbcc09"></a>
+<a class="anchor" id="a159e23a671d62b02343671a71476be88"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -551,7 +549,7 @@ template&lt;class EngineT &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classvmcmc_1_1RandomPrototype.html">RandomPrototype</a>&lt; EngineT &gt;::result_type <a class="el" href="classvmcmc_1_1RandomPrototype.html">vmcmc::RandomPrototype</a>&lt; EngineT &gt;::operator() </td>
+          <td class="memname">result_type <a class="el" href="classvmcmc_1_1RandomPrototype.html">vmcmc::RandomPrototype</a>&lt; EngineT &gt;::operator() </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -563,7 +561,7 @@ template&lt;class EngineT &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Invokes the underlying random number generator after locking the mutex. </p><dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<p>Invokes the underlying random number generator. </p><dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
 </div>
@@ -637,7 +635,7 @@ template&lt;class FloatT &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="af7b630e485fb4e39d00ec278ae127131"></a>
+<a class="anchor" id="aed1be679ef3b5e56a17630bc7103070c"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -647,26 +645,25 @@ template&lt;class EngineT &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classvmcmc_1_1RandomPrototype.html">RandomPrototype</a>&lt; EngineT &gt;::result_type <a class="el" href="classvmcmc_1_1RandomPrototype.html">vmcmc::RandomPrototype</a>&lt; EngineT &gt;::SetSeed </td>
+          <td class="memname">void <a class="el" href="classvmcmc_1_1RandomPrototype.html">vmcmc::RandomPrototype</a>&lt; EngineT &gt;::Seed </td>
           <td>(</td>
           <td class="paramtype">result_type&#160;</td>
-          <td class="paramname"><em>seed</em> = <code>engine_type::default_seed</code></td><td>)</td>
+          <td class="paramname"><em>seed</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Set the seed on the underlying random number engine. For a seed = 0, the random result of a non-deterministic generator is used. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Set the initial value for the global seed variable. For seed = 0, a non-deterministic value is generated. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">seed</td><td></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
 </div>
