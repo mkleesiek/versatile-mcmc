@@ -16,15 +16,7 @@ if not cpp11_support
 endif
 
 # verify thread_local support for non-POD types
-tls_check = '''#include <thread>
-    template<class T>
-    struct Test {
-        Test() : a(0) { a = 1; }
-        virtual ~Test() { }
-        T a;
-    };
-    static thread_local Test<int> test;
-'''
+tls_check = '''#include <thread> \n template<class T> struct Test { T a = 0 }; static thread_local Test<int> test;'''
 tls_support = compiler.compiles(tls_check, name : 'thread_local test')
 if not tls_support
     message('Your compiler does not support "thread_local".')
