@@ -215,6 +215,7 @@ template<class EngineT>
 inline RandomPrototype<EngineT>& RandomPrototype<EngineT>::Instance()
 {
     // TODO: Alright, Xcode as of version 7.3 does not support thread_local.
+    // At least, non-POD types are not supported.
     // Possible workarounds: use mutexes or boost::thread_specific_ptr.
 
 #ifdef NO_TLS
