@@ -87,10 +87,11 @@ int main(int /*argc*/, char* /*argv*/[]){
     // randomize the start points within their specified errors
     mcmc.SetRandomizeStartPoint(true);
 
-    mcmc.SetNumberOfChains( 2 );
+    // sample multiple sets of chains in parallel
+    mcmc.SetNumberOfChains( 3 );
 
-    // enable parallel tempering by specifying higher temperatures
-    mcmc.SetBetas( {1.0, 0.1, 0.01} );
+    // enable parallel tempering by specifying higher reciprocal temperatures
+    mcmc.SetBetas( {1.0, 0.1} );
 
     // set the target likelihood
     mcmc.SetLikelihoodFunction( targetFunction );

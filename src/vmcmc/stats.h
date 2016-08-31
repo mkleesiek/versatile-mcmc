@@ -16,6 +16,12 @@
 namespace vmcmc
 {
 
+class ChainStatistics
+{
+public:
+
+};
+
 namespace stats
 {
 

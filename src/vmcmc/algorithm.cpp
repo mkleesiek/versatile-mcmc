@@ -6,18 +6,13 @@
  */
 
 #include <vmcmc/algorithm.h>
+#include <vmcmc/exception.h>
 #include <vmcmc/logger.h>
 #include <vmcmc/stringutils.h>
 #include <vmcmc/stats.h>
 #include <vmcmc/io.h>
 
-//#include <boost/accumulators/accumulators.hpp>
-//#include <boost/accumulators/statistics/mean.hpp>
-//#include <boost/accumulators/statistics/variance.hpp>
-//#include <boost/accumulators/statistics/stats.hpp>
-
 using namespace std;
-using namespace boost;
 
 namespace vmcmc {
 
@@ -36,18 +31,29 @@ void Algorithm::SetParameterConfig(const ParameterConfig& paramConfig)
     fParameterConfig = paramConfig;
 }
 
-bool Algorithm::Initialize()
+void Algorithm::Initialize()
 {
-    if (!(fLikelihood || fNegLogLikelihood)) {
-        LOG(Error, "No target function specified.");
-        return false;
-    }
+    if (!(fLikelihood || fNegLogLikelihood))
+        throw Exception() << "No target function specified.";
 
     numeric::constrain<size_t>(fCycleLength, 1, fTotalLength);
 
     // TODO: perform consistency checks on the parameter list
+}
 
-    return true;
+void Algorithm::Finalize()
+{
+    // print some diagnostics for each chain to console
+
+    for (size_t iChain = 0; iChain < NumberOfChains(); iChain++) {
+        const Chain& chain = GetChain(iChain);
+
+        LOG(Info, "Diagnostics for chain " << iChain << ":");
+
+        const double accRate = stats::accRate(chain);
+
+        LOG(Info, "  Acceptance Rate: " << accRate);
+    }
 }
 
 double Algorithm::EvaluatePrior(const std::vector<double>& paramValues) const
@@ -78,10 +84,10 @@ bool Algorithm::Evaluate(Sample& sample) const
 
     sample.Reset();
 
-    const std::vector<double>& paramValues = sample.Values().data();
-
     if (!fParameterConfig.IsInsideLimits( sample.Values() ))
         return false;
+
+    const std::vector<double>& paramValues = sample.Values().data();
 
     const double prior = (fPrior) ? fPrior( paramValues ) : 1.0;
     if (prior == 0.0)
@@ -105,18 +111,23 @@ bool Algorithm::Evaluate(Sample& sample) const
 
 void Algorithm::Run()
 {
-    if (!Initialize()) {
-        LOG(Error, "Initialization failed, aborting.");
-        return;
-    }
+    Initialize();
 
     // Let the derived sampler instance advance the Markov chain for
     // nCycles of fCycleLength plus nRemainingSteps to yield a total chain
-    // length of fTotalLength
+    // length of fTotalLength.
 
     const size_t nCycles = fTotalLength / fCycleLength;
     const size_t nChains = NumberOfChains();
 
+    // print the starting points
+    for (size_t iChain = 0; iChain < nChains; iChain++) {
+        const auto& chain = GetChain(iChain);
+        if (!chain.empty())
+            LOG(Info, "Chain " << iChain << " startin point: " << chain.back());
+    }
+
+    // configure writers
     vector<unique_ptr<Writer>> writers(nChains);
     if (fWriter) {
         for (size_t iChain = 0; iChain < nChains; iChain++) {
@@ -125,6 +136,7 @@ void Algorithm::Run()
         }
     }
 
+    // advance the samplers in cycles
     for (size_t iCycle = 0; iCycle < nCycles; iCycle++) {
         Advance(fCycleLength);
 
@@ -135,12 +147,13 @@ void Algorithm::Run()
             }
         }
 
-        // some intermediate logging
-        if (iCycle % (nCycles/100) == 0) {
-            const size_t iStep = iCycle * fCycleLength;
+        // some intermediate logging (in 5% progress increments)
+        if ((iCycle+1) % (nCycles/20) == 0) {
+            const size_t iStep = (iCycle+1) * fCycleLength;
             for (size_t iChain = 0; iChain < nChains; iChain++) {
                 const Sample& sample = GetChain(iChain).back();
-                LOG(Debug, "(" << iChain << ") " << iStep << ": " << sample);
+                LOG(Info, "Chain " << iChain << ", step " << iStep << " (" <<
+                      ((iCycle+1)*100/nCycles) << "%): " << sample);
             }
         }
     }
@@ -149,17 +162,7 @@ void Algorithm::Run()
     if (nRemainingSteps > 0)
         Advance(nRemainingSteps);
 
-    // print some diagnostics for each chain to console
-
-    for (size_t iChain = 0; iChain < NumberOfChains(); iChain++) {
-        const Chain& chain = GetChain(iChain);
-
-        LOG(Info, "Diagnostics for chain " << iChain << ":");
-
-        const double accRate = stats::accRate(chain);
-
-        LOG(Info, "  Acceptance Rate: " << accRate);
-    }
+    Finalize();
 
     LOG(Info, "MCMC run finished.");
 }

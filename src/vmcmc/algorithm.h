@@ -95,9 +95,11 @@ public:
      */
     void Run();
 
-    virtual bool Initialize();
+    virtual void Initialize();
 
     virtual void Advance(size_t nSteps = 1) = 0;
+
+    virtual void Finalize();
 
     virtual size_t NumberOfChains() = 0;
     virtual const Chain& GetChain(size_t cIndex = 0) = 0;
