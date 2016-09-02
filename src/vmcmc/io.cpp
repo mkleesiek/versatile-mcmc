@@ -26,16 +26,16 @@ TextFileWriter::TextFileWriter(const string& directory, const string& stem,
 { }
 
 TextFileWriter::~TextFileWriter()
-{
-    fFileStream.close();
-}
+{ }
 
 TextFileWriter::TextFileWriter(const TextFileWriter& other) :
     Writer(other),
     fDirectory(other.fDirectory),
     fStem(other.fStem),
     fSeparator(other.fSeparator),
-    fExtension(other.fExtension)
+    fExtension(other.fExtension),
+    fPrecision(other.fPrecision),
+    fWriteCombined(other.fWriteCombined)
 { }
 
 TextFileWriter* TextFileWriter::Clone() const
@@ -43,44 +43,52 @@ TextFileWriter* TextFileWriter::Clone() const
     return new TextFileWriter(*this);
 }
 
-bool TextFileWriter::Initialize(size_t chainIndex, size_t totalNChains)
+string TextFileWriter::GetFilePath(int chainIndex) const
 {
-    if (fFileStream.is_open())
-        throw Exception() << "TextWriter target file is already open.";
-
     ostringstream filePath;
-    filePath << fDirectory << '/' << fStem;
-    if (totalNChains > 0) {
-        filePath << fSeparator
-            << setw( numeric::numberOfDigits(totalNChains) ) << setfill('0')
-            << chainIndex;
-    }
+    if (!fDirectory.empty())
+        filePath << fDirectory << '/';
+    filePath << fStem;
+    if (chainIndex >= 0)
+        filePath << fSeparator << setw(2) << setfill('0') << chainIndex;
     filePath << fExtension;
-
-    fFileStream.open(filePath.str(), ios::trunc);
-
-    return (fFileStream.is_open() && fFileStream.good());
+    return filePath.str();
 }
 
-void TextFileWriter::Write(const Sample& sample)
+void TextFileWriter::Write(size_t chainIndex, const Sample& sample)
 {
-    if (!fFileStream.is_open() || fFileStream.fail())
-        throw Exception() << "TextWriter target file is in error state.";
+    WriteFile( (int) chainIndex, sample );
 
-    fFileStream.precision(fPrecision);
+    if (fWriteCombined)
+        WriteFile( -1, sample );
+}
 
-    fFileStream << sample.GetGeneration();
+void TextFileWriter::WriteFile(int streamIndex, const Sample& sample)
+{
+    ofstream& fileStrm = fFileStreams[streamIndex];
+
+    if (!fileStrm.is_open()) {
+        const string filePath = GetFilePath(streamIndex);
+        fileStrm.open(filePath, ios::trunc);
+
+        if (!fileStrm.is_open() || fileStrm.fail())
+            throw Exception() << "TextWriter target file is in error state.";
+    }
+
+    fileStrm.precision(fPrecision);
+
+    fileStrm << sample.GetGeneration();
 
     for (const double& v : sample.Values())
-        fFileStream << "\t" << v;
+        fileStrm << "\t" << v;
 
-    fFileStream << "\t" << sample.GetNegLogLikelihood();
-    fFileStream << "\t" << sample.GetLikelihood();
-    fFileStream << "\t" << sample.GetPrior();
+    fileStrm << "\t" << sample.GetNegLogLikelihood();
+    fileStrm << "\t" << sample.GetLikelihood();
+    fileStrm << "\t" << sample.GetPrior();
 
 //    fFileStream << "\t" << sample.IsAccepted();
 
-    fFileStream << endl;
+    fileStrm << endl;
 }
 
 } /* namespace vmcmc */

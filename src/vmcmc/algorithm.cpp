@@ -124,26 +124,30 @@ void Algorithm::Run()
     for (size_t iChain = 0; iChain < nChains; iChain++) {
         const auto& chain = GetChain(iChain);
         if (!chain.empty())
-            LOG(Info, "Chain " << iChain << " startin point: " << chain.back());
+            LOG(Info, "Chain " << iChain << " starting point: " << chain.back());
     }
 
-    // configure writers
-    vector<unique_ptr<Writer>> writers(nChains);
-    if (fWriter) {
-        for (size_t iChain = 0; iChain < nChains; iChain++) {
-            writers[iChain].reset( fWriter->Clone() );
-            writers[iChain]->Initialize(iChain, nChains);
-        }
-    }
+    size_t chainLengthCounter = 0;
 
     // advance the samplers in cycles
-    for (size_t iCycle = 0; iCycle < nCycles; iCycle++) {
-        Advance(fCycleLength);
+    for (size_t iCycle = 0; iCycle <= nCycles; iCycle++) {
+
+        const size_t nSteps = (iCycle < nCycles) ? fCycleLength : fTotalLength % fCycleLength;
+
+        if (nSteps == 0)
+            break;
+
+        Advance(nSteps);
 
         // output
-        if (fWriter) {
-            for (size_t iChain = 0; iChain < nChains; iChain++) {
-                writers[iChain]->Write( GetChain(iChain) );
+        if (fWriter && nChains > 0) {
+            vector<const Chain*> chainPtrs(nChains, nullptr);
+            for (size_t iChain = 0; iChain < nChains; iChain++)
+                chainPtrs[iChain] = &GetChain(iChain);
+
+            for (; chainLengthCounter < chainPtrs[0]->size(); chainLengthCounter++)
+                for (size_t iChain = 0; iChain < nChains; iChain++) {
+                    fWriter->Write( iChain, (*chainPtrs[iChain])[chainLengthCounter] );
             }
         }
 
@@ -157,10 +161,6 @@ void Algorithm::Run()
             }
         }
     }
-
-    const size_t nRemainingSteps = fTotalLength % fCycleLength;
-    if (nRemainingSteps > 0)
-        Advance(nRemainingSteps);
 
     Finalize();
 

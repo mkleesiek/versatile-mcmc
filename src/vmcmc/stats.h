@@ -11,40 +11,55 @@
 #include <vmcmc/sample.h>
 
 #include <deque>
+#include <vector>
 #include <type_traits>
 
 namespace vmcmc
 {
 
+template<class ContainerT = Chain>
 class ChainStatistics
 {
 public:
+    ChainStatistics(const ContainerT& sampleChain) :
+        fSampleChain( sampleChain ) { }
 
+private:
+    const ContainerT& fSampleChain;
+};
+
+template<class ContainerT = Chain>
+class ChainSetStatistics
+{
+public:
+
+private:
+    std::vector<ChainStatistics<ContainerT>> fSingleChainStats;
 };
 
 namespace stats
 {
 
-template<class XContainerT>
-Sample mean(const XContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endIndex = -1);
+template<class ContainerT>
+Sample mean(const ContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endIndex = -1);
 
-template<class XContainerT>
-Sample rms(const XContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endIndex = -1);
+template<class ContainerT>
+Sample rms(const ContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endIndex = -1);
 
-template<class XContainerT>
-Sample median(const XContainerT& c, typename XContainerT::value_type::size_type paramIndex, ptrdiff_t startIndex = 0, ptrdiff_t endIndex = -1);
+template<class ContainerT>
+Sample median(const ContainerT& c, typename ContainerT::value_type::size_type paramIndex, ptrdiff_t startIndex = 0, ptrdiff_t endIndex = -1);
 
-template<class XContainerT>
-Sample variance(const XContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endIndex = -1);
+template<class ContainerT>
+Sample variance(const ContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endIndex = -1);
 
-template<class XContainerT>
-Sample error(const XContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endIndex = -1);
+template<class ContainerT>
+Sample error(const ContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endIndex = -1);
 
-template<class XContainerT>
-Sample maxl(const XContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endIndex = -1);
+template<class ContainerT>
+Sample maxl(const ContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endIndex = -1);
 
-template<class XContainerT>
-double accRate(const XContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endIndex = -1);
+template<class ContainerT>
+double accRate(const ContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endIndex = -1);
 
 
 //double AutoCorrelation(uint64_t lag, int64_t startIndex = 0, int64_t endIndex = -1);
@@ -71,16 +86,13 @@ double accRate(const XContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endInde
 //
 //uint64_t CheckIndices(int64_t& startIndex, int64_t& endIndex);
 
-template<class XContainerT>
-std::pair<typename XContainerT::const_iterator, typename XContainerT::const_iterator>
-iterators(const XContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endIndex = -1);
+template<class ContainerT>
+std::pair<typename ContainerT::const_iterator, typename ContainerT::const_iterator>
+iterators(const ContainerT& c, ptrdiff_t startIndex = 0, ptrdiff_t endIndex = -1);
 
 
-
-
-
-template<class XContainerT>
-inline double accRate(const XContainerT& c, ptrdiff_t startIndex, ptrdiff_t endIndex)
+template<class ContainerT>
+inline double accRate(const ContainerT& c, ptrdiff_t startIndex, ptrdiff_t endIndex)
 {
     auto itRange = iterators(c, startIndex, endIndex);
 
@@ -100,9 +112,9 @@ inline double accRate(const XContainerT& c, ptrdiff_t startIndex, ptrdiff_t endI
     return (total == 0) ? 0.0 : (double) accepted / (double) total;
 }
 
-template<class XContainerT>
-inline std::pair<typename XContainerT::const_iterator, typename XContainerT::const_iterator>
-iterators(const XContainerT& c, ptrdiff_t startIndex, ptrdiff_t endIndex)
+template<class ContainerT>
+inline std::pair<typename ContainerT::const_iterator, typename ContainerT::const_iterator>
+iterators(const ContainerT& c, ptrdiff_t startIndex, ptrdiff_t endIndex)
 {
     const size_t N = c.size();
 
@@ -118,6 +130,73 @@ iterators(const XContainerT& c, ptrdiff_t startIndex, ptrdiff_t endIndex)
 
     return std::make_pair( std::next(std::begin(c), startIndex), std::next(std::begin(c), endIndex) );
 }
+
+//double KFMCDream::GelmanRubinDiagnostic() const
+//{
+//    const uint64_t nGens = NumberOfGenerations();
+//
+//    if (nGens < 10)
+//        return 0;
+//
+//    const uint32_t d = NumberOfParameters();
+//
+//    vector<vector<AccumulatorVariance_t> > accus ( fN, vector<AccumulatorVariance_t>(d) );
+//
+//    vector<KFMCState> fChainsMeans( fN, KFMCState(d) );
+//    vector<KFMCState> fChainsVariances( fN, KFMCState(d) );
+//    KFMCState fGlobalMean(d);
+//
+//    // for each chain
+//    for (uint32_t i = 0; i < fN; ++i) {
+//
+//        vector<KFMCState>::const_iterator it = fChains[i].Data().cbegin();
+//        // accumulate variance and mean within the last 50% of the samples
+//        advance(it, (nGens / 2) );
+//
+//        for (; it != fChains[i].Data().cend(); ++it) {
+//            for (uint32_t j = 0; j < d; ++j) {
+//                accus[i][j]( it->Parameter(j) );
+//            }
+//        }
+//
+//        // extract
+//        for (uint32_t j = 0; j < d; ++j) {
+//            fChainsMeans[i].Parameter(j) = bac::mean( accus[i][j] );
+//            fChainsVariances[i].Parameter(j) = bac::variance_unbiased( accus[i][j] );
+//        }
+//
+//        fGlobalMean += fChainsMeans[i];
+//    }
+//
+//    fGlobalMean /= (double) fN;
+//
+//    vector<double> R (d, 0.0);
+//
+//    // number of points taken into account
+//    const uint64_t n = bac::count( accus[0][0] );
+//
+//    // for each dimension
+//    for (uint32_t j = 0; j < d; ++j) {
+//
+//        // variance between chains:
+//        double B = 0.0;
+//        // variance within chains:
+//        double W = 0.0;
+//
+//        for (uint32_t i = 0; i < fN; ++i) {
+//            B += kpow<2>( fChainsMeans[i].Parameter(j) - fGlobalMean.Parameter(j) );
+//            W += fChainsVariances[i].Parameter(j);
+//        }
+//        B /= (double) (fN - 1);
+//        W /= (double) fN;
+//
+//        const double V = ((double) (n - 1) / (double) n) * W + B + (B / (double) fN);
+//        R[j] = V / W;
+//    }
+//
+//    return *max_element(R.begin(), R.end());
+//}
+
 
 };
 

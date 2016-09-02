@@ -13,6 +13,14 @@
 using namespace std;
 using namespace vmcmc;
 
-TEST(IO, AsciiWriter) {
+TEST(IO, TextFileWriter)
+{
+    TextFileWriter writer1("", "vmcmc");
+    ASSERT_EQ( "vmcmc.txt", writer1.GetFilePath(-1) );
 
+    TextFileWriter writer2(".", "test", "_", ".dat");
+    ASSERT_EQ( "./test.dat", writer2.GetFilePath(-1) );
+    ASSERT_EQ( "./test_00.dat", writer2.GetFilePath(0) );
+    ASSERT_EQ( "./test_99.dat", writer2.GetFilePath(99) );
+    ASSERT_EQ( "./test_101.dat", writer2.GetFilePath(101) );
 }

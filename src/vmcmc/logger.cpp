@@ -108,22 +108,24 @@ void Logger::StartMessage(ELevel level, const Location& loc)
 
     fActiveStream = (level >= ELevel::Error) ? &cerr : &cout;
 
-    if (fColouredOutput) {
-        const string& color = loggerColors.find(level)->second;
-        *fActiveStream << color;
-    }
-
     printTime( *fActiveStream );
 
-    *fActiveStream << " [" << setw(5) << levelStr << "] "
-        << setw(18) << loc.fFileName << "(" << setw(3) << loc.fLineNumber << ") ";
+    *fActiveStream << " [" << setw(5);
+
+    if (fColouredOutput) {
+        const string& startColor = loggerColors.find(level)->second;
+        *fActiveStream << startColor << levelStr << kResetColor;
+    }
+    else {
+        *fActiveStream  << levelStr;
+    }
+
+    *fActiveStream << "] " << setw(17) << loc.fFileName
+        << "(" << setw(3) << loc.fLineNumber << ") ";
 }
 
 void Logger::EndMessage()
 {
-    if (fColouredOutput)
-        *fActiveStream << kResetColor;
-
     *fActiveStream << endl;
 
     fActiveStream->flush();
