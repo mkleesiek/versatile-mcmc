@@ -61,7 +61,7 @@ pair<Chain::const_iterator, Chain::const_iterator> ChainStats::GetIterators() co
 Sample& ChainStats::GetMode()
 {
     if (fMode)
-        return fMode.value();
+        return fMode.get();
 
     auto itRange = GetIterators();
 
@@ -76,13 +76,13 @@ Sample& ChainStats::GetMode()
     }
 
     fMode = result;
-    return fMode.value();
+    return fMode.get();
 }
 
 Sample& ChainStats::GetMean()
 {
     if (fMean)
-        return fMean.value();
+        return fMean.get();
 
     auto itRange = GetIterators();
     const size_t N = itRange.second - itRange.first;
@@ -97,7 +97,7 @@ Sample& ChainStats::GetMean()
     }
 
     fMean = result;
-    return fMean.value();
+    return fMean.get();
 }
 
 Sample& ChainStats::GetMedian(size_t paramIndex)
@@ -134,7 +134,7 @@ Sample& ChainStats::GetMedian(size_t paramIndex)
 Vector& ChainStats::GetVariance()
 {
     if (fVariance)
-        return fVariance.value();
+        return fVariance.get();
 
     auto itRange = GetIterators();
     const size_t N = itRange.second - itRange.first;
@@ -152,13 +152,13 @@ Vector& ChainStats::GetVariance()
     }
 
     fVariance = result;
-    return fVariance.value();
+    return fVariance.get();
 }
 
 Vector& ChainStats::GetError()
 {
     if (fError)
-        return fError.value();
+        return fError.get();
 
     Vector result = GetVariance();
 
@@ -166,13 +166,13 @@ Vector& ChainStats::GetError()
         p = sqrt(p);
 
     fError = result;
-    return fError.value();
+    return fError.get();
 }
 
 Vector& ChainStats::GetRms()
 {
     if (fRms)
-        return fRms.value();
+        return fRms.get();
 
     auto itRange = GetIterators();
     const size_t N = itRange.second - itRange.first;
@@ -191,7 +191,7 @@ Vector& ChainStats::GetRms()
     }
 
     fRms = result;
-    return fRms.value();
+    return fRms.get();
 }
 
 Vector& ChainStats::GetAutoCorrelation(size_t lag)
@@ -241,7 +241,7 @@ Vector& ChainStats::GetAutoCorrelation(size_t lag)
 Vector& ChainStats::GetAutoCorrelationTime()
 {
     if (fAutoCorrelationTime)
-        return fAutoCorrelationTime.value();
+        return fAutoCorrelationTime.get();
 
     auto itRange = GetIterators();
     const size_t N = itRange.second - itRange.first;
@@ -261,13 +261,13 @@ Vector& ChainStats::GetAutoCorrelationTime()
     result = Vector(NumberOfParams(), 1.0) + 2.0 * result;
     fAutoCorrelationTime = result;
 
-    return fAutoCorrelationTime.value();
+    return fAutoCorrelationTime.get();
 }
 
 double ChainStats::GetAccRate()
 {
     if (fAccRate)
-        return fAccRate.value();
+        return fAccRate.get();
 
     auto itRange = GetIterators();
 
@@ -286,7 +286,7 @@ double ChainStats::GetAccRate()
 
     fAccRate = (total == 0) ? 0.0 : (double) accepted / (double) total;
 
-    return fAccRate.value();
+    return fAccRate.get();
 }
 
 void ChainSetStats::Reset()
@@ -328,7 +328,7 @@ void ChainSetStats::SelectPercentageRange(double start, double end)
 double ChainSetStats::GetRubinGelman()
 {
     if (fRubinGelman)
-        return fRubinGelman.value();
+        return fRubinGelman.get();
 
     const size_t nChains = fSingleChainStats.size();
 
@@ -386,7 +386,7 @@ double ChainSetStats::GetRubinGelman()
     }
 
     fRubinGelman = ublas::norm_inf(R);
-    return fRubinGelman.value();
+    return fRubinGelman.get();
 }
 
 } /* namespace vmcmc */
