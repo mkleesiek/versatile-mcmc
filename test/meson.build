@@ -15,7 +15,7 @@ foreach p : vmcmc_tests
   exe = executable(p, p + '.cpp',
     include_directories : vmcmc_inc,
     link_with : vmcmc_lib,
-    dependencies : [gtest_dep, boost_dep, tbb_dep]
+    dependencies : [gtest_dep, boost_dep]
   )
   test(p, exe,
     valgrind_args : ['--leak-check=full']

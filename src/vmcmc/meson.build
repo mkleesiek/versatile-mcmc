@@ -24,14 +24,20 @@ vmcmc_sources = [
     'parameter.cpp',
     'prior.cpp',
     'proposal.cpp',
+    'stats.cpp',
     'stringutils.cpp'
 ]
 
 install_headers( vmcmc_headers, subdir : 'vmcmc')
 
+lib_deps = [boost_dep]
+if get_option('use_tbb')
+    lib_deps += [tbb_dep]
+endif
+
 vmcmc_lib = shared_library( 'vmcmc',
     vmcmc_sources,
     include_directories : vmcmc_inc,
-    dependencies : [boost_dep, tbb_dep],
+    dependencies : lib_deps,
     install : true)
                         

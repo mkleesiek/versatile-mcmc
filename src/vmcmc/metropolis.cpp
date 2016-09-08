@@ -59,7 +59,7 @@ struct MetropolisHastings::ChainConfig
 MetropolisHastings::MetropolisHastings() :
     fRandomizeStartPoint( false ),
     fBetas{ 1.0 },
-    fPtFrequency( 100 ),
+    fPtFrequency( 200 ),
     fChainConfigs( 1 )
 { }
 

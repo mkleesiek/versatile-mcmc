@@ -10,6 +10,7 @@
 
 #include <vmcmc/parameter.h>
 #include <vmcmc/sample.h>
+#include <vmcmc/stats.h>
 
 #include <functional>
 #include <vector>
@@ -56,8 +57,8 @@ public:
     size_t GetTotalLength() const { return fTotalLength; }
 
     template<class WriterT, class... ArgsT>
-    void SetWriter(ArgsT&&... args);
-    void SetWriter(std::shared_ptr<Writer> writer) { fWriter = writer; }
+    void AddWriter(ArgsT&&... args);
+    void AddWriter(std::shared_ptr<Writer> writer) { fWriters.push_back( writer ); }
 
     /**
      * Evaluate the prior for the given parameter values.
@@ -114,7 +115,9 @@ protected:
     size_t fTotalLength;
     size_t fCycleLength;
 
-    std::shared_ptr<Writer> fWriter;
+    std::vector<std::shared_ptr<Writer>> fWriters;
+
+    ChainSetStats fStatistics;
 };
 
 template<class FunctionT>
@@ -132,11 +135,9 @@ inline void Algorithm::SetNegLogLikelihoodFunction(FunctionT negLoglikelihood)
 }
 
 template<class WriterT, class... ArgsT>
-inline void Algorithm::SetWriter(ArgsT&&... args)
+inline void Algorithm::AddWriter(ArgsT&&... args)
 {
-    fWriter = std::make_shared<WriterT>(
-        std::forward<ArgsT>(args)...
-    );
+    fWriters.emplace_back( std::make_shared<WriterT>(std::forward<ArgsT>(args)...) );
 }
 
 } /* namespace vmcmc */

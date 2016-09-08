@@ -9,9 +9,8 @@
 #define FMCMC_STRINGUTILS_H_
 
 #include <vmcmc/typetraits.h>
-#include <vmcmc/sample.h>
 
-#include <iostream>
+#include <sstream>
 #include <string>
 
 namespace vmcmc {
@@ -83,7 +82,7 @@ inline auto operator<< (std::ostream& strm, const ContainerT& container)
     }
 
     for (; itBegin != itEnd; ++itBegin) {
-        strm << "," << *itBegin;
+        strm << ", " << *itBegin;
     }
 
     strm << ")";

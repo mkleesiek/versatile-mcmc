@@ -50,10 +50,44 @@ void Algorithm::Finalize()
 
         LOG(Info, "Diagnostics for chain " << iChain << ":");
 
-        const double accRate = stats::accRate(chain);
+        ChainStats& stats = fStatistics.AddChain( chain );
 
+        const double accRate = stats.GetAccRate();
         LOG(Info, "  Acceptance Rate: " << accRate);
+
+        Sample& mode = stats.GetMode();
+        LOG(Info, "  Mode: " << mode);
+
+        Sample& mean = stats.GetMean();
+        Evaluate(mean);
+        LOG(Info, "  Mean: " << mean);
+
+        for (size_t iParam = 0; iParam < stats.NumberOfParams(); iParam++) {
+            Sample& median = stats.GetMedian(iParam);
+            LOG(Info, "  Median for parameter " << iParam << ": " << median);
+        }
+
+        Vector& variance = stats.GetVariance();
+        LOG(Info, "  Variance: " << variance);
+
+        Vector& error = stats.GetError();
+        LOG(Info, "  Error: " << error);
+
+        Vector& rms = stats.GetRms();
+        LOG(Info, "  RMS: " << rms);
+
+//        for (size_t lag = 1; lag < GetTotalLength() / 5; lag *= 10) {
+//            Vector& R = stats.GetAutoCorrelation(lag);
+//            LOG(Info, "  Autocorrelation for lag " << lag << ": " << R);
+//        }
+
+        Vector& acTime = stats.GetAutoCorrelationTime();
+        LOG(Info, "  Autocorrelation time: " << acTime);
     }
+
+    fStatistics.SelectPercentageRange(0.5, 1.0);
+    const double R = fStatistics.GetRubinGelman();
+    LOG(Info, "Rubin-Gelman R: " << R);
 }
 
 double Algorithm::EvaluatePrior(const std::vector<double>& paramValues) const
@@ -127,7 +161,7 @@ void Algorithm::Run()
             LOG(Info, "Chain " << iChain << " starting point: " << chain.back());
     }
 
-    size_t chainLengthCounter = 0;
+    size_t cChainPosition = 0;
 
     // advance the samplers in cycles
     for (size_t iCycle = 0; iCycle <= nCycles; iCycle++) {
@@ -140,14 +174,19 @@ void Algorithm::Run()
         Advance(nSteps);
 
         // output
-        if (fWriter && nChains > 0) {
+        if (nChains > 0) {
             vector<const Chain*> chainPtrs(nChains, nullptr);
             for (size_t iChain = 0; iChain < nChains; iChain++)
                 chainPtrs[iChain] = &GetChain(iChain);
 
-            for (; chainLengthCounter < chainPtrs[0]->size(); chainLengthCounter++)
+            for (; cChainPosition < chainPtrs[0]->size(); cChainPosition++) {
                 for (size_t iChain = 0; iChain < nChains; iChain++) {
-                    fWriter->Write( iChain, (*chainPtrs[iChain])[chainLengthCounter] );
+                    if (cChainPosition < chainPtrs[iChain]->size()) {
+                        for (auto& writer : fWriters) {
+                            writer->Write( iChain, (*chainPtrs[iChain])[cChainPosition] );
+                        }
+                    }
+                }
             }
         }
 

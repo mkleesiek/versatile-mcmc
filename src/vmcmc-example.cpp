@@ -72,7 +72,7 @@ double targetFunction(const vector<double>& params) {
 int main(int /*argc*/, char* /*argv*/[]){
 
     // choose a non-deterministic seed for random number generator:
-    Random::Seed(0);
+    Random::Seed( 123 );
 
     // setup the parameter configuration
     ParameterConfig paramConfig;
@@ -100,17 +100,15 @@ int main(int /*argc*/, char* /*argv*/[]){
     mcmc.SetProposalFunction<ProposalNormal>();
 
     // set the total number of steps per chain
-    mcmc.SetTotalLength(1E5);
+    mcmc.SetTotalLength(1E6);
 
     // define the output method
-    mcmc.SetWriter<TextFileWriter>(".", "vmcmc-example");
+    mcmc.AddWriter<TextFileWriter>(".", "vmcmc-example");
 
     LOG(Info, "Starting example Metropolis ...");
 
     // execute
     mcmc.Run();
-
-    // TODO: print diagnostics
 
     LOG(Info, "Done.");
 
