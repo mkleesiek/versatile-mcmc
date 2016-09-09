@@ -5,9 +5,9 @@
  * @author marco@kleesiek.com
  */
 
-#include <vmcmc/random.h>
-#include <vmcmc/stringutils.h>
-#include <vmcmc/blas.h>
+#include <vmcmc/random.hpp>
+#include <vmcmc/blas.hpp>
+#include <vmcmc/stringutils.hpp>
 
 #include <thread>
 

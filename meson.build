@@ -23,12 +23,18 @@ tls_check = '''#include <thread>
         virtual ~Test() { }
         T a;
     };
-    static thread_local Test<int> test;
-'''
+    static thread_local Test<int> test;'''
 tls_support = compiler.compiles(tls_check, name : 'thread_local test')
 if not tls_support
     message('Your compiler does not support "thread_local".')
     add_global_arguments('-DNO_TLS', language : 'cpp')
+endif
+
+# check for the presence of gnuplot-iostream.h
+gp_check = '''#include <gnuplot-iostream.h>'''
+gp_support = compiler.compiles(gp_check, name : 'gnuplot-iostream test')
+if gp_support
+    add_global_arguments('-DUSE_GP', language : 'cpp')
 endif
 
 # resolve external dependencies

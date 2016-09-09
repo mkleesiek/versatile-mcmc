@@ -5,9 +5,9 @@
  * @author marco@kleesiek.com
  */
 
-#include <vmcmc/proposal.h>
-#include <vmcmc/random.h>
-#include <vmcmc/logger.h>
+#include <logger.hpp>
+#include <proposal.hpp>
+#include <random.hpp>
 
 namespace vmcmc
 {

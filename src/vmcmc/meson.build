@@ -1,37 +1,40 @@
 vmcmc_headers = [
-    'algorithm.h',
-    'blas.h',
-    'exception.h',
-    'io.h',
-    'logger.h',
-    'metropolis.h',
-    'numeric.h',
-    'parameter.h',
-    'prior.h',
-    'proposal.h',
-    'random.h',
-    'sample.h',
-    'stats.h',
-    'stringutils.h',
-    'typetraits.h'
+    'algorithm.hpp',
+    'blas.hpp',
+    'chain.hpp',
+    'exception.hpp',
+    'io.hpp',
+    'logger.hpp',
+    'math.hpp',
+    'metropolis.hpp',
+    'numeric.hpp',
+    'parameter.hpp',
+#    'prior.hpp',
+    'proposal.hpp',
+    'random.hpp',
+    'sample.hpp',
+    'stringutils.hpp',
+    'typetraits.hpp'
 ]
 
 vmcmc_sources = [
     'algorithm.cpp',
+    'chain.cpp',
     'io.cpp',
     'logger.cpp',
+    'math.cpp',
     'metropolis.cpp',
     'parameter.cpp',
-    'prior.cpp',
+#    'prior.cpp',
     'proposal.cpp',
     'stringutils.cpp'
 ]
 
-install_headers( vmcmc_headers, subdir : 'vmcmc')
+install_headers( vmcmc_headers, subdir : 'vmcmc' )
 
 vmcmc_lib = shared_library( 'vmcmc',
     vmcmc_sources,
     include_directories : vmcmc_inc,
     dependencies : [boost_dep, tbb_dep],
-    install : true)
+    install : true )
                         

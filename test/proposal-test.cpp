@@ -5,7 +5,7 @@
  * @author marco@kleesiek.com
  */
 
-#include <vmcmc/proposal.h>
+#include <vmcmc/proposal.hpp>
 
 #include <gtest/gtest.h>
 

@@ -5,7 +5,8 @@
  * @author marco@kleesiek.com
  */
 
-#include <vmcmc/metropolis.h>
+#include <vmcmc/metropolis.hpp>
+#include <vmcmc/math.hpp>
 
 #include <gtest/gtest.h>
 

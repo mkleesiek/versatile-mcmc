@@ -5,12 +5,12 @@
  * @author marco@kleesiek.com
  */
 
-#include <vmcmc/blas.h>
-#include <vmcmc/stringutils.h>
+#include <vmcmc/blas.hpp>
 
 #include <boost/numeric/ublas/triangular.hpp>
 
 #include <gtest/gtest.h>
+#include <vmcmc/stringutils.hpp>
 
 using namespace std;
 using namespace vmcmc;
@@ -33,14 +33,14 @@ TEST(BLAS, CholeskyDecomposition) {
     cov(4, 3) = 3.0;
 
     ublas::triangular_matrix<double> cholesky(N, N);
-    ASSERT_EQ( choleskyDecompose(cov, cholesky), 0) << "Cholesky decomposition failed.";
+    ASSERT_EQ( 0, choleskyDecompose(cov, cholesky) ) << "Cholesky decomposition failed.";
 
-    ASSERT_EQ( cholesky.size1(), N );
+    ASSERT_EQ( N, cholesky.size1() );
     ASSERT_EQ( cholesky.size2(), cholesky.size1() );
 
     const ublas::matrix<double> covTest = ublas::prod(cholesky, ublas::trans(cholesky));
 
-    ASSERT_EQ( covTest.size1(), N );
+    ASSERT_EQ( N, covTest.size1() );
     ASSERT_EQ( covTest.size2(), covTest.size1() );
 
     for (size_t i = 0; i < N; ++i) {
