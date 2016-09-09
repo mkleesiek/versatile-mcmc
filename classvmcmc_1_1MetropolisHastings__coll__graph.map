@@ -1,4 +1,5 @@
 <map id="vmcmc::MetropolisHastings" name="vmcmc::MetropolisHastings">
-<area shape="rect" id="node2" href="$classvmcmc_1_1Algorithm.html" title="vmcmc::Algorithm" alt="" coords="34,95,162,121"/>
-<area shape="rect" id="node3" href="$classvmcmc_1_1ParameterConfig.html" title="vmcmc::ParameterConfig" alt="" coords="13,5,183,32"/>
+<area shape="rect" id="node2" href="$classvmcmc_1_1Algorithm.html" title="vmcmc::Algorithm" alt="" coords="115,95,243,121"/>
+<area shape="rect" id="node3" href="$classvmcmc_1_1ChainSetStats.html" title="vmcmc::ChainSetStats" alt="" coords="5,5,164,32"/>
+<area shape="rect" id="node4" href="$classvmcmc_1_1ParameterConfig.html" title="vmcmc::ParameterConfig" alt="" coords="189,5,359,32"/>
 </map>

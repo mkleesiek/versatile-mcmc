@@ -97,7 +97,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="logger_8h_source.html">logger.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="logger_8hpp_source.html">logger.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -144,8 +144,8 @@ std::mutex &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetMutex<
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Very primitive MACRO-centered logging facility. It should primarily be used through MACROs:</p>
 <div class="fragment"><div class="line"><span class="comment">// define a static logger instance:</span></div><div class="line">LOG_DEFINE(<span class="stringliteral">&quot;some.logger.name&quot;</span>);</div><div class="line"></div><div class="line"><span class="comment">// log an expression with given log-level</span></div><div class="line">LOG(Info, <span class="stringliteral">&quot;Some example log: &quot;</span> &lt;&lt; someVariable &lt;&lt; <span class="stringliteral">&quot; more text ...&quot;</span>);</div><div class="line"></div><div class="line"><span class="comment">// log an expression only once during execution</span></div><div class="line">LOG_ONCE(Info, <span class="stringliteral">&quot;This is displayed only once.&quot;</span>);</div><div class="line"></div><div class="line"><span class="comment">// make an assertion and abort if false:</span></div><div class="line">LOG_ASSERT( someCondition, <span class="stringliteral">&quot;That assertion just failed.&quot;</span> );</div></div><!-- fragment --><p>Available log levels are: Trace, Debug, Info, Warn, Error, Fatal</p>
-<p>By default, if the library is compiled in release-mode, Trace and Debug outputs are silenced. No external configuration mechanisms (yet).</p>
-<p>This facility might possibly be replaced by boost log. </p>
+<p>By default, if the library is compiled in release-mode, Trace and Debug outputs are silenced, as well as assertions. No external configuration mechanisms (yet).</p>
+<p>This facility might possibly be replaced by boost log - or extended to accept user defined formatting and alternative output like log files. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="abbcb25c710f14be50de8ce0c6f45f5c2"></a>
 <div class="memitem">
@@ -359,7 +359,7 @@ std::mutex &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetMutex<
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>vmcmc/<a class="el" href="logger_8h_source.html">logger.h</a></li>
+<li>vmcmc/<a class="el" href="logger_8hpp_source.html">logger.hpp</a></li>
 <li>vmcmc/<a class="el" href="logger_8cpp.html">logger.cpp</a></li>
 </ul>
 </div><!-- contents -->

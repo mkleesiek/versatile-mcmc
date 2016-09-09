@@ -1,6 +1,6 @@
 var searchData=
 [
   ['normal',['Normal',['../classvmcmc_1_1RandomPrototype.html#a4bf77b854d229f265ad38539a92a5fdf',1,'vmcmc::RandomPrototype']]],
-  ['normalpdf',['normalPdf',['../vmcmc-example_8cpp.html#addf1bb8fd73aecc9f7f24ff54e323e80',1,'vmcmc-example.cpp']]],
-  ['numeric_2eh',['numeric.h',['../numeric_8h.html',1,'']]]
+  ['normalpdf',['normalPDF',['../math_8hpp.html#a18a37d4026aadad27d086095b4a13298',1,'vmcmc::math']]],
+  ['numeric_2ehpp',['numeric.hpp',['../numeric_8hpp.html',1,'']]]
 ];

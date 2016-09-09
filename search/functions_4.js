@@ -1,7 +1,7 @@
 var searchData=
 [
   ['endmessage',['EndMessage',['../classvmcmc_1_1Logger.html#a095452f9024ca8748a559668c0f62994',1,'vmcmc::Logger']]],
-  ['essentequal',['essentEqual',['../numeric_8h.html#a920407acd55ba91fc9541c313c3ccdd0',1,'vmcmc::numeric']]],
+  ['essentequal',['essentEqual',['../numeric_8hpp.html#a920407acd55ba91fc9541c313c3ccdd0',1,'vmcmc::numeric']]],
   ['evaluate',['Evaluate',['../classvmcmc_1_1Algorithm.html#a8ef5890f37568210b9f0135e00fa8f10',1,'vmcmc::Algorithm']]],
   ['evaluatelikelihood',['EvaluateLikelihood',['../classvmcmc_1_1Algorithm.html#ac5aa2919ce37edf012c415b6978c4e66',1,'vmcmc::Algorithm']]],
   ['evaluatenegloglikelihood',['EvaluateNegLogLikelihood',['../classvmcmc_1_1Algorithm.html#abd72557963da7554f3c709ac53ca76d8',1,'vmcmc::Algorithm']]],

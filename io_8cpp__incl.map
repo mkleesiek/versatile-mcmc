@@ -1,8 +1,8 @@
 <map id="vmcmc/io.cpp" name="vmcmc/io.cpp">
-<area shape="rect" id="node2" href="$exception_8h.html" title="vmcmc/exception.h" alt="" coords="5,311,141,338"/>
-<area shape="rect" id="node6" href="$io_8h.html" title="vmcmc/io.h" alt="" coords="855,80,945,107"/>
-<area shape="rect" id="node19" href="$numeric_8h.html" title="vmcmc/numeric.h" alt="" coords="1575,229,1702,256"/>
-<area shape="rect" id="node7" href="$sample_8h.html" title="vmcmc/sample.h" alt="" coords="792,155,915,181"/>
-<area shape="rect" id="node8" href="$blas_8h.html" title="vmcmc/blas.h" alt="" coords="801,229,905,256"/>
-<area shape="rect" id="node9" href="$logger_8h.html" title="vmcmc/logger.h" alt="" coords="397,311,512,338"/>
+<area shape="rect" id="node2" href="$exception_8hpp.html" title="exception.hpp" alt="" coords="5,311,108,338"/>
+<area shape="rect" id="node6" href="$io_8hpp_source.html" title="io.hpp" alt="" coords="211,80,268,107"/>
+<area shape="rect" id="node19" href="$numeric_8hpp.html" title="vmcmc/numeric.hpp" alt="" coords="1473,229,1613,256"/>
+<area shape="rect" id="node7" href="$sample_8hpp.html" title="vmcmc/sample.hpp" alt="" coords="394,155,530,181"/>
+<area shape="rect" id="node8" href="$blas_8hpp.html" title="vmcmc/blas.hpp" alt="" coords="683,229,801,256"/>
+<area shape="rect" id="node9" href="$logger_8hpp.html" title="vmcmc/logger.hpp" alt="" coords="347,311,476,338"/>
 </map>

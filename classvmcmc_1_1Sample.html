@@ -89,13 +89,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classvmcmc_1_1Sample-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">vmcmc::Sample Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="sample_8h_source.html">sample.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="sample_8hpp_source.html">sample.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -152,6 +153,33 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetAccepted</b> (bool
 <tr class="memitem:aef81fcfac33f1ee8bbaaf6618b961d40"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aef81fcfac33f1ee8bbaaf6618b961d40"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>IsAccepted</b> () const </td></tr>
 <tr class="separator:aef81fcfac33f1ee8bbaaf6618b961d40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92599902590cbf0def1042b2e4249a51"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a92599902590cbf0def1042b2e4249a51"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>operator+=</b> (const <a class="el" href="classvmcmc_1_1Sample.html">Sample</a> &amp;other)</td></tr>
+<tr class="separator:a92599902590cbf0def1042b2e4249a51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a023da9ff7686e832a620b1075739aaa4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a023da9ff7686e832a620b1075739aaa4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>operator-=</b> (const <a class="el" href="classvmcmc_1_1Sample.html">Sample</a> &amp;other)</td></tr>
+<tr class="separator:a023da9ff7686e832a620b1075739aaa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4786c552ff32105c7900ab026f1aa76"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa4786c552ff32105c7900ab026f1aa76"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>operator*=</b> (double factor)</td></tr>
+<tr class="separator:aa4786c552ff32105c7900ab026f1aa76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00cbf22bd7959318ea6684768a276f4a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a00cbf22bd7959318ea6684768a276f4a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>operator/=</b> (double factor)</td></tr>
+<tr class="separator:a00cbf22bd7959318ea6684768a276f4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:affdcc3ed5a3f96c3df26ed4284f698b8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="affdcc3ed5a3f96c3df26ed4284f698b8"></a>
+<a class="el" href="classvmcmc_1_1Sample.html">Sample</a>&#160;</td><td class="memItemRight" valign="bottom"><b>operator+</b> (const <a class="el" href="classvmcmc_1_1Sample.html">Sample</a> &amp;s1, const <a class="el" href="classvmcmc_1_1Sample.html">Sample</a> &amp;s2)</td></tr>
+<tr class="separator:affdcc3ed5a3f96c3df26ed4284f698b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d7636410a13ea55e7c9717baccfffc5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6d7636410a13ea55e7c9717baccfffc5"></a>
+<a class="el" href="classvmcmc_1_1Sample.html">Sample</a>&#160;</td><td class="memItemRight" valign="bottom"><b>operator-</b> (const <a class="el" href="classvmcmc_1_1Sample.html">Sample</a> &amp;s1, const <a class="el" href="classvmcmc_1_1Sample.html">Sample</a> &amp;s2)</td></tr>
+<tr class="separator:a6d7636410a13ea55e7c9717baccfffc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb7d080b1a403c051c444bd2abc335e6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afb7d080b1a403c051c444bd2abc335e6"></a>
+<a class="el" href="classvmcmc_1_1Sample.html">Sample</a>&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classvmcmc_1_1Sample.html">Sample</a> &amp;s1, double f)</td></tr>
+<tr class="separator:afb7d080b1a403c051c444bd2abc335e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad937fadf5d2b4d09cc2738c1a2bf873c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad937fadf5d2b4d09cc2738c1a2bf873c"></a>
+<a class="el" href="classvmcmc_1_1Sample.html">Sample</a>&#160;</td><td class="memItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classvmcmc_1_1Sample.html">Sample</a> &amp;s1, double f)</td></tr>
+<tr class="separator:ad937fadf5d2b4d09cc2738c1a2bf873c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A 'sample' represents a node or data point in a Markov Chain. It holds information about the generation, when it was sampled, the point in the parameter space and the corresponding values for the likelihood, -log(likelihood) and the prior value. </p>
@@ -181,7 +209,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>IsAccepted</b> () c
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>vmcmc/<a class="el" href="sample_8h_source.html">sample.h</a></li>
+<li>vmcmc/<a class="el" href="sample_8hpp_source.html">sample.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

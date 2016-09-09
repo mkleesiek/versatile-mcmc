@@ -99,7 +99,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="random_8h_source.html">random.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="random_8hpp_source.html">random.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -154,8 +154,8 @@ template&lt;class FloatT  = double&gt; </td></tr>
 <tr class="memitem:ae73ed2194d45a482a171f471c54291e8"><td class="memTemplParams" colspan="2">template&lt;class DistributionT , class VectorT &gt; </td></tr>
 <tr class="memitem:ae73ed2194d45a482a171f471c54291e8"><td class="memTemplItemLeft" align="right" valign="top">VectorT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#ae73ed2194d45a482a171f471c54291e8">FromMultiVariateDistribution</a> (DistributionT &amp;dist, const VectorT &amp;mean, const VectorT &amp;sigma)</td></tr>
 <tr class="separator:ae73ed2194d45a482a171f471c54291e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a159e23a671d62b02343671a71476be88"><td class="memItemLeft" align="right" valign="top">result_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#a159e23a671d62b02343671a71476be88">operator()</a> ()</td></tr>
-<tr class="separator:a159e23a671d62b02343671a71476be88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a683c067a731fc07b7f342850e2ead46a"><td class="memItemLeft" align="right" valign="top">result_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1RandomPrototype.html#a683c067a731fc07b7f342850e2ead46a">operator()</a> ()</td></tr>
+<tr class="separator:a683c067a731fc07b7f342850e2ead46a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -175,6 +175,15 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:ad14a8f8bb1546b63fc2b9be408ba26b1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad14a8f8bb1546b63fc2b9be408ba26b1"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>RandomPrototype</b> (const <a class="el" href="classvmcmc_1_1RandomPrototype.html">RandomPrototype</a> &amp;other)=delete</td></tr>
 <tr class="separator:ad14a8f8bb1546b63fc2b9be408ba26b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e01ce20924cb1bb2296a67aee180ebd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3e01ce20924cb1bb2296a67aee180ebd"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>RandomPrototype</b> (<a class="el" href="classvmcmc_1_1RandomPrototype.html">RandomPrototype</a> &amp;&amp;other)=delete</td></tr>
+<tr class="separator:a3e01ce20924cb1bb2296a67aee180ebd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a836c6742190081b11f1cd976bf9bd82a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a836c6742190081b11f1cd976bf9bd82a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classvmcmc_1_1RandomPrototype.html">RandomPrototype</a> &amp;other)=delete</td></tr>
+<tr class="separator:a836c6742190081b11f1cd976bf9bd82a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f391b2401aeefe494ac08258f8347ad"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7f391b2401aeefe494ac08258f8347ad"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classvmcmc_1_1RandomPrototype.html">RandomPrototype</a> &amp;&amp;other)=delete</td></tr>
+<tr class="separator:a7f391b2401aeefe494ac08258f8347ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-attribs"></a>
 Static Protected Attributes</h2></td></tr>
@@ -539,7 +548,7 @@ template&lt;class FloatT &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a159e23a671d62b02343671a71476be88"></a>
+<a class="anchor" id="a683c067a731fc07b7f342850e2ead46a"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -549,7 +558,7 @@ template&lt;class EngineT &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">result_type <a class="el" href="classvmcmc_1_1RandomPrototype.html">vmcmc::RandomPrototype</a>&lt; EngineT &gt;::operator() </td>
+          <td class="memname">auto <a class="el" href="classvmcmc_1_1RandomPrototype.html">vmcmc::RandomPrototype</a>&lt; EngineT &gt;::operator() </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -820,7 +829,7 @@ template&lt;class IntegerT &gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>vmcmc/<a class="el" href="random_8h_source.html">random.h</a></li>
+<li>vmcmc/<a class="el" href="random_8hpp_source.html">random.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
