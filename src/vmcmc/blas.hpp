@@ -5,10 +5,10 @@
  * @author marco@kleesiek.com
  */
 
-#ifndef FMCMC_BLAS_H_
-#define FMCMC_BLAS_H_
+#ifndef VMCMC_BLAS_H_
+#define VMCMC_BLAS_H_
 
-#include <vmcmc/logger.h>
+#include <vmcmc/logger.hpp>
 
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/vector_expression.hpp>
@@ -83,4 +83,4 @@ inline bool operator!= (const Vector& v1, const Vector& v2)
 
 } /* namespace vmcmc */
 
-#endif /* FMCMC_BLAS_H_ */
+#endif /* VMCMC_BLAS_H_ */

@@ -6,8 +6,8 @@
  *
  */
 
-#include <vmcmc/stringutils.h>
-#include <vmcmc/sample.h>
+#include <vmcmc/stringutils.hpp>
+#include <vmcmc/sample.hpp>
 
 using namespace std;
 
@@ -21,5 +21,3 @@ ostream& operator<< (ostream& strm, const Sample& sample)
 }
 
 }
-
-

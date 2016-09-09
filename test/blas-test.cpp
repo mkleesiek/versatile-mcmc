@@ -5,12 +5,12 @@
  * @author marco@kleesiek.com
  */
 
-#include <vmcmc/blas.h>
-#include <vmcmc/stringutils.h>
+#include <vmcmc/blas.hpp>
 
 #include <boost/numeric/ublas/triangular.hpp>
 
 #include <gtest/gtest.h>
+#include <vmcmc/stringutils.hpp>
 
 using namespace std;
 using namespace vmcmc;

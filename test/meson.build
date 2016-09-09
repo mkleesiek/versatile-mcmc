@@ -1,21 +1,22 @@
 vmcmc_tests = [
     'blas-test',
+    'chain-test',
     'io-test',
     'logger-test',
+    'math-test',
     'metropolis-test',
     'numeric-test',
     'parameter-test',
-    'prior-test',
+#    'prior-test',
     'proposal-test',
-    'random-test',
-    'stats-test'
+    'random-test'
 ]
 
 foreach p : vmcmc_tests
   exe = executable(p, p + '.cpp',
     include_directories : vmcmc_inc,
     link_with : vmcmc_lib,
-    dependencies : [gtest_dep, boost_dep]
+    dependencies : [gtest_dep]
   )
   test(p, exe,
     valgrind_args : ['--leak-check=full']

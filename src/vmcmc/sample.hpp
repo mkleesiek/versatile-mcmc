@@ -8,11 +8,10 @@
 #ifndef VMCMC_SAMPLE_H_
 #define VMCMC_SAMPLE_H_
 
-#include <vmcmc/blas.h>
-#include <vmcmc/numeric.h>
+#include <vmcmc/blas.hpp>
+#include <vmcmc/numeric.hpp>
 
 #include <initializer_list>
-#include <deque>
 
 namespace vmcmc
 {
@@ -75,8 +74,6 @@ private:
     double fPrior            = 0.0;
     bool fAccepted           = false;
 };
-
-using Chain = std::deque<Sample>;
 
 inline Sample::Sample(const Vector& pValues) :
     fParameterValues( pValues )

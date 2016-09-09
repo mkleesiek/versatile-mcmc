@@ -5,10 +5,10 @@
  * @author marco@kleesiek.com
  */
 
-#ifndef FMCMC_RANDOM_H_
-#define FMCMC_RANDOM_H_
+#ifndef VMCMC_RANDOM_H_
+#define VMCMC_RANDOM_H_
 
-#include <vmcmc/logger.h>
+#include <vmcmc/logger.hpp>
 
 #include <random>
 #include <type_traits>
@@ -403,4 +403,4 @@ using Random = RandomPrototype<std::mt19937>;
 
 } /* namespace vmcmc */
 
-#endif /* FMCMC_RANDOM_H_ */
+#endif /* VMCMC_RANDOM_H_ */

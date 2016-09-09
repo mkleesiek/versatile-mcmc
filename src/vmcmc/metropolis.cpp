@@ -5,12 +5,11 @@
  * @author marco@kleesiek.com
  */
 
-#include <vmcmc/metropolis.h>
-#include <vmcmc/proposal.h>
-#include <vmcmc/random.h>
-#include <vmcmc/stringutils.h>
-#include <vmcmc/logger.h>
-
+#include <logger.hpp>
+#include <metropolis.hpp>
+#include <proposal.hpp>
+#include <random.hpp>
+#include <stringutils.hpp>
 #include <algorithm>
 
 #ifdef USE_TBB
@@ -215,13 +214,23 @@ void MetropolisHastings::Finalize()
     else {
         const size_t nChainConfigs = fChainConfigs.size();
 
-        // output the parallel tempering swap acceptance rates
         for (size_t i = 0 ; i < nChainConfigs; i++) {
+
+            // output the individual acceptance rates
+            vector<double> accRates(nBetas, 0.0);
+            for (size_t b = 0 ; b < nBetas; b++) {
+                ChainStats stats( fChainConfigs[i]->fPtChains[b] );
+                accRates[b] = stats.GetAccRate();
+            }
+            LOG(Info, "Metrop. acc. rates in chain set " << i << ": " << accRates);
+
+            // output the parallel tempering swap acceptance rates
             vector<double> swapRates(nBetas-1, 0.0);
-            for (size_t b = 0 ; b < nBetas-1; b++)
+            for (size_t b = 0 ; b < nBetas-1; b++) {
                 swapRates[b] = (double) fChainConfigs[i]->fNAcceptedSwaps[b]
                      / fChainConfigs[i]->fNProposedSwaps[b];
-            LOG(Info, "PT swap acc. rates in chain " << i << ": " << swapRates);
+            }
+            LOG(Info, "PT swap acc. rates in chain set " << i << ": " << swapRates);
         }
     }
 

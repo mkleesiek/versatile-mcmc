@@ -6,10 +6,9 @@
  * @description
  */
 
-#include <vmcmc/exception.h>
-#include <vmcmc/io.h>
-#include <vmcmc/numeric.h>
-
+#include <exception.hpp>
+#include <io.hpp>
+#include <numeric.hpp>
 #include <iomanip>
 
 using namespace std;

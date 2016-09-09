@@ -5,9 +5,9 @@
  * @author marco@kleesiek.com
  */
 
-#include <vmcmc/parameter.h>
-#include <vmcmc/exception.h>
-#include <vmcmc/stringutils.h>
+#include <vmcmc/parameter.hpp>
+#include <vmcmc/exception.hpp>
+#include <vmcmc/stringutils.hpp>
 
 #include <boost/numeric/ublas/io.hpp>
 

@@ -8,11 +8,9 @@
 #ifndef VMCMC_METROPOLIS_H_
 #define VMCMC_METROPOLIS_H_
 
-#include <vmcmc/algorithm.h>
+#include <vmcmc/algorithm.hpp>
 
 #include <memory>
-#include <algorithm>
-#include <initializer_list>
 
 namespace vmcmc
 {

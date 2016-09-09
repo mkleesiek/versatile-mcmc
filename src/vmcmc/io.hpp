@@ -9,7 +9,7 @@
 #ifndef VMCMC_IO_H_
 #define VMCMC_IO_H_
 
-#include <vmcmc/sample.h>
+#include <vmcmc/sample.hpp>
 
 #include <string>
 #include <fstream>

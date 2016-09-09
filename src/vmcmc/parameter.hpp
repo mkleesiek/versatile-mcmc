@@ -5,12 +5,13 @@
  * @author marco@kleesiek.com
  */
 
-#ifndef FMCMC_PARAMETER_H_
-#define FMCMC_PARAMETER_H_
+#ifndef VMCMC_PARAMETER_H_
+#define VMCMC_PARAMETER_H_
 
 #include <string>
 #include <boost/optional.hpp>
-#include <vmcmc/blas.h>
+
+#include <vmcmc/blas.hpp>
 
 namespace vmcmc
 {
@@ -173,4 +174,4 @@ private:
 
 } /* namespace vmcmc */
 
-#endif /* FMCMC_PARAMETER_H_ */
+#endif /* VMCMC_PARAMETER_H_ */

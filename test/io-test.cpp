@@ -6,7 +6,7 @@
  * @description
  */
 
-#include <vmcmc/io.h>
+#include <vmcmc/io.hpp>
 
 #include <gtest/gtest.h>
 

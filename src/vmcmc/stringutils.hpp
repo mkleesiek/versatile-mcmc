@@ -5,13 +5,14 @@
  * @author marco@kleesiek.com
  */
 
-#ifndef FMCMC_STRINGUTILS_H_
-#define FMCMC_STRINGUTILS_H_
+#ifndef VMCMC_STRINGUTILS_H_
+#define VMCMC_STRINGUTILS_H_
 
-#include <vmcmc/typetraits.h>
+#include <vmcmc/typetraits.hpp>
 
 #include <sstream>
 #include <string>
+#include <utility>
 
 namespace vmcmc {
 
@@ -62,14 +63,26 @@ inline std::string join(const SequenceT& sequence, const SeparatorT& separator)
 }
 
 /**
+ * Serialize any STL pair to an output stream.
+ * @param strm An output stream.
+ * @param pair A pair.
+ * @return Reference to the output stream.
+ */
+template <class T1, class T2>
+inline std::ostream& operator<< (std::ostream& strm, const std::pair<T1, T2>& pair)
+{
+    strm << "(" << pair.first << ", " << pair.second << ")";
+    return strm;
+}
+
+/**
  * Serialize any STL container to an output stream.
  * @param strm An output stream.
  * @param container A container fulfilling the type trait #vmcmc::is_container.
  * @return Reference to the output stream.
  */
-template <class ContainerT>
-inline auto operator<< (std::ostream& strm, const ContainerT& container)
--> typename std::enable_if<vmcmc::is_container<ContainerT>::value, std::ostream&>::type
+template <class ContainerT, class = typename std::enable_if<vmcmc::is_container<ContainerT>::value>::type>
+inline std::ostream& operator<< (std::ostream& strm, const ContainerT& container)
 {
     strm << "[" << container.size() << "](";
 
@@ -92,4 +105,4 @@ inline auto operator<< (std::ostream& strm, const ContainerT& container)
 
 }
 
-#endif /* FMCMC_STRINGUTILS_H_ */
+#endif /* VMCMC_STRINGUTILS_H_ */

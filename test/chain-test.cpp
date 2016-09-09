@@ -1,19 +1,18 @@
 /**
- * @file
+ * @file chain_test.cpp
  *
- * @date 05.08.2016
+ * @date 09.09.2016
  * @author marco@kleesiek.com
+ * @description
  */
 
-#include <vmcmc/stats.h>
-#include <vmcmc/sample.h>
-
+#include <vmcmc/chain.hpp>
 #include <gtest/gtest.h>
 
 using namespace std;
 using namespace vmcmc;
 
-TEST(Statistics, AcceptanceRate)
+TEST(Chain, AcceptanceRate)
 {
     Sample testSample( { 0.0, 1.0, 2.0 } );
     Chain testChain;

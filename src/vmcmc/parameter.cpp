@@ -5,12 +5,13 @@
  * @author marco@kleesiek.com
  */
 
-#include <vmcmc/parameter.h>
-#include <vmcmc/exception.h>
-#include <vmcmc/numeric.h>
-#include <vmcmc/stringutils.h>
-#include <vmcmc/logger.h>
-#include <vmcmc/random.h>
+#include <vmcmc/parameter.hpp>
+#include <vmcmc/exception.hpp>
+#include <vmcmc/logger.hpp>
+#include <vmcmc/math.hpp>
+#include <vmcmc/numeric.hpp>
+#include <vmcmc/random.hpp>
+#include <vmcmc/stringutils.hpp>
 
 #include <boost/numeric/ublas/io.hpp>
 
@@ -147,7 +148,7 @@ void ParameterConfig::SetCorrelation(size_t p1, size_t p2, double correlation)
     if (p1 == p2)
         return;
 
-    numeric::constrain(correlation, -1.0, 1.0);
+    math::constrain(correlation, -1.0, 1.0);
 
     fCorrelations(p1, p2) = correlation;
 }

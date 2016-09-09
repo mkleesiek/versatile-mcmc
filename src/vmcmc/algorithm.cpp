@@ -5,12 +5,12 @@
  * @author marco@kleesiek.com
  */
 
-#include <vmcmc/algorithm.h>
-#include <vmcmc/exception.h>
-#include <vmcmc/logger.h>
-#include <vmcmc/stringutils.h>
-#include <vmcmc/stats.h>
-#include <vmcmc/io.h>
+#include <vmcmc/algorithm.hpp>
+#include <vmcmc/exception.hpp>
+#include <vmcmc/math.hpp>
+#include <vmcmc/io.hpp>
+#include <vmcmc/logger.hpp>
+#include <vmcmc/stringutils.hpp>
 
 using namespace std;
 
@@ -36,7 +36,7 @@ void Algorithm::Initialize()
     if (!(fLikelihood || fNegLogLikelihood))
         throw Exception() << "No target function specified.";
 
-    numeric::constrain<size_t>(fCycleLength, 1, fTotalLength);
+    math::constrain<size_t>(fCycleLength, 1, fTotalLength);
 
     // TODO: perform consistency checks on the parameter list
 }
@@ -55,39 +55,41 @@ void Algorithm::Finalize()
         const double accRate = stats.GetAccRate();
         LOG(Info, "  Acceptance Rate: " << accRate);
 
-        Sample& mode = stats.GetMode();
+        const Sample& mode = stats.GetMode();
         LOG(Info, "  Mode: " << mode);
+
+        const double cl = math::normal1SidedCDF( 1.0 );
+
+        for (size_t iParam = 0; iParam < stats.NumberOfParams(); iParam++) {
+            auto ci = stats.GetConfidenceInterval(iParam, mode.Values()[iParam], cl );
+            LOG(Info, "  68% Confidence interval for parameter " << iParam << ": " << ci);
+        }
 
         Sample& mean = stats.GetMean();
         Evaluate(mean);
         LOG(Info, "  Mean: " << mean);
 
         for (size_t iParam = 0; iParam < stats.NumberOfParams(); iParam++) {
-            Sample& median = stats.GetMedian(iParam);
+            double median = stats.GetMedian(iParam);
             LOG(Info, "  Median for parameter " << iParam << ": " << median);
         }
 
-        Vector& variance = stats.GetVariance();
+        const Vector& variance = stats.GetVariance();
         LOG(Info, "  Variance: " << variance);
 
-        Vector& error = stats.GetError();
+        const Vector& error = stats.GetError();
         LOG(Info, "  Error: " << error);
 
-        Vector& rms = stats.GetRms();
+        const Vector& rms = stats.GetRms();
         LOG(Info, "  RMS: " << rms);
 
-//        for (size_t lag = 1; lag < GetTotalLength() / 5; lag *= 10) {
-//            Vector& R = stats.GetAutoCorrelation(lag);
-//            LOG(Info, "  Autocorrelation for lag " << lag << ": " << R);
-//        }
-
-        Vector& acTime = stats.GetAutoCorrelationTime();
+        const Vector& acTime = stats.GetAutoCorrelationTime();
         LOG(Info, "  Autocorrelation time: " << acTime);
     }
 
     fStatistics.SelectPercentageRange(0.5, 1.0);
     const double R = fStatistics.GetRubinGelman();
-    LOG(Info, "Rubin-Gelman R: " << R);
+    LOG(Info, "Rubin-Gelman diagnostic R: " << R);
 }
 
 double Algorithm::EvaluatePrior(const std::vector<double>& paramValues) const
@@ -193,8 +195,10 @@ void Algorithm::Run()
         // some intermediate logging (in 5% progress increments)
         if ((iCycle+1) % (nCycles/20) == 0) {
             const size_t iStep = (iCycle+1) * fCycleLength;
+
             for (size_t iChain = 0; iChain < nChains; iChain++) {
                 const Sample& sample = GetChain(iChain).back();
+
                 LOG(Info, "Chain " << iChain << ", step " << iStep << " (" <<
                       ((iCycle+1)*100/nCycles) << "%): " << sample);
             }

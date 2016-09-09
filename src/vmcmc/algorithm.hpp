@@ -5,12 +5,11 @@
  * @author marco@kleesiek.com
  */
 
-#ifndef FMCMC_ALGORITHM_H_
-#define FMCMC_ALGORITHM_H_
+#ifndef VMCMC_ALGORITHM_H_
+#define VMCMC_ALGORITHM_H_
 
-#include <vmcmc/parameter.h>
-#include <vmcmc/sample.h>
-#include <vmcmc/stats.h>
+#include <vmcmc/parameter.hpp>
+#include <vmcmc/chain.hpp>
 
 #include <functional>
 #include <vector>
@@ -142,4 +141,4 @@ inline void Algorithm::AddWriter(ArgsT&&... args)
 
 } /* namespace vmcmc */
 
-#endif /* FMCMC_ALGORITHM_H_ */
+#endif /* VMCMC_ALGORITHM_H_ */

@@ -5,8 +5,8 @@
  * @author marco@kleesiek.com
  */
 
-#ifndef FMCMC_LOGGER_H_
-#define FMCMC_LOGGER_H_
+#ifndef VMCMC_LOGGER_H_
+#define VMCMC_LOGGER_H_
 
 
 // UTILITY MACROS
@@ -221,4 +221,4 @@ private:
 #define LOG_ASSERT(...)   macro_dispatcher(__LOG_ASSERT_, __VA_ARGS__)(__VA_ARGS__)
 
 
-#endif /* FMCMC_LOGGER_H_ */
+#endif /* VMCMC_LOGGER_H_ */

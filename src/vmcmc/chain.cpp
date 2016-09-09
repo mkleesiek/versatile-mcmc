@@ -1,19 +1,22 @@
 /**
- * @file
+ * @file chain.cpp
  *
- * @date 03.09.2016
+ * @date 09.09.2016
  * @author marco@kleesiek.com
  * @description
  */
 
-#include <vmcmc/stats.h>
+#include <vmcmc/chain.hpp>
+#include <vmcmc/logger.hpp>
+#include <vmcmc/math.hpp>
 
-#include <algorithm>
-#include <set>
+#include <boost/numeric/ublas/io.hpp>
 
 using namespace std;
 
 namespace vmcmc {
+
+LOG_DEFINE("vmcmc.chain");
 
 ChainStats::ChainStats(const Chain& sampleChain) :
     fSampleChain( sampleChain ),
@@ -29,6 +32,13 @@ void ChainStats::Reset()
     fVariance.reset();
     fError.reset();
     fRms.reset();
+
+    fCovariance.reset();
+    fCorrelation.reset();
+    fCholesky.reset();
+
+    fAutoCorrelation.clear();
+    fAutoCorrelationTime.reset();
 
     fAccRate.reset();
 }
@@ -50,15 +60,28 @@ void ChainStats::SelectPercentageRange(double start, double end)
 
 pair<size_t, size_t> ChainStats::GetIndices() const
 {
-    return stats::indices(fSampleChain, fSelectedRange.first, fSelectedRange.second);
+    const size_t N = fSampleChain.size();
+
+    const size_t startIndex = std::min<size_t>(N, (fSelectedRange.first < 0)
+            ? N + fSelectedRange.first
+            : fSelectedRange.first );
+
+    const size_t endIndex = std::min<size_t>(N, (fSelectedRange.second < 0)
+            ? N + fSelectedRange.second + 1
+            : fSelectedRange.second );
+
+    assert(startIndex >= 0 && endIndex >= startIndex);
+
+    return make_pair( startIndex, endIndex );
 }
 
 pair<Chain::const_iterator, Chain::const_iterator> ChainStats::GetIterators() const
 {
-    return stats::iterators(fSampleChain, fSelectedRange.first, fSelectedRange.second);
+    const pair<size_t, size_t> indexPair = GetIndices();
+    return make_pair( next(begin(fSampleChain), indexPair.first), next(begin(fSampleChain), indexPair.second) );
 }
 
-Sample& ChainStats::GetMode()
+const Sample& ChainStats::GetMode()
 {
     if (fMode)
         return fMode.get();
@@ -75,7 +98,7 @@ Sample& ChainStats::GetMode()
         );
     }
 
-    fMode = result;
+    fMode = move(result);
     return fMode.get();
 }
 
@@ -96,11 +119,11 @@ Sample& ChainStats::GetMean()
         result /= (double) N;
     }
 
-    fMean = result;
+    fMean = move(result);
     return fMean.get();
 }
 
-Sample& ChainStats::GetMedian(size_t paramIndex)
+double ChainStats::GetMedian(size_t paramIndex)
 {
     auto mapIt = fMedian.find(paramIndex);
 
@@ -110,7 +133,7 @@ Sample& ChainStats::GetMedian(size_t paramIndex)
     auto itRange = GetIterators();
     const size_t N = itRange.second - itRange.first;
 
-    Sample& result = fMedian.emplace( paramIndex, Sample(NumberOfParams()) ).first->second;
+    double result = fMedian.emplace( paramIndex, numeric::NaN() ).first->second;
 
     if (N > 0) {
         using SampleRef = reference_wrapper<const Sample>;
@@ -125,13 +148,15 @@ Sample& ChainStats::GetMedian(size_t paramIndex)
         vector<SampleRef> test( itRange.first, itRange.second );
         auto middleIt = next( test.begin(), (N/2) );
         nth_element( test.begin(), middleIt, test.end(), cmp);
-        result = middleIt->get();
+
+        const Sample& medianSample = middleIt->get();
+        result = medianSample.Values()[paramIndex];
     }
 
     return result;
 }
 
-Vector& ChainStats::GetVariance()
+const Vector& ChainStats::GetVariance()
 {
     if (fVariance)
         return fVariance.get();
@@ -151,11 +176,11 @@ Vector& ChainStats::GetVariance()
         result /= (double) (N-1);
     }
 
-    fVariance = result;
+    fVariance = move(result);
     return fVariance.get();
 }
 
-Vector& ChainStats::GetError()
+const Vector& ChainStats::GetError()
 {
     if (fError)
         return fError.get();
@@ -165,11 +190,11 @@ Vector& ChainStats::GetError()
     for (double& p : result)
         p = sqrt(p);
 
-    fError = result;
+    fError = move(result);
     return fError.get();
 }
 
-Vector& ChainStats::GetRms()
+const Vector& ChainStats::GetRms()
 {
     if (fRms)
         return fRms.get();
@@ -190,11 +215,97 @@ Vector& ChainStats::GetRms()
             result[p] = sqrt( result[p] );
     }
 
-    fRms = result;
+    fRms = move(result);
     return fRms.get();
 }
 
-Vector& ChainStats::GetAutoCorrelation(size_t lag)
+const MatrixLower& ChainStats::GetCovarianceMatrix()
+{
+    if (fCovariance)
+        return fCovariance.get();
+
+    auto itRange = GetIterators();
+    const size_t N = itRange.second - itRange.first;
+
+    const size_t nParams = NumberOfParams();
+
+    MatrixLower result = ublas::zero_matrix<double>( nParams, nParams );
+
+    if (N > 1) {
+
+        const Sample& mean = GetMean();
+
+        for (auto it = itRange.first; it != itRange.second; it++) {
+            // iterate rows
+            for (size_t j = 0; j < nParams; ++j) {
+                // iterate columns
+                for (size_t k = 0; k <= j; ++k) {
+                    result(j, k) += (it->Values()[j] - mean.Values()[j]) * (it->Values()[k] - mean.Values()[k]);
+                }
+            }
+        }
+
+        result /= (double) (N-1);
+    }
+
+    fCovariance = move(result);
+    return fCovariance.get();
+}
+
+const MatrixUnitLower& ChainStats::GetCorrelationMatrix()
+{
+    if (fCorrelation)
+        return fCorrelation.get();
+
+    auto itRange = GetIterators();
+    const size_t N = itRange.second - itRange.first;
+
+    const size_t nParams = NumberOfParams();
+
+    MatrixUnitLower result = ublas::identity_matrix<double>( nParams );
+
+    if (N > 1) {
+
+        const MatrixLower& cov = GetCovarianceMatrix();
+        const Vector& error = GetError();
+
+        for (size_t j = 1; j < result.size1(); ++j)
+            for (size_t k = 0; k < j; ++k)
+                result(j, k) = cov(j, k) / (error[j] * error[k]);
+    }
+
+    fCorrelation = move(result);
+    return fCorrelation.get();
+}
+
+const MatrixLower& ChainStats::GetCholeskyDecomposition()
+{
+    if (fCholesky)
+        return fCholesky.get();
+
+    auto itRange = GetIterators();
+    const size_t N = itRange.second - itRange.first;
+
+    const size_t nParams = NumberOfParams();
+
+    MatrixUnitLower result = ublas::zero_matrix<double>( nParams, nParams );
+
+    if (N > 1) {
+        const MatrixLower& cov = GetCovarianceMatrix();
+
+        const size_t statusDecomp = choleskyDecompose(cov, result);
+        if (statusDecomp != 0) {
+            LOG(Warn, "Cholesky decomposition of covariance matrix " << cov << " failed.");
+            result = ublas::zero_matrix<double>( nParams, nParams );
+        }
+    }
+
+    fCholesky = move(result);
+    return fCholesky.get();
+}
+
+
+const Vector& ChainStats::GetAutoCorrelation(size_t lag)
 {
     auto mapIt = fAutoCorrelation.find(lag);
 
@@ -238,7 +349,7 @@ Vector& ChainStats::GetAutoCorrelation(size_t lag)
     return result;
 }
 
-Vector& ChainStats::GetAutoCorrelationTime()
+const Vector& ChainStats::GetAutoCorrelationTime()
 {
     if (fAutoCorrelationTime)
         return fAutoCorrelationTime.get();
@@ -259,7 +370,7 @@ Vector& ChainStats::GetAutoCorrelationTime()
     }
 
     result = Vector(NumberOfParams(), 1.0) + 2.0 * result;
-    fAutoCorrelationTime = result;
+    fAutoCorrelationTime = move(result);
 
     return fAutoCorrelationTime.get();
 }
@@ -275,19 +386,82 @@ double ChainStats::GetAccRate()
     if (itRange.first != itRange.second)
         std::advance(itRange.first, 1);
 
+    const size_t N = itRange.second - itRange.first;
+
     size_t accepted = 0;
-    size_t total = 0;
 
     for (auto it = itRange.first; it != itRange.second; it++) {
         if (it->IsAccepted())
             accepted++;
-        total++;
     }
 
-    fAccRate = (total == 0) ? 0.0 : (double) accepted / (double) total;
+    fAccRate = (N == 0) ? 0.0 : (double) accepted / (double) N;
 
     return fAccRate.get();
 }
+
+pair<double, double> ChainStats::GetConfidenceInterval(size_t paramIndex, double centralValue, double level)
+{
+    auto itRange = GetIterators();
+    const size_t N = itRange.second - itRange.first;
+
+    pair<double, double> result(0.0, 0.0);
+
+    if (N > 0) {
+        using SampleRef = reference_wrapper<const Sample>;
+
+        struct Cmp {
+            Cmp (size_t paramIndex) : fParamIndex( paramIndex ) { }
+
+            bool operator()(const SampleRef& s1, const SampleRef& s2) {
+                return s1.get().Values()[fParamIndex] < s2.get().Values()[fParamIndex];
+            }
+            bool operator()(const SampleRef& s1, const double& v2) {
+                return s1.get().Values()[fParamIndex] < v2;
+            }
+            bool operator()(const double& v1, const SampleRef& s2) {
+                return v1 < s2.get().Values()[fParamIndex] ;
+            }
+
+            size_t fParamIndex;
+        };
+
+        // Construct a sorted view of all samples, then start collecting
+        // samples starting from a central sample matching centralValue.
+
+        vector<SampleRef> sortedSamples( itRange.first, itRange.second );
+        sort(sortedSamples.begin(), sortedSamples.end(), Cmp(paramIndex));
+
+        auto rangeMatchingCentralValue = equal_range(sortedSamples.cbegin(), sortedSamples.cend(),
+            centralValue, Cmp(paramIndex));
+        auto centerIt = rangeMatchingCentralValue.first;
+        const size_t nCentralValues = distance(rangeMatchingCentralValue.first, rangeMatchingCentralValue.second);
+        if (nCentralValues > 1)
+            advance(centerIt, nCentralValues/2 );
+
+        uint64_t C = (uint64_t) ((double) N * level);
+
+        auto lower = centerIt, upper = centerIt;
+
+        const auto frontIt = sortedSamples.cbegin();
+        const auto backIt = prev(sortedSamples.cend());
+
+        // pick C states starting from the center, go left and right alternately (until one end is hit):
+        for (uint64_t i = 0; i < C; ++i) {
+            if ( (lower == frontIt || i%2 == 1) && upper != backIt) {
+                ++upper;
+            }
+            else if ((upper == backIt || i%2 == 0) && lower != frontIt) {
+                --lower;
+            }
+        }
+
+        result = { lower->get().Values()[paramIndex], upper->get().Values()[paramIndex] };
+    }
+
+    return result;
+}
+
 
 void ChainSetStats::Reset()
 {
@@ -338,6 +512,7 @@ double ChainSetStats::GetRubinGelman()
     auto indexRange = fSingleChainStats.front().GetIndices();
     const size_t N = indexRange.second - indexRange.first;
 
+    // number of samples in chain
     size_t nGens = fSingleChainStats[0].GetChain().size();
     for (size_t i = 1; i < nChains; i++) {
         const size_t icSize = fSingleChainStats[i].GetChain().size();
@@ -355,7 +530,6 @@ double ChainSetStats::GetRubinGelman()
 
     // for each chain
     for (size_t i = 0; i < nChains; ++i) {
-
         chainsMeans[i] = fSingleChainStats[i].GetMean();
         chainsVariances[i] = fSingleChainStats[i].GetVariance();
 
@@ -385,7 +559,7 @@ double ChainSetStats::GetRubinGelman()
         R[j] = V / W;
     }
 
-    fRubinGelman = ublas::norm_inf(R);
+    fRubinGelman = ublas::norm_inf(R);  // pick the maximum element
     return fRubinGelman.get();
 }
 

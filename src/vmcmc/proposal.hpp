@@ -8,11 +8,10 @@
 #ifndef VMCMC_PROPOSAL_H_
 #define VMCMC_PROPOSAL_H_
 
-#include <vmcmc/sample.h>
-#include <vmcmc/parameter.h>
-#include <vmcmc/blas.h>
-
-#include <random>
+#include <vmcmc/blas.hpp>
+#include <vmcmc/parameter.hpp>
+#include <vmcmc/sample.hpp>
+#include <vmcmc/random.hpp>
 
 namespace vmcmc
 {

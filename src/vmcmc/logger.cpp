@@ -5,8 +5,8 @@
  * @author marco@kleesiek.com
  */
 
-#include <vmcmc/logger.h>
-#include <vmcmc/exception.h>
+#include <vmcmc/logger.hpp>
+#include <vmcmc/exception.hpp>
 
 #include <iomanip>
 #include <map>
