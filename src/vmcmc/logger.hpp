@@ -5,8 +5,8 @@
  * @author marco@kleesiek.com
  */
 
-#ifndef FMCMC_LOGGER_H_
-#define FMCMC_LOGGER_H_
+#ifndef VMCMC_LOGGER_H_
+#define VMCMC_LOGGER_H_
 
 
 // UTILITY MACROS
@@ -66,10 +66,11 @@ namespace vmcmc {
  * Available log levels are: Trace, Debug, Info, Warn, Error, Fatal
  *
  * By default, if the library is compiled in release-mode, Trace and Debug
- * outputs are silenced.
+ * outputs are silenced, as well as assertions.
  * No external configuration mechanisms (yet).
  *
- * This facility might possibly be replaced by boost log.
+ * This facility might possibly be replaced by boost log - or extended to
+ * accept user defined formatting and alternative output like log files.
  */
 class Logger
 {
@@ -191,9 +192,9 @@ private:
 
 #define __LOG_ASSERT_3(I,C,M) \
 { \
-    if (I.IsLevelEnabled(vmcmc::Logger::ELevel::Error) && !(C)) { \
+    if (I.IsLevelEnabled(vmcmc::Logger::ELevel::Debug) && !(C)) { \
         std::lock_guard<std::mutex> _logLock(I.GetMutex()); \
-        I.StartMessage(vmcmc::Logger::ELevel::Error, __LOG_LOCATION); \
+        I.StartMessage(vmcmc::Logger::ELevel::Fatal, __LOG_LOCATION); \
         I.Log() << "Assertion '(" << TOSTRING(C) << ")' failed. " << M; \
         I.EndMessage(); \
         abort(); \
@@ -220,4 +221,4 @@ private:
 #define LOG_ASSERT(...)   macro_dispatcher(__LOG_ASSERT_, __VA_ARGS__)(__VA_ARGS__)
 
 
-#endif /* FMCMC_LOGGER_H_ */
+#endif /* VMCMC_LOGGER_H_ */

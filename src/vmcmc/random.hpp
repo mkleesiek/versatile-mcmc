@@ -5,10 +5,10 @@
  * @author marco@kleesiek.com
  */
 
-#ifndef FMCMC_RANDOM_H_
-#define FMCMC_RANDOM_H_
+#ifndef VMCMC_RANDOM_H_
+#define VMCMC_RANDOM_H_
 
-#include <vmcmc/logger.h>
+#include <vmcmc/logger.hpp>
 
 #include <random>
 #include <type_traits>
@@ -61,6 +61,9 @@ protected:
     virtual ~RandomPrototype();
 
     RandomPrototype(const RandomPrototype& other) = delete;
+    RandomPrototype(RandomPrototype&& other) = delete;
+    void operator=(const RandomPrototype& other) = delete;
+    void operator=(RandomPrototype&& other) = delete;
 
 public:
     /**
@@ -196,7 +199,7 @@ public:
      * Invokes the underlying random number generator.
      * @return
      */
-    result_type operator()() { return fEngine(); }
+    result_type operator()();
 
 private:
     engine_type fEngine;
@@ -211,21 +214,50 @@ void RandomPrototype<EngineT>::Seed(result_type seed)
 template<class EngineT>
 std::atomic<typename EngineT::result_type> RandomPrototype<EngineT>::sSeed( 0 );
 
+
+
+// TODO: Alright, Xcode as of version 7.3 does not support thread_local.
+// At least, non-POD types are not supported.
+// Possible workarounds: use mutexes or boost::thread_specific_ptr.
+// For now I use a mutex lock, if thread_local is not supported by the compiler.
+
+#ifdef NO_TLS
+
+#include <mutex>
+
 template<class EngineT>
 inline RandomPrototype<EngineT>& RandomPrototype<EngineT>::Instance()
 {
-    // TODO: Alright, Xcode as of version 7.3 does not support thread_local.
-    // At least, non-POD types are not supported.
-    // Possible workarounds: use mutexes or boost::thread_specific_ptr.
-
-#ifdef NO_TLS
     static RandomPrototype sInstance;
-#else
-    static thread_local RandomPrototype sInstance;
-#endif
-
     return sInstance;
 }
+
+template<class EngineT>
+inline auto RandomPrototype<EngineT>::operator()() -> result_type
+{
+    static std::mutex sMtx;
+    std::lock_guard<std::mutex> lock(sMtx);
+
+    return fEngine();
+}
+
+#else
+
+template<class EngineT>
+inline RandomPrototype<EngineT>& RandomPrototype<EngineT>::Instance()
+{
+    static thread_local RandomPrototype sInstance;
+    return sInstance;
+}
+
+template<class EngineT>
+inline auto RandomPrototype<EngineT>::operator()() -> result_type
+{
+    return fEngine();
+}
+
+#endif // NO_TLS
+
 
 template<class EngineT>
 inline RandomPrototype<EngineT>::RandomPrototype() :
@@ -371,4 +403,4 @@ using Random = RandomPrototype<std::mt19937>;
 
 } /* namespace vmcmc */
 
-#endif /* FMCMC_RANDOM_H_ */
+#endif /* VMCMC_RANDOM_H_ */

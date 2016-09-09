@@ -5,8 +5,8 @@
  * @author marco@kleesiek.com
  */
 
-#ifndef FMCMC_EXCEPTION_H_
-#define FMCMC_EXCEPTION_H_
+#ifndef VMCMC_EXCEPTION_H_
+#define VMCMC_EXCEPTION_H_
 
 #include <exception>
 #include <sstream>
@@ -84,4 +84,4 @@ inline std::ostream& operator<<(std::ostream& os, const Exception& e)
 
 } /* namespace vmcmc */
 
-#endif /* FMCMC_EXCEPTION_H_ */
+#endif /* VMCMC_EXCEPTION_H_ */

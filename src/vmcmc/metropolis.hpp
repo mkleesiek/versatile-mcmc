@@ -8,11 +8,9 @@
 #ifndef VMCMC_METROPOLIS_H_
 #define VMCMC_METROPOLIS_H_
 
-#include <vmcmc/algorithm.h>
+#include <vmcmc/algorithm.hpp>
 
 #include <memory>
-#include <algorithm>
-#include <initializer_list>
 
 namespace vmcmc
 {
@@ -42,9 +40,11 @@ public:
     MetropolisHastings();
     virtual ~MetropolisHastings();
 
-    virtual bool Initialize() override;
+    virtual void Initialize() override;
 
     virtual void Advance(size_t nSteps = 1) override;
+
+    virtual void Finalize() override;
 
     virtual size_t NumberOfChains() override { return fChainConfigs.size(); }
     virtual const Chain& GetChain(size_t cIndex = 0) override;
@@ -64,8 +64,11 @@ public:
     void SetRandomizeStartPoint(bool randomizeStartPoint) { fRandomizeStartPoint = randomizeStartPoint; }
     bool IsRandomizeStartPoint() const { return fRandomizeStartPoint; }
 
+    double GetSwapAcceptanceRate(size_t iChain) const;
+
 protected:
-    void AdvanceChain(size_t iChainConfig, size_t iBeta, size_t nSteps = 1);
+    void AdvanceChainConfig(size_t iChainConfig, size_t iBeta, size_t nSteps = 1);
+    void ProposePtSwapping(size_t iChainConfig);
 
     bool fRandomizeStartPoint;
 
@@ -74,6 +77,13 @@ protected:
 
     size_t fPtFrequency;
 
+    /**
+     * A ChainConfig describes a set of parallel tempered chains, each chain
+     * with its own copy of an adjusted parameter configuration and proposal
+     * function.
+     * If parallel tempering is not used (only one beta value = 1.0 defined),
+     * a ChainConfig contains only one "cold" chain.
+     */
     struct ChainConfig;
     std::vector<std::unique_ptr<ChainConfig>> fChainConfigs;
 };

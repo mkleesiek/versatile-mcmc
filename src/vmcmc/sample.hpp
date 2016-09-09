@@ -8,11 +8,10 @@
 #ifndef VMCMC_SAMPLE_H_
 #define VMCMC_SAMPLE_H_
 
-#include <vmcmc/blas.h>
-#include <vmcmc/numeric.h>
+#include <vmcmc/blas.hpp>
+#include <vmcmc/numeric.hpp>
 
 #include <initializer_list>
-#include <deque>
 
 namespace vmcmc
 {
@@ -57,6 +56,16 @@ public:
     void SetAccepted(bool value) { fAccepted = value; }
     double IsAccepted() const { return fAccepted; }
 
+    void operator+= (const Sample& other);
+    void operator-= (const Sample& other);
+    void operator*= (double factor);
+    void operator/= (double factor);
+
+    friend Sample operator+(const Sample& s1, const Sample& s2);
+    friend Sample operator-(const Sample& s1, const Sample& s2);
+    friend Sample operator*(const Sample& s1, double f);
+    friend Sample operator/(const Sample& s1, double f);
+
 private:
     size_t fGeneration       = 0;
     Vector fParameterValues;
@@ -65,8 +74,6 @@ private:
     double fPrior            = 0.0;
     bool fAccepted           = false;
 };
-
-using Chain = std::deque<Sample>;
 
 inline Sample::Sample(const Vector& pValues) :
     fParameterValues( pValues )
@@ -91,6 +98,54 @@ inline void Sample::Reset()
     fPrior = fLikelihood = 0.0;
     fNegLogLikelihood = -numeric::inf();
     fAccepted = false;
+}
+
+// unary operators
+
+inline void Sample::operator+= (const Sample& other)
+{
+    fParameterValues += other.fParameterValues;
+    Reset();
+}
+
+inline void Sample::operator-= (const Sample& other)
+{
+    fParameterValues -= other.fParameterValues;
+    Reset();
+}
+
+inline void Sample::operator*= (double factor)
+{
+    fParameterValues *= factor;
+    Reset();
+}
+
+inline void Sample::operator/= (double factor)
+{
+    fParameterValues /= factor;
+    Reset();
+}
+
+// free binary operators
+
+inline Sample operator+(const Sample& s1, const Sample& s2)
+{
+    return Sample( s1.fParameterValues + s2.fParameterValues );
+}
+
+inline Sample operator-(const Sample& s1, const Sample& s2)
+{
+    return Sample( s1.fParameterValues - s2.fParameterValues );
+}
+
+inline Sample operator*(const Sample& s1, double f)
+{
+    return Sample( s1.fParameterValues * f );
+}
+
+inline Sample operator/(const Sample& s1, double f)
+{
+    return Sample( s1.fParameterValues / f );
 }
 
 } /* namespace vmcmc */

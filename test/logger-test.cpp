@@ -5,7 +5,7 @@
  * @author marco@kleesiek.com
  */
 
-#include <vmcmc/logger.h>
+#include <vmcmc/logger.hpp>
 
 #include <gtest/gtest.h>
 
