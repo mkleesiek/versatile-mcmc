@@ -84,16 +84,14 @@ void TextFileWriter::Initialize(size_t numberOfChains, const ParameterConfig& pa
 
     for (size_t c = 0; c < nFileStreams; c++) {
 
-        fFileStreams.emplace_back();
-        ofstream& fileStrm = fFileStreams.back();
+        const string filePath = GetFilePath( (fCombineChains) ? -1 : c );
 
-        if (!fileStrm.is_open()) {
-            const string filePath = GetFilePath( (fCombineChains) ? -1 : c );
-            fileStrm.open(filePath, ios::trunc);
+        fFileStreams.emplace_back( new ofstream(filePath, ios::trunc) );
 
-            if (!fileStrm.is_open() || fileStrm.fail())
-                throw Exception() << "TextWriter target file is in error state.";
-        }
+        ofstream& fileStrm = *fFileStreams.back();
+
+        if (!fileStrm.is_open() || fileStrm.fail())
+            throw Exception() << "TextWriter target file is in error state.";
 
         fileStrm << firstLine.str();
         fileStrm.precision(fPrecision);
@@ -105,10 +103,11 @@ void TextFileWriter::Write(size_t chainIndex, const Sample& sample)
     if (fCombineChains)
         chainIndex = 0;
 
-    LOG_ASSERT( fFileStreams.size() > chainIndex && fFileStreams[chainIndex].is_open(),
+    LOG_ASSERT( fFileStreams.size() > chainIndex && fFileStreams[chainIndex]
+             && fFileStreams[chainIndex]->is_open(),
             "TextFileWriter is not properly initialized.");
 
-    ofstream& fileStrm = fFileStreams[chainIndex];
+    ofstream& fileStrm = *fFileStreams[chainIndex];
 
     fileStrm << sample.GetGeneration();
 

@@ -76,7 +76,7 @@ private:
     int fPrecision = 12;
     std::string fColSep = "\t";
     bool fCombineChains = false;
-    std::vector<std::ofstream> fFileStreams;
+    std::vector<std::unique_ptr<std::ofstream>> fFileStreams;
 };
 
 //class QCPlotWriter: public Writer
