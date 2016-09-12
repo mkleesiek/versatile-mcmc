@@ -1,8 +1,8 @@
 <map id="vmcmc/algorithm.hpp" name="vmcmc/algorithm.hpp">
-<area shape="rect" id="node2" href="$parameter_8hpp.html" title="vmcmc/parameter.hpp" alt="" coords="875,80,1027,107"/>
-<area shape="rect" id="node17" href="$chain_8hpp_source.html" title="vmcmc/chain.hpp" alt="" coords="1267,80,1393,107"/>
-<area shape="rect" id="node5" href="$blas_8hpp.html" title="vmcmc/blas.hpp" alt="" coords="841,229,960,256"/>
-<area shape="rect" id="node6" href="$logger_8hpp.html" title="vmcmc/logger.hpp" alt="" coords="71,311,200,338"/>
-<area shape="rect" id="node18" href="$sample_8hpp.html" title="vmcmc/sample.hpp" alt="" coords="1141,155,1277,181"/>
-<area shape="rect" id="node19" href="$numeric_8hpp.html" title="vmcmc/numeric.hpp" alt="" coords="1315,229,1455,256"/>
+<area shape="rect" id="node2" href="$parameter_8hpp.html" title="Class definitions representing input parameter configurations. " alt="" coords="875,80,1027,107"/>
+<area shape="rect" id="node17" href="$chain_8hpp.html" title="Utility classes for calculation statistical momenta and diagnostics. " alt="" coords="1267,80,1393,107"/>
+<area shape="rect" id="node5" href="$blas_8hpp.html" title="BLAS (Basic Linear Algebra Subprograms) utility functions. " alt="" coords="841,229,960,256"/>
+<area shape="rect" id="node6" href="$logger_8hpp.html" title="Class definitions and MACROs for logging purposes. " alt="" coords="71,311,200,338"/>
+<area shape="rect" id="node18" href="$sample_8hpp.html" title="Contains the Sample class definition for data sampled from the target parameter space. " alt="" coords="1141,155,1277,181"/>
+<area shape="rect" id="node19" href="$numeric_8hpp.html" title="Numeric utility functions. " alt="" coords="1315,229,1455,256"/>
 </map>

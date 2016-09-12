@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classvmcmc_1_1Sample.html" title="vmcmc::Sample" alt="" coords="5,5,123,32"/>
+<area shape="rect" id="node1" href="$classvmcmc_1_1Writer.html" title="vmcmc::Writer" alt="" coords="5,31,113,57"/>
+<area shape="rect" id="node2" href="$classvmcmc_1_1QCPlotWriter.html" title="vmcmc::QCPlotWriter" alt="" coords="163,5,314,32"/>
+<area shape="rect" id="node3" href="$classvmcmc_1_1TextFileWriter.html" title="vmcmc::TextFileWriter" alt="" coords="161,56,316,83"/>
 </map>

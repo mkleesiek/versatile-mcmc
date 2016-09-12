@@ -91,8 +91,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">algorithm.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Contains base class for MCMC sampling algorithms.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;<a class="el" href="parameter_8hpp_source.html">vmcmc/parameter.hpp</a>&gt;</code><br />
-<code>#include &lt;vmcmc/chain.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="chain_8hpp_source.html">vmcmc/chain.hpp</a>&gt;</code><br />
 <code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
@@ -101,12 +104,12 @@ Include dependency graph for algorithm.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="algorithm_8hpp__incl.png" border="0" usemap="#vmcmc_2algorithm_8hpp" alt=""/></div>
 <map name="vmcmc_2algorithm_8hpp" id="vmcmc_2algorithm_8hpp">
-<area shape="rect" id="node2" href="parameter_8hpp.html" title="vmcmc/parameter.hpp" alt="" coords="875,80,1027,107"/>
-<area shape="rect" id="node17" href="chain_8hpp_source.html" title="vmcmc/chain.hpp" alt="" coords="1267,80,1393,107"/>
-<area shape="rect" id="node5" href="blas_8hpp.html" title="vmcmc/blas.hpp" alt="" coords="841,229,960,256"/>
-<area shape="rect" id="node6" href="logger_8hpp.html" title="vmcmc/logger.hpp" alt="" coords="71,311,200,338"/>
-<area shape="rect" id="node18" href="sample_8hpp.html" title="vmcmc/sample.hpp" alt="" coords="1141,155,1277,181"/>
-<area shape="rect" id="node19" href="numeric_8hpp.html" title="vmcmc/numeric.hpp" alt="" coords="1315,229,1455,256"/>
+<area shape="rect" id="node2" href="parameter_8hpp.html" title="Class definitions representing input parameter configurations. " alt="" coords="875,80,1027,107"/>
+<area shape="rect" id="node17" href="chain_8hpp.html" title="Utility classes for calculation statistical momenta and diagnostics. " alt="" coords="1267,80,1393,107"/>
+<area shape="rect" id="node5" href="blas_8hpp.html" title="BLAS (Basic Linear Algebra Subprograms) utility functions. " alt="" coords="841,229,960,256"/>
+<area shape="rect" id="node6" href="logger_8hpp.html" title="Class definitions and MACROs for logging purposes. " alt="" coords="71,311,200,338"/>
+<area shape="rect" id="node18" href="sample_8hpp.html" title="Contains the Sample class definition for data sampled from the target parameter space. " alt="" coords="1141,155,1277,181"/>
+<area shape="rect" id="node19" href="numeric_8hpp.html" title="Numeric utility functions. " alt="" coords="1315,229,1455,256"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -115,9 +118,9 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="center"><img src="algorithm_8hpp__dep__incl.png" border="0" usemap="#vmcmc_2algorithm_8hppdep" alt=""/></div>
 <map name="vmcmc_2algorithm_8hppdep" id="vmcmc_2algorithm_8hppdep">
 <area shape="rect" id="node2" href="algorithm_8cpp.html" title="vmcmc/algorithm.cpp" alt="" coords="5,80,152,107"/>
-<area shape="rect" id="node3" href="metropolis_8hpp.html" title="vmcmc/metropolis.hpp" alt="" coords="176,80,331,107"/>
+<area shape="rect" id="node3" href="metropolis_8hpp.html" title="Contains the implementation of the popular Metropolis&#45;Hastings sampling algorithm. " alt="" coords="176,80,331,107"/>
 <area shape="rect" id="node4" href="metropolis_8cpp.html" title="vmcmc/metropolis.cpp" alt="" coords="89,155,244,181"/>
-<area shape="rect" id="node5" href="vmcmc-example_8cpp.html" title="vmcmc&#45;example.cpp" alt="" coords="269,155,411,181"/>
+<area shape="rect" id="node5" href="vmcmc-example_8cpp.html" title="Metropolis&#45;Hastings usage example. " alt="" coords="269,155,411,181"/>
 </map>
 </div>
 </div>
@@ -126,10 +129,12 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Algorithm.html">vmcmc::Algorithm</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base class for the core MCMC sampling algorithms.  <a href="classvmcmc_1_1Algorithm.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section date"><dt>Date</dt><dd>29.07.2016 </dd></dl>
+<div class="textblock"><p>Contains base class for MCMC sampling algorithms. </p>
+<dl class="section date"><dt>Date</dt><dd>29.07.2016 </dd></dl>
 <dl class="section author"><dt>Author</dt><dd><a href="#" onclick="location.href='mai'+'lto:'+'mar'+'co'+'@kl'+'ee'+'sie'+'k.'+'com'; return false;">marco<span style="display: none;">.nosp@m.</span>@kle<span style="display: none;">.nosp@m.</span>esiek<span style="display: none;">.nosp@m.</span>.com</a> </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->

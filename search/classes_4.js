@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['is_5fcontainer',['is_container',['../structvmcmc_1_1is__container.html',1,'vmcmc']]]
+  ['location',['Location',['../structvmcmc_1_1Logger_1_1Location.html',1,'vmcmc::Logger']]],
+  ['logger',['Logger',['../classvmcmc_1_1Logger.html',1,'vmcmc']]]
 ];

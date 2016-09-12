@@ -1,14 +1,14 @@
 <map id="vmcmc/algorithm.cpp" name="vmcmc/algorithm.cpp">
-<area shape="rect" id="node2" href="$algorithm_8hpp.html" title="vmcmc/algorithm.hpp" alt="" coords="1349,80,1495,107"/>
-<area shape="rect" id="node7" href="$logger_8hpp.html" title="vmcmc/logger.hpp" alt="" coords="1295,386,1424,413"/>
-<area shape="rect" id="node29" href="$exception_8hpp.html" title="vmcmc/exception.hpp" alt="" coords="5,386,156,413"/>
-<area shape="rect" id="node31" href="$math_8hpp.html" title="vmcmc/math.hpp" alt="" coords="759,304,882,331"/>
-<area shape="rect" id="node35" href="$io_8hpp_source.html" title="vmcmc/io.hpp" alt="" coords="679,155,783,181"/>
-<area shape="rect" id="node38" href="$stringutils_8hpp.html" title="vmcmc/stringutils.hpp" alt="" coords="247,229,397,256"/>
-<area shape="rect" id="node3" href="$parameter_8hpp.html" title="vmcmc/parameter.hpp" alt="" coords="1265,155,1417,181"/>
-<area shape="rect" id="node18" href="$chain_8hpp_source.html" title="vmcmc/chain.hpp" alt="" coords="1451,155,1577,181"/>
-<area shape="rect" id="node6" href="$blas_8hpp.html" title="vmcmc/blas.hpp" alt="" coords="1668,304,1787,331"/>
-<area shape="rect" id="node19" href="$sample_8hpp.html" title="vmcmc/sample.hpp" alt="" coords="1033,229,1169,256"/>
-<area shape="rect" id="node20" href="$numeric_8hpp.html" title="vmcmc/numeric.hpp" alt="" coords="957,304,1097,331"/>
-<area shape="rect" id="node39" href="$typetraits_8hpp.html" title="vmcmc/typetraits.hpp" alt="" coords="360,304,508,331"/>
+<area shape="rect" id="node2" href="$algorithm_8hpp.html" title="Contains base class for MCMC sampling algorithms. " alt="" coords="1045,80,1191,107"/>
+<area shape="rect" id="node7" href="$logger_8hpp.html" title="Class definitions and MACROs for logging purposes. " alt="" coords="2392,386,2521,413"/>
+<area shape="rect" id="node29" href="$exception_8hpp.html" title="VMCMC custom exception classes. " alt="" coords="5,386,156,413"/>
+<area shape="rect" id="node31" href="$math_8hpp.html" title="Math utility functions. " alt="" coords="682,304,805,331"/>
+<area shape="rect" id="node35" href="$io_8hpp.html" title="IO classes for writing MCMC samples to files (and reading back from) or visual output. " alt="" coords="1995,80,2099,107"/>
+<area shape="rect" id="node38" href="$stringutils_8hpp.html" title="String utility functions. " alt="" coords="169,229,320,256"/>
+<area shape="rect" id="node3" href="$parameter_8hpp.html" title="Class definitions representing input parameter configurations. " alt="" coords="1102,155,1254,181"/>
+<area shape="rect" id="node18" href="$chain_8hpp.html" title="Utility classes for calculation statistical momenta and diagnostics. " alt="" coords="1567,155,1693,181"/>
+<area shape="rect" id="node6" href="$blas_8hpp.html" title="BLAS (Basic Linear Algebra Subprograms) utility functions. " alt="" coords="1681,304,1800,331"/>
+<area shape="rect" id="node19" href="$sample_8hpp.html" title="Contains the Sample class definition for data sampled from the target parameter space. " alt="" coords="1367,229,1503,256"/>
+<area shape="rect" id="node20" href="$numeric_8hpp.html" title="Numeric utility functions. " alt="" coords="949,304,1089,331"/>
+<area shape="rect" id="node39" href="$typetraits_8hpp.html" title="Typetrait utility structs. " alt="" coords="283,304,431,331"/>
 </map>

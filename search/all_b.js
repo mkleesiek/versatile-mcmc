@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['math_2ecpp',['math.cpp',['../math_8cpp.html',1,'']]],
-  ['math_2ehpp',['math.hpp',['../math_8hpp.html',1,'']]],
-  ['metropolis_2ecpp',['metropolis.cpp',['../metropolis_8cpp.html',1,'']]],
-  ['metropolis_2ehpp',['metropolis.hpp',['../metropolis_8hpp.html',1,'']]],
-  ['metropolishastings',['MetropolisHastings',['../classvmcmc_1_1MetropolisHastings.html',1,'vmcmc']]]
+  ['normal',['Normal',['../classvmcmc_1_1RandomPrototype.html#a4bf77b854d229f265ad38539a92a5fdf',1,'vmcmc::RandomPrototype']]],
+  ['normalpdf',['normalPDF',['../math_8hpp.html#a18a37d4026aadad27d086095b4a13298',1,'vmcmc::math']]],
+  ['numeric_2ehpp',['numeric.hpp',['../numeric_8hpp.html',1,'']]]
 ];

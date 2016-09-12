@@ -96,6 +96,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
+<p>Abstract base class for the core MCMC sampling algorithms.  
+ <a href="classvmcmc_1_1Algorithm.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="algorithm_8hpp_source.html">algorithm.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vmcmc::Algorithm:</div>
@@ -201,7 +204,9 @@ std::vector&lt; std::shared_ptr&lt; <a class="el" href="classvmcmc_1_1Writer.htm
 <tr class="separator:a9a95436f182d88c702d5272f8600b379"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This base class models the sampling algorithm of an MCMC, advancing to a new state in the parameter space, accepting or rejecting, and saving that state (subsequently sampling the parameter space). Ideally, this interface should cover single chain algorithms, as well as multi-chain algorithms (like DREAM). </p>
+<div class="textblock"><p>Abstract base class for the core MCMC sampling algorithms. </p>
+<p>This base class models the sampling algorithm of an MCMC, advancing to a new state in the parameter space, accepting or rejecting, and saving that state (subsequently sampling the parameter space).</p>
+<p>Ideally, this interface should cover single chain algorithms, as well as multi-chain algorithms (like DREAM). </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a8ef5890f37568210b9f0135e00fa8f10"></a>
 <div class="memitem">
@@ -324,7 +329,8 @@ std::vector&lt; std::shared_ptr&lt; <a class="el" href="classvmcmc_1_1Writer.htm
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Set the parameter configuration. This is mandatory for every possible implementations of this class. From the configuration, the start points and proposal functions of a sampler a initialized. The number of parameters defines, with how many arguments the target likelihood function is evaluated. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Set the parameter configuration.</p>
+<p>This is mandatory for every possible implementations of this class. From the configuration, the start points and proposal functions of a sampler a initialized. The number of parameters defines, with how many arguments the target likelihood function is evaluated. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">paramConfig</td><td></td></tr>
   </table>
