@@ -3,18 +3,31 @@
  *
  * @date 24.08.2016
  * @author marco@kleesiek.com
- * @description
  */
 
-#include <exception.hpp>
-#include <io.hpp>
-#include <numeric.hpp>
+#include <vmcmc/io.hpp>
+#include <vmcmc/exception.hpp>
+#include <vmcmc/parameter.hpp>
+#include <vmcmc/numeric.hpp>
+
+//#ifdef USE_PLOT
+//#include <qcustomplot.h>
+//#endif // USE_PLOT
+
 #include <iomanip>
 
 using namespace std;
 
 namespace vmcmc
 {
+
+LOG_DEFINE("vmcmc.io");
+
+void Writer::Write(size_t chainIndex, const Chain& chain, size_t startIndex)
+{
+    for (size_t iSample = startIndex; iSample < chain.size(); iSample++)
+        Write(chainIndex, chain[iSample]);
+}
 
 TextFileWriter::TextFileWriter(const string& directory, const string& stem,
         const string& separator, const string& extension) :
@@ -34,13 +47,8 @@ TextFileWriter::TextFileWriter(const TextFileWriter& other) :
     fSeparator(other.fSeparator),
     fExtension(other.fExtension),
     fPrecision(other.fPrecision),
-    fWriteCombined(other.fWriteCombined)
+    fCombineChains(other.fCombineChains)
 { }
-
-TextFileWriter* TextFileWriter::Clone() const
-{
-    return new TextFileWriter(*this);
-}
 
 string TextFileWriter::GetFilePath(int chainIndex) const
 {
@@ -54,40 +62,85 @@ string TextFileWriter::GetFilePath(int chainIndex) const
     return filePath.str();
 }
 
-void TextFileWriter::Write(size_t chainIndex, const Sample& sample)
+void TextFileWriter::Initialize(size_t numberOfChains, const ParameterConfig& paramConfig)
 {
-    WriteFile( (int) chainIndex, sample );
+    fFileStreams.clear();
 
-    if (fWriteCombined)
-        WriteFile( -1, sample );
-}
+    if (numberOfChains < 1)
+        return;
 
-void TextFileWriter::WriteFile(int streamIndex, const Sample& sample)
-{
-    ofstream& fileStrm = fFileStreams[streamIndex];
+    const size_t nFileStreams = (fCombineChains) ? 1 : numberOfChains;
 
-    if (!fileStrm.is_open()) {
-        const string filePath = GetFilePath(streamIndex);
-        fileStrm.open(filePath, ios::trunc);
+    ostringstream firstLine;
+    firstLine << "Generation";
+
+    for (size_t i = 0; i < paramConfig.size(); i++) {
+        firstLine << fColSep << "Param." << i << ":" << paramConfig[i].GetName();
+    }
+
+    firstLine << fColSep << "negLogL."
+            << fColSep << "Likelihood"
+            << fColSep << "Prior" << endl;
+
+    for (size_t c = 0; c < nFileStreams; c++) {
+
+        const string filePath = GetFilePath( (fCombineChains) ? -1 : c );
+
+        fFileStreams.emplace_back( new ofstream(filePath, ios::trunc) );
+
+        ofstream& fileStrm = *fFileStreams.back();
 
         if (!fileStrm.is_open() || fileStrm.fail())
             throw Exception() << "TextWriter target file is in error state.";
-    }
 
-    fileStrm.precision(fPrecision);
+        fileStrm << firstLine.str();
+        fileStrm.precision(fPrecision);
+    }
+}
+
+void TextFileWriter::Write(size_t chainIndex, const Sample& sample)
+{
+    if (fCombineChains)
+        chainIndex = 0;
+
+    LOG_ASSERT( fFileStreams.size() > chainIndex && fFileStreams[chainIndex]
+             && fFileStreams[chainIndex]->is_open(),
+            "TextFileWriter is not properly initialized.");
+
+    ofstream& fileStrm = *fFileStreams[chainIndex];
 
     fileStrm << sample.GetGeneration();
 
     for (const double& v : sample.Values())
-        fileStrm << "\t" << v;
+        fileStrm << fColSep << v;
 
-    fileStrm << "\t" << sample.GetNegLogLikelihood();
-    fileStrm << "\t" << sample.GetLikelihood();
-    fileStrm << "\t" << sample.GetPrior();
+    fileStrm << fColSep << sample.GetNegLogLikelihood();
+    fileStrm << fColSep << sample.GetLikelihood();
+    fileStrm << fColSep << sample.GetPrior();
 
 //    fFileStream << "\t" << sample.IsAccepted();
 
     fileStrm << endl;
 }
+
+//QCPlotWriter::QCPlotWriter()
+//{
+//
+//}
+//
+//QCPlotWriter::~QCPlotWriter()
+//{
+//
+//}
+//
+//void QCPlotWriter::Initialize(size_t numberOfChains, const ParameterConfig& paramConfig)
+//{
+//
+//}
+//
+//void QCPlotWriter::Write(size_t chainIndex, const Sample& sample)
+//{
+//
+//}
 
 } /* namespace vmcmc */

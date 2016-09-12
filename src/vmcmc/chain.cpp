@@ -3,7 +3,6 @@
  *
  * @date 09.09.2016
  * @author marco@kleesiek.com
- * @description
  */
 
 #include <vmcmc/chain.hpp>

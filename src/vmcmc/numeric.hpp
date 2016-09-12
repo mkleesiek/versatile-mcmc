@@ -3,6 +3,8 @@
  *
  * @date 27.07.2016
  * @author marco@kleesiek.com
+ *
+ * @brief Numeric utility functions.
  */
 
 #ifndef VMCMC_NUMERIC_H_

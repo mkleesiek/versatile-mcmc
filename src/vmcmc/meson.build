@@ -35,6 +35,6 @@ install_headers( vmcmc_headers, subdir : 'vmcmc' )
 vmcmc_lib = shared_library( 'vmcmc',
     vmcmc_sources,
     include_directories : vmcmc_inc,
-    dependencies : [boost_dep, tbb_dep],
+    dependencies : [boost_dep, tbb_dep, plot_dep],
     install : true )
                         

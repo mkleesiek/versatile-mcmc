@@ -3,6 +3,8 @@
  *
  * @date 25.07.2016
  * @author marco@kleesiek.com
+ *
+ * @brief VMCMC custom exception classes.
  */
 
 #ifndef VMCMC_EXCEPTION_H_
@@ -17,6 +19,7 @@ namespace vmcmc
 
 /**
  * Base class for exceptions thrown by FastMCMC.
+ *
  * The streaming operators allow easy in-place construction of exception messages.
  */
 class Exception : public std::exception

@@ -3,6 +3,8 @@
  *
  * @date 29.07.2016
  * @author marco@kleesiek.com
+ *
+ * @brief BLAS (Basic Linear Algebra Subprograms) utility functions.
  */
 
 #ifndef VMCMC_BLAS_H_

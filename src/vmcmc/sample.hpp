@@ -3,6 +3,9 @@
  *
  * @date 05.08.2016
  * @author marco@kleesiek.com
+ *
+ * @brief Contains the Sample class definition for data sampled from the target
+ * parameter space.
  */
 
 #ifndef VMCMC_SAMPLE_H_

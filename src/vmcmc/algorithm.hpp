@@ -3,6 +3,8 @@
  *
  * @date 29.07.2016
  * @author marco@kleesiek.com
+ *
+ * @brief Contains base class for MCMC sampling algorithms.
  */
 
 #ifndef VMCMC_ALGORITHM_H_
@@ -21,9 +23,12 @@ namespace vmcmc
 class Writer;
 
 /**
+ * Abstract base class for the core MCMC sampling algorithms.
+ *
  * This base class models the sampling algorithm of an MCMC, advancing to a
  * new state in the parameter space, accepting or rejecting, and saving that
  * state (subsequently sampling the parameter space).
+ *
  * Ideally, this interface should cover single chain algorithms, as well as
  * multi-chain algorithms (like DREAM).
  */
@@ -35,6 +40,7 @@ public:
 
     /**
      * Set the parameter configuration.
+     *
      * This is mandatory for every possible implementations of this class.
      * From the configuration, the start points and proposal functions of a
      * sampler a initialized. The number of parameters defines, with how many

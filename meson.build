@@ -1,5 +1,5 @@
 project('versatile-mcmc', 'cpp',
-  version : '0.1.5',
+  version : '0.1.7',
   license : 'GNU GPL v3' ,
   default_options : ['cpp_std=c++11'],
   meson_version : '>=0.25.0' )
@@ -30,25 +30,20 @@ if not tls_support
     add_global_arguments('-DNO_TLS', language : 'cpp')
 endif
 
-# check for the presence of gnuplot-iostream.h
-gp_check = '''#include <gnuplot-iostream.h>'''
-gp_support = compiler.compiles(gp_check, name : 'gnuplot-iostream test')
-if gp_support
-    add_global_arguments('-DUSE_GP', language : 'cpp')
-endif
-
 # resolve external dependencies
-boost_dep = dependency('boost', version : '>=1.45.0', modules : ['accumulators'])
-tbb_dep   = dependency('tbb', required : false)
-gtest_dep = dependency('gtest', main : true, required : false)
-doxygen   = find_program('doxygen', required : false)
+boost_dep  = dependency('boost', version : '>=1.45.0', modules : ['accumulators'])
+tbb_dep    = dependency('tbb', required : false)
+plot_dep   = dependency('qcustomplot', required : false)
+gtest_dep  = dependency('gtest', main : true, required : false)
+doxygen    = find_program('doxygen', required : false)
 
 
 # extract some build options
-prefix = get_option('prefix')
-libdir = get_option('libdir')
-final_rpath = prefix + '/' + libdir
 buildtype = get_option('buildtype')
+prefix    = get_option('prefix')
+libdir    = get_option('libdir')
+final_rpath = prefix + '/' + libdir
+
 
 # print install prefix and build type
 message( 'Installation prefix: ' + prefix )
@@ -59,6 +54,10 @@ message( 'Install RPath: ' + final_rpath )
 # set global compiler arguments
 if tbb_dep.found() and get_option('use_tbb')
     add_global_arguments('-DUSE_TBB', language : 'cpp')
+endif
+
+if plot_dep.found() and get_option('use_plot')
+    add_global_arguments('-DUSE_PLOT', language : 'cpp')
 endif
 
 if not buildtype.startswith('debug')

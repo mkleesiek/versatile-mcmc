@@ -3,6 +3,8 @@
  *
  * @date 26.07.2016
  * @author marco@kleesiek.com
+ *
+ * @brief Class definitions representing input parameter configurations.
  */
 
 #ifndef VMCMC_PARAMETER_H_
@@ -104,6 +106,9 @@ protected:
 class ParameterConfig
 {
 public:
+    using const_iterator = std::vector<Parameter>::const_iterator;
+
+public:
     ParameterConfig(size_t nInitParams = 0);
     virtual ~ParameterConfig();
 
@@ -116,6 +121,8 @@ public:
     size_t size() const { return fParameters.size(); }
     Parameter& operator[](size_t pIndex) { return fParameters[pIndex]; }
     const Parameter& operator[](size_t pIndex) const { return fParameters[pIndex]; }
+    const_iterator begin() const { return fParameters.cbegin(); }
+    const_iterator end() const { return fParameters.cend(); }
 
     /**
      * Set an error scaling factor, which is applied to all parameter errors

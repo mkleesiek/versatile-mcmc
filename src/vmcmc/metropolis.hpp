@@ -3,6 +3,9 @@
  *
  * @date 29.07.2016
  * @author marco@kleesiek.com
+ *
+ * @brief Contains the implementation of the popular Metropolis-Hastings
+ * sampling algorithm.
  */
 
 #ifndef VMCMC_METROPOLIS_H_
@@ -77,13 +80,6 @@ protected:
 
     size_t fPtFrequency;
 
-    /**
-     * A ChainConfig describes a set of parallel tempered chains, each chain
-     * with its own copy of an adjusted parameter configuration and proposal
-     * function.
-     * If parallel tempering is not used (only one beta value = 1.0 defined),
-     * a ChainConfig contains only one "cold" chain.
-     */
     struct ChainConfig;
     std::vector<std::unique_ptr<ChainConfig>> fChainConfigs;
 };
