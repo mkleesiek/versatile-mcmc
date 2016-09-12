@@ -10,9 +10,9 @@
 #include <vmcmc/parameter.hpp>
 #include <vmcmc/numeric.hpp>
 
-#ifdef USE_PLOT
-#include <qcustomplot.h>
-#endif // USE_PLOT
+//#ifdef USE_PLOT
+//#include <qcustomplot.h>
+//#endif // USE_PLOT
 
 #include <iomanip>
 
@@ -50,11 +50,6 @@ TextFileWriter::TextFileWriter(const TextFileWriter& other) :
     fCombineChains(other.fCombineChains)
 { }
 
-//TextFileWriter* TextFileWriter::Clone() const
-//{
-//    return new TextFileWriter(*this);
-//}
-
 string TextFileWriter::GetFilePath(int chainIndex) const
 {
     ostringstream filePath;
@@ -76,8 +71,6 @@ void TextFileWriter::Initialize(size_t numberOfChains, const ParameterConfig& pa
 
     const size_t nFileStreams = (fCombineChains) ? 1 : numberOfChains;
 
-    fFileStreams.resize(nFileStreams);
-
     ostringstream firstLine;
     firstLine << "Generation";
 
@@ -91,7 +84,8 @@ void TextFileWriter::Initialize(size_t numberOfChains, const ParameterConfig& pa
 
     for (size_t c = 0; c < nFileStreams; c++) {
 
-        ofstream& fileStrm = fFileStreams[c];
+        fFileStreams.emplace_back();
+        ofstream& fileStrm = fFileStreams.back();
 
         if (!fileStrm.is_open()) {
             const string filePath = GetFilePath( (fCombineChains) ? -1 : c );
@@ -130,25 +124,24 @@ void TextFileWriter::Write(size_t chainIndex, const Sample& sample)
     fileStrm << endl;
 }
 
-QCPlotWriter::QCPlotWriter()
-{
-
-}
-
-QCPlotWriter::~QCPlotWriter()
-{
-
-}
-
-void QCPlotWriter::Initialize(size_t numberOfChains, const ParameterConfig& paramConfig)
-{
-
-}
-
-void QCPlotWriter::Write(size_t chainIndex, const Sample& sample)
-{
-
-
-}
+//QCPlotWriter::QCPlotWriter()
+//{
+//
+//}
+//
+//QCPlotWriter::~QCPlotWriter()
+//{
+//
+//}
+//
+//void QCPlotWriter::Initialize(size_t numberOfChains, const ParameterConfig& paramConfig)
+//{
+//
+//}
+//
+//void QCPlotWriter::Write(size_t chainIndex, const Sample& sample)
+//{
+//
+//}
 
 } /* namespace vmcmc */

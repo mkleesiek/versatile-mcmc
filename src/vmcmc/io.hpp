@@ -79,18 +79,18 @@ private:
     std::vector<std::ofstream> fFileStreams;
 };
 
-class QCPlotWriter: public Writer
-{
-public:
-    QCPlotWriter();
-    virtual ~QCPlotWriter();
-
-    virtual void Initialize(size_t numberOfChains, const ParameterConfig& paramConfig) override;
-    virtual void Write(size_t chainIndex, const Sample& sample) override;
-
-private:
-//    std::unique_ptr<plstream> fPpStream;
-};
+//class QCPlotWriter: public Writer
+//{
+//public:
+//    QCPlotWriter();
+//    virtual ~QCPlotWriter();
+//
+//    virtual void Initialize(size_t numberOfChains, const ParameterConfig& paramConfig) override;
+//    virtual void Write(size_t chainIndex, const Sample& sample) override;
+//
+//private:
+////    std::unique_ptr<plstream> fPpStream;
+//};
 
 } /* namespace vmcmc */
 
