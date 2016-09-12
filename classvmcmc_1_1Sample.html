@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">versatile-mcmc
-   &#160;<span id="projectnumber">0.1.5</span>
+   &#160;<span id="projectnumber">0.1.7</span>
    </div>
   </td>
  </tr>
@@ -96,6 +96,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
+<p>A 'sample' represents a node or data point in a Markov Chain.  
+ <a href="classvmcmc_1_1Sample.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="sample_8hpp_source.html">sample.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -127,7 +130,9 @@ const Vector &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>Values<
 <tr class="memitem:a1e647c2bbe60dc081094b13d4cbc0104"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1e647c2bbe60dc081094b13d4cbc0104"></a>
 <a class="el" href="classvmcmc_1_1Sample.html">Sample</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (std::initializer_list&lt; double &gt; pValues)</td></tr>
 <tr class="separator:a1e647c2bbe60dc081094b13d4cbc0104"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1453cb10869a6b503baeeecd2a11dd2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Sample.html#ac1453cb10869a6b503baeeecd2a11dd2">Reset</a> ()</td></tr>
+<tr class="memitem:ac1453cb10869a6b503baeeecd2a11dd2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac1453cb10869a6b503baeeecd2a11dd2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Sample.html#ac1453cb10869a6b503baeeecd2a11dd2">Reset</a> ()</td></tr>
+<tr class="memdesc:ac1453cb10869a6b503baeeecd2a11dd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset ::fLikelihood, ::fNegLogLikelihood and ::fPrior to their default values. <br /></td></tr>
 <tr class="separator:ac1453cb10869a6b503baeeecd2a11dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a434659dc1611329193a702f9a6b9657d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a434659dc1611329193a702f9a6b9657d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetLikelihood</b> (double value)</td></tr>
@@ -182,33 +187,9 @@ Friends</h2></td></tr>
 <tr class="separator:ad937fadf5d2b4d09cc2738c1a2bf873c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A 'sample' represents a node or data point in a Markov Chain. It holds information about the generation, when it was sampled, the point in the parameter space and the corresponding values for the likelihood, -log(likelihood) and the prior value. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="ac1453cb10869a6b503baeeecd2a11dd2"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void vmcmc::Sample::Reset </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Reset ::fLikelihood, ::fNegLogLikelihood and ::fPrior to their default values. </p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<div class="textblock"><p>A 'sample' represents a node or data point in a Markov Chain. </p>
+<p>It holds information about the generation, when it was sampled, the point in the parameter space and the corresponding values for the likelihood, -log(likelihood) and the prior value. </p>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>vmcmc/<a class="el" href="sample_8hpp_source.html">sample.hpp</a></li>
 </ul>
 </div><!-- contents -->

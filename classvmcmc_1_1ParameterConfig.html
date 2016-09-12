@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">versatile-mcmc
-   &#160;<span id="projectnumber">0.1.5</span>
+   &#160;<span id="projectnumber">0.1.7</span>
    </div>
   </td>
  </tr>
@@ -96,6 +96,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
+<p>A list of parameters, describing the parameter space of the target function to be evaluated.  
+ <a href="classvmcmc_1_1ParameterConfig.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="parameter_8hpp_source.html">parameter.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
@@ -131,6 +134,7 @@ const_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> (
 const_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> () const </td></tr>
 <tr class="separator:af5ad87f80c4a6edfd2821b16bb897756"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6e955c869bd0bac2848a1167e729df0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1ParameterConfig.html#ab6e955c869bd0bac2848a1167e729df0">SetErrorScaling</a> (double scaling)</td></tr>
+<tr class="memdesc:ab6e955c869bd0bac2848a1167e729df0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set an error scaling factor, which is applied to all parameter errors uniformly.  <a href="#ab6e955c869bd0bac2848a1167e729df0">More...</a><br /></td></tr>
 <tr class="separator:ab6e955c869bd0bac2848a1167e729df0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8be2a101be49d2fa8e1fbf8ad9661280"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8be2a101be49d2fa8e1fbf8ad9661280"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>GetErrorScaling</b> () const </td></tr>
@@ -143,6 +147,7 @@ Vector&#160;</td><td class="memItemRight" valign="bottom"><b>GetErrors</b> () co
 <tr class="separator:a4aa5af4db9d95eb9279c491e946e63c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3a075f644e2c8970389fd4d55f70724"><td class="memTemplParams" colspan="2">template&lt;class XMatrixT &gt; </td></tr>
 <tr class="memitem:ad3a075f644e2c8970389fd4d55f70724"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1ParameterConfig.html#ad3a075f644e2c8970389fd4d55f70724">SetCorrelationMatrix</a> (const XMatrixT &amp;matrix)</td></tr>
+<tr class="memdesc:ad3a075f644e2c8970389fd4d55f70724"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a correlation matrix.  <a href="#ad3a075f644e2c8970389fd4d55f70724">More...</a><br /></td></tr>
 <tr class="separator:ad3a075f644e2c8970389fd4d55f70724"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1fd10d5fcbd6e984b1c62a0965327f2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae1fd10d5fcbd6e984b1c62a0965327f2"></a>
 const MatrixUnitLower &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetCorrelationMatrix</b> () const </td></tr>
@@ -160,14 +165,18 @@ MatrixLower&#160;</td><td class="memItemRight" valign="bottom"><b>GetCovarianceM
 MatrixLower&#160;</td><td class="memItemRight" valign="bottom"><b>GetCholeskyDecomp</b> () const </td></tr>
 <tr class="separator:a6d88261cac4c82e4ecc28bc9900792b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe442ea12df8a339d9d487f9ac01d8b2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1ParameterConfig.html#abe442ea12df8a339d9d487f9ac01d8b2">IsInsideLimits</a> (const Vector &amp;somePoint) const </td></tr>
+<tr class="memdesc:abe442ea12df8a339d9d487f9ac01d8b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if some vector is inside the configured parameter limits.  <a href="#abe442ea12df8a339d9d487f9ac01d8b2">More...</a><br /></td></tr>
 <tr class="separator:abe442ea12df8a339d9d487f9ac01d8b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85a5310165468c55583906cc4a9587f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1ParameterConfig.html#a85a5310165468c55583906cc4a9587f1">ConstrainToLimits</a> (Vector &amp;somePoint) const </td></tr>
+<tr class="memdesc:a85a5310165468c55583906cc4a9587f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">If a vector lies outside the parameter limits, constrain it accordingly.  <a href="#a85a5310165468c55583906cc4a9587f1">More...</a><br /></td></tr>
 <tr class="separator:a85a5310165468c55583906cc4a9587f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37ee09b39b66eef4dbb64881ada8068b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1ParameterConfig.html#a37ee09b39b66eef4dbb64881ada8068b">ReflectFromLimits</a> (Vector &amp;somePoint) const </td></tr>
+<tr class="memdesc:a37ee09b39b66eef4dbb64881ada8068b"><td class="mdescLeft">&#160;</td><td class="mdescRight">If a vector lies outside the parameter limits, attempt a reflection from the closest limit in the affected dimension.  <a href="#a37ee09b39b66eef4dbb64881ada8068b">More...</a><br /></td></tr>
 <tr class="separator:a37ee09b39b66eef4dbb64881ada8068b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A list of parameters, describing the parameter space of the target function to be evaluated. In addition to listing the individual parameter properties, a correlation matrix can be specified. </p>
+<div class="textblock"><p>A list of parameters, describing the parameter space of the target function to be evaluated. </p>
+<p>In addition to listing the individual parameter properties, a correlation matrix can be specified. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a85a5310165468c55583906cc4a9587f1"></a>
 <div class="memitem">
@@ -182,7 +191,9 @@ MatrixLower&#160;</td><td class="memItemRight" valign="bottom"><b>GetCholeskyDec
         </tr>
       </table>
 </div><div class="memdoc">
-<p>If a vector lies outside the parameter limits, constrain it accordingly. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>If a vector lies outside the parameter limits, constrain it accordingly. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">somePoint</td><td>A reference to the vector to be constrained. </td></tr>
   </table>
@@ -204,7 +215,9 @@ MatrixLower&#160;</td><td class="memItemRight" valign="bottom"><b>GetCholeskyDec
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Checks if some vector is inside the configured parameter limits. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Checks if some vector is inside the configured parameter limits. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">somePoint</td><td></td></tr>
   </table>
@@ -227,7 +240,9 @@ MatrixLower&#160;</td><td class="memItemRight" valign="bottom"><b>GetCholeskyDec
         </tr>
       </table>
 </div><div class="memdoc">
-<p>If a vector lies outside the parameter limits, attempt a reflection from the closest limit in the affected dimension. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>If a vector lies outside the parameter limits, attempt a reflection from the closest limit in the affected dimension. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">somePoint</td><td>A reference to the vector to be reflected. </td></tr>
   </table>
@@ -260,7 +275,9 @@ template&lt;class XMatrixT &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Set a correlation matrix. This should be a lower unit triangular matrix with size corresponding to the number of parameters. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Set a correlation matrix. </p>
+<p>This should be a lower unit triangular matrix with size corresponding to the number of parameters. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">matrix</td><td></td></tr>
   </table>
@@ -290,7 +307,9 @@ template&lt;class XMatrixT &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Set an error scaling factor, which is applied to all parameter errors uniformly. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Set an error scaling factor, which is applied to all parameter errors uniformly. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">scaling</td><td></td></tr>
   </table>

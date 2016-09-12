@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">versatile-mcmc
-   &#160;<span id="projectnumber">0.1.5</span>
+   &#160;<span id="projectnumber">0.1.7</span>
    </div>
   </td>
  </tr>
@@ -96,13 +96,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
+<p>Abstract proposal function class, which randomly draws from a multivariate random distribution centered at current sample / parameter vector.  
+ <a href="classvmcmc_1_1ProposalDistribution.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="proposal_8hpp_source.html">proposal.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vmcmc::ProposalDistribution&lt; DistributionT &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="classvmcmc_1_1ProposalDistribution__inherit__graph.png" border="0" usemap="#vmcmc_1_1ProposalDistribution_3_01DistributionT_01_4_inherit__map" alt="Inheritance graph"/></div>
 <map name="vmcmc_1_1ProposalDistribution_3_01DistributionT_01_4_inherit__map" id="vmcmc_1_1ProposalDistribution_3_01DistributionT_01_4_inherit__map">
-<area shape="rect" id="node2" href="classvmcmc_1_1Proposal.html" title="vmcmc::Proposal" alt="" coords="39,5,163,32"/>
+<area shape="rect" id="node2" href="classvmcmc_1_1Proposal.html" title="Base class for proposal functions (alias transition kernels) used by Metropolis&#45;Hastings algorithms t..." alt="" coords="39,5,163,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -110,13 +113,14 @@ Collaboration diagram for vmcmc::ProposalDistribution&lt; DistributionT &gt;:</d
 <div class="dyncontent">
 <div class="center"><img src="classvmcmc_1_1ProposalDistribution__coll__graph.png" border="0" usemap="#vmcmc_1_1ProposalDistribution_3_01DistributionT_01_4_coll__map" alt="Collaboration graph"/></div>
 <map name="vmcmc_1_1ProposalDistribution_3_01DistributionT_01_4_coll__map" id="vmcmc_1_1ProposalDistribution_3_01DistributionT_01_4_coll__map">
-<area shape="rect" id="node2" href="classvmcmc_1_1Proposal.html" title="vmcmc::Proposal" alt="" coords="5,5,129,32"/>
+<area shape="rect" id="node2" href="classvmcmc_1_1Proposal.html" title="Base class for proposal functions (alias transition kernels) used by Metropolis&#45;Hastings algorithms t..." alt="" coords="5,5,129,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af1ebe18b48a9b8736a3134c7eabc5003"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1ProposalDistribution.html#af1ebe18b48a9b8736a3134c7eabc5003">Transition</a> (const Vector &amp;s1, Vector &amp;s2) override</td></tr>
+<tr class="memdesc:af1ebe18b48a9b8736a3134c7eabc5003"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propose a new state.  <a href="#af1ebe18b48a9b8736a3134c7eabc5003">More...</a><br /></td></tr>
 <tr class="separator:af1ebe18b48a9b8736a3134c7eabc5003"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf6bac5a6596deebab69b9ebbdf68689"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adf6bac5a6596deebab69b9ebbdf68689"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateParameterConfig</b> (const <a class="el" href="classvmcmc_1_1ParameterConfig.html">ParameterConfig</a> &amp;paramConfig) override</td></tr>
@@ -142,7 +146,8 @@ MatrixLower&#160;</td><td class="memItemRight" valign="bottom"><b>fCholeskyDecom
 <div class="textblock"><h3>template&lt;class DistributionT&gt;<br />
 class vmcmc::ProposalDistribution&lt; DistributionT &gt;</h3>
 
-<p>Abstract proposal function class, which randomly draws from a multivariate random distribution centered at the previous parameter vector. If the full covariance matrix of the normal distribution is provided, correlations are taken into account. </p>
+<p>Abstract proposal function class, which randomly draws from a multivariate random distribution centered at current sample / parameter vector. </p>
+<p>If the full covariance matrix of the parameter configuration is provided, correlations are taken into account when setting up the random distribution. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="af1ebe18b48a9b8736a3134c7eabc5003"></a>
 <div class="memitem">
@@ -177,7 +182,9 @@ template&lt;class DistributionT &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Propose a new state. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Propose a new state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">s1</td><td>The original state to start from. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">s2</td><td>The new proposed state. </td></tr>

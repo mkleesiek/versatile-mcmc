@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">versatile-mcmc
-   &#160;<span id="projectnumber">0.1.5</span>
+   &#160;<span id="projectnumber">0.1.7</span>
    </div>
   </td>
  </tr>
@@ -95,6 +95,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">vmcmc::MetropolisHastings::ChainConfig Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Private class encapsulating <a class="el" href="classvmcmc_1_1Sample.html" title="A &#39;sample&#39; represents a node or data point in a Markov Chain. ">Sample</a> chains for parallel tempering.  
+ <a href="structvmcmc_1_1MetropolisHastings_1_1ChainConfig.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -120,7 +123,10 @@ std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>fNAcceptedSwaps</b></td></tr>
 <tr class="separator:ac94d1d48ba06c053ef2dda21f75e724d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Private class encapsulating <a class="el" href="classvmcmc_1_1Sample.html" title="A &#39;sample&#39; represents a node or data point in a Markov Chain. ">Sample</a> chains for parallel tempering. </p>
+<p>A <a class="el" href="structvmcmc_1_1MetropolisHastings_1_1ChainConfig.html" title="Private class encapsulating Sample chains for parallel tempering. ">ChainConfig</a> describes a set of parallel tempered chains, each chain with its own copy of an adjusted parameter configuration and proposal function. If parallel tempering is not used (only one beta value = 1.0 defined), a <a class="el" href="structvmcmc_1_1MetropolisHastings_1_1ChainConfig.html" title="Private class encapsulating Sample chains for parallel tempering. ">ChainConfig</a> contains only one "cold" chain. </p>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li>vmcmc/<a class="el" href="metropolis_8cpp.html">metropolis.cpp</a></li>
 </ul>
 </div><!-- contents -->

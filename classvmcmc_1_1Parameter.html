@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">versatile-mcmc
-   &#160;<span id="projectnumber">0.1.5</span>
+   &#160;<span id="projectnumber">0.1.7</span>
    </div>
   </td>
  </tr>
@@ -98,6 +98,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
+<p>This class represents a fit parameter of the target function to be sampled from.  
+ <a href="classvmcmc_1_1Parameter.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="parameter_8hpp_source.html">parameter.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -124,6 +127,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>GetAbsoluteError</b
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetAbsoluteError</b> (double absoluteError)</td></tr>
 <tr class="separator:ae1ba613031ae6654bd03c37d5de014d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4511d3df204e0d62531c356ff95b1b78"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Parameter.html#a4511d3df204e0d62531c356ff95b1b78">SetRelativeError</a> (double relativeError)</td></tr>
+<tr class="memdesc:a4511d3df204e0d62531c356ff95b1b78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the absolute error by multiplying a relative error argument with the before-hand configured start value.  <a href="#a4511d3df204e0d62531c356ff95b1b78">More...</a><br /></td></tr>
 <tr class="separator:a4511d3df204e0d62531c356ff95b1b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a991cd5fe0cbe9bde296f4d961ae7d9a0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a991cd5fe0cbe9bde296f4d961ae7d9a0"></a>
 const boost::optional&lt; double &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetLowerLimit</b> () const </td></tr>
@@ -144,10 +148,13 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsFixed</b> () const 
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetFixed</b> (bool fixed)</td></tr>
 <tr class="separator:a6503432f477a9935ed44dd8839c556c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a482a89a3fa8b4e77e5536e235542b2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Parameter.html#a6a482a89a3fa8b4e77e5536e235542b2">IsInsideLimits</a> (double someValue) const </td></tr>
+<tr class="memdesc:a6a482a89a3fa8b4e77e5536e235542b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if some parameter value is inside the configured parameter limits.  <a href="#a6a482a89a3fa8b4e77e5536e235542b2">More...</a><br /></td></tr>
 <tr class="separator:a6a482a89a3fa8b4e77e5536e235542b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8af10f8ad335f6285d0015cb1363e094"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Parameter.html#a8af10f8ad335f6285d0015cb1363e094">ConstrainToLimits</a> (double &amp;someValue) const </td></tr>
+<tr class="memdesc:a8af10f8ad335f6285d0015cb1363e094"><td class="mdescLeft">&#160;</td><td class="mdescRight">If a value lies outside the parameter limits, constrain it accordingly.  <a href="#a8af10f8ad335f6285d0015cb1363e094">More...</a><br /></td></tr>
 <tr class="separator:a8af10f8ad335f6285d0015cb1363e094"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35a16c414336fa69cb8028c9d450a5d2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Parameter.html#a35a16c414336fa69cb8028c9d450a5d2">ReflectFromLimits</a> (double &amp;someValue) const </td></tr>
+<tr class="memdesc:a35a16c414336fa69cb8028c9d450a5d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">If a value lies outside a parameter limits, attempt a reflection from the closer limit.  <a href="#a35a16c414336fa69cb8028c9d450a5d2">More...</a><br /></td></tr>
 <tr class="separator:a35a16c414336fa69cb8028c9d450a5d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -184,7 +191,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>fFixed</b></td></tr>
 <tr class="separator:a083d1bc3738ddaf2353048659906d2bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class represents a fit parameter of the target function to be sampled from. Its purpose is to instruct the MCMC algorithm at what point in the parameter space (start value) with what step size (error) to start sampling. It also holds optional lower and upper value limits, which correspond to step-function like priors. If the property 'fixed' is set, the sampler should never vary the parameter from its start value. </p>
+<div class="textblock"><p>This class represents a fit parameter of the target function to be sampled from. </p>
+<p>Its purpose is to instruct the MCMC algorithm at what point in the parameter space (start value) with what step size (error) to start sampling. It also holds optional lower and upper value limits, which correspond to step-function like priors. If the property 'fixed' is set, the sampler should never vary the parameter from its start value. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a8af10f8ad335f6285d0015cb1363e094"></a>
 <div class="memitem">
@@ -199,7 +207,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>fFixed</b></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>If a value lies outside the parameter limits, constrain it accordingly. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>If a value lies outside the parameter limits, constrain it accordingly. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">someValue</td><td>A reference to the value to be constrained. </td></tr>
   </table>
@@ -221,7 +231,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>fFixed</b></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Checks if some parameter value is inside the configured parameter limits. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Checks if some parameter value is inside the configured parameter limits. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">someValue</td><td></td></tr>
   </table>
@@ -244,7 +256,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>fFixed</b></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>If a value lies outside a parameter limits, attempt a reflection from the closer limit. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>If a value lies outside a parameter limits, attempt a reflection from the closer limit. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">someValue</td><td>A reference to the value to be reflected. </td></tr>
   </table>
@@ -267,7 +281,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>fFixed</b></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Sets the absolute error by multiplying a relative error argument with the before-hand configured start value. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Sets the absolute error by multiplying a relative error argument with the before-hand configured start value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">relativeError</td><td></td></tr>
   </table>

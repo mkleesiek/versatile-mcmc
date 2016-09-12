@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">versatile-mcmc
-   &#160;<span id="projectnumber">0.1.5</span>
+   &#160;<span id="projectnumber">0.1.7</span>
    </div>
   </td>
  </tr>
@@ -105,7 +105,7 @@ Inheritance diagram for vmcmc::Algorithm:</div>
 <div class="dyncontent">
 <div class="center"><img src="classvmcmc_1_1Algorithm__inherit__graph.png" border="0" usemap="#vmcmc_1_1Algorithm_inherit__map" alt="Inheritance graph"/></div>
 <map name="vmcmc_1_1Algorithm_inherit__map" id="vmcmc_1_1Algorithm_inherit__map">
-<area shape="rect" id="node2" href="classvmcmc_1_1MetropolisHastings.html" title="vmcmc::MetropolisHastings" alt="" coords="5,80,191,107"/>
+<area shape="rect" id="node2" href="classvmcmc_1_1MetropolisHastings.html" title="Implementation of the Metropolis&#45;Hastings algorithm. " alt="" coords="5,80,191,107"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -113,14 +113,15 @@ Collaboration diagram for vmcmc::Algorithm:</div>
 <div class="dyncontent">
 <div class="center"><img src="classvmcmc_1_1Algorithm__coll__graph.png" border="0" usemap="#vmcmc_1_1Algorithm_coll__map" alt="Collaboration graph"/></div>
 <map name="vmcmc_1_1Algorithm_coll__map" id="vmcmc_1_1Algorithm_coll__map">
-<area shape="rect" id="node2" href="classvmcmc_1_1ChainSetStats.html" title="vmcmc::ChainSetStats" alt="" coords="5,5,164,32"/>
-<area shape="rect" id="node3" href="classvmcmc_1_1ParameterConfig.html" title="vmcmc::ParameterConfig" alt="" coords="189,5,359,32"/>
+<area shape="rect" id="node2" href="classvmcmc_1_1ChainSetStats.html" title="Manages a list of ChainStats and calculates statistical properties concerning sets of individual chai..." alt="" coords="5,5,164,32"/>
+<area shape="rect" id="node3" href="classvmcmc_1_1ParameterConfig.html" title="A list of parameters, describing the parameter space of the target function to be evaluated..." alt="" coords="189,5,359,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab8bbbf66bcdca0ea3ec3e5d2df5f7e6c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Algorithm.html#ab8bbbf66bcdca0ea3ec3e5d2df5f7e6c">SetParameterConfig</a> (const <a class="el" href="classvmcmc_1_1ParameterConfig.html">ParameterConfig</a> &amp;paramConfig)</td></tr>
+<tr class="memdesc:ab8bbbf66bcdca0ea3ec3e5d2df5f7e6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the parameter configuration.  <a href="#ab8bbbf66bcdca0ea3ec3e5d2df5f7e6c">More...</a><br /></td></tr>
 <tr class="separator:ab8bbbf66bcdca0ea3ec3e5d2df5f7e6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2103827dac13e7f2bde894ba84a70ac8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2103827dac13e7f2bde894ba84a70ac8"></a>
 const <a class="el" href="classvmcmc_1_1ParameterConfig.html">ParameterConfig</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetParameterConfig</b> () const </td></tr>
@@ -151,14 +152,20 @@ template&lt;class WriterT , class... ArgsT&gt; </td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>AddWriter</b> (std::shared_ptr&lt; <a class="el" href="classvmcmc_1_1Writer.html">Writer</a> &gt; writer)</td></tr>
 <tr class="separator:adc8a7390f5e3ae2eab0cee086f226639"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07304ea32a58235b632dc375611eacf4"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Algorithm.html#a07304ea32a58235b632dc375611eacf4">EvaluatePrior</a> (const std::vector&lt; double &gt; &amp;paramValues) const </td></tr>
+<tr class="memdesc:a07304ea32a58235b632dc375611eacf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate the prior for the given parameter values.  <a href="#a07304ea32a58235b632dc375611eacf4">More...</a><br /></td></tr>
 <tr class="separator:a07304ea32a58235b632dc375611eacf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5aa2919ce37edf012c415b6978c4e66"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Algorithm.html#ac5aa2919ce37edf012c415b6978c4e66">EvaluateLikelihood</a> (const std::vector&lt; double &gt; &amp;paramValues) const </td></tr>
+<tr class="memdesc:ac5aa2919ce37edf012c415b6978c4e66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate the target function likelihood for the given parameter values.  <a href="#ac5aa2919ce37edf012c415b6978c4e66">More...</a><br /></td></tr>
 <tr class="separator:ac5aa2919ce37edf012c415b6978c4e66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd72557963da7554f3c709ac53ca76d8"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Algorithm.html#abd72557963da7554f3c709ac53ca76d8">EvaluateNegLogLikelihood</a> (const std::vector&lt; double &gt; &amp;paramValues) const </td></tr>
+<tr class="memdesc:abd72557963da7554f3c709ac53ca76d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate the target function -log(likelihood) for the given parameter values.  <a href="#abd72557963da7554f3c709ac53ca76d8">More...</a><br /></td></tr>
 <tr class="separator:abd72557963da7554f3c709ac53ca76d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ef5890f37568210b9f0135e00fa8f10"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Algorithm.html#a8ef5890f37568210b9f0135e00fa8f10">Evaluate</a> (<a class="el" href="classvmcmc_1_1Sample.html">Sample</a> &amp;sample) const </td></tr>
+<tr class="memdesc:a8ef5890f37568210b9f0135e00fa8f10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evalutate the target function prior, likelihood and -log(likelihood) at the position defined by the <code>sample</code>, and update the <code>sample</code> accordingly.  <a href="#a8ef5890f37568210b9f0135e00fa8f10">More...</a><br /></td></tr>
 <tr class="separator:a8ef5890f37568210b9f0135e00fa8f10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5127d6c21fc23581b55117390dc589c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Algorithm.html#a5127d6c21fc23581b55117390dc589c5">Run</a> ()</td></tr>
+<tr class="memitem:a5127d6c21fc23581b55117390dc589c5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5127d6c21fc23581b55117390dc589c5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Algorithm.html#a5127d6c21fc23581b55117390dc589c5">Run</a> ()</td></tr>
+<tr class="memdesc:a5127d6c21fc23581b55117390dc589c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start sampling! <br /></td></tr>
 <tr class="separator:a5127d6c21fc23581b55117390dc589c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39a53ce60c2c4a366a23871d7abe3f39"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a39a53ce60c2c4a366a23871d7abe3f39"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Initialize</b> ()</td></tr>
@@ -221,7 +228,9 @@ std::vector&lt; std::shared_ptr&lt; <a class="el" href="classvmcmc_1_1Writer.htm
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Evalutate the target function prior, likelihood and -log(likelihood) at the position defined by the <code>sample</code>, and update the <code>sample</code> accordingly. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Evalutate the target function prior, likelihood and -log(likelihood) at the position defined by the <code>sample</code>, and update the <code>sample</code> accordingly. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sample</td><td></td></tr>
   </table>
@@ -244,7 +253,9 @@ std::vector&lt; std::shared_ptr&lt; <a class="el" href="classvmcmc_1_1Writer.htm
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Evaluate the target function likelihood for the given parameter values. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Evaluate the target function likelihood for the given parameter values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">paramValues</td><td></td></tr>
   </table>
@@ -267,7 +278,9 @@ std::vector&lt; std::shared_ptr&lt; <a class="el" href="classvmcmc_1_1Writer.htm
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Evaluate the target function -log(likelihood) for the given parameter values. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Evaluate the target function -log(likelihood) for the given parameter values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">paramValues</td><td></td></tr>
   </table>
@@ -290,29 +303,15 @@ std::vector&lt; std::shared_ptr&lt; <a class="el" href="classvmcmc_1_1Writer.htm
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Evaluate the prior for the given parameter values. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Evaluate the prior for the given parameter values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">paramValues</td><td></td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The prior value. Returns 1.0 if no priors were defined. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a5127d6c21fc23581b55117390dc589c5"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void vmcmc::Algorithm::Run </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Start sampling! </p>
 
 </div>
 </div>
@@ -329,7 +328,8 @@ std::vector&lt; std::shared_ptr&lt; <a class="el" href="classvmcmc_1_1Writer.htm
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Set the parameter configuration.</p>
+
+<p>Set the parameter configuration. </p>
 <p>This is mandatory for every possible implementations of this class. From the configuration, the start points and proposal functions of a sampler a initialized. The number of parameters defines, with how many arguments the target likelihood function is evaluated. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">paramConfig</td><td></td></tr>

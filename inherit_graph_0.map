@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="node1" href="$classvmcmc_1_1Algorithm.html" title="Abstract base class for the core MCMC sampling algorithms. " alt="" coords="5,5,133,32"/>
-<area shape="rect" id="node2" href="$classvmcmc_1_1MetropolisHastings.html" title="vmcmc::MetropolisHastings" alt="" coords="181,5,367,32"/>
+<area shape="rect" id="node2" href="$classvmcmc_1_1MetropolisHastings.html" title="Implementation of the Metropolis&#45;Hastings algorithm. " alt="" coords="181,5,367,32"/>
 </map>

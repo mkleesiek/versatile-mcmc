@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">versatile-mcmc
-   &#160;<span id="projectnumber">0.1.5</span>
+   &#160;<span id="projectnumber">0.1.7</span>
    </div>
   </td>
  </tr>
@@ -128,15 +128,19 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>vmcmc::
 <tr class="separator:a8b451a706bd9358e72825b3745cbfa55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57d68bb09583bad21de3b73b9c09717d"><td class="memTemplParams" colspan="2">template&lt;class SequenceT , class SeparatorT &gt; </td></tr>
 <tr class="memitem:a57d68bb09583bad21de3b73b9c09717d"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="stringutils_8hpp.html#a57d68bb09583bad21de3b73b9c09717d">vmcmc::join</a> (std::ostream &amp;stream, const SequenceT &amp;sequence, const SeparatorT &amp;separator=&quot;&quot;)</td></tr>
+<tr class="memdesc:a57d68bb09583bad21de3b73b9c09717d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Join an STL style container and output to a stream with its values joined by a separator.  <a href="stringutils_8hpp.html#a57d68bb09583bad21de3b73b9c09717d">More...</a><br /></td></tr>
 <tr class="separator:a57d68bb09583bad21de3b73b9c09717d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24dff8c8c9f0da1630cb0a4987c54a2a"><td class="memTemplParams" colspan="2">template&lt;class SequenceT , class SeparatorT &gt; </td></tr>
 <tr class="memitem:a24dff8c8c9f0da1630cb0a4987c54a2a"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="stringutils_8hpp.html#a24dff8c8c9f0da1630cb0a4987c54a2a">vmcmc::join</a> (const SequenceT &amp;sequence, const SeparatorT &amp;separator)</td></tr>
+<tr class="memdesc:a24dff8c8c9f0da1630cb0a4987c54a2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Join an STL style container to a string.  <a href="stringutils_8hpp.html#a24dff8c8c9f0da1630cb0a4987c54a2a">More...</a><br /></td></tr>
 <tr class="separator:a24dff8c8c9f0da1630cb0a4987c54a2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc41b29a5b3041cfa1b3ee791b183a45"><td class="memTemplParams" colspan="2">template&lt;class T1 , class T2 &gt; </td></tr>
 <tr class="memitem:adc41b29a5b3041cfa1b3ee791b183a45"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="stringutils_8hpp.html#adc41b29a5b3041cfa1b3ee791b183a45">vmcmc::operator&lt;&lt;</a> (std::ostream &amp;strm, const std::pair&lt; T1, T2 &gt; &amp;pair)</td></tr>
+<tr class="memdesc:adc41b29a5b3041cfa1b3ee791b183a45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serialize any STL pair to an output stream.  <a href="stringutils_8hpp.html#adc41b29a5b3041cfa1b3ee791b183a45">More...</a><br /></td></tr>
 <tr class="separator:adc41b29a5b3041cfa1b3ee791b183a45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a567d368ac1ca52a22cfc3c2212c6dcd9"><td class="memTemplParams" colspan="2">template&lt;class ContainerT , class  = typename std::enable_if&lt;vmcmc::is_container&lt;ContainerT&gt;::value&gt;::type&gt; </td></tr>
 <tr class="memitem:a567d368ac1ca52a22cfc3c2212c6dcd9"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="stringutils_8hpp.html#a567d368ac1ca52a22cfc3c2212c6dcd9">vmcmc::operator&lt;&lt;</a> (std::ostream &amp;strm, const ContainerT &amp;container)</td></tr>
+<tr class="memdesc:a567d368ac1ca52a22cfc3c2212c6dcd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serialize any STL container to an output stream.  <a href="stringutils_8hpp.html#a567d368ac1ca52a22cfc3c2212c6dcd9">More...</a><br /></td></tr>
 <tr class="separator:a567d368ac1ca52a22cfc3c2212c6dcd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -183,7 +187,9 @@ template&lt;class SequenceT , class SeparatorT &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Join an STL style container and output to a stream with its values joined by a separator. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Join an STL style container and output to a stream with its values joined by a separator. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">stream</td><td>The output stream. </td></tr>
     <tr><td class="paramname">sequence</td><td>The container to be serialized. Must provide STL style iterators. </td></tr>
@@ -228,7 +234,9 @@ template&lt;class SequenceT , class SeparatorT &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Join an STL style container to a string. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Join an STL style container to a string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sequence</td><td>The container to be serialized. Must provide STL style iterators. </td></tr>
     <tr><td class="paramname">separator</td><td>The separator to be inserted between serialized values. </td></tr>
@@ -272,7 +280,9 @@ template&lt;class T1 , class T2 &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Serialize any STL pair to an output stream. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Serialize any STL pair to an output stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">strm</td><td>An output stream. </td></tr>
     <tr><td class="paramname">pair</td><td>A pair. </td></tr>
@@ -316,10 +326,12 @@ template&lt;class ContainerT , class  = typename std::enable_if&lt;vmcmc::is_con
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Serialize any STL container to an output stream. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Serialize any STL container to an output stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">strm</td><td>An output stream. </td></tr>
-    <tr><td class="paramname">container</td><td>A container fulfilling the type trait <a class="el" href="structvmcmc_1_1is__container.html">vmcmc::is_container</a>. </td></tr>
+    <tr><td class="paramname">container</td><td>A container fulfilling the type trait <a class="el" href="structvmcmc_1_1is__container.html" title="Typetrait checking for STL like container structure. ">vmcmc::is_container</a>. </td></tr>
   </table>
   </dd>
 </dl>

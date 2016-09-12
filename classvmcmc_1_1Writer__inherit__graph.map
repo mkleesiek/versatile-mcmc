@@ -1,4 +1,4 @@
 <map id="vmcmc::Writer" name="vmcmc::Writer">
 <area shape="rect" id="node2" href="$classvmcmc_1_1QCPlotWriter.html" title="vmcmc::QCPlotWriter" alt="" coords="5,80,156,107"/>
-<area shape="rect" id="node3" href="$classvmcmc_1_1TextFileWriter.html" title="vmcmc::TextFileWriter" alt="" coords="181,80,335,107"/>
+<area shape="rect" id="node3" href="$classvmcmc_1_1TextFileWriter.html" title="A writer streaming incoming samples to textfiles. " alt="" coords="181,80,335,107"/>
 </map>

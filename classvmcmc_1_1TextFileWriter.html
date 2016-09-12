@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">versatile-mcmc
-   &#160;<span id="projectnumber">0.1.5</span>
+   &#160;<span id="projectnumber">0.1.7</span>
    </div>
   </td>
  </tr>
@@ -94,12 +94,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">vmcmc::TextFileWriter Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A writer streaming incoming samples to textfiles.  
+ <a href="classvmcmc_1_1TextFileWriter.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="io_8hpp_source.html">io.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vmcmc::TextFileWriter:</div>
 <div class="dyncontent">
 <div class="center"><img src="classvmcmc_1_1TextFileWriter__inherit__graph.png" border="0" usemap="#vmcmc_1_1TextFileWriter_inherit__map" alt="Inheritance graph"/></div>
 <map name="vmcmc_1_1TextFileWriter_inherit__map" id="vmcmc_1_1TextFileWriter_inherit__map">
-<area shape="rect" id="node2" href="classvmcmc_1_1Writer.html" title="vmcmc::Writer" alt="" coords="29,5,137,32"/>
+<area shape="rect" id="node2" href="classvmcmc_1_1Writer.html" title="Abstract base class for mechanisms writing output files or producing visual output. " alt="" coords="29,5,137,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -107,21 +112,24 @@ Collaboration diagram for vmcmc::TextFileWriter:</div>
 <div class="dyncontent">
 <div class="center"><img src="classvmcmc_1_1TextFileWriter__coll__graph.png" border="0" usemap="#vmcmc_1_1TextFileWriter_coll__map" alt="Collaboration graph"/></div>
 <map name="vmcmc_1_1TextFileWriter_coll__map" id="vmcmc_1_1TextFileWriter_coll__map">
-<area shape="rect" id="node2" href="classvmcmc_1_1Writer.html" title="vmcmc::Writer" alt="" coords="29,5,137,32"/>
+<area shape="rect" id="node2" href="classvmcmc_1_1Writer.html" title="Abstract base class for mechanisms writing output files or producing visual output. " alt="" coords="29,5,137,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae22617a7dcb0507a415e518f92237f55"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae22617a7dcb0507a415e518f92237f55"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>TextFileWriter</b> (const std::string &amp;directory=&quot;&quot;, const std::string &amp;stem=&quot;vmcmc&quot;, const std::string &amp;separator=&quot;-&quot;, const std::string &amp;extension=&quot;.txt&quot;)</td></tr>
-<tr class="separator:ae22617a7dcb0507a415e518f92237f55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acea292e1cd4fd79acb45e857efe885dd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acea292e1cd4fd79acb45e857efe885dd"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>TextFileWriter</b> (const std::string &amp;directory=&quot;&quot;, const std::string &amp;stem=&quot;vmcmc&quot;, const std::string &amp;nameSeparator=&quot;-&quot;, const std::string &amp;extension=&quot;.txt&quot;)</td></tr>
+<tr class="separator:acea292e1cd4fd79acb45e857efe885dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32874ba0023d93e8551a6d0703489e2e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a32874ba0023d93e8551a6d0703489e2e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetPrecision</b> (int prec)</td></tr>
 <tr class="separator:a32874ba0023d93e8551a6d0703489e2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57ed9d0f476327acdd419605c48f9f19"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a57ed9d0f476327acdd419605c48f9f19"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetCombineChains</b> (bool combine)</td></tr>
 <tr class="separator:a57ed9d0f476327acdd419605c48f9f19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70cb99b4c964888b6e9b65a52598d74a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a70cb99b4c964888b6e9b65a52598d74a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetColumnSeparator</b> (const std::string &amp;sep)</td></tr>
+<tr class="separator:a70cb99b4c964888b6e9b65a52598d74a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8a6dba576ef1aaf543e5c3ea71bd610"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af8a6dba576ef1aaf543e5c3ea71bd610"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetFilePath</b> (int chainIndex=-1) const </td></tr>
 <tr class="separator:af8a6dba576ef1aaf543e5c3ea71bd610"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,7 +151,9 @@ Additional Inherited Members</h2></td></tr>
 size_t&#160;</td><td class="memItemRight" valign="bottom"><b>fCurrentIndex</b> = 0</td></tr>
 <tr class="separator:a2b2cf56c4440132157b2854e7ee87664 inherit pro_attribs_classvmcmc_1_1Writer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A writer streaming incoming samples to textfiles. </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>vmcmc/<a class="el" href="io_8hpp_source.html">io.hpp</a></li>
 <li>vmcmc/<a class="el" href="io_8cpp.html">io.cpp</a></li>
 </ul>

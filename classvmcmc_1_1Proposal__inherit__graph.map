@@ -1,7 +1,7 @@
 <map id="vmcmc::Proposal" name="vmcmc::Proposal">
 <area shape="rect" id="node2" href="$classvmcmc_1_1ProposalDistribution.html" title="vmcmc::ProposalDistribution\l\&lt; std::normal_distribution\l\&lt; double \&gt; \&gt;" alt="" coords="177,5,368,61"/>
 <area shape="rect" id="node4" href="$classvmcmc_1_1ProposalDistribution.html" title="vmcmc::ProposalDistribution\l\&lt; std::student_t_distribution\l\&lt; double \&gt; \&gt;" alt="" coords="177,85,368,141"/>
-<area shape="rect" id="node6" href="$classvmcmc_1_1ProposalDistribution.html" title="vmcmc::ProposalDistribution\l\&lt; DistributionT \&gt;" alt="" coords="177,165,368,206"/>
-<area shape="rect" id="node3" href="$classvmcmc_1_1ProposalNormal.html" title="vmcmc::ProposalNormal" alt="" coords="421,20,588,47"/>
-<area shape="rect" id="node5" href="$classvmcmc_1_1ProposalStudentT.html" title="vmcmc::ProposalStudentT" alt="" coords="416,100,593,127"/>
+<area shape="rect" id="node6" href="$classvmcmc_1_1ProposalDistribution.html" title="Abstract proposal function class, which randomly draws from a multivariate random distribution center..." alt="" coords="177,165,368,206"/>
+<area shape="rect" id="node3" href="$classvmcmc_1_1ProposalNormal.html" title="Proposal function drawing randomly from a multivariate normal distribution. " alt="" coords="421,20,588,47"/>
+<area shape="rect" id="node5" href="$classvmcmc_1_1ProposalStudentT.html" title="Proposal function drawing randomly from a multivariate Student&#45;T distribution. " alt="" coords="416,100,593,127"/>
 </map>

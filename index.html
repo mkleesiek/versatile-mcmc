@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">versatile-mcmc
-   &#160;<span id="projectnumber">0.1.5</span>
+   &#160;<span id="projectnumber">0.1.7</span>
    </div>
   </td>
  </tr>
@@ -99,10 +99,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>Build system, unit testing and continuous integration set up.</li>
 <li>Numeric + logging utilities and random number generator interfaces implemented.</li>
 <li>Basic classes and interfaces for proposal functions and samplers declared.</li>
-<li>First running example for a simple Metropolis-Hastings algorithm.</li>
+<li>First running example for a simple Metropolis-Hastings (MH) algorithm. <h3>Next items on my todo list</h3>
+</li>
+</ul>
+<ul>
+<li>Automatic error control / step size adjustment for the MH algorithm.</li>
+<li>Real-time plotting (through QCustomPlot, MathGL, VTK or similar).</li>
 </ul>
 <h2>Supported compilers and operating systems</h2>
-<p>Essentially, all C++11 compliant compilers should work. Currently the build is being tested on <a href="https://travis-ci.org/mkleesiek/fast-mcmc.svg?branch=master">Travis CI</a> using the following OS/compiler combinations:</p><ul>
+<p>Essentially, all C++11 compliant compilers should work. Currently the build is being tested on <a href="https://travis-ci.org/mkleesiek/versatile-mcmc">Travis CI</a> using the following OS/compiler combinations:</p><ul>
 <li>Ubuntu Trusty (14.04)<ul>
 <li>g++ 4.8.4</li>
 <li>g++ 5.3.0</li>
@@ -135,8 +140,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>To compile the code, execute ninja in the build directory: <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ninja [-j NTHREADS] [-v]</div></div><!-- fragment --></li>
 <li>Install: <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ninja install</div></div><!-- fragment --></li>
 <li>Run unit tests: <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ninja test</div></div><!-- fragment --></li>
-<li>Generate source documentation (requires doxygen): <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ninja doc</div></div><!-- fragment --> </li>
+<li>Generate source documentation (requires doxygen): <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ninja doc</div></div><!-- fragment --></li>
 </ul>
+<h2>Getting Started</h2>
+<p>See the example in <a class="el" href="vmcmc-example_8cpp.html" title="Metropolis-Hastings usage example. ">src/vmcmc-example.cpp</a> on how to invoke a Metropolis-Hastings sampler on a custom likelihood function and write the sampled points to text files. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
