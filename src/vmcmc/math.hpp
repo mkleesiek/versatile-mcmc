@@ -3,6 +3,8 @@
  *
  * @date 05.08.2016
  * @author marco@kleesiek.com
+ *
+ * @brief Math utility functions.
  */
 
 #ifndef VMCMC_MATH_H_

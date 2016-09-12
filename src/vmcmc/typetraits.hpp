@@ -3,6 +3,8 @@
  *
  * @date 12.08.2016
  * @author marco@kleesiek.com
+ *
+ * @brief Typetrait utility structs.
  */
 
 #ifndef VMCMC_TYPETRAITS_H_
@@ -14,10 +16,11 @@
 namespace vmcmc {
 
 /**
+ * @brief Typetrait checking for STL like container structure.
+ *
  * Typetrait checking whether the passed template argument denotes an STL like
  * container. In that case, the static ::value member variable evaluates
  * to true.
- * @tparam T
  */
 template<typename T>
 struct is_container

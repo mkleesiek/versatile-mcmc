@@ -12,6 +12,12 @@
 #include <vmcmc/logger.hpp>
 #include <vmcmc/stringutils.hpp>
 
+#ifdef USE_TBB
+#include <tbb/parallel_for.h>
+#include <tbb/blocked_range.h>
+using namespace tbb;
+#endif // USE_TBB
+
 using namespace std;
 
 namespace vmcmc {
@@ -43,14 +49,37 @@ void Algorithm::Initialize()
 
 void Algorithm::Finalize()
 {
-    // print some diagnostics for each chain to console
+    fStatistics.ClearChains();
 
-    for (size_t iChain = 0; iChain < NumberOfChains(); iChain++) {
-        const Chain& chain = GetChain(iChain);
+    const size_t nChains = NumberOfChains();
+    for (size_t iChain = 0; iChain < nChains; iChain++)
+        fStatistics.AddChain( GetChain(iChain) );
+
+    // if TBB is available, calculate diagnostics in parallel
+#ifdef USE_TBB
+    LOG(Debug, "Precalculating some of the diagnostics ...");
+
+    parallel_for(
+        blocked_range<size_t>(0, nChains),
+        [&](const blocked_range<size_t>& range) {
+            for (size_t iChain = range.begin(); iChain < range.end(); iChain++) {
+                ChainStats& stats = fStatistics.GetChainStats( iChain );
+                stats.GetMode();
+                stats.GetVariance();
+                stats.GetAccRate();
+                stats.GetAutoCorrelationTime();
+            }
+        }
+    );
+#endif // USE_TBB
+
+    // print the diagnostics for each chain to console
+
+    for (size_t iChain = 0; iChain < nChains; iChain++) {
 
         LOG(Info, "Diagnostics for chain " << iChain << ":");
 
-        ChainStats& stats = fStatistics.AddChain( chain );
+        ChainStats& stats = fStatistics.GetChainStats( iChain );
 
         const double accRate = stats.GetAccRate();
         LOG(Info, "  Acceptance Rate: " << accRate);
@@ -156,14 +185,23 @@ void Algorithm::Run()
     const size_t nCycles = fTotalLength / fCycleLength;
     const size_t nChains = NumberOfChains();
 
+    vector<reference_wrapper<const Chain>> chainRefs;
+    for (size_t iChain = 0; iChain < nChains; iChain++)
+        chainRefs.emplace_back( GetChain(iChain) );
+
     // print the starting points
     for (size_t iChain = 0; iChain < nChains; iChain++) {
-        const auto& chain = GetChain(iChain);
+        const Chain& chain = chainRefs[iChain];
         if (!chain.empty())
             LOG(Info, "Chain " << iChain << " starting point: " << chain.back());
     }
 
-    size_t cChainPosition = 0;
+    // length trackers for each chain
+    vector<size_t> cChainLengths(nChains, 0);
+
+    // initialize writers
+    for (auto& writer : fWriters)
+        writer->Initialize( nChains, fParameterConfig );
 
     // advance the samplers in cycles
     for (size_t iCycle = 0; iCycle <= nCycles; iCycle++) {
@@ -175,22 +213,16 @@ void Algorithm::Run()
 
         Advance(nSteps);
 
-        // output
-        if (nChains > 0) {
-            vector<const Chain*> chainPtrs(nChains, nullptr);
-            for (size_t iChain = 0; iChain < nChains; iChain++)
-                chainPtrs[iChain] = &GetChain(iChain);
-
-            for (; cChainPosition < chainPtrs[0]->size(); cChainPosition++) {
-                for (size_t iChain = 0; iChain < nChains; iChain++) {
-                    if (cChainPosition < chainPtrs[iChain]->size()) {
-                        for (auto& writer : fWriters) {
-                            writer->Write( iChain, (*chainPtrs[iChain])[cChainPosition] );
-                        }
-                    }
-                }
+        // output new samples and update length counters
+        for (size_t iChain = 0; iChain < nChains; iChain++) {
+            const Chain& chain = chainRefs[iChain];
+            for (auto& writer : fWriters) {
+                writer->Write( iChain, chainRefs[iChain], cChainLengths[iChain] );
             }
+
+            cChainLengths[iChain] = chain.size();
         }
+
 
         // some intermediate logging (in 5% progress increments)
         if ((iCycle+1) % (nCycles/20) == 0) {

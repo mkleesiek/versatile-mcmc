@@ -3,6 +3,8 @@
  *
  * @date 27.07.2016
  * @author marco@kleesiek.com
+ *
+ * @brief Contains the prototype class for thread-safe random number generators.
  */
 
 #ifndef VMCMC_RANDOM_H_

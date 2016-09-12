@@ -19,6 +19,7 @@ using namespace std;
 namespace std {
 /**
  * Hash specialization for the vmcmc::Logger::ELevel enumeration.
+ * @cond PRIVATE
  */
 template<>
 struct hash<vmcmc::Logger::ELevel>
@@ -27,6 +28,7 @@ struct hash<vmcmc::Logger::ELevel>
         return static_cast<int>(level);
     }
 };
+/** @endcond */
 }
 
 namespace vmcmc {
@@ -110,14 +112,14 @@ void Logger::StartMessage(ELevel level, const Location& loc)
 
     printTime( *fActiveStream );
 
-    *fActiveStream << " [" << setw(5);
+    *fActiveStream << " [";
 
     if (fColouredOutput) {
         const string& startColor = loggerColors.find(level)->second;
-        *fActiveStream << startColor << levelStr << kResetColor;
+        *fActiveStream << startColor << setw(5) << levelStr << kResetColor;
     }
     else {
-        *fActiveStream  << levelStr;
+        *fActiveStream << setw(5) << levelStr;
     }
 
     *fActiveStream << "] " << setw(17) << loc.fFileName

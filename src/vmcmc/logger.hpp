@@ -3,6 +3,8 @@
  *
  * @date 25.07.2016
  * @author marco@kleesiek.com
+ *
+ * @brief Class definitions and MACROs for logging purposes.
  */
 
 #ifndef VMCMC_LOGGER_H_
@@ -46,8 +48,9 @@
 namespace vmcmc {
 
 /**
- * Very primitive MACRO-centered logging facility. It should primarily be used
- * through MACROs:
+ * A simple MACRO-focussed logging facility.
+ *
+ * It should primarily be accessed by the user through the use of MACROs:
  *
  * @code{.cpp}
  * // define a static logger instance:

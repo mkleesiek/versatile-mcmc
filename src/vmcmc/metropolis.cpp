@@ -16,7 +16,7 @@
 #include <tbb/parallel_for.h>
 #include <tbb/blocked_range.h>
 using namespace tbb;
-#endif
+#endif // USE_TBB
 
 using namespace std;
 
@@ -25,6 +25,15 @@ namespace vmcmc
 
 LOG_DEFINE("vmcmc.metropolis");
 
+/**
+ * Private class encapsulating Sample chains for parallel tempering.
+ *
+ * A ChainConfig describes a set of parallel tempered chains, each chain
+ * with its own copy of an adjusted parameter configuration and proposal
+ * function.
+ * If parallel tempering is not used (only one beta value = 1.0 defined),
+ * a ChainConfig contains only one "cold" chain.
+ */
 struct MetropolisHastings::ChainConfig
 {
     ChainConfig(size_t n, const ParameterConfig& initialParamConf,

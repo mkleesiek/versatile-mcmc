@@ -4,7 +4,9 @@
  * @date 24.07.2016
  * @author marco@kleesiek.com
  *
- * @description A simple, very preliminary example of how the v-mcmc
+ * @brief Metropolis-Hastings usage example.
+ *
+ * A simple, very preliminary example of how the versatile-mcmc
  * library can be used to run a metropolis-hastings sampler on a simple
  * statistical distribution and save the output to an ASCII file.
  */
@@ -35,6 +37,8 @@ double targetFunction(const vector<double>& params) {
 }
 
 int main(int /*argc*/, char* /*argv*/[]){
+
+    LOG(Info, "Setting up Metropolis-Hastings example ...");
 
     // choose a non-deterministic seed for random number generator:
     Random::Seed( 0 );
@@ -70,7 +74,7 @@ int main(int /*argc*/, char* /*argv*/[]){
     // define the output method
     mcmc.AddWriter<TextFileWriter>(".", "vmcmc-example");
 
-    LOG(Info, "Starting example Metropolis ...");
+    LOG(Info, "Start sampling ...");
 
     // execute
     mcmc.Run();

@@ -3,6 +3,8 @@
  *
  * @date 29.07.2016
  * @author marco@kleesiek.com
+ *
+ * @brief String utility functions.
  */
 
 #ifndef VMCMC_STRINGUTILS_H_

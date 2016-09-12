@@ -1,9 +1,10 @@
 /**
- * @file chain.h
+ * @file
  *
  * @date 09.09.2016
  * @author marco@kleesiek.com
- * @description
+ *
+ * @brief Utility classes for calculation statistical momenta and diagnostics.
  */
 #ifndef SRC_VMCMC_CHAIN_HPP_
 #define SRC_VMCMC_CHAIN_HPP_
@@ -23,8 +24,8 @@ namespace vmcmc
 using Chain = std::deque<Sample>;
 
 /**
- * Calculates statistical momenta and properities for a specific Chain of
- * Samples.
+ * Calculates statistical momenta and properties for a given Chain of Samples.
+ *
  * All quantities are cached and calculated only once, unless they are reset
  * by calling Reset() or re-adjusting the selected window of the chain with
  * SelectRange().

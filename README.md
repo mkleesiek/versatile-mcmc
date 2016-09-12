@@ -20,11 +20,14 @@ In order to allow for a future proof and robust code base with intuitive extensi
 - Build system, unit testing and continuous integration set up.
 - Numeric + logging utilities and random number generator interfaces implemented.
 - Basic classes and interfaces for proposal functions and samplers declared.
-- First running example for a simple Metropolis-Hastings algorithm.
+- First running example for a simple Metropolis-Hastings (MH) algorithm.
+### Next items on my todo list
+- Automatic error control / step size adjustment for the MH algorithm.
+- Real-time plotting (through QCustomPlot, MathGL, VTK or similar).
 
 ## Supported compilers and operating systems
 Essentially, all C++11 compliant compilers should work.
-Currently the build is being tested on [Travis CI](https://travis-ci.org/mkleesiek/fast-mcmc.svg?branch=master) using the following OS/compiler combinations:
+Currently the build is being tested on [Travis CI](https://travis-ci.org/mkleesiek/versatile-mcmc) using the following OS/compiler combinations:
 - Ubuntu Trusty (14.04)
   - g++ 4.8.4
   - g++ 5.3.0
@@ -80,3 +83,8 @@ ninja test
 ```
 ninja doc
 ```
+
+## Getting Started
+
+See the example in src/vmcmc-example.cpp on how to invoke a Metropolis-Hastings
+sampler on a custom likelihood function and write the sampled points to text files.

@@ -3,6 +3,9 @@
  *
  * @date 31.07.2016
  * @author marco@kleesiek.com
+ *
+ * @brief Proposal functions (defined as classes) for the Metropolis-Hastings
+ * algorithm.
  */
 
 #ifndef VMCMC_PROPOSAL_H_
@@ -44,9 +47,10 @@ public:
 
 
 /**
- * Abstract proposal function class, which randomly draws from a multivariate random distribution
- * centered at the previous parameter vector. If the full covariance matrix of
- * the normal distribution is provided, correlations are taken into account.
+ * Abstract proposal function class, which randomly draws from a multivariate
+ * random distribution centered at current sample / parameter vector.
+ * If the full covariance matrix of the parameter configuration is provided,
+ * correlations are taken into account when setting up the random distribution.
  */
 template<class DistributionT>
 class ProposalDistribution : public Proposal
@@ -67,7 +71,9 @@ protected:
     MatrixLower fCholeskyDecomp;
 };
 
-
+/**
+ * Proposal function drawing randomly from a multivariate normal distribution.
+ */
 class ProposalNormal : public ProposalDistribution< std::normal_distribution<double> >
 {
 public:
@@ -77,6 +83,9 @@ public:
     virtual ProposalNormal* Clone() const override { return new ProposalNormal(*this); }
 };
 
+/**
+ * Proposal function drawing randomly from a multivariate Student-T distribution.
+ */
 class ProposalStudentT : public ProposalDistribution< std::student_t_distribution<double> >
 {
 public:
