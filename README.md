@@ -21,7 +21,8 @@ In order to allow for a future proof and robust code base with intuitive extensi
 - Numeric + logging utilities and random number generator interfaces implemented.
 - Basic classes and interfaces for proposal functions and samplers declared.
 - First running example for a simple Metropolis-Hastings (MH) algorithm.
-### Next items on my todo list
+
+#### Next items on my todo list
 - Automatic error control / step size adjustment for the MH algorithm.
 - Real-time plotting (through QCustomPlot, MathGL, VTK or similar).
 
@@ -36,6 +37,7 @@ Currently the build is being tested on [Travis CI](https://travis-ci.org/mkleesi
   - clang++ 3.9
 - OS X El Capitan (10.11.5)
   - Xcode (clang) 7.3
+  - Xcode (clang) 8.0
 
 ## Prerequisits
 - [Meson build system](http://mesonbuild.com/) with [Ninja](https://ninja-build.org/) as backend
