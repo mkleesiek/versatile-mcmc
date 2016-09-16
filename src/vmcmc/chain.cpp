@@ -1,6 +1,9 @@
 /**
  * @file chain.cpp
  *
+ * @copyright Copyright 2016 Marco Kleesiek.
+ * Released under the GNU Lesser General Public License v3.
+ *
  * @date 09.09.2016
  * @author marco@kleesiek.com
  */
@@ -17,12 +20,12 @@ namespace vmcmc {
 
 LOG_DEFINE("vmcmc.chain");
 
-ChainStats::ChainStats(const Chain& sampleChain) :
+ChainStatistics::ChainStatistics(const Chain& sampleChain) :
     fSampleChain( sampleChain ),
     fSelectedRange{ 0, -1 }
 { }
 
-void ChainStats::Reset()
+void ChainStatistics::Reset()
 {
     fMode.reset();
     fMean.reset();
@@ -42,7 +45,7 @@ void ChainStats::Reset()
     fAccRate.reset();
 }
 
-void ChainStats::SelectRange(ptrdiff_t startIndex, ptrdiff_t endIndex)
+void ChainStatistics::SelectRange(ptrdiff_t startIndex, ptrdiff_t endIndex)
 {
     auto oldRange = fSelectedRange;
     fSelectedRange = make_pair( startIndex, endIndex );
@@ -51,13 +54,13 @@ void ChainStats::SelectRange(ptrdiff_t startIndex, ptrdiff_t endIndex)
         Reset();
 }
 
-void ChainStats::SelectPercentageRange(double start, double end)
+void ChainStatistics::SelectPercentageRange(double start, double end)
 {
     const double N = fSampleChain.size();
     SelectRange( (ptrdiff_t) (N * start), (ptrdiff_t) ((N-1.0)*end)  );
 }
 
-pair<size_t, size_t> ChainStats::GetIndices() const
+pair<size_t, size_t> ChainStatistics::GetIndices() const
 {
     const size_t N = fSampleChain.size();
 
@@ -74,13 +77,13 @@ pair<size_t, size_t> ChainStats::GetIndices() const
     return make_pair( startIndex, endIndex );
 }
 
-pair<Chain::const_iterator, Chain::const_iterator> ChainStats::GetIterators() const
+pair<Chain::const_iterator, Chain::const_iterator> ChainStatistics::GetIterators() const
 {
     const pair<size_t, size_t> indexPair = GetIndices();
     return make_pair( next(begin(fSampleChain), indexPair.first), next(begin(fSampleChain), indexPair.second) );
 }
 
-const Sample& ChainStats::GetMode()
+const Sample& ChainStatistics::GetMode()
 {
     if (fMode)
         return fMode.get();
@@ -101,7 +104,7 @@ const Sample& ChainStats::GetMode()
     return fMode.get();
 }
 
-Sample& ChainStats::GetMean()
+Sample& ChainStatistics::GetMean()
 {
     if (fMean)
         return fMean.get();
@@ -122,7 +125,7 @@ Sample& ChainStats::GetMean()
     return fMean.get();
 }
 
-double ChainStats::GetMedian(size_t paramIndex)
+double ChainStatistics::GetMedian(size_t paramIndex)
 {
     auto mapIt = fMedian.find(paramIndex);
 
@@ -155,7 +158,7 @@ double ChainStats::GetMedian(size_t paramIndex)
     return result;
 }
 
-const Vector& ChainStats::GetVariance()
+const Vector& ChainStatistics::GetVariance()
 {
     if (fVariance)
         return fVariance.get();
@@ -179,7 +182,7 @@ const Vector& ChainStats::GetVariance()
     return fVariance.get();
 }
 
-const Vector& ChainStats::GetError()
+const Vector& ChainStatistics::GetError()
 {
     if (fError)
         return fError.get();
@@ -193,7 +196,7 @@ const Vector& ChainStats::GetError()
     return fError.get();
 }
 
-const Vector& ChainStats::GetRms()
+const Vector& ChainStatistics::GetRms()
 {
     if (fRms)
         return fRms.get();
@@ -218,7 +221,7 @@ const Vector& ChainStats::GetRms()
     return fRms.get();
 }
 
-const MatrixLower& ChainStats::GetCovarianceMatrix()
+const MatrixLower& ChainStatistics::GetCovarianceMatrix()
 {
     if (fCovariance)
         return fCovariance.get();
@@ -251,7 +254,7 @@ const MatrixLower& ChainStats::GetCovarianceMatrix()
     return fCovariance.get();
 }
 
-const MatrixUnitLower& ChainStats::GetCorrelationMatrix()
+const MatrixUnitLower& ChainStatistics::GetCorrelationMatrix()
 {
     if (fCorrelation)
         return fCorrelation.get();
@@ -261,7 +264,7 @@ const MatrixUnitLower& ChainStats::GetCorrelationMatrix()
 
     const size_t nParams = NumberOfParams();
 
-    MatrixUnitLower result = ublas::identity_matrix<double>( nParams );
+    MatrixUnitLower result(nParams, nParams);
 
     if (N > 1) {
 
@@ -277,7 +280,7 @@ const MatrixUnitLower& ChainStats::GetCorrelationMatrix()
     return fCorrelation.get();
 }
 
-const MatrixLower& ChainStats::GetCholeskyDecomposition()
+const MatrixLower& ChainStatistics::GetCholeskyDecomposition()
 {
     if (fCholesky)
         return fCholesky.get();
@@ -304,7 +307,7 @@ const MatrixLower& ChainStats::GetCholeskyDecomposition()
 }
 
 
-const Vector& ChainStats::GetAutoCorrelation(size_t lag)
+const Vector& ChainStatistics::GetAutoCorrelation(size_t lag)
 {
     auto mapIt = fAutoCorrelation.find(lag);
 
@@ -348,7 +351,7 @@ const Vector& ChainStats::GetAutoCorrelation(size_t lag)
     return result;
 }
 
-const Vector& ChainStats::GetAutoCorrelationTime()
+const Vector& ChainStatistics::GetAutoCorrelationTime()
 {
     if (fAutoCorrelationTime)
         return fAutoCorrelationTime.get();
@@ -374,7 +377,7 @@ const Vector& ChainStats::GetAutoCorrelationTime()
     return fAutoCorrelationTime.get();
 }
 
-double ChainStats::GetAccRate()
+double ChainStatistics::GetAccRate()
 {
     if (fAccRate)
         return fAccRate.get();
@@ -399,7 +402,7 @@ double ChainStats::GetAccRate()
     return fAccRate.get();
 }
 
-pair<double, double> ChainStats::GetConfidenceInterval(size_t paramIndex, double centralValue, double level)
+pair<double, double> ChainStatistics::GetConfidenceInterval(size_t paramIndex, double centralValue, double level)
 {
     auto itRange = GetIterators();
     const size_t N = itRange.second - itRange.first;
@@ -462,7 +465,7 @@ pair<double, double> ChainStats::GetConfidenceInterval(size_t paramIndex, double
 }
 
 
-void ChainSetStats::Reset()
+void ChainSetStatistics::Reset()
 {
     for (auto& chainStats : fSingleChainStats)
         chainStats.Reset();
@@ -470,7 +473,7 @@ void ChainSetStats::Reset()
     fRubinGelman.reset();
 }
 
-ChainStats& ChainSetStats::AddChain(const Chain& sampleChain)
+ChainStatistics& ChainSetStatistics::AddChain(const Chain& sampleChain)
 {
     fSingleChainStats.emplace_back( sampleChain );
     fRubinGelman.reset();
@@ -478,27 +481,27 @@ ChainStats& ChainSetStats::AddChain(const Chain& sampleChain)
     return fSingleChainStats.back();
 }
 
-void ChainSetStats::ClearChains()
+void ChainSetStatistics::ClearChains()
 {
     fSingleChainStats.clear();
     Reset();
 }
 
-void ChainSetStats::SelectRange(ptrdiff_t startIndex, ptrdiff_t endIndex)
+void ChainSetStatistics::SelectRange(ptrdiff_t startIndex, ptrdiff_t endIndex)
 {
     for (auto& chainStats : fSingleChainStats)
         chainStats.SelectRange( startIndex, endIndex );
     Reset();
 }
 
-void ChainSetStats::SelectPercentageRange(double start, double end)
+void ChainSetStatistics::SelectPercentageRange(double start, double end)
 {
     for (auto& chainStats : fSingleChainStats)
         chainStats.SelectPercentageRange( start, end );
     Reset();
 }
 
-double ChainSetStats::GetRubinGelman()
+double ChainSetStatistics::GetRubinGelman()
 {
     if (fRubinGelman)
         return fRubinGelman.get();

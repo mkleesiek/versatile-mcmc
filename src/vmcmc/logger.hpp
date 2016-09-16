@@ -1,6 +1,9 @@
 /**
  * @file
  *
+ * @copyright Copyright 2016 Marco Kleesiek.
+ * Released under the GNU Lesser General Public License v3.
+ *
  * @date 25.07.2016
  * @author marco@kleesiek.com
  *
@@ -103,7 +106,7 @@ public:
 
     virtual ~Logger();
 
-    std::mutex& GetMutex() { return fMutex; }
+    std::mutex& GetMutex() { static std::mutex sMutex; return sMutex; }
 
     /**
      * Check whether a certain log-level is enabled.
@@ -155,7 +158,6 @@ public:
 private:
     std::string fName;
     std::ostream* fActiveStream;
-    std::mutex fMutex;
     ELevel fMinLevel;
     bool fColouredOutput;
 };

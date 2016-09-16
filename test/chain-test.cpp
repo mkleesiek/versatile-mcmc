@@ -17,7 +17,7 @@ TEST(Chain, AcceptanceRate)
     Sample testSample( { 0.0, 1.0, 2.0 } );
     Chain testChain;
 
-    ChainStats stats( testChain );
+    ChainStatistics stats( testChain );
 
     testSample.SetAccepted(true);
     testChain.push_back( testSample );

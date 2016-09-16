@@ -1,6 +1,9 @@
 /**
  * @file
  *
+ * @copyright Copyright 2016 Marco Kleesiek.
+ * Released under the GNU Lesser General Public License v3.
+ *
  * @date 29.07.2016
  * @author marco@kleesiek.com
  */
@@ -11,6 +14,8 @@
 #include <vmcmc/io.hpp>
 #include <vmcmc/logger.hpp>
 #include <vmcmc/stringutils.hpp>
+
+#include <boost/numeric/ublas/io.hpp>
 
 #ifdef USE_TBB
 #include <tbb/parallel_for.h>
@@ -63,7 +68,7 @@ void Algorithm::Finalize()
         blocked_range<size_t>(0, nChains),
         [&](const blocked_range<size_t>& range) {
             for (size_t iChain = range.begin(); iChain < range.end(); iChain++) {
-                ChainStats& stats = fStatistics.GetChainStats( iChain );
+                ChainStatistics& stats = fStatistics.GetChainStats( iChain );
                 stats.GetMode();
                 stats.GetVariance();
                 stats.GetAccRate();
@@ -79,7 +84,7 @@ void Algorithm::Finalize()
 
         LOG(Info, "Diagnostics for chain " << iChain << ":");
 
-        ChainStats& stats = fStatistics.GetChainStats( iChain );
+        ChainStatistics& stats = fStatistics.GetChainStats( iChain );
 
         const double accRate = stats.GetAccRate();
         LOG(Info, "  Acceptance Rate: " << accRate);
@@ -114,6 +119,9 @@ void Algorithm::Finalize()
 
         const Vector& acTime = stats.GetAutoCorrelationTime();
         LOG(Info, "  Autocorrelation time: " << acTime);
+
+        const MatrixUnitLower& cor = stats.GetCorrelationMatrix();
+        LOG(Info, "  Correlation matrix: " << cor);
     }
 
     fStatistics.SelectPercentageRange(0.5, 1.0);
@@ -213,7 +221,7 @@ void Algorithm::Run()
 
         Advance(nSteps);
 
-        // output new samples and update length counters
+        // output new samples and update chain length counters
         for (size_t iChain = 0; iChain < nChains; iChain++) {
             const Chain& chain = chainRefs[iChain];
             for (auto& writer : fWriters) {
@@ -237,7 +245,12 @@ void Algorithm::Run()
         }
     }
 
+    // calculate diagnostics
     Finalize();
+
+    // finalize writers
+    for (auto& writer : fWriters)
+        writer->Finalize();
 
     LOG(Info, "MCMC run finished.");
 }

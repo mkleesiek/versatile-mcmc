@@ -1,6 +1,9 @@
 /**
  * @file
  *
+ * @copyright Copyright 2016 Marco Kleesiek.
+ * Released under the GNU Lesser General Public License v3.
+ *
  * @date 03.09.2016
  * @author marco@kleesiek.com
  */

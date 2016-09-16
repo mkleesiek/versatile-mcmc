@@ -24,7 +24,8 @@ In order to allow for a future proof and robust code base with intuitive extensi
 
 #### Next items on my todo list
 - Automatic error control / step size adjustment for the MH algorithm.
-- Real-time plotting (through QCustomPlot, MathGL, VTK or similar).
+- More export / output options.
+- Hamiltonian / self-adjusting sampling algorithms.
 
 ## Supported compilers and operating systems
 Essentially, all C++11 compliant compilers should work.
@@ -37,6 +38,7 @@ Currently the build is being tested on [Travis CI](https://travis-ci.org/mkleesi
   - clang++ 3.9
 - OS X El Capitan (10.11.5)
   - Xcode (clang) 7.3
+  - Xcode (clang) 8.0
 
 ## Prerequisits
 - [Meson build system](http://mesonbuild.com/) with [Ninja](https://ninja-build.org/) as backend
@@ -70,7 +72,7 @@ mesonconf
 - Both meson(.py) and mesonconf(.py) offer decent command-line help if executed with the option --help.
 - To compile the code, execute ninja in the build directory:
 ```
-ninja [-j NTHREADS] [-v]
+ninja [-v]
 ```
 - Install:
 ```

@@ -1,6 +1,9 @@
 /**
  * @file
  *
+ * @copyright Copyright 2016 Marco Kleesiek.
+ * Released under the GNU Lesser General Public License v3.
+ *
  * @date 29.07.2016
  * @author marco@kleesiek.com
  */
@@ -228,7 +231,7 @@ void MetropolisHastings::Finalize()
             // output the individual acceptance rates
             vector<double> accRates(nBetas, 0.0);
             for (size_t b = 0 ; b < nBetas; b++) {
-                ChainStats stats( fChainConfigs[i]->fPtChains[b] );
+                ChainStatistics stats( fChainConfigs[i]->fPtChains[b] );
                 accRates[b] = stats.GetAccRate();
             }
             LOG(Info, "Metrop. acc. rates in chain set " << i << ": " << accRates);

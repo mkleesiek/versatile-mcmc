@@ -1,10 +1,7 @@
 # build shared library
-
 subdir('vmcmc')
 
-
 # prepare and build executables
-
 vmcmc_apps = [
     'vmcmc-example'
 ]
