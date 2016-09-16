@@ -1,6 +1,9 @@
 /**
  * @file
  *
+ * @copyright Copyright 2016 Marco Kleesiek.
+ * Released under the GNU Lesser General Public License v3.
+ *
  * @date 24.08.2016
  * @author marco@kleesiek.com
  *
@@ -12,16 +15,19 @@
 #define VMCMC_IO_H_
 
 #include <vmcmc/chain.hpp>
+#include <vmcmc/parameter.hpp>
 
 #include <string>
 #include <fstream>
-#include <vector>
 #include <memory>
+#include <vector>
+#include <deque>
+#include <chrono>
+
+class Gnuplot;
 
 namespace vmcmc
 {
-
-class ParameterConfig;
 
 /**
  * Abstract base class for mechanisms writing output files or producing
@@ -36,10 +42,8 @@ public:
     virtual ~Writer() { };
 
     virtual void Initialize(size_t /*numberOfChains*/, const ParameterConfig& /*paramConfig*/) { }
-
-    virtual void Write(size_t chainIndex, const Sample& sample) = 0;
-
-    void Write(size_t chainIndex, const Chain& chain, size_t startIndex = 0);
+    virtual void Write(size_t chainIndex, const Chain& chain, size_t startIndex) = 0;
+    virtual void Finalize() { }
 
 protected:
     size_t fCurrentIndex = 0;
@@ -55,6 +59,8 @@ public:
         const std::string& nameSeparator = "-", const std::string& extension = ".txt");
     virtual ~TextFileWriter();
 
+    void SetFileNameScheme(const std::string& directory, const std::string& stem,
+        const std::string& nameSeparator = "-", const std::string& extension = ".txt");
     void SetPrecision(int prec) { fPrecision = prec; }
     void SetCombineChains(bool combine) { fCombineChains = combine; }
     void SetColumnSeparator(const std::string& sep) { fColSep = sep; }
@@ -62,11 +68,10 @@ public:
     std::string GetFilePath(int chainIndex = -1) const;
 
     virtual void Initialize(size_t numberOfChains, const ParameterConfig& paramConfig) override;
-    virtual void Write(size_t chainIndex, const Sample& sample) override;
+    virtual void Write(size_t chainIndex, const Chain& chain, size_t startIndex) override;
 
 private:
     TextFileWriter(const TextFileWriter& other);
-    void WriteFile(int streamIndex, const Sample& sample);
 
     std::string fDirectory;
     std::string fStem;
@@ -79,18 +84,37 @@ private:
     std::vector<std::unique_ptr<std::ofstream>> fFileStreams;
 };
 
-//class QCPlotWriter: public Writer
-//{
-//public:
-//    QCPlotWriter();
-//    virtual ~QCPlotWriter();
-//
-//    virtual void Initialize(size_t numberOfChains, const ParameterConfig& paramConfig) override;
-//    virtual void Write(size_t chainIndex, const Sample& sample) override;
-//
-//private:
-////    std::unique_ptr<plstream> fPpStream;
-//};
+/**
+ * Near-time graphic visualization of each chain's evolution.
+ *
+ * HIGHLY EXPERIMENTAL.
+ */
+class GnuplotWriter: public Writer
+{
+public:
+    GnuplotWriter();
+    virtual ~GnuplotWriter();
+
+    virtual void Initialize(size_t numberOfChains, const ParameterConfig& paramConfig) override;
+    virtual void Write(size_t chainIndex, const Chain& chain, size_t startIndex) override;
+    virtual void Finalize() override;
+
+protected:
+    void Replot(bool force = false);
+
+private:
+    ParameterConfig fParameterConfig;
+    size_t fNumberOfChains = 0;
+
+    std::vector<std::unique_ptr<Gnuplot>> fGnuplotWindows;
+
+    std::vector<std::deque<double>> fGenerationBuffers;
+    std::vector<std::vector<std::deque<double>>> fValueBuffers;
+    size_t fMaxBufferSize = 300;
+
+    size_t fRefreshRateInMs = 5000;
+    std::chrono::time_point<std::chrono::system_clock, std::chrono::milliseconds> fLastPlotTime;
+};
 
 } /* namespace vmcmc */
 

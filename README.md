@@ -24,7 +24,8 @@ In order to allow for a future proof and robust code base with intuitive extensi
 
 #### Next items on my todo list
 - Automatic error control / step size adjustment for the MH algorithm.
-- Real-time plotting (through QCustomPlot, MathGL, VTK or similar).
+- More export / output options.
+- Hamiltonian / self-adjusting sampling algorithms.
 
 ## Supported compilers and operating systems
 Essentially, all C++11 compliant compilers should work.
@@ -71,7 +72,7 @@ mesonconf
 - Both meson(.py) and mesonconf(.py) offer decent command-line help if executed with the option --help.
 - To compile the code, execute ninja in the build directory:
 ```
-ninja [-j NTHREADS] [-v]
+ninja [-v]
 ```
 - Install:
 ```
@@ -88,5 +89,5 @@ ninja doc
 
 ## Getting Started
 
-See the example in src/vmcmc-example.cpp on how to invoke a Metropolis-Hastings
+See the example in [src/vmcmc-example.cpp](src/vmcmc-example.cpp) on how to invoke a Metropolis-Hastings
 sampler on a custom likelihood function and write the sampled points to text files.

@@ -1,6 +1,9 @@
 /**
  * @file
  *
+ * @copyright Copyright 2016 Marco Kleesiek.
+ * Released under the GNU Lesser General Public License v3.
+ *
  * @date 24.07.2016
  * @author marco@kleesiek.com
  *
@@ -69,10 +72,13 @@ int main(int /*argc*/, char* /*argv*/[]){
     mcmc.SetProposalFunction<ProposalNormal>();
 
     // set the total number of steps per chain
-    mcmc.SetTotalLength(1E6);
+    mcmc.SetTotalLength(1E5);
 
-    // define the output method
+    // define the output methods
     mcmc.AddWriter<TextFileWriter>(".", "vmcmc-example");
+
+    // highly experimential chain visualization
+//    mcmc.AddWriter<GnuplotWriter>();
 
     LOG(Info, "Start sampling ...");
 

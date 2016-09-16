@@ -1,6 +1,9 @@
 /**
  * @file
  *
+ * @copyright Copyright 2016 Marco Kleesiek.
+ * Released under the GNU Lesser General Public License v3.
+ *
  * @date 09.09.2016
  * @author marco@kleesiek.com
  *
@@ -30,10 +33,10 @@ using Chain = std::deque<Sample>;
  * by calling Reset() or re-adjusting the selected window of the chain with
  * SelectRange().
  */
-class ChainStats
+class ChainStatistics
 {
 public:
-    ChainStats(const Chain& sampleChain);
+    ChainStatistics(const Chain& sampleChain);
 
     const Chain& GetChain() const { return fSampleChain; }
 
@@ -89,16 +92,16 @@ private:
 };
 
 /**
- * Manages a list of ChainStats and calculates statistical properties
- * concerning sets of individual chains.
+ * Manages a list of ChainStatistics and calculates statistical properties
+ * regarding sets of individual chains.
  */
-class ChainSetStats
+class ChainSetStatistics
 {
 public:
-    const std::vector<ChainStats>& GetListOfChainStats() const { return fSingleChainStats; }
+    const std::vector<ChainStatistics>& GetListOfChainStats() const { return fSingleChainStats; }
 
-    ChainStats& AddChain(const Chain& sampleChain);
-    ChainStats& GetChainStats(size_t index) { return fSingleChainStats[index]; }
+    ChainStatistics& AddChain(const Chain& sampleChain);
+    ChainStatistics& GetChainStats(size_t index) { return fSingleChainStats[index]; }
     size_t Size() const { return fSingleChainStats.size(); }
     void ClearChains();
 
@@ -110,12 +113,12 @@ public:
     double GetRubinGelman();
 
 private:
-    std::vector<ChainStats> fSingleChainStats;
+    std::vector<ChainStatistics> fSingleChainStats;
 
     boost::optional<double> fRubinGelman;
 };
 
-inline size_t ChainStats::NumberOfParams() const
+inline size_t ChainStatistics::NumberOfParams() const
 {
     return (fSampleChain.empty()) ? 0 : fSampleChain.front().Values().size();
 }

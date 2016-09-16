@@ -1,6 +1,6 @@
 project('versatile-mcmc', 'cpp',
   version : '0.1.7',
-  license : 'GNU GPL v3' ,
+  license : 'GNU LGPL v3' ,
   default_options : ['cpp_std=c++11'],
   meson_version : '>=0.25.0' )
 
@@ -31,12 +31,10 @@ if not tls_support
 endif
 
 # resolve external dependencies
-boost_dep  = dependency('boost', version : '>=1.45.0', modules : ['accumulators'])
-tbb_dep    = dependency('tbb', required : false)
-plot_dep   = dependency('qcustomplot', required : false)
-gtest_dep  = dependency('gtest', main : true, required : false)
-doxygen    = find_program('doxygen', required : false)
-
+boost_dep   = dependency('boost', version : '>=1.45.0', modules : ['accumulators'])
+tbb_dep     = dependency('tbb', required : false)
+gtest_dep   = dependency('gtest', main : true, required : false)
+doxygen     = find_program('doxygen', required : false)
 
 # extract some build options
 buildtype = get_option('buildtype')
@@ -56,16 +54,13 @@ if tbb_dep.found() and get_option('use_tbb')
     add_global_arguments('-DUSE_TBB', language : 'cpp')
 endif
 
-if plot_dep.found() and get_option('use_plot')
-    add_global_arguments('-DUSE_PLOT', language : 'cpp')
-endif
-
 if not buildtype.startswith('debug')
     add_global_arguments('-DNDEBUG', language : 'cpp')
 endif
 
+
 # define include directories
-vmcmc_inc = include_directories('src')
+vmcmc_inc = include_directories('src', 'subprojects/gnuplot-cpp')
 
 
 # subdirectories

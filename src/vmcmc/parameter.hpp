@@ -1,6 +1,9 @@
 /**
  * @file
  *
+ * @copyright Copyright 2016 Marco Kleesiek.
+ * Released under the GNU Lesser General Public License v3.
+ *
  * @date 26.07.2016
  * @author marco@kleesiek.com
  *
@@ -116,7 +119,9 @@ public:
     void SetParameter(size_t pIndex, const std::string& name, double startValue,
         double absoluteError, boost::optional<double> lowerLimit = boost::none,
         boost::optional<double> upperLimit = boost::none, bool fixed = false);
-//    const Parameter& GetParameter(size_t pIndex) const { return fParameters[pIndex]; }
+
+    Parameter& GetParameter(size_t pIndex) { return fParameters[pIndex]; }
+    const Parameter& GetParameter(size_t pIndex) const { return fParameters[pIndex]; }
 
     size_t size() const { return fParameters.size(); }
     Parameter& operator[](size_t pIndex) { return fParameters[pIndex]; }
