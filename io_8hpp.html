@@ -95,20 +95,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>IO classes for writing MCMC samples to files (and reading back from) or visual output.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;<a class="el" href="chain_8hpp_source.html">vmcmc/chain.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="parameter_8hpp_source.html">vmcmc/parameter.hpp</a>&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;fstream&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;deque&gt;</code><br />
+<code>#include &lt;chrono&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for io.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="io_8hpp__incl.png" border="0" usemap="#vmcmc_2io_8hpp" alt=""/></div>
 <map name="vmcmc_2io_8hpp" id="vmcmc_2io_8hpp">
-<area shape="rect" id="node2" href="chain_8hpp.html" title="Utility classes for calculation statistical momenta and diagnostics. " alt="" coords="1291,80,1416,107"/>
-<area shape="rect" id="node3" href="blas_8hpp.html" title="BLAS (Basic Linear Algebra Subprograms) utility functions. " alt="" coords="797,229,915,256"/>
-<area shape="rect" id="node16" href="sample_8hpp.html" title="Contains the Sample class definition for data sampled from the target parameter space. " alt="" coords="1056,155,1192,181"/>
-<area shape="rect" id="node4" href="logger_8hpp.html" title="Class definitions and MACROs for logging purposes. " alt="" coords="71,311,201,338"/>
-<area shape="rect" id="node17" href="numeric_8hpp.html" title="Numeric utility functions. " alt="" coords="1361,229,1501,256"/>
+<area shape="rect" id="node2" href="chain_8hpp.html" title="Utility classes for calculation statistical momenta and diagnostics. " alt="" coords="768,80,893,107"/>
+<area shape="rect" id="node26" href="parameter_8hpp.html" title="Class definitions representing input parameter configurations. " alt="" coords="424,80,576,107"/>
+<area shape="rect" id="node3" href="blas_8hpp.html" title="BLAS (Basic Linear Algebra Subprograms) utility functions. " alt="" coords="593,229,711,256"/>
+<area shape="rect" id="node16" href="sample_8hpp.html" title="Contains the Sample class definition for data sampled from the target parameter space. " alt="" coords="689,155,825,181"/>
+<area shape="rect" id="node4" href="logger_8hpp.html" title="Class definitions and MACROs for logging purposes. " alt="" coords="257,311,386,338"/>
+<area shape="rect" id="node17" href="numeric_8hpp.html" title="Numeric utility functions. " alt="" coords="1423,229,1563,256"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -132,11 +136,13 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1TextFileWriter.html">vmcmc::TextFileWriter</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A writer streaming incoming samples to textfiles.  <a href="classvmcmc_1_1TextFileWriter.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1QCPlotWriter.html">vmcmc::QCPlotWriter</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1GnuplotWriter.html">vmcmc::GnuplotWriter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Near-time graphic visualization of each chain's evolution.  <a href="classvmcmc_1_1GnuplotWriter.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>IO classes for writing MCMC samples to files (and reading back from) or visual output. </p>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright 2016 Marco Kleesiek. Released under the GNU Lesser General Public License v3.</dd></dl>
 <dl class="section date"><dt>Date</dt><dd>24.08.2016 </dd></dl>
 <dl class="section author"><dt>Author</dt><dd><a href="#" onclick="location.href='mai'+'lto:'+'mar'+'co'+'@kl'+'ee'+'sie'+'k.'+'com'; return false;">marco<span style="display: none;">.nosp@m.</span>@kle<span style="display: none;">.nosp@m.</span>esiek<span style="display: none;">.nosp@m.</span>.com</a> </dd></dl>
 </div></div><!-- contents -->

@@ -87,7 +87,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>In order to allow for a future proof and robust code base with intuitive extensibility and good integrability of the library into existing C++ projects, I'd like to meet the following design criteria:</p><ul>
 <li>Limited use of 3rd party libraries for better <b>maintainability</b> and control of dependencies.<ul>
 <li>The only mandatory requirement for now are the <a href="http://www.boost.org/">Boost C++ libraries</a>. Most of them are peer-reviewed, well documented and follow decent style guidelines. Especially the numeric, linear algebra and statistical utilities are extremely helpful in the start of this project.</li>
-<li>Although popular among scientists, I have ruled out to interface with <a href="https://root.cern.ch">ROOT</a> directly. Its API is cluttered, the code style heavily disputed and linux installation packages are not reliably maintained.</li>
+<li>Although popular among nature scientists, I have ruled out to interface with <a href="https://root.cern.ch">ROOT</a>. It is a huge dependency bringing a whole data analysis ecosystem along with it. Also, its API holds a rather questionable standing in terms of style and consistency.</li>
 </ul>
 </li>
 <li>Modern <b>object-oriented C++11</b> style with dashes of functional programming and templating magic where justifiable.</li>
@@ -99,12 +99,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>Build system, unit testing and continuous integration set up.</li>
 <li>Numeric + logging utilities and random number generator interfaces implemented.</li>
 <li>Basic classes and interfaces for proposal functions and samplers declared.</li>
-<li>First running example for a simple Metropolis-Hastings (MH) algorithm. <h3>Next items on my todo list</h3>
-</li>
+<li>First running example for a simple Metropolis-Hastings (MH) algorithm.</li>
 </ul>
+<h4>Next items on my todo list</h4>
 <ul>
 <li>Automatic error control / step size adjustment for the MH algorithm.</li>
-<li>Real-time plotting (through QCustomPlot, MathGL, VTK or similar).</li>
+<li>More export / output options.</li>
+<li>Hamiltonian / self-adjusting sampling algorithms.</li>
 </ul>
 <h2>Supported compilers and operating systems</h2>
 <p>Essentially, all C++11 compliant compilers should work. Currently the build is being tested on <a href="https://travis-ci.org/mkleesiek/versatile-mcmc">Travis CI</a> using the following OS/compiler combinations:</p><ul>
@@ -118,6 +119,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>OS X El Capitan (10.11.5)<ul>
 <li>Xcode (clang) 7.3</li>
+<li>Xcode (clang) 8.0</li>
 </ul>
 </li>
 </ul>
@@ -137,13 +139,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>Setup meson in an out-of-source build directory (e.g. a subdirectory in the source root): <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;cd versatile-mcmc</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;mkdir build</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;cd build</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;meson .. [--prefix=/install/dir] [--buildtype=(plain|debug|debugoptimized|release)]</div></div><!-- fragment --></li>
 <li>Use mesonconf to revise or modify your configuration: <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;mesonconf</div></div><!-- fragment --></li>
 <li>Both meson(.py) and mesonconf(.py) offer decent command-line help if executed with the option &ndash;help.</li>
-<li>To compile the code, execute ninja in the build directory: <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ninja [-j NTHREADS] [-v]</div></div><!-- fragment --></li>
+<li>To compile the code, execute ninja in the build directory: <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ninja [-v]</div></div><!-- fragment --></li>
 <li>Install: <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ninja install</div></div><!-- fragment --></li>
 <li>Run unit tests: <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ninja test</div></div><!-- fragment --></li>
 <li>Generate source documentation (requires doxygen): <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ninja doc</div></div><!-- fragment --></li>
 </ul>
 <h2>Getting Started</h2>
-<p>See the example in <a class="el" href="vmcmc-example_8cpp.html" title="Metropolis-Hastings usage example. ">src/vmcmc-example.cpp</a> on how to invoke a Metropolis-Hastings sampler on a custom likelihood function and write the sampled points to text files. </p>
+<p>See the example in <a href="src/vmcmc-example.cpp">src/vmcmc-example.cpp</a> on how to invoke a Metropolis-Hastings sampler on a custom likelihood function and write the sampled points to text files. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

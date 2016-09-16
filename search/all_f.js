@@ -1,9 +1,15 @@
 var searchData=
 [
-  ['random',['Random',['../random_8hpp.html#ad83e98f643e1cd09130a48185b24b4cb',1,'vmcmc']]],
-  ['random_2ehpp',['random.hpp',['../random_8hpp.html',1,'']]],
-  ['randomprototype',['RandomPrototype',['../classvmcmc_1_1RandomPrototype.html',1,'vmcmc']]],
-  ['reflectfromlimits',['ReflectFromLimits',['../classvmcmc_1_1Parameter.html#a35a16c414336fa69cb8028c9d450a5d2',1,'vmcmc::Parameter::ReflectFromLimits()'],['../classvmcmc_1_1ParameterConfig.html#a37ee09b39b66eef4dbb64881ada8068b',1,'vmcmc::ParameterConfig::ReflectFromLimits()']]],
-  ['reset',['Reset',['../classvmcmc_1_1Sample.html#ac1453cb10869a6b503baeeecd2a11dd2',1,'vmcmc::Sample']]],
-  ['run',['Run',['../classvmcmc_1_1Algorithm.html#a5127d6c21fc23581b55117390dc589c5',1,'vmcmc::Algorithm']]]
+  ['sample',['Sample',['../classvmcmc_1_1Sample.html',1,'vmcmc']]],
+  ['sample_2ehpp',['sample.hpp',['../sample_8hpp.html',1,'']]],
+  ['seed',['Seed',['../classvmcmc_1_1RandomPrototype.html#aed1be679ef3b5e56a17630bc7103070c',1,'vmcmc::RandomPrototype']]],
+  ['setcoloured',['SetColoured',['../classvmcmc_1_1Logger.html#a935ff32572c14d1d3ad004f0ce33784a',1,'vmcmc::Logger']]],
+  ['setcorrelationmatrix',['SetCorrelationMatrix',['../classvmcmc_1_1ParameterConfig.html#ad3a075f644e2c8970389fd4d55f70724',1,'vmcmc::ParameterConfig']]],
+  ['seterrorscaling',['SetErrorScaling',['../classvmcmc_1_1ParameterConfig.html#ab6e955c869bd0bac2848a1167e729df0',1,'vmcmc::ParameterConfig']]],
+  ['setlevel',['SetLevel',['../classvmcmc_1_1Logger.html#ab405437a0eac6dbbad243cdaaa94b5fe',1,'vmcmc::Logger']]],
+  ['setparameterconfig',['SetParameterConfig',['../classvmcmc_1_1Algorithm.html#ab8bbbf66bcdca0ea3ec3e5d2df5f7e6c',1,'vmcmc::Algorithm']]],
+  ['setrelativeerror',['SetRelativeError',['../classvmcmc_1_1Parameter.html#a4511d3df204e0d62531c356ff95b1b78',1,'vmcmc::Parameter']]],
+  ['startmessage',['StartMessage',['../classvmcmc_1_1Logger.html#a259b5bd1a7c081b8768f9924e7a6bc9e',1,'vmcmc::Logger']]],
+  ['stringutils_2ecpp',['stringutils.cpp',['../stringutils_8cpp.html',1,'']]],
+  ['stringutils_2ehpp',['stringutils.hpp',['../stringutils_8hpp.html',1,'']]]
 ];

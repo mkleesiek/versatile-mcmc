@@ -1,4 +1,4 @@
 <map id="vmcmc::Algorithm" name="vmcmc::Algorithm">
-<area shape="rect" id="node2" href="$classvmcmc_1_1ChainSetStats.html" title="Manages a list of ChainStats and calculates statistical properties concerning sets of individual chai..." alt="" coords="5,5,164,32"/>
-<area shape="rect" id="node3" href="$classvmcmc_1_1ParameterConfig.html" title="A list of parameters, describing the parameter space of the target function to be evaluated..." alt="" coords="189,5,359,32"/>
+<area shape="rect" id="node2" href="$classvmcmc_1_1ChainSetStatistics.html" title="Manages a list of ChainStatistics and calculates statistical properties regarding sets of individual ..." alt="" coords="5,5,188,32"/>
+<area shape="rect" id="node3" href="$classvmcmc_1_1ParameterConfig.html" title="A list of parameters, describing the parameter space of the target function to be evaluated..." alt="" coords="213,5,383,32"/>
 </map>

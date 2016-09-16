@@ -121,6 +121,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acea292e1cd4fd79acb45e857efe885dd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acea292e1cd4fd79acb45e857efe885dd"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>TextFileWriter</b> (const std::string &amp;directory=&quot;&quot;, const std::string &amp;stem=&quot;vmcmc&quot;, const std::string &amp;nameSeparator=&quot;-&quot;, const std::string &amp;extension=&quot;.txt&quot;)</td></tr>
 <tr class="separator:acea292e1cd4fd79acb45e857efe885dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c9eb2b06f34c476f9efce07bc77b195"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8c9eb2b06f34c476f9efce07bc77b195"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetFileNameScheme</b> (const std::string &amp;directory, const std::string &amp;stem, const std::string &amp;nameSeparator=&quot;-&quot;, const std::string &amp;extension=&quot;.txt&quot;)</td></tr>
+<tr class="separator:a8c9eb2b06f34c476f9efce07bc77b195"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32874ba0023d93e8551a6d0703489e2e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a32874ba0023d93e8551a6d0703489e2e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetPrecision</b> (int prec)</td></tr>
 <tr class="separator:a32874ba0023d93e8551a6d0703489e2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,13 +139,13 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetFilePath</b
 <tr class="memitem:a3f7933a41c1f11d9fa231f0548ecce19"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3f7933a41c1f11d9fa231f0548ecce19"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Initialize</b> (size_t numberOfChains, const <a class="el" href="classvmcmc_1_1ParameterConfig.html">ParameterConfig</a> &amp;paramConfig) override</td></tr>
 <tr class="separator:a3f7933a41c1f11d9fa231f0548ecce19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aacb53d3977ef46b2d383c2caac76780f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aacb53d3977ef46b2d383c2caac76780f"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Write</b> (size_t chainIndex, const <a class="el" href="classvmcmc_1_1Sample.html">Sample</a> &amp;sample) override</td></tr>
-<tr class="separator:aacb53d3977ef46b2d383c2caac76780f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad395c8fde4a04be764874bb3fa4b15b6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad395c8fde4a04be764874bb3fa4b15b6"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Write</b> (size_t chainIndex, const Chain &amp;chain, size_t startIndex) override</td></tr>
+<tr class="separator:ad395c8fde4a04be764874bb3fa4b15b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classvmcmc_1_1Writer"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classvmcmc_1_1Writer')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classvmcmc_1_1Writer.html">vmcmc::Writer</a></td></tr>
-<tr class="memitem:aea60b9c34f508dd6b047cd066390678d inherit pub_methods_classvmcmc_1_1Writer"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aea60b9c34f508dd6b047cd066390678d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Write</b> (size_t chainIndex, const Chain &amp;chain, size_t startIndex=0)</td></tr>
-<tr class="separator:aea60b9c34f508dd6b047cd066390678d inherit pub_methods_classvmcmc_1_1Writer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb95fd1b963a7d5f0ab75063b5c67795 inherit pub_methods_classvmcmc_1_1Writer"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abb95fd1b963a7d5f0ab75063b5c67795"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Finalize</b> ()</td></tr>
+<tr class="separator:abb95fd1b963a7d5f0ab75063b5c67795 inherit pub_methods_classvmcmc_1_1Writer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
