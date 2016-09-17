@@ -26,6 +26,9 @@ In order to allow for a future proof and robust code base with intuitive extensi
 - Automatic error control / step size adjustment for the MH algorithm.
 - More export / output options.
 - Hamiltonian / self-adjusting sampling algorithms.
+- Real-time visualization of chain evolutions might be neat:
+
+<a href="https://github.com/mkleesiek/versatile-mcmc/blob/master/doc/screenshots/wxt-1.png" target="_blank" class="rich-diff-level-one"><img src="https://github.com/mkleesiek/versatile-mcmc/raw/master/doc/screenshots/wxt-1.png" alt="Real-time chain evolution on Gnuplot" width="300px" style="display:inline-block;"></a><a href="https://github.com/mkleesiek/versatile-mcmc/blob/master/doc/screenshots/wxt-2.png" target="_blank" class="rich-diff-level-one"><img src="https://github.com/mkleesiek/versatile-mcmc/raw/master/doc/screenshots/wxt-2.png" alt="Real-time chain evolution on Gnuplot" width="300px" style="display:inline-block;"></a>
 
 ## Supported compilers and operating systems
 Essentially, all C++11 compliant compilers should work.
