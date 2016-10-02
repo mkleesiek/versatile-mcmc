@@ -84,38 +84,6 @@ private:
     std::vector<std::unique_ptr<std::ofstream>> fFileStreams;
 };
 
-/**
- * Near-time graphic visualization of each chain's evolution.
- *
- * HIGHLY EXPERIMENTAL.
- */
-class GnuplotWriter: public Writer
-{
-public:
-    GnuplotWriter();
-    virtual ~GnuplotWriter();
-
-    virtual void Initialize(size_t numberOfChains, const ParameterConfig& paramConfig) override;
-    virtual void Write(size_t chainIndex, const Chain& chain, size_t startIndex) override;
-    virtual void Finalize() override;
-
-protected:
-    void Replot(bool force = false);
-
-private:
-    ParameterConfig fParameterConfig;
-    size_t fNumberOfChains = 0;
-
-    std::vector<std::unique_ptr<Gnuplot>> fGnuplotWindows;
-
-    std::vector<std::deque<double>> fGenerationBuffers;
-    std::vector<std::vector<std::deque<double>>> fValueBuffers;
-    size_t fMaxBufferSize = 300;
-
-    size_t fRefreshRateInMs = 5000;
-    std::chrono::time_point<std::chrono::system_clock, std::chrono::milliseconds> fLastPlotTime;
-};
-
 } /* namespace vmcmc */
 
 #endif /* VMCMC_IO_H_ */

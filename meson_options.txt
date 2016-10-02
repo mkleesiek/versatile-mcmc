@@ -1,2 +1,3 @@
 option('use_tbb', type : 'boolean', value : true, description : 'Use multi-core parallelization (requries libtbb-dev).')
+option('use_gui', type : 'boolean', value : true, description : 'Use imgui for real-time visualization.')
 option('build_tests', type : 'boolean', value : true, description : 'Build unit tests (requries libgtest-dev).')

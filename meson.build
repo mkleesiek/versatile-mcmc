@@ -36,6 +36,7 @@ tbb_dep     = dependency('tbb', required : false)
 gtest_dep   = dependency('gtest', main : true, required : false)
 doxygen     = find_program('doxygen', required : false)
 
+
 # extract some build options
 buildtype = get_option('buildtype')
 prefix    = get_option('prefix')
@@ -59,8 +60,14 @@ if not buildtype.startswith('debug')
 endif
 
 
+# subprojects
+if get_option('use_gui')
+    subproject('imgui')
+endif
+
+
 # define include directories
-vmcmc_inc = include_directories('src', 'subprojects/gnuplot-cpp')
+vmcmc_inc = include_directories('src')
 
 
 # subdirectories
