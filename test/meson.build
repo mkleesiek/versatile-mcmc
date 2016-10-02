@@ -7,9 +7,10 @@ vmcmc_tests = [
     'metropolis-test',
     'numeric-test',
     'parameter-test',
-#    'prior-test',
     'proposal-test',
-    'random-test'
+    'random-test',
+    'stringutils-test',
+    'typetraits-test'
 ]
 
 foreach p : vmcmc_tests

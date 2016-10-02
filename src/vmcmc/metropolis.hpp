@@ -70,7 +70,16 @@ public:
     void SetRandomizeStartPoint(bool randomizeStartPoint) { fRandomizeStartPoint = randomizeStartPoint; }
     bool IsRandomizeStartPoint() const { return fRandomizeStartPoint; }
 
-    double GetSwapAcceptanceRate(size_t iChain) const;
+    void SetMultiThreading(bool enable);
+    bool IsMultiThreading() const { return fMultiThreading; }
+
+    /**
+     * Get the fraction of accepted swaps between tempered chains.
+     * @param iChain Index of the chain set.
+     * @param iBeta Index of the tempered chain pair. If < 0, average over all pairs.
+     * @return
+     */
+    double GetSwapAcceptanceRate(size_t iChain, ptrdiff_t iBeta = -1) const;
 
 protected:
     void AdvanceChainConfig(size_t iChainConfig, size_t iBeta, size_t nSteps = 1);
@@ -85,6 +94,9 @@ protected:
 
     struct ChainConfig;
     std::vector<std::unique_ptr<ChainConfig>> fChainConfigs;
+
+private:
+    bool fMultiThreading;
 };
 
 template<class ProposalT, class... ArgsT>
@@ -103,7 +115,7 @@ inline void MetropolisHastings::SetBetas(ContainerT betas)
 
     // only add betas < 1.0 (higher temperature)
     std::copy_if( betas.begin(), betas.end(),
-        std::back_inserter(fBetas), [](double beta){ return beta < 1.0; } );
+        std::back_inserter(fBetas), [](double beta){ return beta < 1.0 && beta > 0.0; } );
 
     // and sort in descending order
     std::sort(fBetas.begin(), fBetas.end(), std::greater<double>());

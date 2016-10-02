@@ -112,7 +112,7 @@ private:
     std::vector<std::vector<std::deque<double>>> fValueBuffers;
     size_t fMaxBufferSize = 300;
 
-    size_t fRefreshRateInMs = 5000;
+    int fRefreshRateInMs = 5000;
     std::chrono::time_point<std::chrono::system_clock, std::chrono::milliseconds> fLastPlotTime;
 };
 

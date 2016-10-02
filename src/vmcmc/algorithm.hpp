@@ -113,6 +113,9 @@ public:
     virtual size_t NumberOfChains() = 0;
     virtual const Chain& GetChain(size_t cIndex = 0) = 0;
 
+    ChainSetStatistics& GetStatistics() { return fStatistics; }
+    const ChainSetStatistics& GetStatistics() const { return fStatistics; }
+
 protected:
     ParameterConfig fParameterConfig;
     std::function<double (const std::vector<double>&)> fPrior;

@@ -1,9 +1,11 @@
 /**
- * @file chain_test.cpp
+ * @file
+ *
+ * @copyright Copyright 2016 Marco Kleesiek.
+ * Released under the GNU Lesser General Public License v3.
  *
  * @date 09.09.2016
  * @author marco@kleesiek.com
- * @description
  */
 
 #include <vmcmc/chain.hpp>
