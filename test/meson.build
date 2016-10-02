@@ -1,6 +1,7 @@
 vmcmc_tests = [
     'blas-test',
     'chain-test',
+    'exception-test',
     'io-test',
     'logger-test',
     'math-test',
