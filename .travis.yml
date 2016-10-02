@@ -9,7 +9,7 @@ matrix:
       compiler: gcc
       addons:
         apt:
-          packages: ['libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev']
+          packages: ['libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev', 'libglfw3-dev']
       env: COMPILER=g++
 
     - os: linux
@@ -19,7 +19,7 @@ matrix:
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test']
-          packages: ['g++-5', 'gcc-5', 'libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev']
+          packages: ['g++-5', 'gcc-5', 'libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev', 'libglfw3-dev']
       env: COMPILER=g++-5
 
     - os: linux
@@ -29,7 +29,7 @@ matrix:
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test']
-          packages: ['g++-6', 'libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev']
+          packages: ['g++-6', 'libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev', 'libglfw3-dev']
       env: COMPILER=g++-6
 
     - os: linux
@@ -38,7 +38,7 @@ matrix:
       compiler: clang
       addons:
         apt:
-          packages: ['libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev']
+          packages: ['libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev', 'libglfw3-dev']
       env: COMPILER=clang++
 
     - os: linux
@@ -51,7 +51,7 @@ matrix:
           - ubuntu-toolchain-r-test
           - sourceline: deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.9 main
             key_url: http://apt.llvm.org/llvm-snapshot.gpg.key
-          packages: ['clang-3.9', 'libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev']
+          packages: ['clang-3.9', 'libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev', 'libglfw3-dev']
       env: COMPILER=clang++-3.9
 
     - os: osx
@@ -69,7 +69,7 @@ matrix:
 
 before_script:
   # install OSX packages
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew tap homebrew/versions && brew update && brew install tbb doxygen python3; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew tap homebrew/versions && brew update && brew install tbb doxygen python3 glfw3; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export BOOST_ROOT=/usr/local/Cellar/boost/1.60.0_2; fi
   # modify PATH
   - mkdir ~/bin && export PATH=$PATH:~/Library/Python/3.5/bin:~/bin
