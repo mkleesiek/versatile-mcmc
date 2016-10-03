@@ -88,3 +88,6 @@ script:
   - ninja -v
   # build and execute unit tests
   - ninja test
+    
+after_success:
+  - if [[ "$COMPILER" == "g++-6" ]]; then bash <(curl -s https://codecov.io/bash); fi

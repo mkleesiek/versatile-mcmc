@@ -18,11 +18,11 @@
 using namespace std;
 using namespace vmcmc;
 
-TEST(BLAS, CholeskyDecomposition) {
-
+TEST(BLAS, CholeskyDecomposition)
+{
     constexpr size_t N = 5;
 
-    ublas::triangular_matrix<double> cov(N, N);
+    MatrixLower cov(N, N);
     for (size_t i = 0; i < N; ++i) {
         for (size_t j = 0; j < N; ++j) {
             if (i == j)
@@ -55,4 +55,19 @@ TEST(BLAS, CholeskyDecomposition) {
                 << "Cholesky decomposition seems faulty for element(" << i << ", " << j << ").";
         }
     }
+
+    cov(3, 2) = -9.5;
+    ASSERT_EQ( 4, choleskyDecompose(cov, cholesky) ) << "Cholesky decomposition should have failed.";
+}
+
+TEST(BLAS, Vector)
+{
+    Vector v1( {0.0, 1.0, 2.0} );
+    Vector v2 = v1;
+
+    ASSERT_TRUE( v1 == v2 );
+
+    v2 *= 2.0;
+
+    ASSERT_TRUE( v1 != v2 );
 }

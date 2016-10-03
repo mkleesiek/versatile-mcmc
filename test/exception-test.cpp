@@ -10,6 +10,7 @@
 
 #include <vmcmc/exception.hpp>
 #include <gtest/gtest.h>
+#include <iostream>
 
 using namespace std;
 using namespace vmcmc;
@@ -37,4 +38,27 @@ TEST(Exception, Nest)
     catch (const Exception& e) {
         ASSERT_STREQ( "outer message [inner message]", e.what() );
     }
+}
+
+TEST(Exception, Copy)
+{
+    Exception e1;
+    e1 << "someMessage";
+    e1.Nest( Exception() << "innerMessage" );
+
+    Exception e2 = e1;
+
+    ASSERT_STREQ( e1.what(), e2.what() );
+}
+
+TEST(Exception, Stream)
+{
+    Exception e1;
+    e1 << "someMessage";
+    e1.Nest( Exception() << "innerMessage" );
+
+    ostringstream strm;
+    strm << e1;
+
+    ASSERT_EQ( "someMessage [innerMessage]", strm.str() );
 }

@@ -13,10 +13,10 @@
 #ifndef VMCMC_PARAMETER_H_
 #define VMCMC_PARAMETER_H_
 
+#include <vmcmc/blas.hpp>
+
 #include <string>
 #include <boost/optional.hpp>
-
-#include <vmcmc/blas.hpp>
 
 namespace vmcmc
 {
@@ -50,7 +50,7 @@ public:
     void SetStartValue(double startValue) { fStartValue = startValue; }
 
     double GetAbsoluteError() const { return fAbsoluteError; }
-    void SetAbsoluteError(double absoluteError) { fAbsoluteError = absoluteError; }
+    void SetAbsoluteError(double absoluteError) { fAbsoluteError = std::abs(absoluteError); }
 
     /**
      * Sets the absolute error by multiplying a relative error argument

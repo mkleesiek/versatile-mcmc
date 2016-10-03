@@ -12,6 +12,7 @@
 #include <vmcmc/math.hpp>
 #include <vmcmc/stringutils.hpp>
 #include <vmcmc/random.hpp>
+#include <vmcmc/proposal.hpp>
 
 #include <gtest/gtest.h>
 
@@ -97,6 +98,7 @@ TEST(Metropolis, Run)
     pList.SetErrorScaling( 2.0 );
 
     mcmc.SetParameterConfig( pList );
+    mcmc.SetProposalFunction<ProposalNormal>();
     mcmc.SetNegLogLikelihood( [](const std::vector<double>& params) {
         return 0.5 * ( math::pow<2>( params[0] ) + math::pow<2>( params[1] ) );
     } );

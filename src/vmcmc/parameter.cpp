@@ -35,7 +35,7 @@ Parameter::Parameter(const string& name, double startValue, double errorHint,
         optional<double> lowerLimit, optional<double> upperLimit, bool fixed) :
     fName( name ),
     fStartValue( startValue ),
-    fAbsoluteError( errorHint ),
+    fAbsoluteError( std::abs(errorHint) ),
     fLowerLimit( lowerLimit ),
     fUpperLimit( upperLimit ),
     fFixed( fixed )
@@ -48,7 +48,7 @@ Parameter::~Parameter()
 
 void Parameter::SetRelativeError(double relError)
 {
-    fAbsoluteError = relError * fStartValue;
+    SetAbsoluteError( relError * fStartValue );
 }
 
 void Parameter::CheckLimits()
