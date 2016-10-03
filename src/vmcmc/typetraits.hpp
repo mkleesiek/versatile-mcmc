@@ -25,8 +25,7 @@ namespace vmcmc {
  * Typetrait checking whether the passed template argument denotes an STL like
  * container. In that case, the static ::value member variable evaluates
  * to true.
- * Inspired by a discussion on stackoverflow:
- * http://stackoverflow.com/questions/9407367/determine-if-a-type-is-an-stl-container-at-compile-time
+ * Inspired by http://stackoverflow.com/a/16316640/6908762.
  */
 template<typename T>
 struct is_container

@@ -35,7 +35,7 @@ void ProposalDistribution<DistributionT>::UpdateParameterConfig(const ParameterC
     fCholeskyDecomp = paramConfig.GetCholeskyDecomp();
 }
 
-// template specializations
+// explicit instantiation definitions
 template class ProposalDistribution< std::normal_distribution<double> >;
 template class ProposalDistribution< std::student_t_distribution<double> >;
 

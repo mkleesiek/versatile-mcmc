@@ -18,6 +18,40 @@
 using namespace std;
 using namespace vmcmc;
 
+TEST(Metropolis, SetLikelihood)
+{
+    MetropolisHastings mcmc;
+
+    mcmc.SetNegLogLikelihood<1>( [](double p1) {
+        return math::pow<2>( p1 );
+    } );
+
+    ASSERT_DOUBLE_EQ( 0.0, mcmc.EvaluateNegLogLikelihood( {0.0} ) );
+
+    mcmc.SetNegLogLikelihood<2>( [](double p1, double p2) {
+        return math::pow<2>( p1*p2 );
+    } );
+
+    ASSERT_DOUBLE_EQ( 4.0, mcmc.EvaluateNegLogLikelihood( {1.0, 2.0} ) );
+
+    mcmc.SetNegLogLikelihood( [](const vector<double>& p) {
+        return math::pow<2>( p[0]*p[1] );
+    } );
+
+    ASSERT_DOUBLE_EQ( 4.0, mcmc.EvaluateNegLogLikelihood( {1.0, 2.0} ) );
+
+    mcmc.SetLikelihood<1>( bind( math::normalPDF, placeholders::_1, 0.0, 1.0) );
+
+    ASSERT_NEAR( 0.39894, mcmc.EvaluateLikelihood( {0.0} ), 0.001 );
+
+    mcmc.SetParameterConfig( ParameterConfig(2) );
+    mcmc.SetPrior( [](const vector<double>& p) {
+        return 0.5;
+    } );
+
+    ASSERT_DOUBLE_EQ( 0.5, mcmc.EvaluatePrior( {0.0, 0.0} ) );
+}
+
 TEST(Metropolis, CalculateMHRatio)
 {
     MetropolisHastings mcmc;
@@ -27,7 +61,7 @@ TEST(Metropolis, CalculateMHRatio)
     pList.SetParameter( 1, Parameter("test2", 0.0, 1.0) );
 
     mcmc.SetParameterConfig( pList );
-    mcmc.SetNegLogLikelihoodFunction( [](const std::vector<double>& params) {
+    mcmc.SetNegLogLikelihood( [](const std::vector<double>& params) {
         return math::pow<2>( params[0] ) + math::pow<2>( params[1] );
     } );
 
@@ -37,8 +71,8 @@ TEST(Metropolis, CalculateMHRatio)
     mcmc.Evaluate( s1 );
     mcmc.Evaluate( s2 );
 
-    cout << s1 << endl;
-    cout << s2 << endl;
+    ASSERT_DOUBLE_EQ( 0.0, s1.GetNegLogLikelihood() );
+    ASSERT_DOUBLE_EQ( 1.0, s2.GetNegLogLikelihood() );
 
     double mhRatio = MetropolisHastings::CalculateMHRatio(s1, s2);
     ASSERT_DOUBLE_EQ(0.36787944117144233, mhRatio);
@@ -63,7 +97,7 @@ TEST(Metropolis, Run)
     pList.SetErrorScaling( 2.0 );
 
     mcmc.SetParameterConfig( pList );
-    mcmc.SetNegLogLikelihoodFunction( [](const std::vector<double>& params) {
+    mcmc.SetNegLogLikelihood( [](const std::vector<double>& params) {
         return 0.5 * ( math::pow<2>( params[0] ) + math::pow<2>( params[1] ) );
     } );
 

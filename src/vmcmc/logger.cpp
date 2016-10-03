@@ -70,10 +70,9 @@ void printTime(ostream& strm)
     auto duration = now.time_since_epoch();
     duration -= duration_cast<seconds>(duration);
 
-    /*
-     * Unfortunately, g++ < 5.0 does not implement std::put_time, so I have to
-     * resort to strftime at this point:
-     */
+    // Unfortunately, g++ < 5.0 does not implement std::put_time, so I have to
+    // resort to strftime at this point:
+
     char dateTimeStr[24];
     strftime(dateTimeStr, sizeof(dateTimeStr), "%F %T", localtime(&cTime));
     strm << dateTimeStr;

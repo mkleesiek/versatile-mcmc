@@ -9,6 +9,8 @@
  */
 
 #include <vmcmc/math.hpp>
+#include <vmcmc/numeric.hpp>
+#include <vmcmc/exception.hpp>
 
 #include <gtest/gtest.h>
 
@@ -36,11 +38,15 @@ TEST(Math, Constrain)
 TEST(Math, NormalPDF)
 {
     ASSERT_NEAR( 0.3521, normalPDF(0.5, 0.0, 1.0), 0.001 );
+
+    ASSERT_ANY_THROW( normalPDF(0.0, 0.0, 0.0) );
 }
 
 TEST(Math, BiVariateNormalPDF)
 {
     ASSERT_NEAR( 0.0885, biVariateNormalPDF(0.5, 0.5, 0.0, 0.0, 1.0, 1.0, -0.75), 0.001 );
+
+    ASSERT_THROW( biVariateNormalPDF(0.0, 0.0, 0.0, 0.0, 0.0, 0.0), Exception );
 }
 
 TEST(Math, Normal1SidedCDF)
@@ -59,6 +65,8 @@ TEST(Math, Normal1SidedQuantile)
     ASSERT_NEAR( 2.0, normal1SidedQuantile(0.954), 0.01 );
 
     ASSERT_NEAR( 1.645, normal1SidedQuantile(normal1SidedCDF(1.645) ), 1E-9 );
+
+    ASSERT_DOUBLE_EQ( numeric::inf(), normal1SidedQuantile(1.1) );
 }
 
 TEST(Math, ChiSquareQuantile)
@@ -67,6 +75,8 @@ TEST(Math, ChiSquareQuantile)
 
     ASSERT_NEAR( 2.70554, chiSquareQuantile(0.9, 1), 0.001 );
     ASSERT_NEAR( 4.60517, chiSquareQuantile(0.9, 2), 0.001 );
+
+    ASSERT_DOUBLE_EQ( numeric::inf(), chiSquareQuantile(1.0, 50) );
 }
 
 TEST(Math, ChiSquareQuantileFromSigmas)

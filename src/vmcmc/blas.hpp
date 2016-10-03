@@ -42,7 +42,7 @@ using MatrixUnitLower = ublas::triangular_matrix<double, ublas::unit_lower, ubla
  * @return Nonzero if decomposition fails (then the value is 1 + the number
  * of the failing row)
  */
-template <class InputMatrix, class OutputTriangularMatrix>
+template <typename InputMatrix, typename OutputTriangularMatrix>
 inline size_t choleskyDecompose(const InputMatrix& A, OutputTriangularMatrix& L)
 {
     LOG_DEFINE("vmcmc.blas");
