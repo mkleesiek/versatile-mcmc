@@ -90,4 +90,4 @@ script:
   - ninja test
     
 after_success:
-  - if [[ "$COMPILER" == "g++-6" ]]; then cd build/meson-logs && bash <(curl -s https://codecov.io/bash); fi
+  - if [[ "$COMPILER" == "g++-6" ]]; then bash <(curl -s https://codecov.io/bash); fi

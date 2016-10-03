@@ -183,10 +183,10 @@ inline void Algorithm::SetPrior(DefaultCallable prior)
 }
 
 template <size_t NParams, typename CallableT>
-inline void Algorithm::SetPrior(CallableT prior)
+inline void Algorithm::SetPrior(CallableT f)
 {
-    fPrior = [&](const std::vector<double>& v) {
-        return detail::apply_first_n<NParams>(prior, v);
+    fPrior = [=](const std::vector<double>& v) {
+        return detail::apply_first_n<NParams>(f, v);
     };
 }
 
@@ -197,10 +197,10 @@ inline void Algorithm::SetLikelihood(DefaultCallable likelihood)
 }
 
 template <size_t NParams, typename CallableT>
-inline void Algorithm::SetLikelihood(CallableT likelihood)
+inline void Algorithm::SetLikelihood(CallableT f)
 {
-    fLikelihood = [&](const std::vector<double>& v) {
-        return detail::apply_first_n<NParams>(likelihood, v);
+    fLikelihood = [=](const std::vector<double>& v) {
+        return detail::apply_first_n<NParams>(f, v);
     };
     fNegLogLikelihood = nullptr;
 }
@@ -212,11 +212,11 @@ inline void Algorithm::SetNegLogLikelihood(DefaultCallable negLoglikelihood)
 }
 
 template <size_t NParams, typename CallableT>
-inline void Algorithm::SetNegLogLikelihood(CallableT likelihood)
+inline void Algorithm::SetNegLogLikelihood(CallableT f)
 {
     fLikelihood = nullptr;
-    fNegLogLikelihood = [&](const std::vector<double>& v) {
-        return detail::apply_first_n<NParams>(likelihood, v);
+    fNegLogLikelihood = [=](const std::vector<double>& v) {
+        return detail::apply_first_n<NParams>(f, v);
     };
 }
 
