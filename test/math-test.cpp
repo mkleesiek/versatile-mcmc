@@ -33,6 +33,11 @@ TEST(Math, Constrain)
     ASSERT_DOUBLE_EQ( -6.0, constrain(255.0, -10.0, -6.0) );
 }
 
+TEST(Math, NormalPDF)
+{
+    ASSERT_NEAR( 0.3521, normalPDF(0.5, 0.0, 1.0), 0.001 );
+}
+
 TEST(Math, BiVariateNormalPDF)
 {
     ASSERT_NEAR( 0.0885, biVariateNormalPDF(0.5, 0.5, 0.0, 0.0, 1.0, 1.0, -0.75), 0.001 );
@@ -56,3 +61,31 @@ TEST(Math, Normal1SidedQuantile)
     ASSERT_NEAR( 1.645, normal1SidedQuantile(normal1SidedCDF(1.645) ), 1E-9 );
 }
 
+TEST(Math, ChiSquareQuantile)
+{
+    ASSERT_NEAR( 1.0, chiSquareQuantile(normal1SidedCDF(1.0), 1), 0.001 );
+
+    ASSERT_NEAR( 2.70554, chiSquareQuantile(0.9, 1), 0.001 );
+    ASSERT_NEAR( 4.60517, chiSquareQuantile(0.9, 2), 0.001 );
+}
+
+TEST(Math, ChiSquareQuantileFromSigmas)
+{
+    ASSERT_NEAR( 1.0, chiSquareQuantileFromSigmas(1.0, 1), 0.001 );
+    ASSERT_NEAR( 2.2957, chiSquareQuantileFromSigmas(1.0, 2), 0.001 );
+
+    ASSERT_NEAR( 4.0, chiSquareQuantileFromSigmas(2.0, 1), 0.001 );
+    ASSERT_NEAR( 6.18, chiSquareQuantileFromSigmas(2.0, 2), 0.001 );
+}
+
+TEST(Math, ChiSquareCDF)
+{
+    ASSERT_NEAR( 0.9545, chiSquareCDF(4.0, 1), 0.001 );
+    ASSERT_NEAR( 0.9545, chiSquareCDF(6.18, 2), 0.001 );
+}
+
+TEST(Math, ChiSquareToSigmas)
+{
+    ASSERT_NEAR( 2.0, chiSquareToSigmas(4.0, 1), 0.001 );
+    ASSERT_NEAR( 2.0, chiSquareToSigmas(6.18, 2), 0.001 );
+}

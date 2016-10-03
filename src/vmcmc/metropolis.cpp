@@ -212,6 +212,7 @@ void MetropolisHastings::Advance(size_t nSteps)
      * are progressed in parallel by nSteps each.
      */
     if (fMultiThreading) {
+#ifdef USE_TBB
         const size_t nTotalChains = nChainConfigs * nBetas;
 
         parallel_for(
@@ -224,6 +225,9 @@ void MetropolisHastings::Advance(size_t nSteps)
                 }
             }
         );
+#else
+        LOG(Fatal, "TBB not available - multi-threading should be deactivated.");
+#endif
     }
     else {
         for (size_t iChainConfig = 0; iChainConfig < nChainConfigs; iChainConfig++)
