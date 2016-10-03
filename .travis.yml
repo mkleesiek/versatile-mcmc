@@ -82,7 +82,7 @@ before_script:
 script:
   # setup the meson build and configure
   - mkdir build
-  - CXX=$COMPILER CXXFLAGS=$COMPILER_FLAGS LDFLAGS=$LINKER_FLAGS meson.py build
+  - CXX=$COMPILER CXXFLAGS=$COMPILER_FLAGS LDFLAGS=$LINKER_FLAGS meson.py -Db_coverage=true build
   # build with ninja
   - cd build
   - ninja -v
@@ -90,4 +90,4 @@ script:
   - ninja test
     
 after_success:
-  - if [[ "$COMPILER" == "g++-6" ]]; then bash <(curl -s https://codecov.io/bash); fi
+  - if [[ "$COMPILER" == "g++-6" ]]; then cd build/meson-logs && bash <(curl -s https://codecov.io/bash); fi
