@@ -69,8 +69,8 @@ matrix:
 
 before_script:
   # install OSX packages
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew tap homebrew/versions && brew update && brew install tbb doxygen python3 boost --with-python; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ls -al /usr/local/Cellar/boost; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew tap homebrew/versions && brew update && brew install tbb doxygen python3 && brew reinstall boost; fi
+  # - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ls -al /usr/local/Cellar/boost; fi
   # - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export BOOST_ROOT=/usr/local/Cellar/boost/1.60.0_2; fi
   # modify PATH
   - mkdir ~/bin && export PATH=$PATH:~/Library/Python/3.5/bin:~/bin
