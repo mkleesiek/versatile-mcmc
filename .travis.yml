@@ -77,7 +77,7 @@ before_script:
   - mkdir ~/bin && export PATH=$PATH:~/Library/Python/3.5/bin:~/bin
   # install the meson build system for the local travis user and create a symlink
   - pip3 install --user meson
-  - if [[ "$TASK" == "coverage" ]]; then pip3 install --user coverage; fi
+  - if [[ "$TASK" == "coverage" ]]; then pip3 install --user coverage codecov; fi
   # install a recent ninja binary from sources
   - git clone -b master https://github.com/ninja-build/ninja.git --single-branch --depth 1
   - cd ninja && ./configure.py --bootstrap && mv ninja ~/bin && cd ..
