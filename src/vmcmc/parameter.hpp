@@ -13,10 +13,10 @@
 #ifndef VMCMC_PARAMETER_H_
 #define VMCMC_PARAMETER_H_
 
+#include <vmcmc/blas.hpp>
+
 #include <string>
 #include <boost/optional.hpp>
-
-#include <vmcmc/blas.hpp>
 
 namespace vmcmc
 {
@@ -50,7 +50,7 @@ public:
     void SetStartValue(double startValue) { fStartValue = startValue; }
 
     double GetAbsoluteError() const { return fAbsoluteError; }
-    void SetAbsoluteError(double absoluteError) { fAbsoluteError = absoluteError; }
+    void SetAbsoluteError(double absoluteError) { fAbsoluteError = std::abs(absoluteError); }
 
     /**
      * Sets the absolute error by multiplying a relative error argument
@@ -145,8 +145,8 @@ public:
      * with size corresponding to the number of parameters.
      * @param matrix
      */
-    template<class XMatrixT>
-    void SetCorrelationMatrix(const XMatrixT& matrix) { fCorrelations = matrix; }
+    template <typename MatrixT>
+    void SetCorrelationMatrix(const MatrixT& matrix) { fCorrelations = matrix; }
     const MatrixUnitLower& GetCorrelationMatrix() const { return fCorrelations; }
 
     void SetCorrelation(size_t p1, size_t p2, double correlation);

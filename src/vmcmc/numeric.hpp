@@ -21,19 +21,19 @@ namespace vmcmc {
 
 namespace numeric {
 
-template <class T = double>
+template <typename T = double>
 inline T NaN()
 {
     return std::numeric_limits<T>::quiet_NaN();
 }
 
-template <class T = double>
+template <typename T = double>
 inline T inf()
 {
     return std::numeric_limits<T>::infinity();
 }
 
-template<class T,
+template <typename T,
 class = typename std::enable_if<std::is_integral<T>::value>::type>
 inline int numberOfDigits(T number)
 {
@@ -56,19 +56,19 @@ inline int numberOfDigits(T number)
  * @param epsilon
  * @return <code>return fabs(a - b) <= ( (fabs(a) < fabs(b) ? fabs(b) : fabs(a)) * epsilon);</code>
  */
-template<class T>
+template <typename T>
 inline bool approxEqual(T a, T b, T epsilon)
 {
     return std::abs(a - b) <= ( (std::abs(a) < std::abs(b) ? std::abs(b) : std::abs(a)) * epsilon);
 }
 
-template<class T>
+template <typename T>
 inline bool approxLessOrEqual(T a, T b, T epsilon)
 {
     return a < b || approximatelyEqual(a, b, epsilon);
 }
 
-template<class T>
+template <typename T>
 inline bool approxGreaterOrEqual(T a, T b, T epsilon)
 {
     return a > b || approximatelyEqual(a, b, epsilon);
@@ -81,19 +81,19 @@ inline bool approxGreaterOrEqual(T a, T b, T epsilon)
  * @param epsilon
  * @return <code>return fabs(a - b) <= ( (fabs(a) > fabs(b) ? fabs(b) : fabs(a)) * epsilon);</code>
  */
-template<class T>
+template <typename T>
 inline bool essentEqual(T a, T b, T epsilon)
 {
     return std::abs(a - b) <= ( (std::abs(a) > std::abs(b) ? std::abs(b) : std::abs(a)) * epsilon);
 }
 
-template<class T>
+template <typename T>
 inline bool essentLessOrEqual(T a, T b, T epsilon)
 {
     return a < b || essentiallyEqual(a, b, epsilon);
 }
 
-template<class T>
+template <typename T>
 inline bool essentGreaterOrEqual(T a, T b, T epsilon)
 {
     return a > b || essentiallyEqual(a, b, epsilon);

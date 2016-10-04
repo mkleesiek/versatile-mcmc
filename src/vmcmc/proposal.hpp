@@ -55,11 +55,12 @@ public:
  * If the full covariance matrix of the parameter configuration is provided,
  * correlations are taken into account when setting up the random distribution.
  */
-template<class DistributionT>
+template <typename DistributionT>
 class ProposalDistribution : public Proposal
 {
 public:
-    ProposalDistribution() :
+    ProposalDistribution(DistributionT&& dist = DistributionT()) :
+        fDistribution( std::forward<DistributionT>(dist) ),
         fCholeskyDecomp( ublas::identity_matrix<double>() )
     { }
     virtual ~ProposalDistribution() { }
@@ -68,6 +69,8 @@ public:
     using Proposal::Transition;
 
     void UpdateParameterConfig(const ParameterConfig& paramConfig) override;
+
+    const MatrixLower& GetCholeskyDecomp() const { return fCholeskyDecomp; }
 
 protected:
     DistributionT fDistribution;
@@ -92,7 +95,8 @@ public:
 class ProposalStudentT : public ProposalDistribution< std::student_t_distribution<double> >
 {
 public:
-    ProposalStudentT(double dof = 1.0) { SetDOF(dof); }
+    ProposalStudentT(double dof = 1.0) :
+        ProposalDistribution(std::student_t_distribution<double>(dof)) { }
     virtual ~ProposalStudentT() { }
 
     virtual ProposalStudentT* Clone() const override { return new ProposalStudentT(*this); }

@@ -29,8 +29,10 @@ matrix:
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test']
-          packages: ['g++-6', 'libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev']
-      env: COMPILER=g++-6
+          packages: ['g++-6', 'gcc-6', 'libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev', 'lcov', 'gcovr']
+      env:
+        - COMPILER=g++-6
+        - TASK=coverage
 
     - os: linux
       dist: trusty
@@ -69,12 +71,13 @@ matrix:
 
 before_script:
   # install OSX packages
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew tap homebrew/versions && brew update && brew install tbb doxygen python3; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export BOOST_ROOT=/usr/local/Cellar/boost/1.60.0_2; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew tap homebrew/versions && brew update && brew install tbb doxygen python3 boost; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export BOOST_ROOT=/usr/local/Cellar/boost/1.61.0_1; fi
   # modify PATH
   - mkdir ~/bin && export PATH=$PATH:~/Library/Python/3.5/bin:~/bin
   # install the meson build system for the local travis user and create a symlink
   - pip3 install --user meson
+  - if [[ "$TASK" == "coverage" ]]; then pip3 install --user coverage codecov; fi
   # install a recent ninja binary from sources
   - git clone -b master https://github.com/ninja-build/ninja.git --single-branch --depth 1
   - cd ninja && ./configure.py --bootstrap && mv ninja ~/bin && cd ..
@@ -83,8 +86,13 @@ script:
   # setup the meson build and configure
   - mkdir build
   - CXX=$COMPILER CXXFLAGS=$COMPILER_FLAGS LDFLAGS=$LINKER_FLAGS meson.py build
-  # build with ninja
   - cd build
+  # configure the build
+  - if [[ "$TASK" == "coverage" ]]; then mesonconf.py . -Db_coverage=true; fi
+  # build with ninja
   - ninja -v
   # build and execute unit tests
   - ninja test
+    
+after_success:
+  - if [[ "$TASK" == "coverage" ]]; then bash <(curl -s https://codecov.io/bash) -x gcov-6 || echo "Codecov did not collect coverage reports"; fi

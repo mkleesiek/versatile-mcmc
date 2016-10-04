@@ -32,18 +32,18 @@ using boost::math::pow;
 
 // DECLARATIONS
 
-template<class T,
+template <typename T,
 class = typename std::enable_if<std::is_integral<T>::value>::type>
 bool isOdd(const T& v);
 
-template<class T,
+template <typename T,
 class = typename std::enable_if<std::is_integral<T>::value>::type>
 bool isEven(const T& v);
 
-template<class T>
+template <typename T>
 inline T& constrain(T& input, const T& min, const T& max);
 
-template<class T>
+template <typename T>
 inline T constrain(T&& input, const T& min, const T& max);
 
 /**
@@ -85,19 +85,19 @@ inline double normalPDF(double x, double mean, double sigma)
     return boost::math::pdf( boost::math::normal(mean, sigma), x );
 }
 
-template<class T, class>
+template <typename T, class>
 inline bool isOdd(const T& v)
 {
     return (v % 2 == 1);
 }
 
-template<class T, class>
+template <typename T, class>
 inline bool isEven(const T& v)
 {
     return (v % 2 == 0);
 }
 
-template<class T>
+template <typename T>
 inline T& constrain(T& input, const T& min, const T& max)
 {
     if (min > max)
@@ -111,7 +111,7 @@ inline T& constrain(T& input, const T& min, const T& max)
     return input;
 }
 
-template<class T>
+template <typename T>
 inline T constrain(T&& input, const T& min, const T& max)
 {
     T result = input;

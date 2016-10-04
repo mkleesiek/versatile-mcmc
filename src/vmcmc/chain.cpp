@@ -290,7 +290,7 @@ const MatrixLower& ChainStatistics::GetCholeskyDecomposition()
 
     const size_t nParams = NumberOfParams();
 
-    MatrixUnitLower result = ublas::zero_matrix<double>( nParams, nParams );
+    MatrixLower result = ublas::zero_matrix<double>( nParams, nParams );
 
     if (N > 1) {
         const MatrixLower& cov = GetCovarianceMatrix();

@@ -26,14 +26,14 @@ namespace math
 
 double biVariateNormalPDF(double x1, double x2, double mean1, double mean2, double sigma1, double sigma2, double corr)
 {
+    if (sigma1 == 0.0 && sigma2 == 0.0)
+        throw Exception() << "Cannot calculate a bivariate normal distribution with sigma_1 = 0 and sigma_2 = 0.";
+
     if (sigma1 == 0.0)
         return (x1 == mean1) ? bm::pdf( bm::normal(mean2, sigma2), x2 ) : 0.0;
 
-    else if (sigma2 == 0.0)
+    if (sigma2 == 0.0)
         return (x2 == mean2) ? bm::pdf( bm::normal(mean1, sigma1), x1 ) : 0.0;
-
-    else if (sigma1 == 0.0 && sigma2 == 0.0)
-        throw Exception() << "Cannot calculate a bivariate normal distribution with sigma_1 = 0 and sigma_2 = 0.";
 
     const double z = pow<2>( (x1-mean1)/sigma1 ) + pow<2>( (x2-mean2)/sigma2 ) - 2.0*corr*(x1-mean1)*(x2-mean2)/sigma1/sigma2;
     return 1.0 / (constants::two_pi*sigma1*sigma2*sqrt(1.0-corr*corr)) * exp(-z/(2.0*(1.0-corr*corr)));
@@ -57,7 +57,7 @@ double normal1SidedQuantile(double prob)
 double chiSquareQuantile(double prob, size_t nParams)
 {
     if (prob >= 1.0)
-        return std::numeric_limits<double>::infinity();
+        return numeric::inf();
 
     const bm::chi_squared_distribution<double> chiSquare(nParams);
     return bm::quantile(chiSquare, prob);
