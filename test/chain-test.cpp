@@ -14,6 +14,23 @@
 using namespace std;
 using namespace vmcmc;
 
+TEST(Chain, Basics)
+{
+    Chain testChain;
+    ChainStatistics stats( testChain );
+
+    Sample testSample{ 0.0, 1.0, 2.0 };
+    testChain.push_back( testSample );
+    testSample = { 1.0, 2.0, 3.0 };
+    testChain.push_back( testSample );
+    testSample = { 2.0, 3.0, 4.0 };
+    testChain.push_back( testSample );
+
+    ASSERT_EQ( 3, stats.NumberOfParams() );
+
+    ASSERT_EQ( stats.GetMean(), (Sample{ 1.0, 2.0, 3.0 }) );
+}
+
 TEST(Chain, AcceptanceRate)
 {
     Sample testSample( { 0.0, 1.0, 2.0 } );
@@ -47,4 +64,23 @@ TEST(Chain, AcceptanceRate)
     stats.SelectRange();
     stats.Reset();
     ASSERT_DOUBLE_EQ( 2.0/3.0, stats.GetAccRate() );
+}
+
+TEST(Chain, CovarianceMatrix)
+{
+    Chain testChain;
+    ChainStatistics stats( testChain );
+
+    Sample testSample( { 0.0, 1.0, 2.0 } );
+    testChain.push_back( testSample );
+    testSample = { 1.0, 2.0, 3.0 };
+    testChain.push_back( testSample );
+    testSample = { 2.0, 3.0, 4.0 };
+    testChain.push_back( testSample );
+
+    MatrixLower cov = stats.GetCovarianceMatrix();
+
+    ASSERT_DOUBLE_EQ( 1.0, cov(0, 0) );
+    ASSERT_DOUBLE_EQ( 1.0, cov(1, 1) );
+    ASSERT_DOUBLE_EQ( 1.0, cov(2, 2) );
 }
