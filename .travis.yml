@@ -74,7 +74,7 @@ before_script:
   # modify PATH
   - mkdir ~/bin && export PATH=$PATH:~/Library/Python/3.5/bin:~/bin
   # install the meson build system for the local travis user and create a symlink
-  - pip3 install --user meson
+  - pip3 install --user meson coverage
   # install a recent ninja binary from sources
   - git clone -b master https://github.com/ninja-build/ninja.git --single-branch --depth 1
   - cd ninja && ./configure.py --bootstrap && mv ninja ~/bin && cd ..
