@@ -11,6 +11,7 @@
 #include <vmcmc/io.hpp>
 #include <vmcmc/exception.hpp>
 #include <vmcmc/numeric.hpp>
+#include <vmcmc/logger.hpp>
 
 //#include <gnuplot_i.hpp>
 #include <iomanip>

@@ -17,7 +17,7 @@ namespace vmcmc
 
 LOG_DEFINE("vmcmc.proposal");
 
-template<class DistributionT>
+template <typename DistributionT>
 double ProposalDistribution<DistributionT>::Transition(const Vector& s1, Vector& s2)
 {
     LOG_ASSERT(s1.size() == s2.size());
@@ -29,9 +29,10 @@ double ProposalDistribution<DistributionT>::Transition(const Vector& s1, Vector&
     return 1.0;
 }
 
-template<class DistributionT>
+template <typename DistributionT>
 void ProposalDistribution<DistributionT>::UpdateParameterConfig(const ParameterConfig& paramConfig)
 {
+    Proposal::UpdateParameterConfig(paramConfig);
     fCholeskyDecomp = paramConfig.GetCholeskyDecomp();
 }
 

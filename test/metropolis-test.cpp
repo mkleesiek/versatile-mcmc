@@ -19,6 +19,29 @@
 using namespace std;
 using namespace vmcmc;
 
+TEST(Metropolis, SetBetas)
+{
+    MetropolisHastings mcmc;
+
+    mcmc.SetBetas( {} );
+    ASSERT_EQ( (vector<double>{ 1.0 }), mcmc.GetBetas() );
+
+    mcmc.SetBetas( {1.0} );
+    ASSERT_EQ( (vector<double>{ 1.0 }), mcmc.GetBetas() );
+
+    mcmc.SetBetas( {3.0, 5.0, -1.0, -0.001, 1.0} );
+    ASSERT_EQ( (vector<double>{ 1.0 }), mcmc.GetBetas() );
+
+    mcmc.SetBetas( vector<double>{3.0, 5.0, -1.0, -0.001, 1.0} );
+    ASSERT_EQ( (vector<double>{ 1.0 }), mcmc.GetBetas() );
+
+    mcmc.SetBetas( set<double>{3.0, 5.0, -1.0, -0.001, 1.0} );
+    ASSERT_EQ( (vector<double>{ 1.0 }), mcmc.GetBetas() );
+
+    mcmc.SetBetas( set<double>{0.01, 0.5, 0.0} );
+    ASSERT_EQ( (vector<double>{ 1.0, 0.5, 0.01 }), mcmc.GetBetas() );
+}
+
 TEST(Metropolis, SetLikelihood)
 {
     MetropolisHastings mcmc;

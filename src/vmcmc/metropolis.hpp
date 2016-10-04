@@ -57,11 +57,11 @@ public:
 
     void SetNumberOfChains(size_t nChains);
 
-    template<class ContainerT = std::initializer_list<double>>
+    template <typename ContainerT = std::initializer_list<double>>
     void SetBetas(ContainerT betas);
     const std::vector<double>& GetBetas() const { return fBetas; }
 
-    template<class ProposalT, class... ArgsT>
+    template <typename ProposalT, typename... ArgsT>
     void SetProposalFunction(ArgsT&&... args);
     void SetProposalFunction(std::shared_ptr<Proposal> proposalFunction) { fProposalFunction = proposalFunction; }
     std::shared_ptr<Proposal> GetProposalFunction() { return fProposalFunction; };
@@ -99,7 +99,7 @@ private:
     bool fMultiThreading;
 };
 
-template<class ProposalT, class... ArgsT>
+template <typename ProposalT, typename... ArgsT>
 inline void MetropolisHastings::SetProposalFunction(ArgsT&&... args)
 {
     fProposalFunction = std::make_shared<ProposalT>(
@@ -107,7 +107,7 @@ inline void MetropolisHastings::SetProposalFunction(ArgsT&&... args)
     );
 }
 
-template<class ContainerT>
+template <typename ContainerT>
 inline void MetropolisHastings::SetBetas(ContainerT betas)
 {
     // make sure, that the default chain (0) has nominal temperature

@@ -37,6 +37,7 @@ TEST(Parameter, Limits)
     ASSERT_DOUBLE_EQ( lv, 1.0 );
 
     ASSERT_THROW( Parameter("bad parameter", 5.0, 0.0, 2.0, 4.0), Exception );
+    ASSERT_THROW( Parameter("bad parameter", 0.0, 1.0, 1.0, -1.0), Exception );
 }
 
 TEST(ParameterConfig, Correlations)
@@ -75,6 +76,18 @@ TEST(ParameterConfig, Correlations)
     strm.str("");
     strm << cholDecomp;
     ASSERT_EQ( "[3,3]((1,0,0),(1.4,1.42829,0),(0,-1.05021,1.07101))", strm.str() );
+
+    // check graceful failure of cholesky decomposition:
+
+    paramConfig.SetCorrelation(0, 1, -1.0);
+    paramConfig.SetCorrelation(1, 2, 1.0);
+
+    MatrixLower exp(3, 3);
+    exp(0, 0) = 1.0;
+    exp(1, 1) = 2.0;
+    exp(2, 2) = 1.5;
+
+    ASSERT_EQ( exp, paramConfig.GetCholeskyDecomp() );
 }
 
 TEST(ParameterConfig, RelativeError)

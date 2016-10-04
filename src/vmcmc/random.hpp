@@ -39,7 +39,7 @@ namespace ublas = boost::numeric::ublas;
  * is incremented and used in each PRNG's constructor.
  * @tparam EngineT Underlying random number generator (e.g. std::mt19937).
  */
-template<class EngineT>
+template <typename EngineT>
 class RandomPrototype
 {
 public:
@@ -86,7 +86,7 @@ public:
      *
      * @return
      */
-    template<class FloatT>
+    template <typename FloatT>
     typename std::enable_if<std::is_floating_point<FloatT>::value, FloatT>::type
     Uniform(FloatT min, FloatT max, bool minIncluded, bool maxIncluded);
 
@@ -96,7 +96,7 @@ public:
      * @param max upper interval bound
      * @return
      */
-    template<class FloatT = double>
+    template <typename FloatT = double>
     typename std::enable_if<std::is_floating_point<FloatT>::value, FloatT>::type
     Uniform(FloatT min = 0.0, FloatT max = 1.0);
 
@@ -106,7 +106,7 @@ public:
      * @param inclMax
      * @return
      */
-    template<class IntegerT>
+    template <typename IntegerT>
     typename std::enable_if<std::is_integral<IntegerT>::value, IntegerT>::type
     Uniform(IntegerT inclMin, IntegerT inclMax);
 
@@ -115,7 +115,7 @@ public:
      * @param probability
      * @return True with the given probability.
      */
-    template<class FloatT = double>
+    template <typename FloatT = double>
     bool Bool(FloatT probability = 0.5);
 
     /**
@@ -124,10 +124,10 @@ public:
      * @param sigma
      * @return
      */
-    template<class FloatT = double>
+    template <typename FloatT = double>
     FloatT Normal(FloatT mean = 0.0, FloatT sigma = 1.0);
 
-    template<class FloatT = double>
+    template <typename FloatT = double>
     FloatT StudentT(FloatT n = 1.0, FloatT mean = 0.0, FloatT sigma = 1.0);
 
     /**
@@ -135,7 +135,7 @@ public:
      * @param tau
      * @return
      */
-    template<class FloatT>
+    template <typename FloatT>
     inline FloatT Exponential(FloatT tau);
 
     /**
@@ -143,7 +143,7 @@ public:
      * @param mean
      * @return
      */
-    template<class IntegerT = uint32_t>
+    template <typename IntegerT = uint32_t>
     typename std::enable_if<std::is_integral<IntegerT>::value, IntegerT>::type
     Poisson(double mean);
 
@@ -152,7 +152,7 @@ public:
      * @param mean
      * @return
      */
-    template<class FloatT>
+    template <typename FloatT>
     typename std::enable_if<std::is_floating_point<FloatT>::value, FloatT>::type
     Poisson(FloatT mean);
 
@@ -160,7 +160,7 @@ public:
      * Produces integers in the range [0, n) with the probability of producing each value is specified by the parameters of the distribution.
      * @return
      */
-    template<class ProbRangeT, class IndexType = uint32_t>
+    template <typename ProbRangeT, typename IndexType = uint32_t>
     IndexType Discrete(const ProbRangeT& probabilities);
 
     /**
@@ -170,7 +170,7 @@ public:
      * @param dist
      * @return
      */
-    template<class DistributionT>
+    template <typename DistributionT>
     typename DistributionT::result_type FromDistribution(DistributionT& dist = DistributionT());
 
     /**
@@ -183,7 +183,7 @@ public:
      * @return
      * @see boost::multivariate_normal_distribution
      */
-    template<class DistributionT, class VectorT, class MatrixT>
+    template <typename DistributionT, typename VectorT, typename MatrixT>
     VectorT FromMultiVariateDistribution(DistributionT& dist, const VectorT& mean, const MatrixT& cholesky);
 
     /**
@@ -193,7 +193,7 @@ public:
      * @param sigma A vector of standard deviations.
      * @return
      */
-    template<class DistributionT, class VectorT>
+    template <typename DistributionT, typename VectorT>
     VectorT FromMultiVariateDistribution(DistributionT& dist, const VectorT& mean, const VectorT& sigma);
 
 public:
@@ -210,13 +210,13 @@ private:
     engine_type fEngine;
 };
 
-template<class EngineT>
+template <typename EngineT>
 void RandomPrototype<EngineT>::Seed(result_type seed)
 {
     sSeed = (seed == 0) ? std::random_device()() : seed;
 }
 
-template<class EngineT>
+template <typename EngineT>
 std::atomic<typename EngineT::result_type> RandomPrototype<EngineT>::sSeed( 0 );
 
 
@@ -230,14 +230,14 @@ std::atomic<typename EngineT::result_type> RandomPrototype<EngineT>::sSeed( 0 );
 
 #include <mutex>
 
-template<class EngineT>
+template <typename EngineT>
 inline RandomPrototype<EngineT>& RandomPrototype<EngineT>::Instance()
 {
     static RandomPrototype sInstance;
     return sInstance;
 }
 
-template<class EngineT>
+template <typename EngineT>
 inline auto RandomPrototype<EngineT>::operator()() -> result_type
 {
     static std::mutex sMtx;
@@ -248,14 +248,14 @@ inline auto RandomPrototype<EngineT>::operator()() -> result_type
 
 #else
 
-template<class EngineT>
+template <typename EngineT>
 inline RandomPrototype<EngineT>& RandomPrototype<EngineT>::Instance()
 {
     static thread_local RandomPrototype sInstance;
     return sInstance;
 }
 
-template<class EngineT>
+template <typename EngineT>
 inline auto RandomPrototype<EngineT>::operator()() -> result_type
 {
     return fEngine();
@@ -264,19 +264,19 @@ inline auto RandomPrototype<EngineT>::operator()() -> result_type
 #endif // NO_TLS
 
 
-template<class EngineT>
+template <typename EngineT>
 inline RandomPrototype<EngineT>::RandomPrototype() :
     fEngine()
 {
     fEngine.seed( sSeed++ );
 }
 
-template<class EngineT>
+template <typename EngineT>
 inline RandomPrototype<EngineT>::~RandomPrototype()
 { }
 
-template<class EngineT>
-template<class FloatT>
+template <typename EngineT>
+template <typename FloatT>
 typename std::enable_if<std::is_floating_point<FloatT>::value, FloatT>::type
 inline RandomPrototype<EngineT>::Uniform(FloatT min, FloatT max, bool minIncluded, bool maxIncluded)
 {
@@ -299,45 +299,45 @@ inline RandomPrototype<EngineT>::Uniform(FloatT min, FloatT max, bool minInclude
     return std::uniform_real_distribution<FloatT>(min, max)(*this);
 }
 
-template<class EngineT>
-template<class FloatT>
+template <typename EngineT>
+template <typename FloatT>
 typename std::enable_if<std::is_floating_point<FloatT>::value, FloatT>::type
 inline RandomPrototype<EngineT>::Uniform(FloatT min, FloatT max)
 {
     return std::uniform_real_distribution<FloatT>(min, max)(*this);
 }
 
-template<class EngineT>
-template<class IntegerT>
+template <typename EngineT>
+template <typename IntegerT>
 typename std::enable_if<std::is_integral<IntegerT>::value, IntegerT>::type
 inline RandomPrototype<EngineT>::Uniform(IntegerT inclMin, IntegerT inclMax)
 {
     return std::uniform_int_distribution<IntegerT>(inclMin, inclMax)(*this);
 }
 
-template<class EngineT>
-template<class FloatT>
+template <typename EngineT>
+template <typename FloatT>
 inline bool RandomPrototype<EngineT>::Bool(FloatT probability)
 {
     return std::uniform_real_distribution<FloatT>(0.0, 1.0)(*this) < probability;
 }
 
-template<class EngineT>
-template<class FloatT>
+template <typename EngineT>
+template <typename FloatT>
 inline FloatT RandomPrototype<EngineT>::Normal(FloatT mean, FloatT sigma)
 {
     return std::normal_distribution<FloatT>(mean, sigma)(*this);
 }
 
-template<class EngineT>
-template<class DistributionT>
+template <typename EngineT>
+template <typename DistributionT>
 inline typename DistributionT::result_type RandomPrototype<EngineT>::FromDistribution(DistributionT& dist)
 {
     return dist(*this);
 }
 
-template<class EngineT>
-template<class DistributionT, class VectorT, class MatrixT>
+template <typename EngineT>
+template <typename DistributionT, typename VectorT, typename MatrixT>
 inline VectorT RandomPrototype<EngineT>::FromMultiVariateDistribution(DistributionT& dist, const VectorT& mean, const MatrixT& cholesky)
 {
     LOG_DEFINE("vmcmc.random");
@@ -351,8 +351,8 @@ inline VectorT RandomPrototype<EngineT>::FromMultiVariateDistribution(Distributi
     return mean + ublas::prod(noise, cholesky);
 }
 
-template<class EngineT>
-template<class DistributionT, class VectorT>
+template <typename EngineT>
+template <typename DistributionT, typename VectorT>
 inline VectorT RandomPrototype<EngineT>::FromMultiVariateDistribution(DistributionT& dist, const VectorT& mean, const VectorT& sigma)
 {
     LOG_DEFINE("vmcmc.random");
@@ -367,16 +367,16 @@ inline VectorT RandomPrototype<EngineT>::FromMultiVariateDistribution(Distributi
 }
 
 
-template<class EngineT>
-template<class IntegerT>
+template <typename EngineT>
+template <typename IntegerT>
 typename std::enable_if<std::is_integral<IntegerT>::value, IntegerT>::type
 inline RandomPrototype<EngineT>::Poisson(double mean)
 {
     return std::poisson_distribution<IntegerT>(mean)(*this);
 }
 
-template<class EngineT>
-template<class FloatT>
+template <typename EngineT>
+template <typename FloatT>
 typename std::enable_if<std::is_floating_point<FloatT>::value, FloatT>::type
 inline RandomPrototype<EngineT>::Poisson(FloatT mean)
 {
@@ -386,15 +386,15 @@ inline RandomPrototype<EngineT>::Poisson(FloatT mean)
         return (FloatT) std::poisson_distribution<uint64_t>(mean)(*this);
 }
 
-template<class EngineT>
-template<class FloatT>
+template <typename EngineT>
+template <typename FloatT>
 inline FloatT RandomPrototype<EngineT>::Exponential(FloatT tau)
 {
     return std::exponential_distribution<FloatT>(1.0/tau)(*this);
 }
 
-template<class EngineT>
-template<class ProbRangeT, class IndexType>
+template <typename EngineT>
+template <typename ProbRangeT, typename IndexType>
 inline IndexType RandomPrototype<EngineT>::Discrete(const ProbRangeT& probabilities)
 {
     return std::discrete_distribution<IndexType>(probabilities.begin(), probabilities.end())(*this);

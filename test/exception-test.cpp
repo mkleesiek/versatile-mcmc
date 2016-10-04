@@ -46,8 +46,10 @@ TEST(Exception, Copy)
     e1 << "someMessage";
     e1.Nest( Exception() << "innerMessage" );
 
-    Exception e2 = e1;
+    Exception e2(e1);
+    ASSERT_STREQ( e1.what(), e2.what() );
 
+    e2 = e1;
     ASSERT_STREQ( e1.what(), e2.what() );
 }
 

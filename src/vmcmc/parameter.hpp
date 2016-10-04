@@ -145,8 +145,8 @@ public:
      * with size corresponding to the number of parameters.
      * @param matrix
      */
-    template<class XMatrixT>
-    void SetCorrelationMatrix(const XMatrixT& matrix) { fCorrelations = matrix; }
+    template <typename MatrixT>
+    void SetCorrelationMatrix(const MatrixT& matrix) { fCorrelations = matrix; }
     const MatrixUnitLower& GetCorrelationMatrix() const { return fCorrelations; }
 
     void SetCorrelation(size_t p1, size_t p2, double correlation);

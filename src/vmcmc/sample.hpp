@@ -42,8 +42,10 @@ public:
 
     Vector& Values() { return fParameterValues; }
     const Vector& Values() const { return fParameterValues; }
+
     double& operator[](size_t index) { return fParameterValues[index]; }
     const double& operator[](size_t index) const { return fParameterValues[index]; }
+    size_t size() const { return fParameterValues.size(); }
 
     Sample& operator= (std::initializer_list<double> pValues);
 

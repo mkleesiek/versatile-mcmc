@@ -82,12 +82,13 @@ before_script:
 script:
   # setup the meson build and configure
   - mkdir build
-  - CXX=$COMPILER CXXFLAGS=$COMPILER_FLAGS LDFLAGS=$LINKER_FLAGS meson.py -Db_coverage=true build
-  # build with ninja
+  - CXX=$COMPILER CXXFLAGS=$COMPILER_FLAGS LDFLAGS=$LINKER_FLAGS meson.py build
   - cd build
+  # build with ninja
+  - if [[ "$COMPILER" == "g++-6" ]]; then mesonconf.py . -Db_coverage=true; fi
   - ninja -v
   # build and execute unit tests
   - ninja test
     
 after_success:
-  - if [[ "$COMPILER" == "g++-6" ]]; then bash <(curl -s https://codecov.io/bash); fi
+  - if [[ "$COMPILER" == "g++-6" ]]; then bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"; fi

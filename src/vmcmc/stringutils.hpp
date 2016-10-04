@@ -33,7 +33,7 @@ class Sample;
  * @param separator The separator to be inserted between printed values.
  * @return Reference to the output stream.
  */
-template <class SequenceT, class SeparatorT>
+template <typename SequenceT, typename SeparatorT>
 inline std::ostream& join(std::ostream& stream, const SequenceT& sequence, const SeparatorT& separator = "")
 {
     auto itBegin = std::begin(sequence);
@@ -58,7 +58,7 @@ inline std::ostream& join(std::ostream& stream, const SequenceT& sequence, const
  * @param separator The separator to be inserted between serialized values.
  * @return The joined string.
  */
-template <class SequenceT, class SeparatorT>
+template <typename SequenceT, typename SeparatorT>
 inline std::string join(const SequenceT& sequence, const SeparatorT& separator, int floatPrecision = -1)
 {
     std::ostringstream strm;
@@ -82,7 +82,7 @@ std::ostream& operator<< (std::ostream& strm, const Sample& sample);
  * @param pair A pair.
  * @return Reference to the output stream.
  */
-template <class T1, class T2>
+template <typename T1, typename T2>
 inline std::ostream& operator<< (std::ostream& strm, const std::pair<T1, T2>& pair)
 {
     strm << "(" << pair.first << ", " << pair.second << ")";
@@ -95,7 +95,7 @@ inline std::ostream& operator<< (std::ostream& strm, const std::pair<T1, T2>& pa
  * @param container A container fulfilling the type trait #vmcmc::is_container.
  * @return Reference to the output stream.
  */
-template <class ContainerT, class = typename std::enable_if<vmcmc::is_container<ContainerT>::value>::type>
+template <typename ContainerT, class = typename std::enable_if<vmcmc::is_container<ContainerT>::value>::type>
 inline std::ostream& operator<< (std::ostream& strm, const ContainerT& container)
 {
     strm << "[" << container.size() << "](";
