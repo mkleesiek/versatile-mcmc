@@ -29,7 +29,7 @@ matrix:
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test']
-          packages: ['g++-6', 'libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev', 'lcov', 'gcovr']
+          packages: ['g++-6', 'gcc-6', 'libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev', 'lcov', 'gcovr']
       env:
         - COMPILER=g++-6
         - TASK=coverage
@@ -95,4 +95,4 @@ script:
   - ninja test
     
 after_success:
-  - if [[ "$TASK" == "coverage" ]]; then bash <(curl -s https://codecov.io/bash) -X gcov-6 || echo "Codecov did not collect coverage reports"; fi
+  - if [[ "$TASK" == "coverage" ]]; then bash <(curl -s https://codecov.io/bash) -x gcov-6 || echo "Codecov did not collect coverage reports"; fi
