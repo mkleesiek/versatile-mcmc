@@ -42,8 +42,8 @@ double targetFunction(double x1, double x2) {
     return math::biVariateNormalPDF(x1, x2, 0.0, 0.0, 2.0, 3.0, 0.5);
 }
 
-int main(int /*argc*/, char* /*argv*/[]){
-
+int main(int /*argc*/, char* /*argv*/[])
+{
     LOG(Info, "Setting up Metropolis-Hastings example ...");
 
     // choose a non-deterministic seed for random number generator:
@@ -51,16 +51,16 @@ int main(int /*argc*/, char* /*argv*/[]){
 
     // setup the parameter configuration
     ParameterConfig paramConfig;
-    paramConfig.SetParameter(0, Parameter("x1", 0.0, 1.0) );
-    paramConfig.SetParameter(1, Parameter("x2", 0.0, 1.0) );
+    paramConfig.SetParameter( 0, Parameter("x1", 0.0, 1.0) );
+    paramConfig.SetParameter( 1, Parameter("x2", 0.0, 1.0) );
     paramConfig.SetErrorScaling( 5.0 );
 
     // instantiate the MCMC sampler
     MetropolisHastings mcmc;
-    mcmc.SetParameterConfig(paramConfig);
+    mcmc.SetParameterConfig( paramConfig );
 
     // randomize the start points within their specified errors
-    mcmc.SetRandomizeStartPoint(true);
+    mcmc.SetRandomizeStartPoint( true );
 
     // sample multiple sets of chains in parallel
     mcmc.SetNumberOfChains( 3 );
@@ -75,10 +75,10 @@ int main(int /*argc*/, char* /*argv*/[]){
     mcmc.SetProposalFunction<ProposalNormal>();
 
     // set the total number of steps per chain
-    mcmc.SetTotalLength(1E5);
+    mcmc.SetTotalLength( 1E5 );
 
     // define the output methods
-    mcmc.AddWriter<TextFileWriter>(".", "vmcmc-example");
+    mcmc.AddWriter<TextFileWriter>( ".", "vmcmc-example" );
 
     // highly experimential chain visualization
 //    mcmc.AddWriter<GnuplotWriter>();
