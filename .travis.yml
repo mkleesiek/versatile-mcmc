@@ -29,7 +29,7 @@ matrix:
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test']
-          packages: ['g++-6', 'libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev']
+          packages: ['g++-6', 'libtbb-dev', 'doxygen', 'libgtest-dev', 'libboost-all-dev', 'lcov', 'gcovr']
       env: COMPILER=g++-6
 
     - os: linux
