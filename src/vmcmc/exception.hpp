@@ -36,7 +36,7 @@ public:
 
     const char* what() const throw() override;
 
-    template<class XValue>
+    template <typename XValue>
     Exception& operator<<(const XValue& toAppend);
 
     Exception& Nest(const std::exception& toNest);
@@ -70,7 +70,7 @@ inline const char* Exception::what() const throw()
     return fWhat.c_str();
 }
 
-template<class XValue>
+template<typename XValue>
 inline Exception& Exception::operator<<(const XValue& toAppend)
 {
     fMessage << toAppend;

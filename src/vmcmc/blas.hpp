@@ -13,8 +13,6 @@
 #ifndef VMCMC_BLAS_H_
 #define VMCMC_BLAS_H_
 
-#include <vmcmc/logger.hpp>
-
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/vector_expression.hpp>
 #include <boost/numeric/ublas/vector_proxy.hpp>
@@ -42,15 +40,14 @@ using MatrixUnitLower = ublas::triangular_matrix<double, ublas::unit_lower, ubla
  * @return Nonzero if decomposition fails (then the value is 1 + the number
  * of the failing row)
  */
-template <class InputMatrix, class OutputTriangularMatrix>
+template <typename InputMatrix, typename OutputTriangularMatrix>
 inline size_t choleskyDecompose(const InputMatrix& A, OutputTriangularMatrix& L)
 {
-    LOG_DEFINE("vmcmc.blas");
-    using namespace boost::numeric::ublas;
+    using namespace ublas;
 
-    LOG_ASSERT(A.size1() == A.size2());
-    LOG_ASSERT(L.size1() == L.size2());
-    LOG_ASSERT(A.size1() == L.size1());
+    assert(A.size1() == A.size2());
+    assert(L.size1() == L.size2());
+    assert(A.size1() == L.size1());
 
     const size_t n = A.size1();
 
@@ -76,16 +73,49 @@ inline size_t choleskyDecompose(const InputMatrix& A, OutputTriangularMatrix& L)
     return 0;
 }
 
-inline bool operator== (const Vector& v1, const Vector& v2)
+} /* namespace vmcmc */
+
+
+/* Comparison overloads */
+
+namespace boost { namespace numeric { namespace ublas {
+
+template <typename T, typename A>
+inline bool operator== (const vector<T, A>& v1, const vector<T, A>& v2)
 {
     return v1.data() == v2.data();
 }
 
-inline bool operator!= (const Vector& v1, const Vector& v2)
+template <typename T, typename A>
+inline bool operator!= (const vector<T, A>& v1, const vector<T, A>& v2)
 {
     return v1.data() != v2.data();
 }
 
-} /* namespace vmcmc */
+template <typename T, typename L, typename A>
+inline bool operator== (const matrix<T, L, A>& m1, const matrix<T, L, A>& m2)
+{
+    return m1.data() == m2.data();
+}
+
+template <typename T, typename L, typename A>
+inline bool operator!= (const matrix<T, L, A>& m1, const matrix<T, L, A>& m2)
+{
+    return m1.data() != m2.data();
+}
+
+template <typename T, typename TRI, typename L, typename A>
+inline bool operator== (const triangular_matrix<T, TRI, L, A>& m1, const triangular_matrix<T, TRI, L, A>& m2)
+{
+    return m1.data() == m2.data();
+}
+
+template <typename T, typename TRI, typename L, typename A>
+inline bool operator!= (const triangular_matrix<T, TRI, L, A>& m1, const triangular_matrix<T, TRI, L, A>& m2)
+{
+    return m1.data() != m2.data();
+}
+
+} } } /* namespace boost::numeric::ublas */
 
 #endif /* VMCMC_BLAS_H_ */

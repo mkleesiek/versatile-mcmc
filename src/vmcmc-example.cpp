@@ -29,18 +29,21 @@ using namespace vmcmc;
 
 /**
  * The likelihood function (a bivariate normal distribution) for this particular
- * example run.
- * @param params The first two vector elements are used as function parameters.
- * @return
+ * example.
+ *
+ * Alternatively, the arguments can be encompassed in a vector:
+ * @code{.cpp}
+ * double targetFunction(const vector<double>& p) {
+ *     return math::biVariateNormalPDF(p[0], p[1], 0.0, 0.0, 2.0, 3.0, 0.5);
+ * }
+ * @endcode
  */
-double targetFunction(const vector<double>& params) {
-    const double x1 = params[0];
-    const double x2 = params[1];
+double targetFunction(double x1, double x2) {
     return math::biVariateNormalPDF(x1, x2, 0.0, 0.0, 2.0, 3.0, 0.5);
 }
 
-int main(int /*argc*/, char* /*argv*/[]){
-
+int main(int /*argc*/, char* /*argv*/[])
+{
     LOG(Info, "Setting up Metropolis-Hastings example ...");
 
     // choose a non-deterministic seed for random number generator:
@@ -48,16 +51,16 @@ int main(int /*argc*/, char* /*argv*/[]){
 
     // setup the parameter configuration
     ParameterConfig paramConfig;
-    paramConfig.SetParameter(0, Parameter("x1", 0.0, 1.0) );
-    paramConfig.SetParameter(1, Parameter("x2", 0.0, 1.0) );
+    paramConfig.SetParameter( 0, Parameter("x1", 0.0, 1.0) );
+    paramConfig.SetParameter( 1, Parameter("x2", 0.0, 1.0) );
     paramConfig.SetErrorScaling( 5.0 );
 
     // instantiate the MCMC sampler
     MetropolisHastings mcmc;
-    mcmc.SetParameterConfig(paramConfig);
+    mcmc.SetParameterConfig( paramConfig );
 
     // randomize the start points within their specified errors
-    mcmc.SetRandomizeStartPoint(true);
+    mcmc.SetRandomizeStartPoint( true );
 
     // sample multiple sets of chains in parallel
     mcmc.SetNumberOfChains( 3 );
@@ -66,16 +69,16 @@ int main(int /*argc*/, char* /*argv*/[]){
     mcmc.SetBetas( {1.0, 0.1} );
 
     // set the target likelihood
-    mcmc.SetLikelihoodFunction( targetFunction );
+    mcmc.SetLikelihood<2>( targetFunction );
 
     // use a Gaussian proposa function
     mcmc.SetProposalFunction<ProposalNormal>();
 
     // set the total number of steps per chain
-    mcmc.SetTotalLength(1E5);
+    mcmc.SetTotalLength( 1E5 );
 
     // define the output methods
-    mcmc.AddWriter<TextFileWriter>(".", "vmcmc-example");
+    mcmc.AddWriter<TextFileWriter>( ".", "vmcmc-example" );
 
     // highly experimential chain visualization
 //    mcmc.AddWriter<GnuplotWriter>();

@@ -11,6 +11,7 @@
 #include <vmcmc/io.hpp>
 #include <vmcmc/exception.hpp>
 #include <vmcmc/numeric.hpp>
+#include <vmcmc/logger.hpp>
 
 #include <iomanip>
 
@@ -21,18 +22,19 @@ namespace vmcmc
 
 LOG_DEFINE("vmcmc.io");
 
-//void Writer::Write(size_t chainIndex, const Chain& chain, size_t startIndex)
-//{
-//    for (size_t iSample = startIndex; iSample < chain.size(); iSample++)
-//        Write(chainIndex, chain[iSample]);
-//}
+void Writer::Write(size_t chainIndex, const Sample& sample)
+{
+    Chain tmpChain;
+    tmpChain.push_back( sample );
+    Write(chainIndex, tmpChain, 0);
+}
 
 TextFileWriter::TextFileWriter(const string& directory, const string& stem,
         const string& separator, const string& extension) :
-    fDirectory(directory),
-    fStem(stem),
-    fSeparator(separator),
-    fExtension(extension)
+    fFileDirectory(directory),
+    fFileStem(stem),
+    fFileSeparator(separator),
+    fFileExtension(extension)
 { }
 
 TextFileWriter::~TextFileWriter()
@@ -40,37 +42,40 @@ TextFileWriter::~TextFileWriter()
 
 TextFileWriter::TextFileWriter(const TextFileWriter& other) :
     Writer(other),
-    fDirectory(other.fDirectory),
-    fStem(other.fStem),
-    fSeparator(other.fSeparator),
-    fExtension(other.fExtension),
+    fFileDirectory(other.fFileDirectory),
+    fFileStem(other.fFileStem),
+    fFileSeparator(other.fFileSeparator),
+    fFileExtension(other.fFileExtension),
     fPrecision(other.fPrecision),
+    fColumnSep(other.fColumnSep),
     fCombineChains(other.fCombineChains)
 { }
 
 void TextFileWriter::SetFileNameScheme(const string& directory, const string& stem,
     const string& nameSeparator, const string& extension)
 {
-    fDirectory = directory;
-    fStem = stem;
-    fSeparator = nameSeparator;
-    fExtension = extension;
+    fFileDirectory = directory;
+    fFileStem = stem;
+    fFileSeparator = nameSeparator;
+    fFileExtension = extension;
 }
 
 string TextFileWriter::GetFilePath(int chainIndex) const
 {
     ostringstream filePath;
-    if (!fDirectory.empty())
-        filePath << fDirectory << '/';
-    filePath << fStem;
+    if (!fFileDirectory.empty())
+        filePath << fFileDirectory << '/';
+    filePath << fFileStem;
     if (chainIndex >= 0)
-        filePath << fSeparator << setw(2) << setfill('0') << chainIndex;
-    filePath << fExtension;
+        filePath << fFileSeparator << setw(2) << setfill('0') << chainIndex;
+    filePath << fFileExtension;
     return filePath.str();
 }
 
 void TextFileWriter::Initialize(size_t numberOfChains, const ParameterConfig& paramConfig)
 {
+    Writer::Initialize(numberOfChains, paramConfig);
+
     fFileStreams.clear();
 
     if (numberOfChains < 1)
@@ -82,12 +87,17 @@ void TextFileWriter::Initialize(size_t numberOfChains, const ParameterConfig& pa
     firstLine << "Generation";
 
     for (size_t i = 0; i < paramConfig.size(); i++) {
-        firstLine << fColSep << "Param." << i << ":" << paramConfig[i].GetName();
+        firstLine << fColumnSep;
+        const string& pName = paramConfig[i].GetName();
+        if (pName.empty())
+            firstLine << "Param." << i;
+        else
+            firstLine << pName;
     }
 
-    firstLine << fColSep << "negLogL."
-            << fColSep << "Likelihood"
-            << fColSep << "Prior" << endl;
+    firstLine << fColumnSep << "negLogL."
+            << fColumnSep << "Likelihood"
+            << fColumnSep << "Prior" << endl;
 
     for (size_t c = 0; c < nFileStreams; c++) {
 
@@ -122,11 +132,11 @@ void TextFileWriter::Write(size_t chainIndex, const Chain& chain, size_t startIn
         fileStrm << sample.GetGeneration();
 
         for (const double& v : sample.Values())
-            fileStrm << fColSep << v;
+            fileStrm << fColumnSep << v;
 
-        fileStrm << fColSep << sample.GetNegLogLikelihood();
-        fileStrm << fColSep << sample.GetLikelihood();
-        fileStrm << fColSep << sample.GetPrior();
+        fileStrm << fColumnSep << sample.GetNegLogLikelihood();
+        fileStrm << fColumnSep << sample.GetLikelihood();
+        fileStrm << fColumnSep << sample.GetPrior();
 
     //    fFileStream << "\t" << sample.IsAccepted();
 

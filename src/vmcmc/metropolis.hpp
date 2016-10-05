@@ -57,11 +57,11 @@ public:
 
     void SetNumberOfChains(size_t nChains);
 
-    template<class ContainerT = std::initializer_list<double>>
+    template <typename ContainerT = std::initializer_list<double>>
     void SetBetas(ContainerT betas);
     const std::vector<double>& GetBetas() const { return fBetas; }
 
-    template<class ProposalT, class... ArgsT>
+    template <typename ProposalT, typename... ArgsT>
     void SetProposalFunction(ArgsT&&... args);
     void SetProposalFunction(std::shared_ptr<Proposal> proposalFunction) { fProposalFunction = proposalFunction; }
     std::shared_ptr<Proposal> GetProposalFunction() { return fProposalFunction; };
@@ -70,7 +70,16 @@ public:
     void SetRandomizeStartPoint(bool randomizeStartPoint) { fRandomizeStartPoint = randomizeStartPoint; }
     bool IsRandomizeStartPoint() const { return fRandomizeStartPoint; }
 
-    double GetSwapAcceptanceRate(size_t iChain) const;
+    void SetMultiThreading(bool enable);
+    bool IsMultiThreading() const { return fMultiThreading; }
+
+    /**
+     * Get the fraction of accepted swaps between tempered chains.
+     * @param iChain Index of the chain set.
+     * @param iBeta Index of the tempered chain pair. If < 0, average over all pairs.
+     * @return
+     */
+    double GetSwapAcceptanceRate(size_t iChain, ptrdiff_t iBeta = -1) const;
 
 protected:
     void AdvanceChainConfig(size_t iChainConfig, size_t iBeta, size_t nSteps = 1);
@@ -85,9 +94,12 @@ protected:
 
     struct ChainConfig;
     std::vector<std::unique_ptr<ChainConfig>> fChainConfigs;
+
+private:
+    bool fMultiThreading;
 };
 
-template<class ProposalT, class... ArgsT>
+template <typename ProposalT, typename... ArgsT>
 inline void MetropolisHastings::SetProposalFunction(ArgsT&&... args)
 {
     fProposalFunction = std::make_shared<ProposalT>(
@@ -95,7 +107,7 @@ inline void MetropolisHastings::SetProposalFunction(ArgsT&&... args)
     );
 }
 
-template<class ContainerT>
+template <typename ContainerT>
 inline void MetropolisHastings::SetBetas(ContainerT betas)
 {
     // make sure, that the default chain (0) has nominal temperature
@@ -103,7 +115,7 @@ inline void MetropolisHastings::SetBetas(ContainerT betas)
 
     // only add betas < 1.0 (higher temperature)
     std::copy_if( betas.begin(), betas.end(),
-        std::back_inserter(fBetas), [](double beta){ return beta < 1.0; } );
+        std::back_inserter(fBetas), [](double beta){ return beta < 1.0 && beta > 0.0; } );
 
     // and sort in descending order
     std::sort(fBetas.begin(), fBetas.end(), std::greater<double>());

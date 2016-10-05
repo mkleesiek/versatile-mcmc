@@ -42,6 +42,11 @@ public:
 
     Vector& Values() { return fParameterValues; }
     const Vector& Values() const { return fParameterValues; }
+
+    double& operator[](size_t index) { return fParameterValues[index]; }
+    const double& operator[](size_t index) const { return fParameterValues[index]; }
+    size_t size() const { return fParameterValues.size(); }
+
     Sample& operator= (std::initializer_list<double> pValues);
 
     /**
@@ -66,6 +71,9 @@ public:
     void operator-= (const Sample& other);
     void operator*= (double factor);
     void operator/= (double factor);
+
+    bool operator== (const Sample& other) const { return !(*this != other); }
+    bool operator!= (const Sample& other) const;
 
     friend Sample operator+(const Sample& s1, const Sample& s2);
     friend Sample operator-(const Sample& s1, const Sample& s2);
@@ -130,6 +138,11 @@ inline void Sample::operator/= (double factor)
 {
     fParameterValues /= factor;
     Reset();
+}
+
+inline bool Sample::operator!= (const Sample& other) const
+{
+    return fParameterValues != other.fParameterValues;
 }
 
 // free binary operators

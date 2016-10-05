@@ -37,16 +37,16 @@ namespace vmcmc
  */
 class Writer
 {
-public:
+protected:
     Writer() { };
     virtual ~Writer() { };
 
+public:
     virtual void Initialize(size_t /*numberOfChains*/, const ParameterConfig& /*paramConfig*/) { }
     virtual void Write(size_t chainIndex, const Chain& chain, size_t startIndex) = 0;
     virtual void Finalize() { }
 
-protected:
-    size_t fCurrentIndex = 0;
+    void Write(size_t chainIndex, const Sample& sample);
 };
 
 /**
@@ -59,27 +59,28 @@ public:
         const std::string& nameSeparator = "-", const std::string& extension = ".txt");
     virtual ~TextFileWriter();
 
+    TextFileWriter(const TextFileWriter& other);
+
     void SetFileNameScheme(const std::string& directory, const std::string& stem,
         const std::string& nameSeparator = "-", const std::string& extension = ".txt");
     void SetPrecision(int prec) { fPrecision = prec; }
     void SetCombineChains(bool combine) { fCombineChains = combine; }
-    void SetColumnSeparator(const std::string& sep) { fColSep = sep; }
+    void SetColumnSeparator(const std::string& sep) { fColumnSep = sep; }
 
     std::string GetFilePath(int chainIndex = -1) const;
 
     virtual void Initialize(size_t numberOfChains, const ParameterConfig& paramConfig) override;
     virtual void Write(size_t chainIndex, const Chain& chain, size_t startIndex) override;
 
-private:
-    TextFileWriter(const TextFileWriter& other);
+    using Writer::Write;
 
-    std::string fDirectory;
-    std::string fStem;
-    std::string fSeparator;
-    std::string fExtension;
+    std::string fFileDirectory;
+    std::string fFileStem;
+    std::string fFileSeparator;
+    std::string fFileExtension;
 
     int fPrecision = 12;
-    std::string fColSep = "\t";
+    std::string fColumnSep = "\t";
     bool fCombineChains = false;
     std::vector<std::unique_ptr<std::ofstream>> fFileStreams;
 };

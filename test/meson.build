@@ -1,15 +1,17 @@
 vmcmc_tests = [
     'blas-test',
     'chain-test',
+    'exception-test',
     'io-test',
     'logger-test',
     'math-test',
     'metropolis-test',
     'numeric-test',
     'parameter-test',
-#    'prior-test',
     'proposal-test',
-    'random-test'
+    'random-test',
+    'stringutils-test',
+    'typetraits-test'
 ]
 
 foreach p : vmcmc_tests

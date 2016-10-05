@@ -71,11 +71,26 @@ MetropolisHastings::MetropolisHastings() :
     fRandomizeStartPoint( false ),
     fBetas{ 1.0 },
     fPtFrequency( 200 ),
-    fChainConfigs( 1 )
-{ }
+    fChainConfigs( 1 ),
+    fMultiThreading( true )
+{
+#ifndef USE_TBB
+    fMultiThreading = false;
+#endif
+}
 
 MetropolisHastings::~MetropolisHastings()
 { }
+
+void MetropolisHastings::SetMultiThreading(bool enable)
+{
+#ifndef USE_TBB
+    if (enable)
+        LOG(Warn, "TBB is not available for multi-threading.");
+    fMultiThreading = false;
+#endif
+    fMultiThreading = enable;
+}
 
 const Chain& MetropolisHastings::GetChain(size_t cIndex)
 {
@@ -91,22 +106,32 @@ void MetropolisHastings::SetNumberOfChains(size_t nChains)
     fChainConfigs.resize( std::max<size_t>(nChains, 1) );
 }
 
-double MetropolisHastings::GetSwapAcceptanceRate(size_t iChain) const
+double MetropolisHastings::GetSwapAcceptanceRate(size_t iChain, ptrdiff_t iBeta) const
 {
-    if (iChain <= fChainConfigs.size())
+    if (iChain >= fChainConfigs.size())
         return 0.0;
 
     const auto& chainConfig = fChainConfigs[iChain];
 
-    const double nAcceptedSwaps = accumulate(
-        chainConfig->fNAcceptedSwaps.begin(),
-        chainConfig->fNAcceptedSwaps.end(), 0 );
+    if (iBeta < 0) {
+        const double nAcceptedSwaps = accumulate(
+            chainConfig->fNAcceptedSwaps.begin(),
+            chainConfig->fNAcceptedSwaps.end(), 0 );
 
-    const double nProposedSwaps = accumulate(
-        chainConfig->fNProposedSwaps.begin(),
-        chainConfig->fNProposedSwaps.end(), 0 );
+        const double nProposedSwaps = accumulate(
+            chainConfig->fNProposedSwaps.begin(),
+            chainConfig->fNProposedSwaps.end(), 0 );
 
-    return nAcceptedSwaps / nProposedSwaps;
+        return nAcceptedSwaps / nProposedSwaps;
+    }
+    else if ((size_t) iBeta >= chainConfig->fNAcceptedSwaps.size()) {
+        return 0.0;
+    }
+    else {
+        return chainConfig->fNAcceptedSwaps[iBeta] / chainConfig->fNProposedSwaps[iBeta];
+    }
+
+
 }
 
 void MetropolisHastings::Initialize()
@@ -186,24 +211,29 @@ void MetropolisHastings::Advance(size_t nSteps)
      * (number of chain sets * number of PT beta values)
      * are progressed in parallel by nSteps each.
      */
+    if (fMultiThreading) {
 #ifdef USE_TBB
-    const size_t nTotalChains = nChainConfigs * nBetas;
+        const size_t nTotalChains = nChainConfigs * nBetas;
 
-    parallel_for(
-        blocked_range<size_t>(0, nTotalChains),
-        [&](const blocked_range<size_t>& range) {
-            for (size_t iChain = range.begin(); iChain < range.end(); iChain++) {
-                const size_t iChainConfig = iChain / nBetas;
-                const size_t iBeta = iChain % nBetas;
-                this->AdvanceChainConfig( iChainConfig, iBeta, nSteps );
+        parallel_for(
+            blocked_range<size_t>(0, nTotalChains),
+            [&](const blocked_range<size_t>& range) {
+                for (size_t iChain = range.begin(); iChain < range.end(); iChain++) {
+                    const size_t iChainConfig = iChain / nBetas;
+                    const size_t iBeta = iChain % nBetas;
+                    this->AdvanceChainConfig( iChainConfig, iBeta, nSteps );
+                }
             }
-        }
-    );
+        );
 #else
-    for (size_t iChainConfig = 0; iChainConfig < nChainConfigs; iChainConfig++)
-        for (size_t iBeta = 0; iBeta < nBetas; iBeta++)
-            AdvanceChainConfig( iChainConfig, iBeta, nSteps );
+        LOG(Fatal, "TBB not available - multi-threading should be deactivated.");
 #endif
+    }
+    else {
+        for (size_t iChainConfig = 0; iChainConfig < nChainConfigs; iChainConfig++)
+            for (size_t iBeta = 0; iBeta < nBetas; iBeta++)
+                AdvanceChainConfig( iChainConfig, iBeta, nSteps );
+    }
 
     if (nBetas < 2)
         return;
