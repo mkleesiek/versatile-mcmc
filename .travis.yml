@@ -91,7 +91,8 @@ before_script:
 script:
   # setup the meson build and configure
   - mkdir build
-  - CXX=$COMPILER CXXFLAGS=$COMPILER_FLAGS LDFLAGS=$LINKER_FLAGS meson.py build -Db_coverage=true -Derrorlogs=true
+  - if [[ "$TASK" != "coverage" ]]; then CXX=$COMPILER CXXFLAGS=$COMPILER_FLAGS LDFLAGS=$LINKER_FLAGS meson.py build -Derrorlogs=true; fi
+  - if [[ "$TASK" == "coverage" ]]; then CXX=$COMPILER CXXFLAGS=$COMPILER_FLAGS LDFLAGS=$LINKER_FLAGS meson.py build -Db_coverage=true -Derrorlogs=true; fi
   - cd build
   # build with ninja and execute tests
   - ninja -v test
