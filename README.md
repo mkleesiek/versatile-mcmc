@@ -71,7 +71,7 @@ meson .. [--prefix=/install/dir] [--buildtype=(plain|debug|debugoptimized|releas
 ```
 - Use mesonconf to revise or modify your configuration:
 ```
-mesonconf
+mesonconf .
 ```
 - Both meson(.py) and mesonconf(.py) offer decent command-line help if executed with the option --help.
 - To compile the code, execute ninja in the build directory:
