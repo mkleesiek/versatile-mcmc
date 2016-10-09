@@ -89,7 +89,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classvmcmc_1_1Writer-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">vmcmc::Writer Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -105,8 +104,7 @@ Inheritance diagram for vmcmc::Writer:</div>
 <div class="dyncontent">
 <div class="center"><img src="classvmcmc_1_1Writer__inherit__graph.png" border="0" usemap="#vmcmc_1_1Writer_inherit__map" alt="Inheritance graph"/></div>
 <map name="vmcmc_1_1Writer_inherit__map" id="vmcmc_1_1Writer_inherit__map">
-<area shape="rect" id="node2" href="classvmcmc_1_1GnuplotWriter.html" title="Near&#45;time graphic visualization of each chain&#39;s evolution. " alt="" coords="5,80,159,107"/>
-<area shape="rect" id="node3" href="classvmcmc_1_1TextFileWriter.html" title="A writer streaming incoming samples to textfiles. " alt="" coords="183,80,338,107"/>
+<area shape="rect" id="node2" href="classvmcmc_1_1TextFileWriter.html" title="A writer streaming incoming samples to textfiles. " alt="" coords="5,80,160,107"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -121,18 +119,16 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Write</b> (si
 <tr class="memitem:abb95fd1b963a7d5f0ab75063b5c67795"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abb95fd1b963a7d5f0ab75063b5c67795"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Finalize</b> ()</td></tr>
 <tr class="separator:abb95fd1b963a7d5f0ab75063b5c67795"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:a2b2cf56c4440132157b2854e7ee87664"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2b2cf56c4440132157b2854e7ee87664"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>fCurrentIndex</b> = 0</td></tr>
-<tr class="separator:a2b2cf56c4440132157b2854e7ee87664"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6e7402e58e27c5e5bfef482db0d546f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab6e7402e58e27c5e5bfef482db0d546f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Write</b> (size_t chainIndex, const <a class="el" href="classvmcmc_1_1Sample.html">Sample</a> &amp;sample)</td></tr>
+<tr class="separator:ab6e7402e58e27c5e5bfef482db0d546f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract base class for mechanisms writing output files or producing visual output. </p>
 <p>The virtual functions Initialize and Write are invoked by <a class="el" href="classvmcmc_1_1Algorithm.html" title="Abstract base class for the core MCMC sampling algorithms. ">Algorithm</a>. </p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>vmcmc/<a class="el" href="io_8hpp_source.html">io.hpp</a></li>
+<li>vmcmc/<a class="el" href="io_8cpp.html">io.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

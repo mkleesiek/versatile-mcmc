@@ -88,6 +88,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classvmcmc_1_1Algorithm-members.html">List of all members</a>  </div>
@@ -118,6 +119,12 @@ Collaboration diagram for vmcmc::Algorithm:</div>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a25cb2c742d02f337bd6996fa3a42405f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a25cb2c742d02f337bd6996fa3a42405f"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>DefaultCallable</b> = std::function&lt; double(const std::vector&lt; double &gt; &amp;)&gt;</td></tr>
+<tr class="separator:a25cb2c742d02f337bd6996fa3a42405f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab8bbbf66bcdca0ea3ec3e5d2df5f7e6c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Algorithm.html#ab8bbbf66bcdca0ea3ec3e5d2df5f7e6c">SetParameterConfig</a> (const <a class="el" href="classvmcmc_1_1ParameterConfig.html">ParameterConfig</a> &amp;paramConfig)</td></tr>
@@ -126,27 +133,36 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2103827dac13e7f2bde894ba84a70ac8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2103827dac13e7f2bde894ba84a70ac8"></a>
 const <a class="el" href="classvmcmc_1_1ParameterConfig.html">ParameterConfig</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetParameterConfig</b> () const </td></tr>
 <tr class="separator:a2103827dac13e7f2bde894ba84a70ac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac68bb522b99a388d3195ae6f66055fec"><td class="memTemplParams" colspan="2"><a class="anchor" id="ac68bb522b99a388d3195ae6f66055fec"></a>
-template&lt;class FunctionT &gt; </td></tr>
-<tr class="memitem:ac68bb522b99a388d3195ae6f66055fec"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SetPrior</b> (FunctionT prior)</td></tr>
-<tr class="separator:ac68bb522b99a388d3195ae6f66055fec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d4da9b39ab8ce3a0a7ded042ba37ade"><td class="memTemplParams" colspan="2"><a class="anchor" id="a8d4da9b39ab8ce3a0a7ded042ba37ade"></a>
-template&lt;class FunctionT &gt; </td></tr>
-<tr class="memitem:a8d4da9b39ab8ce3a0a7ded042ba37ade"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SetLikelihoodFunction</b> (FunctionT likelihood)</td></tr>
-<tr class="separator:a8d4da9b39ab8ce3a0a7ded042ba37ade"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c8ec3984af8f6a05bdb413f56f51d74"><td class="memTemplParams" colspan="2"><a class="anchor" id="a4c8ec3984af8f6a05bdb413f56f51d74"></a>
-template&lt;class FunctionT &gt; </td></tr>
-<tr class="memitem:a4c8ec3984af8f6a05bdb413f56f51d74"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SetNegLogLikelihoodFunction</b> (FunctionT negLoglikelihood)</td></tr>
-<tr class="separator:a4c8ec3984af8f6a05bdb413f56f51d74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f1e840f34e4aa2191e9e725158ef5ea"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7f1e840f34e4aa2191e9e725158ef5ea"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetPrior</b> (DefaultCallable prior)</td></tr>
+<tr class="separator:a7f1e840f34e4aa2191e9e725158ef5ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4af7fbc1e19bf9e630e5742a87444ad6"><td class="memTemplParams" colspan="2"><a class="anchor" id="a4af7fbc1e19bf9e630e5742a87444ad6"></a>
+template&lt;size_t NParams, typename CallableT &gt; </td></tr>
+<tr class="memitem:a4af7fbc1e19bf9e630e5742a87444ad6"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SetPrior</b> (CallableT prior)</td></tr>
+<tr class="separator:a4af7fbc1e19bf9e630e5742a87444ad6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac27d0e73db9ecca765fbcf5358f0ed48"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac27d0e73db9ecca765fbcf5358f0ed48"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetLikelihood</b> (DefaultCallable likelihood)</td></tr>
+<tr class="separator:ac27d0e73db9ecca765fbcf5358f0ed48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0f32685ad827288ac79366a73384f30"><td class="memTemplParams" colspan="2"><a class="anchor" id="ae0f32685ad827288ac79366a73384f30"></a>
+template&lt;size_t NParams, typename CallableT &gt; </td></tr>
+<tr class="memitem:ae0f32685ad827288ac79366a73384f30"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SetLikelihood</b> (CallableT likelihood)</td></tr>
+<tr class="separator:ae0f32685ad827288ac79366a73384f30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90924d1b58cb2cab014acef3263a8d66"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a90924d1b58cb2cab014acef3263a8d66"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetNegLogLikelihood</b> (DefaultCallable negLoglikelihood)</td></tr>
+<tr class="separator:a90924d1b58cb2cab014acef3263a8d66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2ade001820a0e930978e347504d3f9b"><td class="memTemplParams" colspan="2"><a class="anchor" id="ae2ade001820a0e930978e347504d3f9b"></a>
+template&lt;size_t NParams, typename CallableT &gt; </td></tr>
+<tr class="memitem:ae2ade001820a0e930978e347504d3f9b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SetNegLogLikelihood</b> (CallableT negLoglikelihood)</td></tr>
+<tr class="separator:ae2ade001820a0e930978e347504d3f9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2644111a87ec417354c1006d4d63ea98"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2644111a87ec417354c1006d4d63ea98"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetTotalLength</b> (size_t length)</td></tr>
 <tr class="separator:a2644111a87ec417354c1006d4d63ea98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a481b78643ac6885426ec41ea1c18654d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a481b78643ac6885426ec41ea1c18654d"></a>
 size_t&#160;</td><td class="memItemRight" valign="bottom"><b>GetTotalLength</b> () const </td></tr>
 <tr class="separator:a481b78643ac6885426ec41ea1c18654d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1ad6d85697b06a0691a03ebb56089a7"><td class="memTemplParams" colspan="2"><a class="anchor" id="ab1ad6d85697b06a0691a03ebb56089a7"></a>
-template&lt;class WriterT , class... ArgsT&gt; </td></tr>
-<tr class="memitem:ab1ad6d85697b06a0691a03ebb56089a7"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>AddWriter</b> (ArgsT &amp;&amp;...args)</td></tr>
+<tr class="memitem:ab1ad6d85697b06a0691a03ebb56089a7"><td class="memTemplParams" colspan="2">template&lt;typename WriterT , typename... ArgsT&gt; </td></tr>
+<tr class="memitem:ab1ad6d85697b06a0691a03ebb56089a7"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classvmcmc_1_1Algorithm.html#ab1ad6d85697b06a0691a03ebb56089a7">AddWriter</a> (ArgsT &amp;&amp;...args)</td></tr>
+<tr class="memdesc:ab1ad6d85697b06a0691a03ebb56089a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an output writer by specifying its type and passing constructor arguments.  <a href="#ab1ad6d85697b06a0691a03ebb56089a7">More...</a><br /></td></tr>
 <tr class="separator:ab1ad6d85697b06a0691a03ebb56089a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc8a7390f5e3ae2eab0cee086f226639"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adc8a7390f5e3ae2eab0cee086f226639"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>AddWriter</b> (std::shared_ptr&lt; <a class="el" href="classvmcmc_1_1Writer.html">Writer</a> &gt; writer)</td></tr>
@@ -182,21 +198,27 @@ virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><b>NumberOfCha
 <tr class="memitem:aaf7be46150699915b918bfcc70bba359"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaf7be46150699915b918bfcc70bba359"></a>
 virtual const Chain &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetChain</b> (size_t cIndex=0)=0</td></tr>
 <tr class="separator:aaf7be46150699915b918bfcc70bba359"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb7cf6c3e5648670c0f2e5d80514e3b6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acb7cf6c3e5648670c0f2e5d80514e3b6"></a>
+<a class="el" href="classvmcmc_1_1ChainSetStatistics.html">ChainSetStatistics</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetStatistics</b> ()</td></tr>
+<tr class="separator:acb7cf6c3e5648670c0f2e5d80514e3b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa92ef9f368ca46187f1520079d077f8d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa92ef9f368ca46187f1520079d077f8d"></a>
+const <a class="el" href="classvmcmc_1_1ChainSetStatistics.html">ChainSetStatistics</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetStatistics</b> () const </td></tr>
+<tr class="separator:aa92ef9f368ca46187f1520079d077f8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a90ea4da598a26ac9b5845e82a7db2ffb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a90ea4da598a26ac9b5845e82a7db2ffb"></a>
 <a class="el" href="classvmcmc_1_1ParameterConfig.html">ParameterConfig</a>&#160;</td><td class="memItemRight" valign="bottom"><b>fParameterConfig</b></td></tr>
 <tr class="separator:a90ea4da598a26ac9b5845e82a7db2ffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca7114cc690a4b55a328a6f13395c678"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aca7114cc690a4b55a328a6f13395c678"></a>
-std::function&lt; double(const std::vector&lt; double &gt; &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>fPrior</b></td></tr>
-<tr class="separator:aca7114cc690a4b55a328a6f13395c678"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3740e0055a33607c2c06c8d7db141cdc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3740e0055a33607c2c06c8d7db141cdc"></a>
-std::function&lt; double(const std::vector&lt; double &gt; &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>fLikelihood</b></td></tr>
-<tr class="separator:a3740e0055a33607c2c06c8d7db141cdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7d20dbd560b0a2bd71cbfd87f873d2c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae7d20dbd560b0a2bd71cbfd87f873d2c"></a>
-std::function&lt; double(const std::vector&lt; double &gt; &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>fNegLogLikelihood</b></td></tr>
-<tr class="separator:ae7d20dbd560b0a2bd71cbfd87f873d2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27b34be0f77745c1ee241d983c15f907"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a27b34be0f77745c1ee241d983c15f907"></a>
+DefaultCallable&#160;</td><td class="memItemRight" valign="bottom"><b>fPrior</b></td></tr>
+<tr class="separator:a27b34be0f77745c1ee241d983c15f907"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fe1c20f3fd72ac4c7c9381223ed9cf4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4fe1c20f3fd72ac4c7c9381223ed9cf4"></a>
+DefaultCallable&#160;</td><td class="memItemRight" valign="bottom"><b>fLikelihood</b></td></tr>
+<tr class="separator:a4fe1c20f3fd72ac4c7c9381223ed9cf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6b8557b86a05cb284663fe381512219"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac6b8557b86a05cb284663fe381512219"></a>
+DefaultCallable&#160;</td><td class="memItemRight" valign="bottom"><b>fNegLogLikelihood</b></td></tr>
+<tr class="separator:ac6b8557b86a05cb284663fe381512219"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23c2b203b4630f7f739bf0bc1773abac"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a23c2b203b4630f7f739bf0bc1773abac"></a>
 size_t&#160;</td><td class="memItemRight" valign="bottom"><b>fTotalLength</b></td></tr>
 <tr class="separator:a23c2b203b4630f7f739bf0bc1773abac"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -215,6 +237,40 @@ std::vector&lt; std::shared_ptr&lt; <a class="el" href="classvmcmc_1_1Writer.htm
 <p>This base class models the sampling algorithm of an MCMC, advancing to a new state in the parameter space, accepting or rejecting, and saving that state (subsequently sampling the parameter space).</p>
 <p>Ideally, this interface should cover single chain algorithms, as well as multi-chain algorithms (like DREAM). </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="ab1ad6d85697b06a0691a03ebb56089a7"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename WriterT , typename... ArgsT&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vmcmc::Algorithm::AddWriter </td>
+          <td>(</td>
+          <td class="paramtype">ArgsT &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add an output writer by specifying its type and passing constructor arguments. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">args</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a8ef5890f37568210b9f0135e00fa8f10"></a>
 <div class="memitem">
 <div class="memproto">

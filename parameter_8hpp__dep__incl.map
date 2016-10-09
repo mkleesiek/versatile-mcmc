@@ -1,5 +1,5 @@
 <map id="vmcmc/parameter.hpp" name="vmcmc/parameter.hpp">
-<area shape="rect" id="node2" href="$algorithm_8hpp.html" title="Contains base class for MCMC sampling algorithms. " alt="" coords="238,80,385,107"/>
+<area shape="rect" id="node2" href="$algorithm_8hpp.html" title="Contains abstract base class for MCMC sampling algorithms. " alt="" coords="238,80,385,107"/>
 <area shape="rect" id="node7" href="$io_8hpp.html" title="IO classes for writing MCMC samples to files (and reading back from) or visual output. " alt="" coords="24,80,128,107"/>
 <area shape="rect" id="node9" href="$parameter_8cpp.html" title="vmcmc/parameter.cpp" alt="" coords="460,80,612,107"/>
 <area shape="rect" id="node10" href="$proposal_8hpp.html" title="Proposal functions (defined as classes) for the Metropolis&#45;Hastings algorithm. " alt="" coords="502,155,644,181"/>

@@ -3,7 +3,7 @@
 <area shape="rect" id="node11" href="$parameter_8hpp.html" title="Class definitions representing input parameter configurations. " alt="" coords="157,155,309,181"/>
 <area shape="rect" id="node13" href="$proposal_8hpp.html" title="Proposal functions (defined as classes) for the Metropolis&#45;Hastings algorithm. " alt="" coords="641,229,783,256"/>
 <area shape="rect" id="node15" href="$sample_8hpp.html" title="Contains the Sample class definition for data sampled from the target parameter space. " alt="" coords="476,80,612,107"/>
-<area shape="rect" id="node3" href="$algorithm_8hpp.html" title="Contains base class for MCMC sampling algorithms. " alt="" coords="309,229,456,256"/>
+<area shape="rect" id="node3" href="$algorithm_8hpp.html" title="Contains abstract base class for MCMC sampling algorithms. " alt="" coords="309,229,456,256"/>
 <area shape="rect" id="node8" href="$chain_8cpp.html" title="vmcmc/chain.cpp" alt="" coords="480,229,605,256"/>
 <area shape="rect" id="node9" href="$io_8hpp.html" title="IO classes for writing MCMC samples to files (and reading back from) or visual output. " alt="" coords="181,229,285,256"/>
 <area shape="rect" id="node4" href="$algorithm_8cpp.html" title="vmcmc/algorithm.cpp" alt="" coords="256,304,403,331"/>

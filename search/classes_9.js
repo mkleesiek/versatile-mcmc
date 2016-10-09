@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['sample',['Sample',['../classvmcmc_1_1Sample.html',1,'vmcmc']]]
+  ['textfilewriter',['TextFileWriter',['../classvmcmc_1_1TextFileWriter.html',1,'vmcmc']]]
 ];

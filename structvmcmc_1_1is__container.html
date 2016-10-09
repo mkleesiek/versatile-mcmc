@@ -110,10 +110,10 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>test_type</b> = type
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a67146800105fa5221c5d40be791b3c99"><td class="memTemplParams" colspan="2"><a class="anchor" id="a67146800105fa5221c5d40be791b3c99"></a>
+<tr class="memitem:a733af8324574ad96a3930f6514d0b36d"><td class="memTemplParams" colspan="2"><a class="anchor" id="a733af8324574ad96a3930f6514d0b36d"></a>
 template&lt;typename A &gt; </td></tr>
-<tr class="memitem:a67146800105fa5221c5d40be791b3c99"><td class="memTemplItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>test</b> (A *pt, A const *cpt=nullptr, decltype(pt-&gt;begin())*=nullptr, decltype(pt-&gt;end())*=nullptr, decltype(cpt-&gt;begin())*=nullptr, decltype(cpt-&gt;end())*=nullptr, decltype(pt-&gt;size())*=nullptr, typename A::iterator *pi=nullptr, typename A::const_iterator *pci=nullptr, typename A::value_type *=nullptr)</td></tr>
-<tr class="separator:a67146800105fa5221c5d40be791b3c99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a733af8324574ad96a3930f6514d0b36d"><td class="memTemplItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>test</b> (A *pt, const A *cpt=nullptr, decltype(pt-&gt;begin())*=nullptr, decltype(pt-&gt;end())*=nullptr, decltype(cpt-&gt;begin())*=nullptr, decltype(cpt-&gt;end())*=nullptr, decltype(pt-&gt;size())*=nullptr, typename A::iterator *pi=nullptr, typename A::const_iterator *pci=nullptr, typename A::value_type *=nullptr)</td></tr>
+<tr class="separator:a733af8324574ad96a3930f6514d0b36d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04aefd4220e3c7204370d302e4ea736d"><td class="memTemplParams" colspan="2"><a class="anchor" id="a04aefd4220e3c7204370d302e4ea736d"></a>
 template&lt;typename A &gt; </td></tr>
 <tr class="memitem:a04aefd4220e3c7204370d302e4ea736d"><td class="memTemplItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>test</b> (...)</td></tr>
@@ -130,7 +130,7 @@ static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>valu
 struct vmcmc::is_container&lt; T &gt;</h3>
 
 <p>Typetrait checking for STL like container structure. </p>
-<p>Typetrait checking whether the passed template argument denotes an STL like container. In that case, the static ::value member variable evaluates to true. </p>
+<p>Typetrait checking whether the passed template argument denotes an STL like container. In that case, the static ::value member variable evaluates to true. Inspired by <a href="http://stackoverflow.com/a/16316640/6908762">http://stackoverflow.com/a/16316640/6908762</a>. </p>
 </div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li>vmcmc/<a class="el" href="typetraits_8hpp_source.html">typetraits.hpp</a></li>
 </ul>

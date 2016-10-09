@@ -89,6 +89,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classvmcmc_1_1TextFileWriter-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">vmcmc::TextFileWriter Class Reference</div>  </div>
@@ -121,6 +122,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acea292e1cd4fd79acb45e857efe885dd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acea292e1cd4fd79acb45e857efe885dd"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>TextFileWriter</b> (const std::string &amp;directory=&quot;&quot;, const std::string &amp;stem=&quot;vmcmc&quot;, const std::string &amp;nameSeparator=&quot;-&quot;, const std::string &amp;extension=&quot;.txt&quot;)</td></tr>
 <tr class="separator:acea292e1cd4fd79acb45e857efe885dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6520e213032ab4815785d0fcc75de86e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6520e213032ab4815785d0fcc75de86e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>TextFileWriter</b> (const <a class="el" href="classvmcmc_1_1TextFileWriter.html">TextFileWriter</a> &amp;other)</td></tr>
+<tr class="separator:a6520e213032ab4815785d0fcc75de86e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c9eb2b06f34c476f9efce07bc77b195"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8c9eb2b06f34c476f9efce07bc77b195"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetFileNameScheme</b> (const std::string &amp;directory, const std::string &amp;stem, const std::string &amp;nameSeparator=&quot;-&quot;, const std::string &amp;extension=&quot;.txt&quot;)</td></tr>
 <tr class="separator:a8c9eb2b06f34c476f9efce07bc77b195"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,13 +150,36 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Write</b> (si
 <tr class="memitem:abb95fd1b963a7d5f0ab75063b5c67795 inherit pub_methods_classvmcmc_1_1Writer"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abb95fd1b963a7d5f0ab75063b5c67795"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Finalize</b> ()</td></tr>
 <tr class="separator:abb95fd1b963a7d5f0ab75063b5c67795 inherit pub_methods_classvmcmc_1_1Writer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6e7402e58e27c5e5bfef482db0d546f inherit pub_methods_classvmcmc_1_1Writer"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab6e7402e58e27c5e5bfef482db0d546f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Write</b> (size_t chainIndex, const <a class="el" href="classvmcmc_1_1Sample.html">Sample</a> &amp;sample)</td></tr>
+<tr class="separator:ab6e7402e58e27c5e5bfef482db0d546f inherit pub_methods_classvmcmc_1_1Writer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_attribs_classvmcmc_1_1Writer"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classvmcmc_1_1Writer')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classvmcmc_1_1Writer.html">vmcmc::Writer</a></td></tr>
-<tr class="memitem:a2b2cf56c4440132157b2854e7ee87664 inherit pro_attribs_classvmcmc_1_1Writer"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2b2cf56c4440132157b2854e7ee87664"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>fCurrentIndex</b> = 0</td></tr>
-<tr class="separator:a2b2cf56c4440132157b2854e7ee87664 inherit pro_attribs_classvmcmc_1_1Writer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:adabe7542f37f1f85ddab2b2ab2e35884"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adabe7542f37f1f85ddab2b2ab2e35884"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>fFileDirectory</b></td></tr>
+<tr class="separator:adabe7542f37f1f85ddab2b2ab2e35884"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac802f9116c8cd5e9c6af30dc5b44083"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aac802f9116c8cd5e9c6af30dc5b44083"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>fFileStem</b></td></tr>
+<tr class="separator:aac802f9116c8cd5e9c6af30dc5b44083"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0222e6036e1cf66f65ffc04b234405e6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0222e6036e1cf66f65ffc04b234405e6"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>fFileSeparator</b></td></tr>
+<tr class="separator:a0222e6036e1cf66f65ffc04b234405e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a722a9c15790456d4ff405ad00b082e8b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a722a9c15790456d4ff405ad00b082e8b"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>fFileExtension</b></td></tr>
+<tr class="separator:a722a9c15790456d4ff405ad00b082e8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66ec046ffb424ec6e38a541d73055dd1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a66ec046ffb424ec6e38a541d73055dd1"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>fPrecision</b> = 12</td></tr>
+<tr class="separator:a66ec046ffb424ec6e38a541d73055dd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35671a7b37e649678d3766b95cafc54f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a35671a7b37e649678d3766b95cafc54f"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>fColumnSep</b> = &quot;\t&quot;</td></tr>
+<tr class="separator:a35671a7b37e649678d3766b95cafc54f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a747210b0706aa7b471de28236261098c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a747210b0706aa7b471de28236261098c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>fCombineChains</b> = false</td></tr>
+<tr class="separator:a747210b0706aa7b471de28236261098c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a323395fdcec36074380e4d02b17ffb1a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a323395fdcec36074380e4d02b17ffb1a"></a>
+std::vector&lt; std::unique_ptr&lt; std::ofstream &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>fFileStreams</b></td></tr>
+<tr class="separator:a323395fdcec36074380e4d02b17ffb1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A writer streaming incoming samples to textfiles. </p>

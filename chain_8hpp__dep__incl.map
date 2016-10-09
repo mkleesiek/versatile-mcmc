@@ -1,5 +1,5 @@
 <map id="vmcmc/chain.hpp" name="vmcmc/chain.hpp">
-<area shape="rect" id="node2" href="$algorithm_8hpp.html" title="Contains base class for MCMC sampling algorithms. " alt="" coords="9,80,156,107"/>
+<area shape="rect" id="node2" href="$algorithm_8hpp.html" title="Contains abstract base class for MCMC sampling algorithms. " alt="" coords="9,80,156,107"/>
 <area shape="rect" id="node7" href="$chain_8cpp.html" title="vmcmc/chain.cpp" alt="" coords="180,80,305,107"/>
 <area shape="rect" id="node8" href="$io_8hpp.html" title="IO classes for writing MCMC samples to files (and reading back from) or visual output. " alt="" coords="329,80,433,107"/>
 <area shape="rect" id="node3" href="$algorithm_8cpp.html" title="vmcmc/algorithm.cpp" alt="" coords="184,155,331,181"/>

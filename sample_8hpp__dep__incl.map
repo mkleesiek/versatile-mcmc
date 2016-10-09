@@ -2,7 +2,7 @@
 <area shape="rect" id="node2" href="$chain_8hpp.html" title="Utility classes for calculation statistical momenta and diagnostics. " alt="" coords="344,80,469,107"/>
 <area shape="rect" id="node11" href="$proposal_8hpp.html" title="Proposal functions (defined as classes) for the Metropolis&#45;Hastings algorithm. " alt="" coords="534,229,677,256"/>
 <area shape="rect" id="node13" href="$stringutils_8cpp.html" title="vmcmc/stringutils.cpp" alt="" coords="637,80,787,107"/>
-<area shape="rect" id="node3" href="$algorithm_8hpp.html" title="Contains base class for MCMC sampling algorithms. " alt="" coords="253,155,400,181"/>
+<area shape="rect" id="node3" href="$algorithm_8hpp.html" title="Contains abstract base class for MCMC sampling algorithms. " alt="" coords="253,155,400,181"/>
 <area shape="rect" id="node8" href="$chain_8cpp.html" title="vmcmc/chain.cpp" alt="" coords="424,155,549,181"/>
 <area shape="rect" id="node9" href="$io_8hpp.html" title="IO classes for writing MCMC samples to files (and reading back from) or visual output. " alt="" coords="101,155,205,181"/>
 <area shape="rect" id="node4" href="$algorithm_8cpp.html" title="vmcmc/algorithm.cpp" alt="" coords="184,229,331,256"/>

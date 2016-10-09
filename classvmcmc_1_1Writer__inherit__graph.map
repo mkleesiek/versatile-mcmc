@@ -1,4 +1,3 @@
 <map id="vmcmc::Writer" name="vmcmc::Writer">
-<area shape="rect" id="node2" href="$classvmcmc_1_1GnuplotWriter.html" title="Near&#45;time graphic visualization of each chain&#39;s evolution. " alt="" coords="5,80,159,107"/>
-<area shape="rect" id="node3" href="$classvmcmc_1_1TextFileWriter.html" title="A writer streaming incoming samples to textfiles. " alt="" coords="183,80,338,107"/>
+<area shape="rect" id="node2" href="$classvmcmc_1_1TextFileWriter.html" title="A writer streaming incoming samples to textfiles. " alt="" coords="5,80,160,107"/>
 </map>
