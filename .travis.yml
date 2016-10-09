@@ -1,5 +1,11 @@
 language: cpp
 
+# whitelist GIT branches
+branches:
+  only:
+    - master
+    - develop
+
 # define OS and compiler variations to be tested
 matrix:
   include:
@@ -85,14 +91,14 @@ before_script:
 script:
   # setup the meson build and configure
   - mkdir build
-  - CXX=$COMPILER CXXFLAGS=$COMPILER_FLAGS LDFLAGS=$LINKER_FLAGS meson.py build
+  - if [[ "$TASK" != "coverage" ]]; then CXX=$COMPILER CXXFLAGS=$COMPILER_FLAGS LDFLAGS=$LINKER_FLAGS meson.py build -Derrorlogs=true; fi
+  - if [[ "$TASK" == "coverage" ]]; then CXX=$COMPILER CXXFLAGS=$COMPILER_FLAGS LDFLAGS=$LINKER_FLAGS meson.py build -Db_coverage=true -Derrorlogs=true; fi
   - cd build
-  # configure the build
-  - if [[ "$TASK" == "coverage" ]]; then mesonconf.py . -Db_coverage=true; fi
-  # build with ninja
-  - ninja -v
-  # build and execute unit tests
-  - ninja test
+  # build with ninja and execute tests
+  - ninja -v test
+  # generate coverage info
+  - if [[ "$TASK" == "coverage" ]]; then ninja coverage-xml; fi
     
 after_success:
+  # generate and upload coverage info to codecov.io
   - if [[ "$TASK" == "coverage" ]]; then bash <(curl -s https://codecov.io/bash) -x gcov-6 || echo "Codecov did not collect coverage reports"; fi
