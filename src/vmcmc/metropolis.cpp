@@ -48,7 +48,8 @@ struct MetropolisHastings::ChainConfig
         // clone the default proposal function
         fProposalFunctions( n )
     {
-        LOG_ASSERT( n > 0, "A Metropolis chain bunch needs at least 1 chain.");
+        LOG_ASSERT( n > 0, "A Metropolis chain set requires at least 1 chain"
+             << " (and corresponding beta value).");
 
         if (propFunc)
             for (auto& p : fProposalFunctions)
@@ -182,6 +183,8 @@ void MetropolisHastings::Initialize()
                 startPoint.Values() = GetParameterConfig().GetStartValues(true);
                 Evaluate( startPoint );
             }
+
+            chain.reserve( GetTotalLength()+1 );
 
             chain.push_back( startPoint );
         }

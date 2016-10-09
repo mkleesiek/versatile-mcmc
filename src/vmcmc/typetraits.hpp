@@ -20,9 +20,9 @@
 namespace vmcmc {
 
 /**
- * @brief Typetrait checking for STL like container structure.
+ * Typetrait checking for STL like container structure.
  *
- * Typetrait checking whether the passed template argument denotes an STL like
+ * This typetrait checks whether the passed template argument is an STL-like
  * container. In that case, the static ::value member variable evaluates
  * to true.
  * Inspired by http://stackoverflow.com/a/16316640/6908762.

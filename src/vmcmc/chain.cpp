@@ -501,7 +501,7 @@ void ChainSetStatistics::SelectPercentageRange(double start, double end)
     Reset();
 }
 
-double ChainSetStatistics::GetRubinGelman()
+double ChainSetStatistics::GetGelmanRubin()
 {
     if (fRubinGelman)
         return fRubinGelman.get();
