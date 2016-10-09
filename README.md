@@ -1,5 +1,6 @@
 # versatile-mcmc
 [![Build Status](https://travis-ci.org/mkleesiek/versatile-mcmc.svg?branch=master)](https://travis-ci.org/mkleesiek/versatile-mcmc)
+[![codecov](https://codecov.io/gh/mkleesiek/versatile-mcmc/branch/master/graph/badge.svg)](https://codecov.io/gh/mkleesiek/versatile-mcmc)
 
 A lightweight and extensible Markov Chain Monte Carlo (MCMC) library written in modern C++.
 
