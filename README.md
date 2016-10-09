@@ -7,7 +7,7 @@ A lightweight and extensible Markov Chain Monte Carlo (MCMC) library written in 
 ## Introduction
 With this project I aim at building a modular and easy to integrate **C++ framework** for performing **Bayesian inference** and **mathematical optimization** tasks in **high-dimensional models**.
 
-While there are several MCMC algorithms available for the software environment [R](https://www.r-project.org/), similar options for the C++ language, which is still a popular choice for scientific high-performance computations, are limited.
+While there are several MCMC algorithms available for the software environment [R](https://www.r-project.org/), similar options for the C++ language, which often is the first choice in scientific high-performance computings, are limited (you should definitely have a look at [BAT](https://github.com/bat/bat) though).
 
 In order to allow for a future proof and robust code base with intuitive extensibility and good integrability of the library into existing C++ projects, I'd like to meet the following design criteria:
 - Limited use of 3rd party libraries for better **maintainability** and control of dependencies.
