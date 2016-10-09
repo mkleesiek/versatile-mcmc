@@ -125,7 +125,7 @@ void Algorithm::Finalize()
     }
 
     fStatistics.SelectPercentageRange(0.5, 1.0);
-    const double R = fStatistics.GetRubinGelman();
+    const double R = fStatistics.GetGelmanRubin();
     LOG(Info, "Rubin-Gelman diagnostic R: " << R);
 }
 

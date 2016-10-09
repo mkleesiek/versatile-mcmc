@@ -16,7 +16,6 @@
 #include <vmcmc/sample.hpp>
 
 #include <vector>
-#include <deque>
 #include <unordered_map>
 
 #include <boost/optional.hpp>
@@ -24,7 +23,7 @@
 namespace vmcmc
 {
 
-using Chain = std::deque<Sample>;
+using Chain = std::vector<Sample>;
 
 /**
  * Calculates statistical momenta and properties for a given Chain of Samples.
@@ -110,7 +109,21 @@ public:
     void SelectRange(ptrdiff_t startIndex = 0, ptrdiff_t endIndex = -1);
     void SelectPercentageRange(double start = 0.0, double end = 1.0);
 
-    double GetRubinGelman();
+    /**
+     * Calculates the Gelman–Rubin for all aggregated MCMC chains.
+     *
+     * The Gelman-Rubin diagnostic evaluates MCMC convergence by analyzing the
+     * difference between multiple Markov chains (see Gelman and Rubin 1992).
+     * @return The diagnostic R, which according to Brooks and Gelman (1997)
+     * should be < 1.1 or 1.2 to assure convergence.
+     *
+     * @see Brooks, S. P., and A. Gelman. 1997. General Methods for Monitoring
+     * Convergence of Iterative Simulations. Journal of Computational and
+     * Graphical Statistics 7: 434–455
+     * @see Gelman, A., and D. B. Rubin. 1992. Inference from Iterative
+     * Simulation Using Multiple Sequences. Statistical Science 7: 457–511.
+     */
+    double GetGelmanRubin();
 
 private:
     std::vector<ChainStatistics> fSingleChainStats;
