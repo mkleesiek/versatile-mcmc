@@ -38,8 +38,8 @@ namespace vmcmc
 class Writer
 {
 protected:
-    Writer() { };
-    virtual ~Writer() { };
+    Writer() = default;
+    virtual ~Writer() = default;
 
 public:
     virtual void Initialize(size_t /*numberOfChains*/, const ParameterConfig& /*paramConfig*/) { }
@@ -57,7 +57,7 @@ class TextFileWriter : public Writer
 public:
     TextFileWriter(const std::string& directory = "", const std::string& stem = "vmcmc",
         const std::string& nameSeparator = "-", const std::string& extension = ".txt");
-    virtual ~TextFileWriter();
+    virtual ~TextFileWriter() = default;
 
     TextFileWriter(const TextFileWriter& other);
 

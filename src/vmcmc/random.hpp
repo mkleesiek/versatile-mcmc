@@ -63,7 +63,7 @@ protected:
     static std::atomic<result_type> sSeed;
 
     RandomPrototype();
-    virtual ~RandomPrototype();
+    virtual ~RandomPrototype() = default;
 
     RandomPrototype(const RandomPrototype& other) = delete;
     RandomPrototype(RandomPrototype&& other) = delete;
@@ -270,10 +270,6 @@ inline RandomPrototype<EngineT>::RandomPrototype() :
 {
     fEngine.seed( sSeed++ );
 }
-
-template <typename EngineT>
-inline RandomPrototype<EngineT>::~RandomPrototype()
-{ }
 
 template <typename EngineT>
 template <typename FloatT>

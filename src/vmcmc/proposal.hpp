@@ -30,8 +30,8 @@ namespace vmcmc
 class Proposal
 {
 public:
-    Proposal() { }
-    virtual ~Proposal() { }
+    Proposal() = default;
+    virtual ~Proposal() = default;
 
     virtual Proposal* Clone() const = 0;
 
@@ -63,7 +63,7 @@ public:
         fDistribution( std::forward<DistributionT>(dist) ),
         fCholeskyDecomp( ublas::identity_matrix<double>() )
     { }
-    virtual ~ProposalDistribution() { }
+    virtual ~ProposalDistribution() = default;
 
     double Transition(const Vector& s1, Vector& s2) override;
     using Proposal::Transition;
@@ -83,8 +83,8 @@ protected:
 class ProposalNormal : public ProposalDistribution< std::normal_distribution<double> >
 {
 public:
-    ProposalNormal() { }
-    virtual ~ProposalNormal() { }
+    ProposalNormal() = default;
+    virtual ~ProposalNormal() = default;
 
     virtual ProposalNormal* Clone() const override { return new ProposalNormal(*this); }
 };

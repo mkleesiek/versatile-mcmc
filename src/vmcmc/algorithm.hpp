@@ -43,7 +43,7 @@ public:
 
 public:
     Algorithm();
-    virtual ~Algorithm();
+    virtual ~Algorithm() = default;
 
     /**
      * Set the parameter configuration.

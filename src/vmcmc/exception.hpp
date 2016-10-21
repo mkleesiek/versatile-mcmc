@@ -28,9 +28,9 @@ namespace vmcmc
 class Exception : public std::exception
 {
 public:
-    Exception() { }
+    Exception() = default;
     Exception(const Exception& copy);
-    virtual ~Exception() { }
+    virtual ~Exception() = default;
 
     void operator=(const Exception& copy);
 

@@ -41,7 +41,7 @@ public:
             boost::optional<double> lowerLimit = boost::none,
             boost::optional<double> upperLimit = boost::none,
             bool fixed = false);
-    virtual ~Parameter();
+    virtual ~Parameter() = default;
 
     const std::string& GetName() const { return fName; }
     void SetName(const std::string& name) { fName = name; }
@@ -113,7 +113,7 @@ public:
 
 public:
     ParameterConfig(size_t nInitParams = 0);
-    virtual ~ParameterConfig();
+    virtual ~ParameterConfig() = default;
 
     void SetParameter(size_t pIndex, const Parameter& param);
     void SetParameter(size_t pIndex, const std::string& name, double startValue,

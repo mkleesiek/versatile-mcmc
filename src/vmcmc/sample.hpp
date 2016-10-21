@@ -34,7 +34,7 @@ public:
     Sample(const Vector& pValues);
     Sample(std::initializer_list<double> pValues);
     Sample(size_t nParams = 0);
-    virtual ~Sample() { }
+    virtual ~Sample() = default;
 
     void SetGeneration(size_t value) { fGeneration = value; }
     size_t GetGeneration() const { return fGeneration; }

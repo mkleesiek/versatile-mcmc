@@ -104,7 +104,7 @@ public:
      */
     Logger(const std::string& name = "");
 
-    virtual ~Logger();
+    virtual ~Logger() = default;
 
     std::mutex& GetMutex() { static std::mutex sMutex; return sMutex; }
 

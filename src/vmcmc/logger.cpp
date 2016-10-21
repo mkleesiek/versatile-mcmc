@@ -103,9 +103,6 @@ Logger::Logger(const std::string& name) :
 #endif
 }
 
-Logger::~Logger()
-{ }
-
 void Logger::StartMessage(ELevel level, const Location& loc)
 {
     const string& levelStr = loggerStrings.find(level)->second;

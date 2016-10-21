@@ -34,9 +34,6 @@ Algorithm::Algorithm() :
     fCycleLength( 50 )
 { }
 
-Algorithm::~Algorithm()
-{ }
-
 void Algorithm::SetParameterConfig(const ParameterConfig& paramConfig)
 {
     fParameterConfig = paramConfig;

@@ -38,9 +38,6 @@ TextFileWriter::TextFileWriter(const string& directory, const string& stem,
     fFileExtension(extension)
 { }
 
-TextFileWriter::~TextFileWriter()
-{ }
-
 TextFileWriter::TextFileWriter(const TextFileWriter& other) :
     Writer(other),
     fFileDirectory(other.fFileDirectory),

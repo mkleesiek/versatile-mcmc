@@ -43,9 +43,6 @@ Parameter::Parameter(const string& name, double startValue, double errorHint,
     CheckLimits();
 }
 
-Parameter::~Parameter()
-{ }
-
 void Parameter::SetRelativeError(double relError)
 {
     SetAbsoluteError( relError * fStartValue );
@@ -110,9 +107,6 @@ ParameterConfig::ParameterConfig(size_t nInitParams) :
     for (size_t i = 0; i < nInitParams; i++)
         SetParameter(i, "", 0.0, 1.0);
 }
-
-ParameterConfig::~ParameterConfig()
-{ }
 
 void ParameterConfig::SetParameter(size_t pIndex, const Parameter& param)
 {
